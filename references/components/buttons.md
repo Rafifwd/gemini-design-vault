@@ -11,6 +11,8 @@
 - **Radius selaras sistem:** Gunakan *border-radius* yang konsisten dengan komponen tetangga dan *container* induk (`6px–10px` untuk tooling crisp, atau *pill* penuh jika sistemnya *pill*) — hindari radius acak yang tidak nyambung dengan input/card di sebelahnya.
 - **Tactile cues yang terukur:** Gunakan kombinasi `1px` border kontras rendah dan *inner highlight* tipis di tepi atas (untuk tombol *primary* / *tactile*) daripada shadow tebal atau gradien mencolok.
 - **Zero layout shift pada state:** State `loading` harus mempertahankan lebar tombol (misalnya menyembunyikan teks sambil menjaga slot atau merender spinner sejajar dengan lebar tetap) dan `active` memakai `scale(0.98)` atau pergeseran optik halus tanpa mendorong elemen lain.
+- **Alignment vertikal indikator pada tombol/sel multi-baris:** Pada tombol atau sel slot berisi 2 baris teks (label + harga/meta), gunakan `flex items-center justify-between` agar ikon di sisi kanan tepat di tengah vertikal terhadap seluruh tombol, bukan menempel di baris atas.
+- **Bebas pembungkus lingkaran & dot dekoratif:** Render ikon status (mis. centang terpilih) langsung tanpa membungkusnya dengan lingkaran warna kecil; hilangkan titik hijau/aksen dekoratif pada item statis atau status *tersedia* yang sudah jelas lewat tipografi.
 
 ---
 

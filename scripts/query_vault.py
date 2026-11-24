@@ -49,6 +49,21 @@ DOMAIN_SYNONYMS = {
     "portfolio": ["creative", "studio", "gallery", "portfolio"],
     "dashboard": ["dashboard", "analytics", "workspace", "operate"],
     "analytics": ["analytics", "dashboard", "data"],
+    "sport": ["sport", "athletic", "motorsport", "event", "nike", "booking"],
+    "sports": ["sport", "athletic", "motorsport", "event", "nike", "booking"],
+    "tennis": ["sport", "athletic", "booking", "hospitality", "lifestyle"],
+    "booking": ["booking", "hospitality", "marketplace", "clean"],
+    "venue": ["hospitality", "booking", "marketplace", "perhotelan", "butik", "warm"],
+    "club": ["hospitality", "lifestyle", "sport", "athletic", "booking", "luxe"],
+    "food": ["kuliner", "hospitality", "warm", "lifestyle", "terracotta", "marketplace"],
+    "restaurant": ["kuliner", "hospitality", "warm", "lifestyle", "perhotelan", "booking"],
+    "cafe": ["kuliner", "hospitality", "warm", "lifestyle", "craft"],
+    "education": ["edukasi", "workspace", "editorial", "knowledge", "soft"],
+    "travel": ["hospitality", "marketplace", "perhotelan", "booking", "lifestyle"],
+    "event": ["event", "festival", "launch", "campaign", "sport"],
+    "realestate": ["arsitektur", "luxury", "hospitality", "marketplace", "editorial"],
+    "fitness": ["sport", "athletic", "wellness", "nike", "booking"],
+    "salon": ["booking", "wellness", "butik", "lifestyle", "hospitality"],
 }
 
 MOOD_KEYWORDS = {
@@ -163,11 +178,15 @@ def expand_terms(domain: str | None) -> list[str]:
     if not domain:
         return []
     terms: list[str] = []
-    for tok in re.split(r"[\s,/]+", domain.lower()):
+    for tok in re.split(r"[\s,/_-]+", domain.lower()):
         if not tok:
             continue
         terms.append(tok)
         terms.extend(DOMAIN_SYNONYMS.get(tok, []))
+        if len(tok) > 4 and tok.endswith("s"):
+            sing = tok[:-1]
+            terms.append(sing)
+            terms.extend(DOMAIN_SYNONYMS.get(sing, []))
     return list(dict.fromkeys(terms))
 
 

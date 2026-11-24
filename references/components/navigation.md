@@ -30,7 +30,7 @@
 - **Kenapa bagus:** Tetap ringan dan menyatu dengan kanvas konten di bawahnya saat di-scroll berkat `blur(20px)` dan hairline border `1px` beropasitas rendah.
 - **Aturan konkret:**
   - **Layout & Spacing:** Tinggi `44px` (compact product bar ala Apple) hingga `64px–73px` (SaaS header ala Vercel/Linear); batasi item utama `≤ 6–7` link di bar atas agar tidak penuh sesak.
-  - **Radius, Border & Elevation:** Tanpa drop shadow; cukup `border-bottom: 1px solid rgba(...)` beropasitas `0.08` (dark) atau `0.09` (light), plus `backdrop-filter: blur(20px)`.
+  - **Radius, Border & Elevation:** Tanpa drop shadow; cukup `border-bottom: 1px solid rgba(...)` beropasitas `0.08` (dark) atau `0.09` (light), plus `backdrop-filter: blur(20px)`. Pada halaman scroll panjang dengan banyak elemen interaktif, gunakan latar semi-solid beropasitas tinggi (`rgba(..., 0.94–0.96)`) tanpa `backdrop-filter: blur()` berat agar scroll tetap mulus tanpa GPU repaint di setiap frame.
   - **Tipografi & Warna:** Ukuran link `13px–14px`, `font-weight: 500`, teks netral sekunder yang naik ke primer saat hover/aktif.
   - **States & Interaksi:** Item aktif memakai pergeseran kontras teks atau *sliding pill* (lihat `motion-primitives-animated-background.tsx`); wajib punya `focus-visible` ring bersih.
   - **Motion / Timing (jika relevan):** `140ms–180ms ease-out`.

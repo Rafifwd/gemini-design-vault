@@ -5,7 +5,7 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-# Gemini Design (v5)
+# Gemini Design (v5.1)
 
 Protokol, arahan, dan penyedia resource agar AI membuat UI/UX yang tidak terasa AI slop: bertanya dulu, meriset tema yang cocok dengan konteks project, merekomendasikan, lalu merakit dari bahan modular vault.
 
@@ -94,6 +94,8 @@ Rakit dari **4 sumbu independen** yang sudah disepakati di Fase 1:
 **Aturan merakit:**
 - Baca `references/LEGO-ADAPTATION.md` dan catat mode: **Mode A Blueprint Translation (default)** menerjemahkan token, timing, state machine, dan ARIA ke stack project; **Mode B Direct Drop-in** hanya bila stack sudah cocok atau user mengizinkan install.
 - Skin ulang setiap Lego dengan token tema yang dikunci; buang warna demo bawaan.
+- **Sudut pandang copy (*Business-to-User Voice*):** Tulis copy dari suara pemilik bisnis/produk ke pengguna akhir (fasilitas, lokasi, manfaat nyata), bukan nada developer menjual software (*"dalam hitungan detik"*, *"real-time"*, *"tanpa antre"*).
+- **Smoothness & perceived performance:** Pakai transisi spesifik (`transition-colors`, `transform`, `opacity`), bukan `transition-all` pada grid/list banyak item; hindari `backdrop-blur` berat di sticky header pada halaman panjang; sediakan skeleton loading pada navigasi SSR dan cache/SWR + `AbortController` pada switcher data.
 - Kategori `blocks` hanya inspirasi struktur; rakit ulang dari komponen kecil.
 - Dilarang menyalin utuh satu `eval/showcase-*.html`, satu brand utuh tanpa adaptasi, atau satu blok `templates/goodui/blocks/*`.
 - **Eksplorasi lebar:** bila user meminta eksplorasi konsep/mockup, atau belum yakin arah visual, hasilkan 3–5 opsi yang benar-benar berbeda (font, palet, struktur) berdampingan dan jangan menimpa opsi lama; saat user menyukai potongan beberapa opsi, buat 3–5 variasi rekombinasi. Bila tema sudah dikunci di Fase 1, bangun langsung implementasi terarah.
@@ -106,6 +108,7 @@ Rakit dari **4 sumbu independen** yang sudah disepakati di Fase 1:
 1. **Terima arahan singkat atau tidak rapi** (*"lebih padat, hapus subtitle, izinkan teks wrap, hilangkan divider"*) dan terjemahkan langsung menjadi perubahan konkret.
 2. **Kode itu murah; perhatian manusia mahal:** bangun prototipe interaktif cepat agar bisa diklik dan dirasakan.
 3. **Jaga satu konteks bersama:** simpan eksplorasi aktif dalam thread yang sama (atau delegasikan variasi paralel ke subagent sambil menjaga hasil terpusat).
+4. **Sibling Sweep saat koreksi pola:** Setiap kali user menunjuk satu pola AI slop (mis. pill eyebrow, dot dekoratif, atau validasi native) di satu komponen, grep seluruh proyek untuk pola serupa dan bersihkan semua kemunculannya sekaligus dalam satu putaran.
 
 ---
 
@@ -132,6 +135,7 @@ Gerbang sebelum menyerahkan hasil dan alat audit Jalur C (`Ya` = lolos):
   - `border-radius` tombol & kontrol konsisten dengan tetangga/kontainer, dan `--radius-btn` (pill `999px`) dipisahkan tegas dari `--radius-card`/`--radius-inner` sehingga tidak ada kontainer multi-baris berbentuk kapsul raksasa? (Ya/Tidak)
   - *Tactile cues* terukur (`1px` border / inner highlight tipis, bukan shadow tebal atau gradien mencolok)? (Ya/Tidak)
   - Semua state tersedia (`default`, `hover`, `active`, `focus-visible`, `disabled`, `loading`) tanpa layout shift? (Ya/Tidak)
+  - Indikator pada tombol/sel multi-baris sejajar tengah vertikal tanpa lingkaran/dot dekoratif, dan form memakai `noValidate` + error inline + single focus ring tanpa placeholder dummy di login? (Ya/Tidak)
 - **Warna:**
   - Memakai *tinted neutrals* (bukan abu-abu mentah dan bukan `#000` pekat beradu neon)? (Ya/Tidak)
   - Maksimal 1 aksen disiplin pada mode Operate/Read (atau maksimal 2 aksen terkurasi dari Expressive Color World pada mode Persuade/Experience), tidak disebar merata ke semua elemen? (Ya/Tidak)
@@ -142,13 +146,16 @@ Gerbang sebelum menyerahkan hasil dan alat audit Jalur C (`Ya` = lolos):
   - Bebas `pulse` / `glow` / `float` dekoratif tanpa fungsi? (Ya/Tidak)
   - Durasi interaksi mikro cepat (`120–180ms ease-out`) dan `prefers-reduced-motion` dihormati? (Ya/Tidak)
   - Maksimal 1 *focal interactive primitive* per viewport? (Ya/Tidak)
+  - Bebas `transition-all` pada grid/list berulang, `backdrop-blur` tidak memberatkan scroll, dan tersedia skeleton/cache pada perpindahan data? (Ya/Tidak)
 - **Layout & Surface:**
   - Bebas card bersarang dengan kombinasi border + shadow + garis aksen di tepi kartu? (Ya/Tidak)
   - Bebas divider di setiap baris list saat *spacing* sudah cukup memisahkan? (Ya/Tidak)
   - Ada satu titik fokus utama yang jelas per viewport? (Ya/Tidak)
+  - Bebas pill/kapsul eyebrow ber-dot di atas heading dan bebas floating slogan overlay di atas foto nyata? (Ya/Tidak)
 - **Ikon, Brand & Tipografi:**
   - Bebas emoji sebagai pengganti ikon UI dan bebas monogram/logo karangan? (Ya/Tidak)
   - Menggunakan ≤2 keluarga font, angka memakai `tabular-nums`, serta bebas teks tumpang tindih atau terpotong? (Ya/Tidak)
+  - Copywriting memakai sudut pandang pemilik bisnis/produk ke pengguna akhir (bukan nada jualan software/SaaS pitch)? (Ya/Tidak)
 - **Stack & Modularitas:**
   - Bebas menambah dependency/library UI baru tanpa persetujuan user, dan pola Lego sudah diadaptasi natif ke stack proyek? (Ya/Tidak)
   - Desain merupakan racikan modular orisinal lintas 4 sumbu (bukan salinan utuh 1 template/block/showcase)? (Ya/Tidak)

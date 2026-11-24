@@ -14,7 +14,7 @@ Router cepat untuk memilih referensi tanpa membaca seluruh vault. Agent membaca 
 | Komponen: Warna & Interaksi | [color-and-interactions.md](./components/color-and-interactions.md) | `ready` | Tinted neutrals, 1-accent discipline, crisp micro-interactions & curated frontend primitives |
 | Komponen: Navigasi | [navigation.md](./components/navigation.md) | `ready` | Pengukuran header REA (44px–76px, blur 20px) + template Cmd+K, Tabs & Sliding Pill |
 | Komponen: Card & List | [cards-lists.md](./components/cards-lists.md) | `seeded` | Observasi surface REA Linear/Raycast + template Card, Badge, Bento Grid, Border Beam |
-| Komponen: Form & Input | [forms-inputs.md](./components/forms-inputs.md) | `seeded` | Pola form + template Input, Dialog, Disclosure & Sonner toast CSS |
+| Komponen: Form & Input | [forms-inputs.md](./components/forms-inputs.md) | `ready` | Input/dialog/toast stack, validasi inline `noValidate` + single focus ring, dan form login bersih tanpa dummy placeholder |
 | Komponen: Data Viz | [data-viz.md](./components/data-viz.md) | `ready` | KPI strip datar, chart area/bar + legend aksesibel, tabel live `CellFlash` (14 charts + 8 numbers GoodUI) |
 | Halaman: Landing Page | [landing-page.md](./pages/landing-page.md) | `ready` | 6 dossier REA live lengkap (Apple, Linear, Vercel, Stripe, Raycast, GoodUI) + screenshot |
 | Halaman: App & Dashboard | [app-dashboard.md](./pages/app-dashboard.md) | `ready` | Shell workspace keyboard-first, ledger/analytics dashboard, mobile shell + drawer |

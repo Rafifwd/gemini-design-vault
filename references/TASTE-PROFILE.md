@@ -45,3 +45,7 @@ Daftar pola AI slop yang **HARUS DIHINDARI** secara default:
 - [x] Tombol kotak kaku generik tanpa *tactile cues*, proporsi optik, atau *press feedback*
 - [x] Warna mentah default framework (`blue-600`, `purple-500`, hitam `#000` + gradien neon) dan penyebaran warna aksen ke terlalu banyak elemen sekaligus
 - [x] Motion template AI (`fade-in + translateY` seragam di semua blok, `pulse/glow/float` tanpa fungsi, transisi lambat yang menghambat interaksi)
+- [x] Eyebrow berbentuk pill/kapsul berborder atau berlatar disertai titik status dekoratif (`● Label`) di atas heading atau sel statis (pakai tipografi polos atau hilangkan bila judul sudah jelas)
+- [x] Floating slogan / trust-badge overlay yang ditempel di atas foto produk/venue (biarkan fotografi tampil bersih di bingkainya)
+- [x] Copywriting bernada jualan software/SaaS pitch (*"dalam hitungan detik"*, *"real-time"*, *"tanpa antre"*) pada produk bisnis nyata — tulis dari sudut pandang pemilik bisnis/produk ke pengguna akhir
+- [x] Popup validasi bawaan browser (`"Please fill out this field."`), *double focus ring* bertumpuk, dan placeholder contoh fiktif pada form login/password
