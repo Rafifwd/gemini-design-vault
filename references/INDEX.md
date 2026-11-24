@@ -9,18 +9,35 @@ Router cepat untuk memilih referensi tanpa membaca seluruh vault. Agent membaca 
 | Selera Pribadi | [TASTE-PROFILE.md](./TASTE-PROFILE.md) | `ready` | Prinsip Crisp & Tactile + Ban List anti mode-collapse (tunduk pada matriks domain) |
 | Tata Bahasa Desain | [DESIGN-GRAMMAR.md](./DESIGN-GRAMMAR.md) | `ready` | Matriks 24 brand -> suhu warna, 10 Expressive & Vivid Color Worlds, komposisi 60-30-10 |
 | Style Packs & Material | [STYLE-PACKS.md](./STYLE-PACKS.md) | `ready` | 8 Style Packs (`Clean`, `Brutal`, `Glass`, `Retro 98`, `8-bit`, `Soft`, `Swiss`, `Luxe`) × 8 Aksen × 4 Material (`goodui.dev` REA) |
+| Adaptasi Lego (Stack-Agnostic) | [LEGO-ADAPTATION.md](./LEGO-ADAPTATION.md) | `ready` | Mode A Blueprint Translation (default, zero dependency) vs Mode B Direct Drop-in, peta translasi lintas stack, catatan React 19 `goodui.dev` |
 | Komponen: Button | [buttons.md](./components/buttons.md) | `ready` | 8 pola tombol (tactile, hold-to-confirm, liquid glass, stateful, rainbow, Web Audio) + REA + 10 Lego |
 | Komponen: Warna & Interaksi | [color-and-interactions.md](./components/color-and-interactions.md) | `ready` | Tinted neutrals, 1-accent discipline, crisp micro-interactions & curated frontend primitives |
 | Komponen: Navigasi | [navigation.md](./components/navigation.md) | `ready` | Pengukuran header REA (44px–76px, blur 20px) + template Cmd+K, Tabs & Sliding Pill |
 | Komponen: Card & List | [cards-lists.md](./components/cards-lists.md) | `seeded` | Observasi surface REA Linear/Raycast + template Card, Badge, Bento Grid, Border Beam |
 | Komponen: Form & Input | [forms-inputs.md](./components/forms-inputs.md) | `seeded` | Pola form + template Input, Dialog, Disclosure & Sonner toast CSS |
-| Komponen: Data Viz | [data-viz.md](./components/data-viz.md) | `template` | KPI card, chart, tabel, sources mode |
+| Komponen: Data Viz | [data-viz.md](./components/data-viz.md) | `ready` | KPI strip datar, chart area/bar + legend aksesibel, tabel live `CellFlash` (14 charts + 8 numbers GoodUI) |
 | Halaman: Landing Page | [landing-page.md](./pages/landing-page.md) | `ready` | 6 dossier REA live lengkap (Apple, Linear, Vercel, Stripe, Raycast, GoodUI) + screenshot |
-| Halaman: App & Dashboard | [app-dashboard.md](./pages/app-dashboard.md) | `template` | Shell aplikasi, workspace layout, dashboard dinamis |
+| Halaman: App & Dashboard | [app-dashboard.md](./pages/app-dashboard.md) | `ready` | Shell workspace keyboard-first, ledger/analytics dashboard, mobile shell + drawer |
 | Format: Motion & Slides | [motion-slides.md](./pages/motion-slides.md) | `template` | Storyboard, pacing baca manusia, motif animasi, slide non-korporat |
 | Aset Visual (REA) | [assets/](./assets/) | `ready` | 6 screenshot live 1440×900 (`rea-apple.png`, `rea-linear.png`, `rea-vercel.png`, `rea-stripe.png`, `rea-raycast.png`, `rea-goodui.png`) |
 
 > Status: `template` (belum diisi) → `seeded` (1–2 entri) → `ready` (3+ entri teruji / bukti REA nyata).
+
+---
+
+## Cari Cepat Sebelum Membuka File Besar (`scripts/query_vault.py`)
+
+Jalankan dari mana saja (path relatif terhadap lokasi skrip; `<skill_dir>` = folder skill ini atau root vault). Output ringkas, jadi cukup buka 2–4 file hasilnya.
+
+```bash
+python3 <skill_dir>/scripts/query_vault.py themes --domain fintech --mood vivid --limit 6   # brand, color world, style pack
+python3 <skill_dir>/scripts/query_vault.py lego --category charts --no-motion --limit 8      # 28 featured + 195 goodui
+python3 <skill_dir>/scripts/query_vault.py lego --q "hold confirm"                           # cari per kata kunci
+python3 <skill_dir>/scripts/query_vault.py rea --site linear                                 # angka produksi terukur
+python3 <skill_dir>/scripts/query_vault.py stats                                             # jumlah aset & status referensi
+```
+
+Tier hasil `lego`: `css-token-only`, `light-behavior`, `blueprint-translate` (lihat [LEGO-ADAPTATION.md](./LEGO-ADAPTATION.md)). Item kategori `blocks` hanya inspirasi layout.
 
 ---
 

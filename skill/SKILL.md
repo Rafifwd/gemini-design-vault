@@ -1,140 +1,140 @@
 ---
 name: gemini-design
-description: Workflow desain anti-AI-slop untuk Gemini (UI, fitur produk, slide, dashboard dinamis, dan motion/video) berbasis metode Nate Parrott — klarifikasi awal, eksplorasi lebar, code-as-source-of-truth, mitigasi bias model, dan iterasi human-in-the-loop. Pakai saat mendesain dari nol, merancang fitur di codebase, membuat deck/dashboard/motion, atau saat hasil desain terasa generik/AI slop. Juga untuk merapikan/de-slop UI yang sudah ada (Jalur C). Selalu membaca vault selera pribadi (references/TASTE-PROFILE.md + INDEX.md) sebelum mendesain.
+description: Workflow desain anti-AI-slop yang konsultatif untuk website, app, dashboard, slide, dan motion. Deteksi stack & konteks project, riset lalu rekomendasikan 2–3 arah tema (warna, material, tipografi, komponen) dari vault, kunci tema bersama user, lalu rakit UI modular seperti Lego dari resource vault tanpa memaksa dependency baru. Tiga jalur - A codebase eksisting, B green-field, C de-slop UI eksisting. Pakai saat mendesain dari nol, merancang fitur, memilih tema, atau saat UI terasa generik/AI slop. Membaca vault selera pribadi (references/TASTE-PROFILE.md + INDEX.md) sebelum mendesain.
 user-invocable: true
 disable-model-invocation: false
 ---
 
-# Gemini Design
+# Gemini Design (v5)
 
-Workflow desain anti-AI-slop untuk menghasilkan UI, fitur produk, slide deck, dashboard dinamis, dan motion graphics dengan Gemini. Diadaptasi dari prinsip dan workflow desain Nate Parrott.
+Protokol, arahan, dan penyedia resource agar AI membuat UI/UX yang tidak terasa AI slop: bertanya dulu, meriset tema yang cocok dengan konteks project, merekomendasikan, lalu merakit dari bahan modular vault.
 
 ## Prinsip Inti: "You Get Out What You Put In"
 
-AI slop muncul saat model diberi konteks kosong lalu mencoba "menciptakan gaya visual paling brilian" dari nol — hasilnya selalu collapse ke gaya default yang generik dan seragam. Konteks brand, referensi visual, dan codebase yang ada adalah aset paling berharga yang membuat hasil desain terasa autentik dan tidak seperti template AI.
+AI slop muncul saat model diberi konteks kosong lalu menciptakan gaya dari nol, dan hasilnya collapse ke gaya default yang generik. Konteks project, referensi visual, dan codebase adalah bahan yang membuat desain terasa autentik. Vault ini adalah **bahan modular (*ingredients*)**, bukan template paketan.
 
 ---
 
-## Langkah 0 — Reference Router (Wajib, Sebelum Fase Apa Pun)
+## Langkah 0 — Reference & Tool Router (Wajib, Sebelum Fase Apa Pun)
 
-Semua path di bawah relatif terhadap folder tempat `SKILL.md` ini berada (global: `/home/rafif/.agents/skills/gemini-design/references/`; saat authoring di vault, `references/` berada di root vault).
+Path relatif terhadap folder `SKILL.md` (`<skill_dir>`; global: `/home/rafif/.agents/skills/gemini-design/`, di vault: root vault).
 
-1. **Urutan baca wajib:**
-   - Baca `references/TASTE-PROFILE.md` (selalu).
-   - Baca `references/DESIGN-GRAMMAR.md` dan pilih **1 Art Direction + suhu warna yang cocok dengan domain & mode permukaan** (`Persuade` / `Operate` / `Read` / `Experience`) dari 24 sistem brand `design-systems/INDEX.json` atau 10 **Expressive & Vivid Color Worlds** (§4) **sebelum** memilih warna atau font — dilarang jatuh ke satu palet default "krem + teal" atau biru netral aman di semua proyek.
-   - Baca `references/STYLE-PACKS.md` bila ingin meramu karakter material/geometri (`Clean`, `Brutal`, `Glass`, `Retro 98`, `8-bit`, `Soft`, `Swiss`, `Luxe` × 8 aksen × 4 material `Glassmorphism`/`Claymorphism`/`Skeuomorphism`/`Neumorphism`).
-   - Baca `references/INDEX.md` (router kategori), lalu buka **hanya** file `references/` berstatus `seeded` atau `ready` yang relevan; lewati file `template`.
-   - **Rakit Lego dari produksi nyata (A la Carte):** Untuk komponen (button, hold-to-confirm, liquid glass, stateful button, tab, command palette, bento/spotlight/tilt card, chart, dialog, input, toast, hingga 24 Web Audio sounds), cek `templates/INDEX.json` (28 unggulan) + `templates/goodui/INDEX.json` (195 blok gratis `goodui.dev`) + 6 dossier `rea/*.json` / `references/assets/rea-*.png` dan **adaptasikan kode/token produksi verbatim** daripada mengarang CSS/komponen dari nol.
-   - Jika vault belum punya contoh yang cocok, rujuk Layer 2: `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `python3 /home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"`.
-2. **Prioritas sumber (dari tertinggi ke terendah):**
-   `Instruksi eksplisit user > Brand / design system / codebase eksisting > TASTE-PROFILE.md > Referensi vault > Corpus eksternal`.
-   Taste profile adalah *default* saat konteks kosong dan tidak boleh menimpa design system produk yang sudah ada (Jalur A).
-3. **Constraint HARD vs SOFT:**
-   - **HARD (selalu berlaku):** Daftar larangan di `references/TASTE-PROFILE.md` §6 dan `Anti-Slop Audit Checklist` di bawah.
-   - **SOFT (jangkar arah):** Arah estetika dan produk panutan (Linear, Raycast, Vercel, Stripe, Ferrari, Wise, GoodUI, dll.). Referensi adalah aturan untuk diterjemahkan sesuai konteks proyek, bukan komponen untuk di-clone — jangan pernah menyalin satu referensi mentah-mentah.
-4. **Wajib Kreatif — Mix-and-Match A la Carte (Dilarang Template Paketan):**
-   - Perlakukan seluruh isi `design-systems/*.md`, `references/DESIGN-GRAMMAR.md`, `references/STYLE-PACKS.md`, `templates/`, dan `templates/goodui/` sebagai **daftar bahan modular (*ingredients*) untuk diracik bebas**, BUKAN paket template utuh yang ditelan bulat-bulat.
-   - Untuk setiap desain baru, agent **wajib mengombinasikan 4 sumbu secara independen**:
-     1. *Color World & Polarity* (pilih dari 24 brand `design-systems/*.md` atau 10 Expressive Color Worlds — misalnya memadukan tipografi editorial + aksen hidup yang tidak klise),
-     2. *Surface & Geometry Grammar* (pilih/silang dari 8 Style Packs & 4 Material; **wajib** memisahkan `--radius-btn` untuk tombol/pill satu-baris dari `--radius-card` / `--radius-inner` untuk panel/chart/tabel agar kontainer tidak pernah berubah menjadi kapsul raksasa),
-     3. *Selective Tactile Components (2–4 blok tepat guna per layar)* dari `templates/INDEX.json` & `templates/goodui/INDEX.json` (misal: cukup 1 `Hold-to-Confirm` untuk aksi destruktif + 1 `StatefulButton` untuk submit + `NumberFlow` untuk KPI; dilarang menumpuk semua efek sekaligus seperti etalase demo),
-     4. *Domain-Specific Layout Rhythm* berdasarkan 6 REA capture & `better-ui`.
-   - **Dilarang keras** menduplikasi satu file `eval/showcase-*.html` atau menyalin utuh seluruh blok 1 brand/style pack tanpa adaptasi kreatif terhadap konteks produk user.
+1. **Baca selalu:** `references/TASTE-PROFILE.md` dan `references/INDEX.md`. Dari `INDEX.md`, buka hanya file berstatus `seeded` atau `ready` yang relevan.
+2. **Cari cepat, jangan dump JSON:** `python3 <skill_dir>/scripts/query_vault.py themes|lego|rea|stats` mengembalikan ringkasan padat dari 24 brand, 10 Color World, 8 Style Pack, 28 + 195 Lego, dan 6 dossier REA. Jangan membaca `templates/goodui/INDEX.json` (4.000+ baris) langsung.
+3. **Buka bila dibutuhkan (disclosed):** `references/DESIGN-GRAMMAR.md` (matriks domain → warna), `references/STYLE-PACKS.md` (geometri/material), `references/LEGO-ADAPTATION.md` (wajib sebelum merakit kode), plus `design-systems/*.md`, `rea/*.json`, `templates/`.
+4. **Layer 2 bila vault belum punya contoh:** `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `python3 /home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"`.
+5. **Prioritas sumber (tertinggi ke terendah):** Instruksi eksplisit user > Brand / design system / codebase eksisting > `TASTE-PROFILE.md` > Referensi vault > Corpus eksternal. Taste profile adalah *default* saat konteks kosong dan tidak menimpa design system produk yang sudah ada.
+6. **HARD vs SOFT:**
+   - **HARD:** Ban List `TASTE-PROFILE.md` §6 dan `Anti-Slop Audit Checklist` di bawah.
+   - **SOFT:** Produk panutan (Linear, Raycast, Vercel, Stripe, Ferrari, Wise, GoodUI, dll.) adalah arah untuk diterjemahkan sesuai konteks, bukan untuk di-clone.
 
 ---
 
-## Fase 0 — Klarifikasi Awal (Designer Discovery)
+## Fase 0 — Project, Stack & Intent Discovery
 
-> **Aturan adaptif:** Lewati pertanyaan yang sudah terjawab di `TASTE-PROFILE.md` (vibe, density, karakter motion, hal yang dihindari). Cukup ajukan **2–4 pertanyaan spesifik proyek** yang relevan (boleh di-skip user). Pada **Jalur C (De-Slop)**, lewati Fase 0 sepenuhnya kecuali 1–2 poin konfirmasi cepat.
+**Auto-detect dulu, tanya kemudian.** Jika ada workspace project, baca `package.json`, `composer.json`, `pubspec.yaml`, config styling/UI, dan komponen eksisting untuk mengetahui framework, sistem styling, icon library, dan dependency yang sudah ada.
 
-Sebelum langsung menggambar atau menulis kode desain penuh, ajukan pertanyaan terarah (gunakan `ask_question` atau daftar ringkas):
+Lalu ajukan **2–4 pertanyaan terarah** (gunakan `ask_question`; lewati yang sudah terjawab oleh repo atau `TASTE-PROFILE.md`; user boleh melewatkan):
 
-1. **Tujuan & pengguna:** Masalah apa yang diselesaikan dan siapa audiens utamanya?
-2. **Konteks asal:** Membangun di atas produk/codebase yang sudah ada, atau dari nol?
-3. **Referensi & vibe proyek:** Ada screenshot, mood board, produk sejenis, atau karya sebelumnya yang ingin dijadikan jangkar?
-4. **Batasan teknis & format:** Web app, mobile, slide HTML, dashboard data, atau motion video?
-5. *(Opsional jika tidak memakai default TASTE-PROFILE)* **Kepadatan, fokus & pantangan khusus** untuk proyek ini.
+1. **Tujuan & audiens:** masalah apa yang diselesaikan dan siapa penggunanya?
+2. **Jangkar referensi & vibe:** ada produk sejenis, screenshot, atau brand guideline?
+3. **Lingkup & format:** web app, landing, dashboard, mobile, slide, atau motion; layar apa saja?
+4. **Kebijakan dependency:** default *zero forced dependencies* (adaptasi ke stack yang ada); catat library yang boleh ditambah bila user mengizinkan.
 
-Jauh lebih mudah bagi user menjawab pertanyaan terarah daripada memikirkan semua detail upfront.
+**Selesai bila** ini tercatat: jalur masuk (`A`/`B`/`C`), stack & sistem styling, mode permukaan (`Persuade` / `Operate` / `Read` / `Experience`), dan kebijakan dependency. Pada Jalur C, cukup 1–2 poin konfirmasi cepat.
 
 ---
 
-## Fase 1 — Grounding Konteks (3 Jalur Masuk)
+## Fase 1 — Grounding Konteks & Riset Tema
 
 ### Jalur A: Codebase Eksisting (*Code is the Source of Truth*)
-1. **Baca kode sumber lebih dulu** — jangan mengarang design system terpisah atau menyalin ulang dari screenshot secara manual.
-2. **Rekonstruksi baseline UI aktual** dari kode yang ada sebagai titik awal eksplorasi.
-3. **Lakukan variasi (riff) langsung** dari baseline tersebut sehingga tipografi, warna, jarak, dan pola komponen konsisten dengan produk nyata.
-4. **Implementasikan di sesi/konteks yang sama** setelah arah desain disetujui — karena kode, CSS, dan layout sudah berada di konteks yang sama, hampir tidak ada detail yang hilang saat translasi ke produksi.
+1. Baca kode sumber lebih dulu; jangan mengarang design system terpisah.
+2. Rekonstruksi baseline UI aktual (token, tipografi, spacing, pola komponen).
+3. Variasikan dari baseline itu. Bila user meminta revamp visual, jalankan Theme Proposal Gate di bawah dengan baseline sebagai jangkar.
+4. Implementasikan di konteks yang sama setelah arah disetujui.
 
-### Jalur B: Dari Nol (*Green-Field*)
-1. **Jangkar referensi dulu:** Minta atau pakai screenshot, mood board, brand guidelines, atau pola UI familiar yang sudah dipahami pengguna (misalnya struktur inbox, kalender, atau editor yang sudah terbukti) sebagai jalan pintas kegunaan.
-2. **Wireframe sebelum styling:** Untuk layout atau alur yang kompleks, pisahkan struktur dari estetika — buat beberapa opsi **wireframe layout** dulu sebelum memilih font dan palet warna.
-3. **Preview arah visual sebelum skala penuh:** Untuk slide deck panjang, aplikasi multi-layar, atau video motion, eksplorasi arah visual pada **1–2 frame/halaman representatif** terlebih dahulu sebelum membangun keseluruhan output agar tidak membuang token jika arahnya ditolak.
+### Jalur B: Green-Field / Modul Baru
+1. **Jangkar referensi:** pakai screenshot, mood board, atau pola UI familiar (inbox, kalender, editor) sebagai jalan pintas kegunaan.
+2. **Wireframe sebelum styling** untuk layout atau alur kompleks.
+3. **Riset tema:** jalankan `query_vault.py themes --domain <domain> --mood <mood>`, baca `DESIGN-GRAMMAR.md` dan `STYLE-PACKS.md`, tambah Layer 2 untuk domain yang belum tercakup.
+4. Jalankan **Theme Proposal Gate**.
+5. Untuk deck panjang, app multi-layar, atau motion, preview arah pada 1–2 layar representatif sebelum membangun semuanya.
+
+### Theme Proposal Gate (Wajib di Jalur B dan revamp Jalur A, sebelum UI penuh)
+
+Sajikan **2–3 arah tema** (1 rekomendasi utama sesuai konteks + 1–2 alternatif kontras). Tiap arah ringkas dan memuat lima hal:
+
+1. **Nama arah & alasan domain:** mengapa cocok untuk produk dan audiens ini.
+2. **Color World & polarity:** dari 24 brand atau 10 Expressive Color World, dengan 4–5 hex kunci.
+3. **Style Pack, geometri & tipografi:** `--radius-btn` dipisah dari `--radius-card` / `--radius-inner`; ≤2 keluarga font.
+4. **Rencana 2–4 Lego:** dipilih via `query_vault.py lego`, beserta cara adaptasi ke stack user tanpa dependency baru.
+5. **Layout rhythm:** dari dossier REA / `better-ui` yang paling dekat.
+
+**Selesai bila** user memilih satu tema, meminta remix lintas-opsi (mis. Color World A + Style Pack B), atau mengonfirmasi arah final. Jangan menulis UI penuh sebelum itu.
 
 ### Jalur C: De-Slop Desain Eksisting
-- **Trigger:** User meminta merapikan, me-de-slop, atau menghilangkan kesan AI dari UI/halaman/komponen yang sudah ada. Lewati interogasi 8 pertanyaan dan pembuatan 5–10 opsi dari nol.
-- **Alur eksekusi:**
-  1. **Baca kode aktual** (HTML/JSX/CSS) terlebih dahulu.
-  2. **Audit dengan `Anti-Slop Audit Checklist`**, sertakan bukti `file:line` untuk setiap temuan dan kelompokkan per **Bentuk**, **Warna**, **Motion**, **Layout/Surface**, dan **Ikon/Tipografi**.
-  3. **Konfirmasi cepat 1–2 poin** dengan user (misalnya apakah warna brand atau struktur layout utama dipertahankan).
-  4. **Tawarkan 2–3 arah perbaikan singkat** *atau* langsung lakukan **refactor bedah** jika user memintanya — tetap hormati design system produk yang ada sesuai prioritas sumber.
-  5. **Verifikasi** dengan menjalankan ulang checklist biner (`sebelum → sesudah`). Untuk UI web produksi, lanjutkan dengan sinergi `ui-craft`.
+- **Trigger:** user meminta merapikan, me-de-slop, atau menghilangkan kesan AI dari UI yang sudah ada.
+1. Baca kode aktual (HTML/JSX/CSS) lebih dulu.
+2. Audit dengan `Anti-Slop Audit Checklist`; sertakan bukti `file:line`, dikelompokkan per **Bentuk**, **Warna**, **Motion**, **Layout & Surface**, **Ikon, Brand & Tipografi**, **Stack & Modularitas**.
+3. Konfirmasi 1–2 poin dengan user (mis. warna brand atau struktur utama dipertahankan?).
+4. Tawarkan 2–3 arah perbaikan singkat **atau** langsung lakukan refactor bedah bila diminta, dengan menghormati design system yang ada.
+5. Verifikasi ulang dengan checklist biner (`sebelum → sesudah`); untuk UI web produksi lanjutkan dengan `ui-craft`.
 
 ---
 
-## Fase 2 — Eksplorasi Lebar lalu Konvergensi (Anti Mode Collapse)
+## Fase 2 — Modular Lego Assembly
 
-Jangan langsung berhenti pada satu desain pertama (kecuali pada Jalur C yang bersifat bedah terarah).
+Rakit dari **4 sumbu independen** yang sudah disepakati di Fase 1:
 
-1. **Pergi selebar mungkin:** Pada Jalur B, hasilkan **5–10 opsi yang benar-benar berbeda** (atau sesuai batas jumlah yang diminta user) — **lakukan remix di seluruh 4 sumbu** (*Color World*, *Style Pack/Material*, *Tipografi*, dan *2–4 Selective Tactile Components* pilihan dari vault) secara menyeluruh, bukan sekadar menggeser warna aksen pada layout yang sama.
-2. **Selaras dengan taste profile:** Berpijaklah pada `TASTE-PROFILE.md` untuk 1–2 opsi awal; opsi sisanya tetap bereksplorasi lebar, namun **semua opsi** wajib mematuhi constraint **HARD**.
-3. **Loop rekombinasi:** Saat user menyukai potongan dari beberapa opsi (misalnya layout A + tipografi C), hasilkan **3–5 variasi baru** yang mengawinkan elemen tersebut.
-4. **Simpan histori berdampingan:** Jangan menimpa opsi lama yang sudah dieksplorasi; pertahankan versi sebelumnya berdampingan untuk perbandingan agar keputusan desain mudah ditinjau ulang.
-5. **Mitigasi bias model secara eksplisit:** Patuhi `TASTE-PROFILE.md` §6 (Personal Anti-Slop Ban List) dan `Anti-Slop Audit Checklist` — hindari template korporat kaku, gradien ungu/neon generik, card bersarang, dan klise default AI kecuali diminta user.
+1. **Color World & Polarity** (brand / Expressive Color World).
+2. **Surface & Geometry Grammar** (Style Pack × Material; token radius terpisah untuk tombol dan kontainer).
+3. **2–4 Selective Tactile Components per layar** dari `templates/` (mis. 1 `Hold-to-Confirm` untuk aksi destruktif + 1 `StatefulButton` untuk submit + `NumberFlow` untuk KPI).
+4. **Domain-Specific Layout Rhythm** (REA, `better-ui`, `references/pages/*`).
+
+**Aturan merakit:**
+- Baca `references/LEGO-ADAPTATION.md` dan catat mode: **Mode A Blueprint Translation (default)** menerjemahkan token, timing, state machine, dan ARIA ke stack project; **Mode B Direct Drop-in** hanya bila stack sudah cocok atau user mengizinkan install.
+- Skin ulang setiap Lego dengan token tema yang dikunci; buang warna demo bawaan.
+- Kategori `blocks` hanya inspirasi struktur; rakit ulang dari komponen kecil.
+- Dilarang menyalin utuh satu `eval/showcase-*.html`, satu brand utuh tanpa adaptasi, atau satu blok `templates/goodui/blocks/*`.
+- **Eksplorasi lebar:** bila user meminta eksplorasi konsep/mockup, atau belum yakin arah visual, hasilkan 3–5 opsi yang benar-benar berbeda (font, palet, struktur) berdampingan dan jangan menimpa opsi lama; saat user menyukai potongan beberapa opsi, buat 3–5 variasi rekombinasi. Bila tema sudah dikunci di Fase 1, bangun langsung implementasi terarah.
+- **Semua** keluaran mematuhi constraint HARD.
 
 ---
 
 ## Fase 3 — Iterasi Human-in-the-Loop ("Backseat Driving")
 
-Perlakukan kolaborasi desain seperti *art director* yang mengarahkan langsung:
-
-1. **Terima arahan singkat, kasual, atau tidak rapi:** Tangkap maksud dari instruksi cepat seperti *"lebih padat, hapus subtitle, izinkan teks wrap, hilangkan divider, rapikan ikon ke cell"* dan terjemahkan langsung menjadi perubahan kode/desain konkret.
-2. **Kode itu murah; perhatian manusia mahal:** Jangan habiskan waktu terlalu lama berteori sebelum bisa dicoba. Bangun prototipe interaktif cepat agar bisa langsung diklik dan dirasakan.
-3. **Jaga memori dalam satu konteks bersama:** Simpan eksplorasi dan variasi aktif dalam thread/konteks yang sama (atau delegasikan generasi variasi paralel ke subagent sambil menjaga konteks hasil tetap terpusat) agar tidak perlu menjelaskan ulang konteks produk di setiap iterasi.
+1. **Terima arahan singkat atau tidak rapi** (*"lebih padat, hapus subtitle, izinkan teks wrap, hilangkan divider"*) dan terjemahkan langsung menjadi perubahan konkret.
+2. **Kode itu murah; perhatian manusia mahal:** bangun prototipe interaktif cepat agar bisa diklik dan dirasakan.
+3. **Jaga satu konteks bersama:** simpan eksplorasi aktif dalam thread yang sama (atau delegasikan variasi paralel ke subagent sambil menjaga hasil terpusat).
 
 ---
 
 ## Workflow Khusus
 
 ### A. Dashboard Dinamis
-- **Koneksi data langsung:** Hubungkan ke sumber data nyata (file lokal, script query, API, atau MCP) alih-alih angka statis yang cepat basi; pisahkan lapisan fetch data dengan lapisan visualisasi agar bisa di-reload.
-- **Transparansi sumber (*Sources Mode*):** Sediakan cara memeriksa asal angka dan query/logika agregasi di balik setiap metrik agar user dapat memverifikasi akurasi data.
-- **Berani eksploratif:** Saat user hanya memberi dataset dan belum tahu metrik apa yang harus dipantau, tawarkan pemotongan data dan insight yang tidak terduga selain KPI dasar.
+- **Koneksi data langsung:** hubungkan ke sumber nyata (file lokal, query, API, MCP) dan pisahkan lapisan fetch dari visualisasi agar bisa di-reload. Pola komponen: `references/components/data-viz.md`, `references/pages/app-dashboard.md`.
+- **Sources Mode:** sediakan cara memeriksa asal angka dan logika agregasi di balik tiap metrik.
+- **Berani eksploratif:** bila user hanya memberi dataset, tawarkan pemotongan data dan insight tak terduga selain KPI dasar.
 
 ### B. Motion Graphics & Data Storytelling
-- **Storyboard + gaya visual dulu:** Sebelum menulis kode animasi penuh, hasilkan **storyboard statis** untuk alur cerita plus **2–3 pilihan arah visual (A/B/C)** yang hemat token.
-- **Human Attention Pacing:** Model cenderung mengubah banyak elemen bersamaan karena mampu memproses semuanya sekaligus, sementara mata manusia lambat dan hanya bisa fokus di satu titik pada satu waktu. Wajib terapkan:
-  - Satu fokus visual berubah dalam satu waktu.
-  - Beri jeda baca (*hold time*) yang cukup setiap kali teks/angka muncul sebelum transisi berikutnya.
-  - Arahkan mata penonton dari satu titik ke titik berikutnya secara mulus.
-  - Gunakan motif visual yang berkesinambungan (misalnya garis/elemen utama yang terus mengalir) agar terasa seperti animasi utuh, bukan slide statis yang berganti-ganti.
-- **Perbaikan presisi:** Ajak user menunjuk langsung timestamp atau area spesifik yang bermasalah (misalnya *"di detik 17 pojok kiri atas, teks ini bertumpuk"*) lalu perbaiki titik tersebut secara bedah.
+- **Storyboard statis + 2–3 arah visual (A/B/C)** sebelum menulis kode animasi penuh.
+- **Human Attention Pacing:** satu fokus visual berubah per waktu, beri jeda baca (*hold time*) setiap teks/angka muncul, arahkan mata dari satu titik ke titik berikutnya, dan pakai motif visual berkesinambungan.
+- **Perbaikan presisi:** minta user menunjuk timestamp/area bermasalah (*"detik 17 pojok kiri atas, teks bertumpuk"*) lalu perbaiki secara bedah.
 
 ---
 
 ## Anti-Slop Audit Checklist (Biner Ya/Tidak)
 
-Gunakan sebagai gerbang sebelum menyerahkan hasil atau saat mengaudit UI di Jalur C (`Ya` = lolos):
+Gerbang sebelum menyerahkan hasil dan alat audit Jalur C (`Ya` = lolos):
 
 - **Bentuk:**
   - Proporsi tombol optik (padding horizontal ~`2–2.5×` vertikal), bukan kotak kaku? (Ya/Tidak)
-  - `border-radius` tombol & kontrol konsisten dengan komponen tetangga/kontainer, serta `--radius-btn` (pill `999px`) dipisahkan tegas dari `--radius-card`/`--radius-inner` sehingga tidak ada kontainer multi-baris berbentuk kapsul raksasa? (Ya/Tidak)
+  - `border-radius` tombol & kontrol konsisten dengan tetangga/kontainer, dan `--radius-btn` (pill `999px`) dipisahkan tegas dari `--radius-card`/`--radius-inner` sehingga tidak ada kontainer multi-baris berbentuk kapsul raksasa? (Ya/Tidak)
   - *Tactile cues* terukur (`1px` border / inner highlight tipis, bukan shadow tebal atau gradien mencolok)? (Ya/Tidak)
   - Semua state tersedia (`default`, `hover`, `active`, `focus-visible`, `disabled`, `loading`) tanpa layout shift? (Ya/Tidak)
 - **Warna:**
   - Memakai *tinted neutrals* (bukan abu-abu mentah dan bukan `#000` pekat beradu neon)? (Ya/Tidak)
-  - Maksimal 1 warna aksen disiplin, hanya untuk aksi primer, status aktif, atau fokus? (Ya/Tidak)
+  - Maksimal 1 aksen disiplin pada mode Operate/Read (atau maksimal 2 aksen terkurasi dari Expressive Color World pada mode Persuade/Experience), tidak disebar merata ke semua elemen? (Ya/Tidak)
   - Bebas warna mentah default framework (`blue-600`, `purple-500`) dan bebas gradien ungu/neon generik? (Ya/Tidak)
   - Badge semantik memakai latar *tinted* beropasitas rendah dengan teks kontras tinggi? (Ya/Tidak)
 - **Motion:**
@@ -149,21 +149,23 @@ Gunakan sebagai gerbang sebelum menyerahkan hasil atau saat mengaudit UI di Jalu
 - **Ikon, Brand & Tipografi:**
   - Bebas emoji sebagai pengganti ikon UI dan bebas monogram/logo karangan? (Ya/Tidak)
   - Menggunakan ≤2 keluarga font, angka memakai `tabular-nums`, serta bebas teks tumpang tindih atau terpotong? (Ya/Tidak)
+- **Stack & Modularitas:**
+  - Bebas menambah dependency/library UI baru tanpa persetujuan user, dan pola Lego sudah diadaptasi natif ke stack proyek? (Ya/Tidak)
+  - Desain merupakan racikan modular orisinal lintas 4 sumbu (bukan salinan utuh 1 template/block/showcase)? (Ya/Tidak)
 
 ---
 
 ## Evaluasi & Distilasi Taste ke Skill
 
-1. **Pakai checklist biner (Ya/Tidak), bukan skor 1–5:** Skor subjektif sulit dikalibrasi oleh model. Jalankan seluruh item `Anti-Slop Audit Checklist` di atas plus cek tambahan berikut:
-   - Apakah 5+ opsi awal (Jalur B) benar-benar menggunakan font, palet, dan struktur yang berbeda? (Ya/Tidak)
-   - Apakah desain merupakan hasil **Mix-and-Match orisinal** lintas warna, material, dan 2–4 komponen pilihan tepat guna (bukan copy-paste 1 template paketan utuh)? (Ya/Tidak)
+1. **Checklist biner, bukan skor 1–5:** skor subjektif sulit dikalibrasi. Jalankan seluruh checklist di atas plus:
+   - Apakah 5+ opsi awal (eksplorasi konsep) benar-benar berbeda dalam font, palet, dan struktur? (Ya/Tidak)
    - Apakah jeda baca pada animasi cukup untuk dibaca manusia normal? (Ya/Tidak)
    - Apakah warna, layout, dan data konsisten dengan sumber kebenaran (codebase/dataset)? (Ya/Tidak)
-2. **Mata manusia tetap penentu akhir taste:** Jangan mengandalkan model untuk menilai sendiri apakah seleranya sudah "bagus".
-3. **Ad-hoc eval untuk skill gaya visual:** Jika mendistilasi gaya visual/motion tertentu dari contoh referensi ke dalam skill, uji skill tersebut di sesi terpisah pada topik yang "membosankan" atau tidak berkaitan untuk memastikan skill tidak *overfit* hanya pada satu proyek.
+2. **Mata manusia tetap penentu akhir taste;** jangan mengandalkan model menilai seleranya sendiri.
+3. **Ad-hoc eval:** saat mendistilasi gaya dari contoh ke skill, uji di sesi terpisah pada topik "membosankan" agar skill tidak *overfit* pada satu proyek.
 
 ---
 
 ## Sinergi dengan `ui-craft`
 
-Gunakan `gemini-design` untuk eksplorasi kreatif, klarifikasi awal, variasi lebar, iterasi cepat, de-slop terarah, slide, dashboard, dan motion. Jika output berupa **UI web produksi** yang memerlukan audit kontras WCAG AA, persistensi token `MASTER.md`, serta verifikasi browser nyata multi-viewport (`360`/`390`/`768`/`1440` px), kombinasikan dengan skill `ui-craft`.
+Gunakan `gemini-design` untuk eksplorasi kreatif, riset tema, perakitan Lego, iterasi cepat, de-slop, slide, dashboard, dan motion. Untuk **UI web produksi** yang memerlukan audit kontras WCAG AA, persistensi token `MASTER.md`, dan verifikasi browser nyata (`360`/`390`/`768`/`1440` px), lanjutkan dengan skill `ui-craft`.
