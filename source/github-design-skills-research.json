@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-24T15:07:33+07:00",
+  "fetched_at": "2026-11-24T21:31:41+07:00",
   "repos": [
     {
       "repo": "VoltAgent/awesome-design-md",
-      "stars": 128833,
-      "forks": 14196,
+      "stars": 128876,
+      "forks": 14199,
       "license": "MIT",
       "description": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
       "html_url": "https://github.com/VoltAgent/awesome-design-md",
@@ -12,8 +12,8 @@
     },
     {
       "repo": "pbakaus/impeccable",
-      "stars": 115832,
-      "forks": 6901,
+      "stars": 116037,
+      "forks": 6915,
       "license": "Apache-2.0",
       "description": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
       "html_url": "https://github.com/pbakaus/impeccable",
@@ -21,8 +21,8 @@
     },
     {
       "repo": "anthropics/skills",
-      "stars": 199620,
-      "forks": 23360,
+      "stars": 199742,
+      "forks": 23374,
       "license": null,
       "description": "Public repository for Agent Skills",
       "html_url": "https://github.com/anthropics/skills",

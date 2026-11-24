@@ -1,6 +1,6 @@
 # Design Grammar — Art Direction, Warna & Komposisi
 
-> **Status:** `ready` — disintesis dari 10 brand `DESIGN.md` nyata ([`../../design-systems/INDEX.json`](../../design-systems/INDEX.json), `VoltAgent/awesome-design-md`) dan prinsip `pbakaus/impeccable`.
+> **Status:** `ready` — disintesis dari 24 brand `DESIGN.md` nyata ([`../../design-systems/INDEX.json`](../../design-systems/INDEX.json), `VoltAgent/awesome-design-md`), dossier `better-ui`, dan prinsip `pbakaus/impeccable`.
 
 ## 1. Aturan Anti-Mode-Collapse Warna (Wajib)
 
@@ -40,3 +40,22 @@ Warna latar (*canvas*), suhu netral (*cool*, *pure white*, *warm paper*, atau *o
    - Gunakan *negative letter-spacing* pada display headline (`-0.02em` hingga `-0.04em`) dan *line-height* lega (`1.45–1.55`) pada teks body.
 4. **Ruang Negatif sebagai Struktur:**
    - Gunakan perubahan jarak (*spacing rhythm*: `4px / 8px / 12px / 20px / 32px`) sebelum menambahkan garis divider atau kotak card baru.
+
+---
+
+## 4. Expressive & Vivid Color Worlds (Anti-Beige / Anti-Monotone)
+
+Gunakan tabel palet produksi teruji berikut saat proyek membutuhkan karakter warna yang **hidup, berenergi, mewah, atau editorial berani** — jangan kembali ke krem/abu-abu aman:
+
+| Dunia Warna | Referensi Nyata (`design-systems/` & `better-ui`) | Canvas & Surface | Ink Utama | Aksen & Pasangan Warna Berani | Cocok Untuk |
+| --- | --- | --- | --- | --- | --- |
+| **Acid Sprint** | Lando Norris (`better-ui` #10) | Bone white `#F4F3EE` + off-canvas `#FFFFFF` | Ink `#0D0E0C` | Acid lime `#D2FF00` + electric cobalt `#2B44FF` | Sport hub, event launch, creative sprint |
+| **Solar Heat Ladder** | [`mistral.ai.md`](../../design-systems/mistral.ai.md) | Crisp white `#FFFFFF` + warm tint `#FFFBF2` | Ink `#141210` | Flame orange `#FA520F` + warm amber ladder (`#FFD06A` → `#FF8105`) | AI lab, dev campaign, energi & data storytelling |
+| **Forest Volt** | [`wise.md`](../../design-systems/wise.md) | Sage canvas `#E8EBE6` + crisp card `#FFFFFF` | Forest ink `#163300` / `#0E0F0C` | Electric Wise lime `#9FE870` (`#CDFFAD` hover) | Global fintech, modern banking, produk lintas negara |
+| **Museum Peach** | Frans Hals Museum (`better-ui` #47) | Deep teal `#001317` + elevated `#06242B` | Warm peach `#FECD8C` | Sage secondary `#A8CBB7` + terracotta signal `#FF5E3A` | Pameran seni, museum, arsitektur & produk budaya |
+| **Cyber Verge** | [`theverge.md`](../../design-systems/theverge.md) | Near-black `#131313` + `#2D2D2D` tiles | Crisp white `#FFFFFF` | Jelly mint `#3CFFD0` + ultraviolet `#5200FF` (border `#309875`) | Media teknologi, festival digital, experimental editorial |
+| **Rosso Motorsport** | [`ferrari.md`](../../design-systems/ferrari.md) | Near-black `#181818` + elevated `#303030` (+ `#FFFFFF` band) | Pure white `#FFFFFF` | Rosso Corsa `#DA291C` (`#B01E0A` active) + hypersail `#FFF200` | Otomotif performa, hardware flagship, showcase sinematik |
+| **Carbon Gold** | [`lamborghini.md`](../../design-systems/lamborghini.md) | Jet black `#000000` + carbon `#202020` | Pure white `#FFFFFF` | Lamborghini gold `#FFC000` (`#FFCE3E` text) + cyan pulse `#29ABE2` | Konfigurator mewah, produk audio/industrial premium |
+| **Sunny Studio Board** | [`miro.md`](../../design-systems/miro.md) | Crisp `#FFFFFF` + pale yellow `#FFF4C4` | Charcoal `#1C1C1E` | Sunny yellow `#FFD02F` / `#FCB900` + cobalt `#4262FF` | Kolaborasi kreatif, workshop, visual builder |
+| **Cobalt Contrast** | [`revolut.md`](../../design-systems/revolut.md) | Near-black `#000000` / catalogue `#FFFFFF` | Ink `#191C1F` / `#FFFFFF` | Cobalt violet `#494FDF` (`#4F55F1` bright) | Neo-bank, membership bento, product showcase kontras |
+| **Terracotta Craft** | Koox & [`zapier.md`](../../design-systems/zapier.md) | Ivory `#FFFEFB` / `#F8F4F0` | Warm espresso `#201515` | Safety orange `#FF4F00` / terracotta `#D25A24` | Otomasi, lifestyle DTC, produk kuliner & kerajinan modern |

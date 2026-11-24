@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-24T15:07:33+07:00",
-  "count": 10,
+  "generated_at": "2026-11-24T21:31:41+07:00",
+  "count": 24,
   "systems": [
     {
       "slug": "apple",
@@ -199,6 +199,285 @@
         "#252523",
         "#6C6A64",
         "#8E8B82"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "wise",
+      "name": "Wise",
+      "domain": "Global Fintech & Electric Forest Volt",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/wise/DESIGN.md",
+      "local_path": "design-systems/wise.md",
+      "lines": 544,
+      "bytes": 24586,
+      "palette_hex": [
+        "#9FE870",
+        "#0E0F0C",
+        "#CDFFAD",
+        "#C5EDAB",
+        "#E2F6D5",
+        "#163300",
+        "#454745",
+        "#868685"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "miro",
+      "name": "Miro",
+      "domain": "Multiplayer Canvas & Sunny Vivid Board",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/miro/DESIGN.md",
+      "local_path": "design-systems/miro.md",
+      "lines": 825,
+      "bytes": 36542,
+      "palette_hex": [
+        "#1C1C1E",
+        "#FFFFFF",
+        "#FFD02F",
+        "#FCB900",
+        "#FFF4C4",
+        "#746019",
+        "#4262FF",
+        "#5B76FE"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "mistral.ai",
+      "name": "Mistral.Ai",
+      "domain": "Frontier AI & Flame Orange Heat Ladder",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/mistral.ai/DESIGN.md",
+      "local_path": "design-systems/mistral.ai.md",
+      "lines": 773,
+      "bytes": 35508,
+      "palette_hex": [
+        "#FA520F",
+        "#CC3A05",
+        "#FFFFFF",
+        "#FFD06A",
+        "#FFB83E",
+        "#FFA110",
+        "#FF8105",
+        "#FF8A00"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "theverge",
+      "name": "Design System Inspired by The Verge",
+      "domain": "Editorial Media & Acid Cyber Neon",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/theverge/DESIGN.md",
+      "local_path": "design-systems/theverge.md",
+      "lines": 339,
+      "bytes": 28368,
+      "palette_hex": [
+        "#131313",
+        "#3CFFD0",
+        "#5200FF",
+        "#FFFFFF",
+        "#2D2D2D",
+        "#309875",
+        "#3860BE",
+        "#1EAEDB"
+      ],
+      "summary": "The Verge's 2024 redesign feels like somebody wired a Condé Nast magazine to a chiptune soundboard. The canvas is almost-black (`#131313`), the headlines are built from a brutally "
+    },
+    {
+      "slug": "wired",
+      "name": "Wired",
+      "domain": "Editorial Print & High-Contrast Monolith",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/wired/DESIGN.md",
+      "local_path": "design-systems/wired.md",
+      "lines": 497,
+      "bytes": 23661,
+      "palette_hex": [
+        "#000000",
+        "#FFFFFF",
+        "#1A1A1A",
+        "#757575",
+        "#E0E0E0",
+        "#F5F5F5",
+        "#057DBC"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "ferrari",
+      "name": "Ferrari",
+      "domain": "Luxury Motorsport & Rosso Corsa Drama",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/ferrari/DESIGN.md",
+      "local_path": "design-systems/ferrari.md",
+      "lines": 531,
+      "bytes": 24365,
+      "palette_hex": [
+        "#181818",
+        "#DA291C",
+        "#B01E0A",
+        "#9D2211",
+        "#FFFFFF",
+        "#969696",
+        "#666666",
+        "#8F8F8F"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "lamborghini",
+      "name": "Design System Inspired by Lamborghini",
+      "domain": "Supercar Atelier & Carbon Volt Contrast",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/lamborghini/DESIGN.md",
+      "local_path": "design-systems/lamborghini.md",
+      "lines": 288,
+      "bytes": 21119,
+      "palette_hex": [
+        "#000000",
+        "#FFC000",
+        "#FFFFFF",
+        "#917300",
+        "#FFCE3E",
+        "#29ABE2",
+        "#3860BE",
+        "#202020"
+      ],
+      "summary": "Lamborghini's website is a cathedral of darkness — a digital stage where jet-black surfaces stretch infinitely and every element emerges from the void like a machine under a spotli"
+    },
+    {
+      "slug": "raycast",
+      "name": "Raycast",
+      "domain": "Desktop Productivity & Tactile Dark",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/raycast/DESIGN.md",
+      "local_path": "design-systems/raycast.md",
+      "lines": 669,
+      "bytes": 41275,
+      "palette_hex": [
+        "#07080A",
+        "#0D0D0D",
+        "#101111",
+        "#242728",
+        "#FFFFFF",
+        "#E8E8E8",
+        "#000000",
+        "#F4F4F6"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "framer",
+      "name": "Framer",
+      "domain": "Interactive Web Studio & Kinetic Electric",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/framer/DESIGN.md",
+      "local_path": "design-systems/framer.md",
+      "lines": 544,
+      "bytes": 29119,
+      "palette_hex": [
+        "#0099FF",
+        "#FFFFFF",
+        "#000000",
+        "#999999",
+        "#090909",
+        "#141414",
+        "#1C1C1C",
+        "#262626"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "webflow",
+      "name": "Webflow",
+      "domain": "Visual Web Builder & Crisp Electric Blue",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/webflow/DESIGN.md",
+      "local_path": "design-systems/webflow.md",
+      "lines": 588,
+      "bytes": 28179,
+      "palette_hex": [
+        "#080808",
+        "#FFFFFF",
+        "#222222",
+        "#363636",
+        "#5A5A5A",
+        "#898989",
+        "#ABABAB",
+        "#D8D8D8"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "posthog",
+      "name": "Posthog",
+      "domain": "Product Analytics & Warm Quirky Craft",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/posthog/DESIGN.md",
+      "local_path": "design-systems/posthog.md",
+      "lines": 690,
+      "bytes": 40498,
+      "palette_hex": [
+        "#4D4F46",
+        "#23251D",
+        "#F7A501",
+        "#DD9001",
+        "#B17816",
+        "#33342D",
+        "#6C6E63",
+        "#9B9C92"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "zapier",
+      "name": "Zapier",
+      "domain": "Automation Platform & Safety Orange",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/zapier/DESIGN.md",
+      "local_path": "design-systems/zapier.md",
+      "lines": 537,
+      "bytes": 22995,
+      "palette_hex": [
+        "#FFFEFB",
+        "#F8F4F0",
+        "#201515",
+        "#FF4F00",
+        "#2F2A26",
+        "#36342E",
+        "#605D52",
+        "#939084"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "revolut",
+      "name": "Revolut",
+      "domain": "Neo-Bank & Crisp Contrast Bento",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/revolut/DESIGN.md",
+      "local_path": "design-systems/revolut.md",
+      "lines": 636,
+      "bytes": 32034,
+      "palette_hex": [
+        "#494FDF",
+        "#4F55F1",
+        "#3A40C4",
+        "#FFFFFF",
+        "#191C1F",
+        "#1F2226",
+        "#3A3D40",
+        "#505A63"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "nike",
+      "name": "Nike",
+      "domain": "Athletic Storytelling & Monochrome Kinetic",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/nike/DESIGN.md",
+      "local_path": "design-systems/nike.md",
+      "lines": 575,
+      "bytes": 36697,
+      "palette_hex": [
+        "#111111",
+        "#FFFFFF",
+        "#F5F5F5",
+        "#39393B",
+        "#4B4B4D",
+        "#707072",
+        "#9E9EA0",
+        "#CACACB"
       ],
       "summary": "version: alpha"
     }

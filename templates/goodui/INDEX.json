@@ -1,0 +1,4496 @@
+{
+  "generated_at": "2026-11-24T21:25:33+07:00",
+  "source": "https://goodui.dev/r/registry.json",
+  "license": "Free Public Shadcn Registry (goodui.dev)",
+  "count": 195,
+  "categories": {
+    "ai": 16,
+    "backgrounds": 5,
+    "blocks": 39,
+    "buttons": 10,
+    "cards": 6,
+    "charts": 14,
+    "components": 1,
+    "core": 30,
+    "feedback": 7,
+    "inputs": 10,
+    "lib": 22,
+    "lists": 6,
+    "navigation": 6,
+    "numbers": 8,
+    "other": 1,
+    "overlays": 5,
+    "text": 9
+  },
+  "items": [
+    {
+      "name": "scheduler",
+      "title": "Scheduler engine",
+      "category": "components",
+      "type": "registry:component",
+      "description": "Drag-and-drop month/week/day scheduler with recurrence, resource lanes and free-slot search. Zero dependencies.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/scheduler.json",
+      "files": [
+        {
+          "original_path": "components/slotgrid/core.ts",
+          "local_path": "templates/goodui/components/scheduler/core.ts",
+          "lines": 359,
+          "bytes": 15096
+        },
+        {
+          "original_path": "components/slotgrid/scheduler.tsx",
+          "local_path": "templates/goodui/components/scheduler/scheduler.tsx",
+          "lines": 585,
+          "bytes": 26212
+        }
+      ]
+    },
+    {
+      "name": "sounds",
+      "title": "goodui sounds",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "24 synthesized UI sounds with no audio files (tap, toggle, success, error, notify, celebrate…): Web Audio recipes, play(), useSound(), <SoundProvider> and data-sound attributes. Off until the visitor opts in.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/sounds.json",
+      "files": [
+        {
+          "original_path": "lib/sounds.ts",
+          "local_path": "templates/goodui/lib/sounds/sounds.ts",
+          "lines": 516,
+          "bytes": 19236
+        }
+      ]
+    },
+    {
+      "name": "goodui-motion",
+      "title": "goodui motion and material tokens",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "The shared spring set, easing curves, elevation shadows, press behaviour and grain every goodui component uses. Installed automatically with any component that needs it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/goodui-motion.json",
+      "files": [
+        {
+          "original_path": "lib/motion.tsx",
+          "local_path": "templates/goodui/lib/goodui-motion/motion.tsx",
+          "lines": 86,
+          "bytes": 4633
+        },
+        {
+          "original_path": "lib/goodui-idle.tsx",
+          "local_path": "templates/goodui/lib/goodui-motion/goodui-idle.tsx",
+          "lines": 104,
+          "bytes": 4869
+        }
+      ]
+    },
+    {
+      "name": "locale",
+      "title": "goodui locale",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Set the language once and every goodui component speaks it: <GooduiLocaleProvider lang labels>, useGooduiLocale() with Intl number, date, relative and currency formatters, useLabels() and RTL direction. English and en-US without it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/locale.json",
+      "files": [
+        {
+          "original_path": "lib/locale.ts",
+          "local_path": "templates/goodui/lib/locale/locale.ts",
+          "lines": 161,
+          "bytes": 8071
+        }
+      ]
+    },
+    {
+      "name": "locale-en",
+      "title": "goodui labels: English",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "English labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"en\" labels={en}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-en.json",
+      "files": [
+        {
+          "original_path": "lib/locales/en.ts",
+          "local_path": "templates/goodui/lib/locale-en/en.ts",
+          "lines": 645,
+          "bytes": 21327
+        }
+      ]
+    },
+    {
+      "name": "locale-tr",
+      "title": "goodui labels: Turkish",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Turkish labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"tr\" labels={tr}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-tr.json",
+      "files": [
+        {
+          "original_path": "lib/locales/tr.ts",
+          "local_path": "templates/goodui/lib/locale-tr/tr.ts",
+          "lines": 641,
+          "bytes": 22096
+        }
+      ]
+    },
+    {
+      "name": "locale-de",
+      "title": "goodui labels: German",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "German labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"de\" labels={de}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-de.json",
+      "files": [
+        {
+          "original_path": "lib/locales/de.ts",
+          "local_path": "templates/goodui/lib/locale-de/de.ts",
+          "lines": 673,
+          "bytes": 24178
+        }
+      ]
+    },
+    {
+      "name": "locale-fr",
+      "title": "goodui labels: French",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "French labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"fr\" labels={fr}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-fr.json",
+      "files": [
+        {
+          "original_path": "lib/locales/fr.ts",
+          "local_path": "templates/goodui/lib/locale-fr/fr.ts",
+          "lines": 676,
+          "bytes": 24949
+        }
+      ]
+    },
+    {
+      "name": "locale-es",
+      "title": "goodui labels: Spanish",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Spanish labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"es\" labels={es}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-es.json",
+      "files": [
+        {
+          "original_path": "lib/locales/es.ts",
+          "local_path": "templates/goodui/lib/locale-es/es.ts",
+          "lines": 666,
+          "bytes": 23497
+        }
+      ]
+    },
+    {
+      "name": "locale-it",
+      "title": "goodui labels: Italian",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Italian labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"it\" labels={it}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-it.json",
+      "files": [
+        {
+          "original_path": "lib/locales/it.ts",
+          "local_path": "templates/goodui/lib/locale-it/it.ts",
+          "lines": 642,
+          "bytes": 23054
+        }
+      ]
+    },
+    {
+      "name": "locale-pt-BR",
+      "title": "goodui labels: Brazilian Portuguese",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Brazilian Portuguese labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"pt-BR\" labels={pt_BR}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-pt-BR.json",
+      "files": [
+        {
+          "original_path": "lib/locales/pt-BR.ts",
+          "local_path": "templates/goodui/lib/locale-pt-BR/pt-BR.ts",
+          "lines": 642,
+          "bytes": 23015
+        }
+      ]
+    },
+    {
+      "name": "locale-nl",
+      "title": "goodui labels: Dutch",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Dutch labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"nl\" labels={nl}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-nl.json",
+      "files": [
+        {
+          "original_path": "lib/locales/nl.ts",
+          "local_path": "templates/goodui/lib/locale-nl/nl.ts",
+          "lines": 641,
+          "bytes": 22838
+        }
+      ]
+    },
+    {
+      "name": "locale-pl",
+      "title": "goodui labels: Polish",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Polish labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"pl\" labels={pl}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-pl.json",
+      "files": [
+        {
+          "original_path": "lib/locales/pl.ts",
+          "local_path": "templates/goodui/lib/locale-pl/pl.ts",
+          "lines": 649,
+          "bytes": 23669
+        }
+      ]
+    },
+    {
+      "name": "locale-ru",
+      "title": "goodui labels: Russian",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Russian labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"ru\" labels={ru}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-ru.json",
+      "files": [
+        {
+          "original_path": "lib/locales/ru.ts",
+          "local_path": "templates/goodui/lib/locale-ru/ru.ts",
+          "lines": 647,
+          "bytes": 29390
+        }
+      ]
+    },
+    {
+      "name": "locale-hi",
+      "title": "goodui labels: Hindi",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Hindi labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"hi\" labels={hi}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-hi.json",
+      "files": [
+        {
+          "original_path": "lib/locales/hi.ts",
+          "local_path": "templates/goodui/lib/locale-hi/hi.ts",
+          "lines": 642,
+          "bytes": 31425
+        }
+      ]
+    },
+    {
+      "name": "locale-id",
+      "title": "goodui labels: Indonesian",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Indonesian labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"id\" labels={id}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-id.json",
+      "files": [
+        {
+          "original_path": "lib/locales/id.ts",
+          "local_path": "templates/goodui/lib/locale-id/id.ts",
+          "lines": 641,
+          "bytes": 21786
+        }
+      ]
+    },
+    {
+      "name": "locale-vi",
+      "title": "goodui labels: Vietnamese",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Vietnamese labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"vi\" labels={vi}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-vi.json",
+      "files": [
+        {
+          "original_path": "lib/locales/vi.ts",
+          "local_path": "templates/goodui/lib/locale-vi/vi.ts",
+          "lines": 641,
+          "bytes": 23079
+        }
+      ]
+    },
+    {
+      "name": "locale-th",
+      "title": "goodui labels: Thai",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Thai labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"th\" labels={th}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-th.json",
+      "files": [
+        {
+          "original_path": "lib/locales/th.ts",
+          "local_path": "templates/goodui/lib/locale-th/th.ts",
+          "lines": 641,
+          "bytes": 30727
+        }
+      ]
+    },
+    {
+      "name": "locale-ja",
+      "title": "goodui labels: Japanese",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Japanese labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"ja\" labels={ja}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-ja.json",
+      "files": [
+        {
+          "original_path": "lib/locales/ja.ts",
+          "local_path": "templates/goodui/lib/locale-ja/ja.ts",
+          "lines": 641,
+          "bytes": 23801
+        }
+      ]
+    },
+    {
+      "name": "locale-ko",
+      "title": "goodui labels: Korean",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Korean labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"ko\" labels={ko}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-ko.json",
+      "files": [
+        {
+          "original_path": "lib/locales/ko.ts",
+          "local_path": "templates/goodui/lib/locale-ko/ko.ts",
+          "lines": 641,
+          "bytes": 22580
+        }
+      ]
+    },
+    {
+      "name": "locale-zh-CN",
+      "title": "goodui labels: Simplified Chinese",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Simplified Chinese labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"zh-CN\" labels={zh_CN}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-zh-CN.json",
+      "files": [
+        {
+          "original_path": "lib/locales/zh-CN.ts",
+          "local_path": "templates/goodui/lib/locale-zh-CN/zh-CN.ts",
+          "lines": 641,
+          "bytes": 21214
+        }
+      ]
+    },
+    {
+      "name": "locale-ar",
+      "title": "goodui labels: Arabic",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Arabic labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"ar\" labels={ar}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-ar.json",
+      "files": [
+        {
+          "original_path": "lib/locales/ar.ts",
+          "local_path": "templates/goodui/lib/locale-ar/ar.ts",
+          "lines": 650,
+          "bytes": 30469
+        }
+      ]
+    },
+    {
+      "name": "locale-he",
+      "title": "goodui labels: Hebrew",
+      "category": "lib",
+      "type": "registry:lib",
+      "description": "Hebrew labels for every goodui component (aria-labels, screen-reader text, built-in button text). Pass it to <GooduiLocaleProvider lang=\"he\" labels={he}>.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/locale-he.json",
+      "files": [
+        {
+          "original_path": "lib/locales/he.ts",
+          "local_path": "templates/goodui/lib/locale-he/he.ts",
+          "lines": 643,
+          "bytes": 26698
+        }
+      ]
+    },
+    {
+      "name": "scheduler-week",
+      "title": "Week scheduler",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Drag-and-drop week calendar with resize, drag-to-create and recurring events.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/scheduler.json"
+      ],
+      "raw_url": "https://goodui.dev/r/scheduler-week.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/scheduling/scheduler-week.tsx",
+          "local_path": "templates/goodui/blocks/scheduler-week/scheduler-week.tsx",
+          "lines": 50,
+          "bytes": 2425
+        }
+      ]
+    },
+    {
+      "name": "resource-timeline",
+      "title": "Resource timeline",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Staff or rooms as rows on a day timeline with drag, resize, conflicts and click-to-book. FullCalendar charges $480 for this view. Here it is free.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "card",
+        "dialog",
+        "https://goodui.dev/r/scheduler.json",
+        "input",
+        "label"
+      ],
+      "raw_url": "https://goodui.dev/r/resource-timeline.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/scheduling/resource-timeline.tsx",
+          "local_path": "templates/goodui/blocks/resource-timeline/resource-timeline.tsx",
+          "lines": 470,
+          "bytes": 23110
+        }
+      ]
+    },
+    {
+      "name": "slot-picker",
+      "title": "Slot picker",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Calendly-style date and time slot picker with availability and time zone.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "calendar",
+        "card",
+        "separator"
+      ],
+      "raw_url": "https://goodui.dev/r/slot-picker.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/scheduling/slot-picker.tsx",
+          "local_path": "templates/goodui/blocks/slot-picker/slot-picker.tsx",
+          "lines": 146,
+          "bytes": 7408
+        }
+      ]
+    },
+    {
+      "name": "today-schedule",
+      "title": "Today's schedule",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Dashboard card with the next appointments and a live progress line.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "card"
+      ],
+      "raw_url": "https://goodui.dev/r/today-schedule.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/scheduling/today-schedule.tsx",
+          "local_path": "templates/goodui/blocks/today-schedule/today-schedule.tsx",
+          "lines": 124,
+          "bytes": 7244
+        }
+      ]
+    },
+    {
+      "name": "kpi-cards",
+      "title": "KPI cards",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Four metric cards with trend badges and comparison to last period.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "card"
+      ],
+      "raw_url": "https://goodui.dev/r/kpi-cards.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/dashboard/kpi-cards.tsx",
+          "local_path": "templates/goodui/blocks/kpi-cards/kpi-cards.tsx",
+          "lines": 62,
+          "bytes": 3257
+        }
+      ]
+    },
+    {
+      "name": "notification-settings",
+      "title": "Notification settings",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Per-channel notification preferences grouped by topic.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "checkbox",
+        "label",
+        "switch"
+      ],
+      "raw_url": "https://goodui.dev/r/notification-settings.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/settings/notification-settings.tsx",
+          "local_path": "templates/goodui/blocks/notification-settings/notification-settings.tsx",
+          "lines": 115,
+          "bytes": 5069
+        }
+      ]
+    },
+    {
+      "name": "sign-in-split",
+      "title": "Split sign-in",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Brand-forward sign-in with a live product mock, rotating testimonials, social login and polished error, reset and success states.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "input",
+        "label"
+      ],
+      "raw_url": "https://goodui.dev/r/sign-in-split.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/auth/sign-in-split.tsx",
+          "local_path": "templates/goodui/blocks/sign-in-split/sign-in-split.tsx",
+          "lines": 305,
+          "bytes": 17886
+        }
+      ]
+    },
+    {
+      "name": "otp-verify",
+      "title": "OTP verification",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "6-digit email code screen that submits by itself, shakes on a wrong code, counts down to resend and lets users change their email.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "input-otp",
+        "label"
+      ],
+      "raw_url": "https://goodui.dev/r/otp-verify.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/auth/otp-verify.tsx",
+          "local_path": "templates/goodui/blocks/otp-verify/otp-verify.tsx",
+          "lines": 191,
+          "bytes": 9489
+        }
+      ]
+    },
+    {
+      "name": "setup-checklist",
+      "title": "Setup checklist",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Getting-started card with a progress ring, expandable one-click steps, skip and undo, and a confetti finish that gets new accounts to their first booking.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button"
+      ],
+      "raw_url": "https://goodui.dev/r/setup-checklist.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/onboarding/setup-checklist.tsx",
+          "local_path": "templates/goodui/blocks/setup-checklist/setup-checklist.tsx",
+          "lines": 179,
+          "bytes": 11353
+        }
+      ]
+    },
+    {
+      "name": "empty-states",
+      "title": "Empty states",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Four illustrated empty states (no bookings, no results, offline, no access), each with a primary action that works.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "input",
+        "textarea"
+      ],
+      "raw_url": "https://goodui.dev/r/empty-states.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/onboarding/empty-states.tsx",
+          "local_path": "templates/goodui/blocks/empty-states/empty-states.tsx",
+          "lines": 256,
+          "bytes": 15268
+        }
+      ]
+    },
+    {
+      "name": "contacts-directory",
+      "title": "Contacts directory",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Client directory with search, A–Z jump rail, favorites, grid and list views, and a detail sheet with editable tags and notes.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "input",
+        "label",
+        "sheet",
+        "textarea"
+      ],
+      "raw_url": "https://goodui.dev/r/contacts-directory.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/tables/contacts-directory.tsx",
+          "local_path": "templates/goodui/blocks/contacts-directory/contacts-directory.tsx",
+          "lines": 448,
+          "bytes": 24911
+        }
+      ]
+    },
+    {
+      "name": "usage-meters",
+      "title": "Usage meters",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Gauges for bookings, SMS credits, seats and storage that warn near the limit, forecast usage and top up through a live-priced dialog.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "input",
+        "label",
+        "switch"
+      ],
+      "raw_url": "https://goodui.dev/r/usage-meters.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/billing/usage-meters.tsx",
+          "local_path": "templates/goodui/blocks/usage-meters/usage-meters.tsx",
+          "lines": 280,
+          "bytes": 16310
+        }
+      ]
+    },
+    {
+      "name": "activity-feed",
+      "title": "Activity feed",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Color-coded team timeline of bookings, payments, notes, status changes and uploads, with type filters and load more.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "avatar",
+        "button"
+      ],
+      "raw_url": "https://goodui.dev/r/activity-feed.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/notifications/activity-feed.tsx",
+          "local_path": "templates/goodui/blocks/activity-feed/activity-feed.tsx",
+          "lines": 246,
+          "bytes": 14522
+        }
+      ]
+    },
+    {
+      "name": "whats-new",
+      "title": "What's new",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Changelog launcher with an unread badge that opens illustrated release slides and a full changelog view.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "dialog",
+        "label"
+      ],
+      "raw_url": "https://goodui.dev/r/whats-new.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/notifications/whats-new.tsx",
+          "local_path": "templates/goodui/blocks/whats-new/whats-new.tsx",
+          "lines": 354,
+          "bytes": 17172
+        }
+      ]
+    },
+    {
+      "name": "prompt-composer",
+      "title": "Prompt composer",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Rich prompt input with slash commands, file attachments, model picker, token counter and a history of sent prompts.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "raw_url": "https://goodui.dev/r/prompt-composer.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/ai/prompt-composer.tsx",
+          "local_path": "templates/goodui/blocks/prompt-composer/prompt-composer.tsx",
+          "lines": 354,
+          "bytes": 18444
+        }
+      ]
+    },
+    {
+      "name": "profile-settings",
+      "title": "Profile settings",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Cover-art profile card with avatar upload, live handle availability check, time zone and locale pickers with a format preview, and a sticky unsaved-changes bar.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/select.json",
+        "label",
+        "textarea"
+      ],
+      "raw_url": "https://goodui.dev/r/profile-settings.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/settings/profile-settings.tsx",
+          "local_path": "templates/goodui/blocks/profile-settings/profile-settings.tsx",
+          "lines": 306,
+          "bytes": 15359
+        }
+      ]
+    },
+    {
+      "name": "localization-settings",
+      "title": "Localization settings",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Languages table with completion bars, publish and default controls, auto-translate progress, an add-language dialog and a booking-page preview that flips to RTL.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/dropdown-menu.json",
+        "https://goodui.dev/r/select.json",
+        "https://goodui.dev/r/switch.json",
+        "label"
+      ],
+      "raw_url": "https://goodui.dev/r/localization-settings.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/settings/localization-settings.tsx",
+          "local_path": "templates/goodui/blocks/localization-settings/localization-settings.tsx",
+          "lines": 262,
+          "bytes": 15117
+        }
+      ]
+    },
+    {
+      "name": "password-reset",
+      "title": "Password reset",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Three-step reset flow on one card: request by email, 6-digit code with resend cooldown, then a new password with live rules, ending on an animated success.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/otp-input.json",
+        "https://goodui.dev/r/success-check.json"
+      ],
+      "raw_url": "https://goodui.dev/r/password-reset.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/auth/password-reset.tsx",
+          "local_path": "templates/goodui/blocks/password-reset/password-reset.tsx",
+          "lines": 248,
+          "bytes": 12783
+        }
+      ]
+    },
+    {
+      "name": "magic-link-sent",
+      "title": "Magic link sent",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Check-your-inbox screen with an animated envelope, one-click mail app buttons, a resend countdown ring, inline email edit, expiry timer and a code fallback.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/circular-progress.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/otp-input.json"
+      ],
+      "raw_url": "https://goodui.dev/r/magic-link-sent.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/auth/magic-link-sent.tsx",
+          "local_path": "templates/goodui/blocks/magic-link-sent/magic-link-sent.tsx",
+          "lines": 209,
+          "bytes": 10547
+        }
+      ]
+    },
+    {
+      "name": "usage-alerts",
+      "title": "Usage alerts",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Metered usage bars with forecast overlays and threshold markers, alert rules with channels and toggles, a new-rule dialog and a simulate-a-day button that fires alerts.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/alert.json",
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/number-input.json",
+        "https://goodui.dev/r/select.json",
+        "https://goodui.dev/r/switch.json",
+        "https://goodui.dev/r/toggle-group.json",
+        "label"
+      ],
+      "raw_url": "https://goodui.dev/r/usage-alerts.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/billing/usage-alerts.tsx",
+          "local_path": "templates/goodui/blocks/usage-alerts/usage-alerts.tsx",
+          "lines": 255,
+          "bytes": 13990
+        }
+      ]
+    },
+    {
+      "name": "activity-heatmap",
+      "title": "Activity heatmap",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "GitHub-style calendar heatmap of a year of bookings with tooltips, bookings or revenue metric, 12-month or 90-day range, streak cards, best hours bars and best weekdays.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/tooltip.json"
+      ],
+      "raw_url": "https://goodui.dev/r/activity-heatmap.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/dashboard/activity-heatmap.tsx",
+          "local_path": "templates/goodui/blocks/activity-heatmap/activity-heatmap.tsx",
+          "lines": 272,
+          "bytes": 14236
+        }
+      ]
+    },
+    {
+      "name": "approvals-queue",
+      "title": "Approvals queue",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Approval inbox for time off, refunds, discounts and schedule changes with approve, reject with a required reason, j/k/a/r keyboard navigation, a done tab and undo.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/kbd.json"
+      ],
+      "raw_url": "https://goodui.dev/r/approvals-queue.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/tables/approvals-queue.tsx",
+          "local_path": "templates/goodui/blocks/approvals-queue/approvals-queue.tsx",
+          "lines": 254,
+          "bytes": 14194
+        }
+      ]
+    },
+    {
+      "name": "page-header-actions",
+      "title": "Page header actions",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Page header patterns in one scrolling page: breadcrumb, avatar, inline rename, status badge, primary and overflow actions, tabs with counts, filter chips, a delete confirmation, and a sticky header that compacts on scroll.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/breadcrumb.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dropdown-menu.json",
+        "https://goodui.dev/r/tabs.json"
+      ],
+      "raw_url": "https://goodui.dev/r/page-header-actions.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/app-shell/page-header-actions.tsx",
+          "local_path": "templates/goodui/blocks/page-header-actions/page-header-actions.tsx",
+          "lines": 268,
+          "bytes": 15066
+        }
+      ]
+    },
+    {
+      "name": "day-agenda",
+      "title": "Day agenda",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Timeline agenda with a moving current-time line, now/next cards, overlapping bookings packed into columns, and drag-to-resize that snaps to 15 minutes (Shift+arrows on the keyboard).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/button.json"
+      ],
+      "raw_url": "https://goodui.dev/r/day-agenda.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/scheduling/day-agenda.tsx",
+          "local_path": "templates/goodui/blocks/day-agenda/day-agenda.tsx",
+          "lines": 270,
+          "bytes": 14580
+        }
+      ]
+    },
+    {
+      "name": "waitlist-manager",
+      "title": "Waitlist manager",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Waitlist with priority reordering, open slots to offer, a 15-minute countdown on each offer, simulated accept/decline, auto-release of expired offers and a next-up card.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/button.json"
+      ],
+      "raw_url": "https://goodui.dev/r/waitlist-manager.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/scheduling/waitlist-manager.tsx",
+          "local_path": "templates/goodui/blocks/waitlist-manager/waitlist-manager.tsx",
+          "lines": 277,
+          "bytes": 16436
+        }
+      ]
+    },
+    {
+      "name": "hero-product-shot",
+      "title": "Hero with product shot",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Centered hero over a dot grid with a tilting, parallax product mock that goes live on click (numbers roll, chart grows, floating booking toast), avatar trust row and a trial dialog with email validation and an inbox success state.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/dot-grid.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/success-check.json",
+        "https://goodui.dev/r/tilt-card.json"
+      ],
+      "raw_url": "https://goodui.dev/r/hero-product-shot.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/marketing/hero-product-shot.tsx",
+          "local_path": "templates/goodui/blocks/hero-product-shot/hero-product-shot.tsx",
+          "lines": 230,
+          "bytes": 11690
+        }
+      ]
+    },
+    {
+      "name": "logo-cloud-marquee",
+      "title": "Logo cloud marquee",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Two opposing marquee rows of hand-drawn customer marks with edge fades, pause on hover, a play/pause control and tappable logos that reveal who the customer is.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/counter-up.json",
+        "https://goodui.dev/r/marquee.json"
+      ],
+      "raw_url": "https://goodui.dev/r/logo-cloud-marquee.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/marketing/logo-cloud-marquee.tsx",
+          "local_path": "templates/goodui/blocks/logo-cloud-marquee/logo-cloud-marquee.tsx",
+          "lines": 99,
+          "bytes": 5595
+        }
+      ]
+    },
+    {
+      "name": "faq-accordion",
+      "title": "FAQ accordion",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Height-animated FAQ with a sticky sidebar of topic filters with counts, search that highlights matches inside questions, expand/collapse all and an ask-a-question fallback for empty results.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/accordion-height.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/input.json"
+      ],
+      "raw_url": "https://goodui.dev/r/faq-accordion.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/marketing/faq-accordion.tsx",
+          "local_path": "templates/goodui/blocks/faq-accordion/faq-accordion.tsx",
+          "lines": 124,
+          "bytes": 8900
+        }
+      ]
+    },
+    {
+      "name": "stats-band",
+      "title": "Stats band with counting numbers",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Four big counting statistics in a split card; hovering or focusing a stat draws its yearly sparkline and updates a live caption, with a replay button.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/counter-up.json",
+        "https://goodui.dev/r/sparkline-draw.json"
+      ],
+      "raw_url": "https://goodui.dev/r/stats-band.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/marketing/stats-band.tsx",
+          "local_path": "templates/goodui/blocks/stats-band/stats-band.tsx",
+          "lines": 81,
+          "bytes": 5159
+        }
+      ]
+    },
+    {
+      "name": "newsletter-signup",
+      "title": "Newsletter signup",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Split newsletter card with topic checkboxes, validation, a counting reader number, a success check with the chosen topics and a sidebar of recent issues you can open.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/checkbox.json",
+        "https://goodui.dev/r/counter-up.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/success-check.json"
+      ],
+      "raw_url": "https://goodui.dev/r/newsletter-signup.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/marketing/newsletter-signup.tsx",
+          "local_path": "templates/goodui/blocks/newsletter-signup/newsletter-signup.tsx",
+          "lines": 122,
+          "bytes": 7195
+        }
+      ]
+    },
+    {
+      "name": "import-progress",
+      "title": "Import progress",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Live CSV import screen with a rolling row counter, striped progress, stage checklist, just-imported feed, auto-fixed warnings with a CSV report download, pause/resume and a cancel confirmation.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/progress.json",
+        "https://goodui.dev/r/success-check.json"
+      ],
+      "raw_url": "https://goodui.dev/r/import-progress.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/onboarding/import-progress.tsx",
+          "local_path": "templates/goodui/blocks/import-progress/import-progress.tsx",
+          "lines": 173,
+          "bytes": 10079
+        }
+      ]
+    },
+    {
+      "name": "order-tracking",
+      "title": "Order tracking",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Parcel tracking with a route map whose truck moves along the path as scans arrive, a timeline of stages, copyable tracking number, text-me-updates dialog, receipt download and a simulate button.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/input.json"
+      ],
+      "raw_url": "https://goodui.dev/r/order-tracking.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/commerce/order-tracking.tsx",
+          "local_path": "templates/goodui/blocks/order-tracking/order-tracking.tsx",
+          "lines": 160,
+          "bytes": 10402
+        }
+      ]
+    },
+    {
+      "name": "client-profile",
+      "title": "Client profile",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Cover-art client card with lifetime value, visits and copyable contact details, editable tags, a monthly spend chart, next-visit card, visit timeline with ratings, team notes with undo and copyable color formulas, plus book and SMS actions.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/rating.json",
+        "https://goodui.dev/r/tabs.json"
+      ],
+      "raw_url": "https://goodui.dev/r/client-profile.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/booking/client-profile.tsx",
+          "local_path": "templates/goodui/blocks/client-profile/client-profile.tsx",
+          "lines": 352,
+          "bytes": 17502
+        }
+      ]
+    },
+    {
+      "name": "gift-card-issue",
+      "title": "Gift card issue",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Amount chips or custom amount, five card designs, occasion tags, recipient and delivery fields with validation, and a live 3D-flipping gift card preview that reveals the redeem code once issued, with copy, save and resend.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/success-check.json"
+      ],
+      "raw_url": "https://goodui.dev/r/gift-card-issue.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/booking/gift-card-issue.tsx",
+          "local_path": "templates/goodui/blocks/gift-card-issue/gift-card-issue.tsx",
+          "lines": 274,
+          "bytes": 13806
+        }
+      ]
+    },
+    {
+      "name": "consent-form",
+      "title": "Consent form with signature",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Scroll-to-read consent document with a reading progress meter that unlocks the required statements, typed legal name, a draw-to-sign canvas with clear, validation and a signed-and-sealed state with a downloadable copy.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/checkbox.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/success-check.json"
+      ],
+      "raw_url": "https://goodui.dev/r/consent-form.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/booking/consent-form.tsx",
+          "local_path": "templates/goodui/blocks/consent-form/consent-form.tsx",
+          "lines": 216,
+          "bytes": 11463
+        }
+      ]
+    },
+    {
+      "name": "prompt-library",
+      "title": "Prompt library",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Folder sidebar with counts and a starred filter, searchable prompt cards with highlighted {{variables}}, tags, versions and usage, a use dialog that fills variables into a live preview with copy and send, plus new prompt and delete with undo.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/input.json"
+      ],
+      "raw_url": "https://goodui.dev/r/prompt-library.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/ai/prompt-library.tsx",
+          "local_path": "templates/goodui/blocks/prompt-library/prompt-library.tsx",
+          "lines": 231,
+          "bytes": 14482
+        }
+      ]
+    },
+    {
+      "name": "fine-tune-jobs",
+      "title": "Fine-tune job list",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Job list with status filters, live training progress and loss sparklines, a detail panel with an animated loss curve, metadata, deploy-to-assistant, cancel with confirmation, retry for failures and a log console, plus a new-job dialog with a cost estimate.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/number-input.json",
+        "https://goodui.dev/r/progress.json",
+        "https://goodui.dev/r/select.json",
+        "https://goodui.dev/r/sparkline-draw.json"
+      ],
+      "raw_url": "https://goodui.dev/r/fine-tune-jobs.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/ai/fine-tune-jobs.tsx",
+          "local_path": "templates/goodui/blocks/fine-tune-jobs/fine-tune-jobs.tsx",
+          "lines": 258,
+          "bytes": 16337
+        }
+      ]
+    },
+    {
+      "name": "schema-browser",
+      "title": "Schema browser",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Searchable schema and table tree beside a table page with row counts, related-table chips, column list with primary and foreign keys that navigate, sample rows and generated DDL, each copyable.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/input.json",
+        "https://goodui.dev/r/tree-expand.json"
+      ],
+      "raw_url": "https://goodui.dev/r/schema-browser.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/tables/schema-browser.tsx",
+          "local_path": "templates/goodui/blocks/schema-browser/schema-browser.tsx",
+          "lines": 260,
+          "bytes": 12568
+        }
+      ]
+    },
+    {
+      "name": "export-center",
+      "title": "Export center",
+      "category": "blocks",
+      "type": "registry:block",
+      "description": "Export jobs with format icons, animated progress, ready downloads that really save a file, failed and expired states with retry, delete with undo, scheduled exports with toggles and a new-export dialog with source, range, format and column picking.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/checkbox.json",
+        "https://goodui.dev/r/dialog.json",
+        "https://goodui.dev/r/progress.json",
+        "https://goodui.dev/r/select.json",
+        "https://goodui.dev/r/switch.json"
+      ],
+      "raw_url": "https://goodui.dev/r/export-center.json",
+      "files": [
+        {
+          "original_path": "registry/blocks/tables/export-center.tsx",
+          "local_path": "templates/goodui/blocks/export-center/export-center.tsx",
+          "lines": 263,
+          "bytes": 14759
+        }
+      ]
+    },
+    {
+      "name": "number-flow",
+      "title": "Number flow",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "Digits roll to the new value with locale formatting, prefixes and suffixes.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/number-flow.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/number-flow.tsx",
+          "local_path": "templates/goodui/numbers/number-flow/number-flow.tsx",
+          "lines": 84,
+          "bytes": 3329
+        }
+      ]
+    },
+    {
+      "name": "shimmer-button",
+      "title": "Shimmer button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "A light sweep runs across the button. Pure CSS; the sweep is removed for reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/shimmer-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/shimmer-button.tsx",
+          "local_path": "templates/goodui/buttons/shimmer-button/shimmer-button.tsx",
+          "lines": 46,
+          "bytes": 1947
+        }
+      ]
+    },
+    {
+      "name": "tabs-indicator",
+      "title": "Tabs indicator",
+      "category": "navigation",
+      "type": "registry:component",
+      "description": "Tabs whose indicator glides between tabs on a shared-layout spring (underline with hover highlight, pill, or segmented with icons), with arrow-key navigation and panels that slide in the direction of travel while the height eases to fit.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tabs-indicator.json",
+      "files": [
+        {
+          "original_path": "registry/components/navigation/tabs-indicator.tsx",
+          "local_path": "templates/goodui/navigation/tabs-indicator/tabs-indicator.tsx",
+          "lines": 271,
+          "bytes": 11879
+        }
+      ]
+    },
+    {
+      "name": "segmented-control",
+      "title": "Segmented control",
+      "category": "navigation",
+      "type": "registry:component",
+      "description": "iOS-style segmented control whose thumb springs to the chosen segment and squeezes while pressed, with sizes, icons, full-width mode, dividers that hide next to the thumb, and radio-group arrow keys.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/segmented-control.json",
+      "files": [
+        {
+          "original_path": "registry/components/navigation/segmented-control.tsx",
+          "local_path": "templates/goodui/navigation/segmented-control/segmented-control.tsx",
+          "lines": 171,
+          "bytes": 6917
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "category": "navigation",
+      "type": "registry:component",
+      "description": "Horizontal or vertical stepper where the connecting line fills between steps, numbers morph into drawn checkmarks, a current-step ring glides to the active step, errors shake, and completed steps are clickable.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/stepper.json",
+      "files": [
+        {
+          "original_path": "registry/components/navigation/stepper.tsx",
+          "local_path": "templates/goodui/navigation/stepper/stepper.tsx",
+          "lines": 255,
+          "bytes": 10595
+        }
+      ]
+    },
+    {
+      "name": "dock",
+      "title": "Dock",
+      "category": "navigation",
+      "type": "registry:component",
+      "description": "macOS-style dock whose tiles magnify on a spring as the pointer nears, with tooltips, running dots, badges and a launch bounce, falling back to a simple press scale on touch.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/dock.json",
+      "files": [
+        {
+          "original_path": "registry/components/navigation/dock.tsx",
+          "local_path": "templates/goodui/navigation/dock/dock.tsx",
+          "lines": 293,
+          "bytes": 11420
+        }
+      ]
+    },
+    {
+      "name": "bottom-nav",
+      "title": "Bottom navigation",
+      "category": "navigation",
+      "type": "registry:component",
+      "description": "Mobile bottom bar where a pill glides to the selected tab and its icon bounces, in a labelled or expanding variant, with popping badges and an optional raised center action.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/bottom-nav.json",
+      "files": [
+        {
+          "original_path": "registry/components/navigation/bottom-nav.tsx",
+          "local_path": "templates/goodui/navigation/bottom-nav/bottom-nav.tsx",
+          "lines": 264,
+          "bytes": 10758
+        }
+      ]
+    },
+    {
+      "name": "command-palette-morph",
+      "title": "Command palette morph",
+      "category": "navigation",
+      "type": "registry:component",
+      "description": "A search field morphs into a command palette through a shared layout animation, with fuzzy matching, highlighted letters, grouped results, a sliding selection, arrow keys, Enter, Esc and Ctrl/Cmd+K.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/command-palette-morph.json",
+      "files": [
+        {
+          "original_path": "registry/components/navigation/command-palette-morph.tsx",
+          "local_path": "templates/goodui/navigation/command-palette-morph/command-palette-morph.tsx",
+          "lines": 555,
+          "bytes": 23194
+        }
+      ]
+    },
+    {
+      "name": "morphing-dialog",
+      "title": "Morphing dialog",
+      "category": "overlays",
+      "type": "registry:component",
+      "description": "A service card expands into a booking dialog, with its image, title and price flying into place through a shared-layout spring, then folds back into the card on Esc or backdrop click.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/morphing-dialog.json",
+      "files": [
+        {
+          "original_path": "registry/components/overlays/morphing-dialog.tsx",
+          "local_path": "templates/goodui/overlays/morphing-dialog/morphing-dialog.tsx",
+          "lines": 367,
+          "bytes": 14368
+        }
+      ]
+    },
+    {
+      "name": "drawer-spring",
+      "title": "Spring drawer",
+      "category": "overlays",
+      "type": "registry:component",
+      "description": "A bottom sheet with half and full snap points plus side drawers on a spring; drag the handle and the release speed picks the snap point or closes it, while the backdrop fades with the drag.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/drawer-spring.json",
+      "files": [
+        {
+          "original_path": "registry/components/overlays/drawer-spring.tsx",
+          "local_path": "templates/goodui/overlays/drawer-spring/drawer-spring.tsx",
+          "lines": 412,
+          "bytes": 17167
+        }
+      ]
+    },
+    {
+      "name": "popover-morph",
+      "title": "Popover morph",
+      "category": "overlays",
+      "type": "registry:component",
+      "description": "A small button such as \"Add note\" morphs into a floating form panel, its label sliding into the header, and shrinks back into the button on save, Esc or an outside click.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/popover-morph.json",
+      "files": [
+        {
+          "original_path": "registry/components/overlays/popover-morph.tsx",
+          "local_path": "templates/goodui/overlays/popover-morph/popover-morph.tsx",
+          "lines": 226,
+          "bytes": 9079
+        }
+      ]
+    },
+    {
+      "name": "tooltip-animated",
+      "title": "Animated tooltip",
+      "category": "overlays",
+      "type": "registry:component",
+      "description": "A tooltip springs out of the trigger's side and can lean toward the pointer over avatars; tooltips in a delay group open instantly once one is already showing.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tooltip-animated.json",
+      "files": [
+        {
+          "original_path": "registry/components/overlays/tooltip-animated.tsx",
+          "local_path": "templates/goodui/overlays/tooltip-animated/tooltip-animated.tsx",
+          "lines": 241,
+          "bytes": 8879
+        }
+      ]
+    },
+    {
+      "name": "dropdown-stagger",
+      "title": "Stagger dropdown",
+      "category": "overlays",
+      "type": "registry:component",
+      "description": "A dropdown menu springs open while its items stagger in, with a highlight that glides between items, submenus, checkbox and radio items, and full keyboard navigation.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/dropdown-stagger.json",
+      "files": [
+        {
+          "original_path": "registry/components/overlays/dropdown-stagger.tsx",
+          "local_path": "templates/goodui/overlays/dropdown-stagger/dropdown-stagger.tsx",
+          "lines": 685,
+          "bytes": 25799
+        }
+      ]
+    },
+    {
+      "name": "accordion-height",
+      "title": "Accordion height",
+      "category": "lists",
+      "type": "registry:component",
+      "description": "Accordion whose panels spring open to their real height (motion height:auto) with a rotating chevron, in single or multiple mode, with arrow-key, Home and End navigation between headers.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/accordion-height.json",
+      "files": [
+        {
+          "original_path": "registry/components/lists/accordion-height.tsx",
+          "local_path": "templates/goodui/lists/accordion-height/accordion-height.tsx",
+          "lines": 205,
+          "bytes": 8350
+        }
+      ]
+    },
+    {
+      "name": "list-reorder",
+      "title": "List reorder",
+      "category": "lists",
+      "type": "registry:component",
+      "description": "Drag-to-reorder list with a grip handle, a lifted shadow on the dragged row, neighbours that spring into place, and Alt+Arrow keyboard moves announced to screen readers.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/list-reorder.json",
+      "files": [
+        {
+          "original_path": "registry/components/lists/list-reorder.tsx",
+          "local_path": "templates/goodui/lists/list-reorder/list-reorder.tsx",
+          "lines": 183,
+          "bytes": 6947
+        }
+      ]
+    },
+    {
+      "name": "table-row-presence",
+      "title": "Table row presence",
+      "category": "lists",
+      "type": "registry:component",
+      "description": "Data table where new rows grow in with a brief highlight, removed rows slide out and collapse, and re-sorting glides every row to its new position.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/table-row-presence.json",
+      "files": [
+        {
+          "original_path": "registry/components/lists/table-row-presence.tsx",
+          "local_path": "templates/goodui/lists/table-row-presence/table-row-presence.tsx",
+          "lines": 189,
+          "bytes": 6990
+        }
+      ]
+    },
+    {
+      "name": "animated-list",
+      "title": "Animated list",
+      "category": "lists",
+      "type": "registry:component",
+      "description": "Notification stack where new items spring in from the top, older ones glide down, slightly dimmed in the depth variant, and items beyond the limit blur away.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/animated-list.json",
+      "files": [
+        {
+          "original_path": "registry/components/lists/animated-list.tsx",
+          "local_path": "templates/goodui/lists/animated-list/animated-list.tsx",
+          "lines": 82,
+          "bytes": 2998
+        }
+      ]
+    },
+    {
+      "name": "tree-expand",
+      "title": "Tree expand",
+      "category": "lists",
+      "type": "registry:component",
+      "description": "File or category tree with spring expand/collapse, indentation guides, a selection highlight that glides between rows, and full arrow-key, Enter and type-ahead navigation.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tree-expand.json",
+      "files": [
+        {
+          "original_path": "registry/components/lists/tree-expand.tsx",
+          "local_path": "templates/goodui/lists/tree-expand/tree-expand.tsx",
+          "lines": 309,
+          "bytes": 11815
+        }
+      ]
+    },
+    {
+      "name": "expandable-row-list",
+      "title": "Expandable row list",
+      "category": "lists",
+      "type": "registry:component",
+      "description": "Appointment rows that open inline into a raised card with notes and working actions, while neighbouring rows smoothly make room.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/expandable-row-list.json",
+      "files": [
+        {
+          "original_path": "registry/components/lists/expandable-row-list.tsx",
+          "local_path": "templates/goodui/lists/expandable-row-list/expandable-row-list.tsx",
+          "lines": 175,
+          "bytes": 7301
+        }
+      ]
+    },
+    {
+      "name": "tag-input",
+      "title": "Tag input",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Chips input where Enter, comma or paste adds tags that spring in, Backspace arms then removes, duplicates shake, with a filtered suggestions dropdown, validation and a max count.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tag-input.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/tag-input.tsx",
+          "local_path": "templates/goodui/inputs/tag-input/tag-input.tsx",
+          "lines": 413,
+          "bytes": 14642
+        }
+      ]
+    },
+    {
+      "name": "otp-input",
+      "title": "OTP input",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "One-time code input from plain inputs with auto-advance, paste and SMS autofill, a blinking caret and popping digits, then a pulsing verify, green success bounce or red shake.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/otp-input.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/otp-input.tsx",
+          "local_path": "templates/goodui/inputs/otp-input/otp-input.tsx",
+          "lines": 323,
+          "bytes": 13191
+        }
+      ]
+    },
+    {
+      "name": "floating-label-input",
+      "title": "Floating label input",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Input and textarea whose label springs up on focus or value, with prefix/suffix slots that fade in, an animated clear button, character counter and a slide-in error.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/floating-label-input.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/floating-label-input.tsx",
+          "local_path": "templates/goodui/inputs/floating-label-input/floating-label-input.tsx",
+          "lines": 398,
+          "bytes": 14861
+        }
+      ]
+    },
+    {
+      "name": "vanish-input",
+      "title": "Vanish input",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Search field with rotating, blurred-in placeholder hints; on submit the typed text dissolves into drifting particles drawn on a canvas.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/vanish-input.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/vanish-input.tsx",
+          "local_path": "templates/goodui/inputs/vanish-input/vanish-input.tsx",
+          "lines": 235,
+          "bytes": 8565
+        }
+      ]
+    },
+    {
+      "name": "input-shake",
+      "title": "Input shake",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Validation wrapper for any input that shakes and slides in an error with an icon when invalid, and draws a check circle when valid.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/input-shake.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/input-shake.tsx",
+          "local_path": "templates/goodui/inputs/input-shake/input-shake.tsx",
+          "lines": 153,
+          "bytes": 6267
+        }
+      ]
+    },
+    {
+      "name": "switch-spring",
+      "title": "Spring switch",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Switch with a springy thumb that squashes while pressed, icons that spin inside the thumb, three sizes, label and description.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/switch-spring.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/switch-spring.tsx",
+          "local_path": "templates/goodui/inputs/switch-spring/switch-spring.tsx",
+          "lines": 194,
+          "bytes": 6873
+        }
+      ]
+    },
+    {
+      "name": "checkbox-draw",
+      "title": "Drawn checkbox",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Checkbox whose check stroke draws itself in over a popping fill, with an indeterminate dash and an animated strike-through for checklists.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/checkbox-draw.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/checkbox-draw.tsx",
+          "local_path": "templates/goodui/inputs/checkbox-draw/checkbox-draw.tsx",
+          "lines": 169,
+          "bytes": 6352
+        }
+      ]
+    },
+    {
+      "name": "slider-tooltip",
+      "title": "Slider with tooltip",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Single or range slider built from scratch with pointer and keyboard control, step snapping, marks and a value bubble that scales in while dragging.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/slider-tooltip.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/slider-tooltip.tsx",
+          "local_path": "templates/goodui/inputs/slider-tooltip/slider-tooltip.tsx",
+          "lines": 358,
+          "bytes": 15334
+        }
+      ]
+    },
+    {
+      "name": "search-expand",
+      "title": "Expanding search",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Search icon that springs open into a field with a recent-searches dropdown and a / shortcut; Esc or blur folds it back when empty.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/search-expand.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/search-expand.tsx",
+          "local_path": "templates/goodui/inputs/search-expand/search-expand.tsx",
+          "lines": 310,
+          "bytes": 12536
+        }
+      ]
+    },
+    {
+      "name": "file-drop-pulse",
+      "title": "File drop zone",
+      "category": "inputs",
+      "type": "registry:component",
+      "description": "Drag-and-drop zone whose border pulses while files hover, then lists files with type icons, springy progress bars, size and type errors, and undo on remove.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/file-drop-pulse.json",
+      "files": [
+        {
+          "original_path": "registry/components/inputs/file-drop-pulse.tsx",
+          "local_path": "templates/goodui/inputs/file-drop-pulse/file-drop-pulse.tsx",
+          "lines": 479,
+          "bytes": 20511
+        }
+      ]
+    },
+    {
+      "name": "ripple-button",
+      "title": "Ripple button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Material-style ink ripple that grows from the exact press point and fades on release, pure CSS, across five variants and icon buttons.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/ripple-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/ripple-button.tsx",
+          "local_path": "templates/goodui/buttons/ripple-button/ripple-button.tsx",
+          "lines": 161,
+          "bytes": 5632
+        }
+      ]
+    },
+    {
+      "name": "rainbow-button",
+      "title": "Rainbow button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Button with a seamlessly flowing rainbow border and a soft colored glow underneath, tuned to invert cleanly between light and dark themes.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/rainbow-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/rainbow-button.tsx",
+          "local_path": "templates/goodui/buttons/rainbow-button/rainbow-button.tsx",
+          "lines": 108,
+          "bytes": 4308
+        }
+      ]
+    },
+    {
+      "name": "border-beam-button",
+      "title": "Border beam button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "A short light beam rides around the button's rounded border with CSS offset-path, with a conic fallback and a static gradient for reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/border-beam-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/border-beam-button.tsx",
+          "local_path": "templates/goodui/buttons/border-beam-button/border-beam-button.tsx",
+          "lines": 122,
+          "bytes": 4938
+        }
+      ]
+    },
+    {
+      "name": "magnetic-button",
+      "title": "Magnetic button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Button and its label are pulled toward a nearby cursor with a smooth falloff and spring back on leave; off for touch and reduced motion.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/magnetic-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/magnetic-button.tsx",
+          "local_path": "templates/goodui/buttons/magnetic-button/magnetic-button.tsx",
+          "lines": 144,
+          "bytes": 5266
+        }
+      ]
+    },
+    {
+      "name": "stateful-button",
+      "title": "Stateful button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Async button that morphs idle to spinner to drawn check or shaking error, with a spring width change between labels.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/stateful-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/stateful-button.tsx",
+          "local_path": "templates/goodui/buttons/stateful-button/stateful-button.tsx",
+          "lines": 291,
+          "bytes": 10401
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "title": "Copy button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Copy-to-clipboard button whose icon blurs from copy into a drawn check with a popping Copied! tooltip, plus a fallback when the Clipboard API is blocked.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/copy-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/copy-button.tsx",
+          "local_path": "templates/goodui/buttons/copy-button/copy-button.tsx",
+          "lines": 287,
+          "bytes": 11174
+        }
+      ]
+    },
+    {
+      "name": "hold-to-confirm",
+      "title": "Hold to confirm",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Press-and-hold button for destructive actions: a fill sweeps across with the label flipping color at its edge, early release rewinds it, works with Space and Enter.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/hold-to-confirm.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/hold-to-confirm.tsx",
+          "local_path": "templates/goodui/buttons/hold-to-confirm/hold-to-confirm.tsx",
+          "lines": 268,
+          "bytes": 9952
+        }
+      ]
+    },
+    {
+      "name": "liquid-glass-button",
+      "title": "Liquid glass button",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Frosted glass button and pill toolbar with backdrop blur, rim light and a specular highlight that follows the pointer, falling back to a solid tint without backdrop-filter.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/liquid-glass-button.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/liquid-glass-button.tsx",
+          "local_path": "templates/goodui/buttons/liquid-glass-button/liquid-glass-button.tsx",
+          "lines": 232,
+          "bytes": 9610
+        }
+      ]
+    },
+    {
+      "name": "theme-toggle",
+      "title": "Theme toggle",
+      "category": "buttons",
+      "type": "registry:component",
+      "description": "Light/dark toggle that reveals the new theme as a circle from the click point with the View Transitions API while the sun morphs into a moon.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/theme-toggle.json",
+      "files": [
+        {
+          "original_path": "registry/components/buttons/theme-toggle.tsx",
+          "local_path": "templates/goodui/buttons/theme-toggle/theme-toggle.tsx",
+          "lines": 254,
+          "bytes": 9895
+        }
+      ]
+    },
+    {
+      "name": "text-reveal",
+      "title": "Text reveal",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Reveals a heading word by word or letter by letter with a staggered blur, fade and rise when it scrolls into view or on demand.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/text-reveal.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/text-reveal.tsx",
+          "local_path": "templates/goodui/text/text-reveal/text-reveal.tsx",
+          "lines": 205,
+          "bytes": 9087
+        }
+      ]
+    },
+    {
+      "name": "typewriter",
+      "title": "Typewriter",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Types and deletes a list of phrases with a human rhythm and a caret that only blinks while idle; works as an animated input placeholder.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/typewriter.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/typewriter.tsx",
+          "local_path": "templates/goodui/text/typewriter/typewriter.tsx",
+          "lines": 124,
+          "bytes": 5194
+        }
+      ]
+    },
+    {
+      "name": "word-rotate",
+      "title": "Word rotate",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Swaps words in place with a vertical slide and blur while the box springs to each word's width, so the sentence glides instead of jumping.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/word-rotate.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/word-rotate.tsx",
+          "local_path": "templates/goodui/text/word-rotate/word-rotate.tsx",
+          "lines": 119,
+          "bytes": 4063
+        }
+      ]
+    },
+    {
+      "name": "shiny-text",
+      "title": "Shiny text",
+      "category": "text",
+      "type": "registry:component",
+      "description": "A soft light band sweeps across muted text on a loop or on hover, made for badges like \"New: AI receptionist\". Pure CSS.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/shiny-text.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/shiny-text.tsx",
+          "local_path": "templates/goodui/text/shiny-text/shiny-text.tsx",
+          "lines": 94,
+          "bytes": 4062
+        }
+      ]
+    },
+    {
+      "name": "gradient-text",
+      "title": "Gradient text",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Text filled with a slowly drifting multi-stop gradient, with Aurora, Sunset, Ocean and theme palettes tuned separately for light and dark.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/gradient-text.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/gradient-text.tsx",
+          "local_path": "templates/goodui/text/gradient-text/gradient-text.tsx",
+          "lines": 81,
+          "bytes": 6160
+        }
+      ]
+    },
+    {
+      "name": "scramble-text",
+      "title": "Scramble text",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Text scrambles through random glyphs and resolves left to right on mount, on view, on hover or on demand; renders the real text on the server.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/scramble-text.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/scramble-text.tsx",
+          "local_path": "templates/goodui/text/scramble-text/scramble-text.tsx",
+          "lines": 158,
+          "bytes": 5212
+        }
+      ]
+    },
+    {
+      "name": "highlighter",
+      "title": "Highlighter",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Draws a marker highlight, hand-drawn underline, circle, box or strike-through behind a phrase when it scrolls into view, in six colors.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/highlighter.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/highlighter.tsx",
+          "local_path": "templates/goodui/text/highlighter/highlighter.tsx",
+          "lines": 160,
+          "bytes": 7049
+        }
+      ]
+    },
+    {
+      "name": "text-morph",
+      "title": "Text morph",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Morphs between strings letter by letter: shared characters spring to their new positions while the rest blur in and out.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/text-morph.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/text-morph.tsx",
+          "local_path": "templates/goodui/text/text-morph/text-morph.tsx",
+          "lines": 54,
+          "bytes": 2101
+        }
+      ]
+    },
+    {
+      "name": "scroll-velocity",
+      "title": "Scroll velocity",
+      "category": "text",
+      "type": "registry:component",
+      "description": "Rows of large text drift in opposite directions and speed up or flip with your scroll speed and direction.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/scroll-velocity.json",
+      "files": [
+        {
+          "original_path": "registry/components/text/scroll-velocity.tsx",
+          "local_path": "templates/goodui/text/scroll-velocity/scroll-velocity.tsx",
+          "lines": 151,
+          "bytes": 5316
+        }
+      ]
+    },
+    {
+      "name": "spotlight-card",
+      "title": "Spotlight card",
+      "category": "cards",
+      "type": "registry:component",
+      "description": "A soft spotlight and a lit border follow the pointer across a card; in a group, neighboring cards' borders light up too.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/spotlight-card.json",
+      "files": [
+        {
+          "original_path": "registry/components/cards/spotlight-card.tsx",
+          "local_path": "templates/goodui/cards/spotlight-card/spotlight-card.tsx",
+          "lines": 138,
+          "bytes": 5252
+        }
+      ]
+    },
+    {
+      "name": "tilt-card",
+      "title": "Tilt card",
+      "category": "cards",
+      "type": "registry:component",
+      "description": "Tilts toward the pointer on a spring with a moving glare, a shifting shadow and layers that float at their own depth.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tilt-card.json",
+      "files": [
+        {
+          "original_path": "registry/components/cards/tilt-card.tsx",
+          "local_path": "templates/goodui/cards/tilt-card/tilt-card.tsx",
+          "lines": 191,
+          "bytes": 7905
+        }
+      ]
+    },
+    {
+      "name": "border-beam",
+      "title": "Border beam",
+      "category": "cards",
+      "type": "registry:component",
+      "description": "Wraps any card or input and runs a light beam around its border, matching the element's corner radius automatically.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/border-beam.json",
+      "files": [
+        {
+          "original_path": "registry/components/cards/border-beam.tsx",
+          "local_path": "templates/goodui/cards/border-beam/border-beam.tsx",
+          "lines": 121,
+          "bytes": 4442
+        }
+      ]
+    },
+    {
+      "name": "glow-border",
+      "title": "Glow border",
+      "category": "cards",
+      "type": "registry:component",
+      "description": "A slowly rotating gradient arc travels around the card border with a soft glow that intensifies on hover and focus.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/glow-border.json",
+      "files": [
+        {
+          "original_path": "registry/components/cards/glow-border.tsx",
+          "local_path": "templates/goodui/cards/glow-border/glow-border.tsx",
+          "lines": 108,
+          "bytes": 4083
+        }
+      ]
+    },
+    {
+      "name": "progressive-blur",
+      "title": "Progressive blur",
+      "category": "cards",
+      "type": "registry:component",
+      "description": "Blur that grows stronger toward the edge of a scroll container, built from stacked backdrop-filter layers; shown on a scrolling bookings list.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/progressive-blur.json",
+      "files": [
+        {
+          "original_path": "registry/components/cards/progressive-blur.tsx",
+          "local_path": "templates/goodui/cards/progressive-blur/progressive-blur.tsx",
+          "lines": 73,
+          "bytes": 2643
+        }
+      ]
+    },
+    {
+      "name": "expandable-card",
+      "title": "Expandable card",
+      "category": "cards",
+      "type": "registry:component",
+      "description": "A card expands in place on a spring to reveal details, such as a staff profile with bookable slots or a plan's full feature list.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/expandable-card.json",
+      "files": [
+        {
+          "original_path": "registry/components/cards/expandable-card.tsx",
+          "local_path": "templates/goodui/cards/expandable-card/expandable-card.tsx",
+          "lines": 162,
+          "bytes": 5936
+        }
+      ]
+    },
+    {
+      "name": "dot-grid",
+      "title": "Dot grid",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "description": "A dot or line grid background with a radial, top or edge fade and an optional glow that follows the pointer. Pure CSS.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/dot-grid.json",
+      "files": [
+        {
+          "original_path": "registry/components/backgrounds/dot-grid.tsx",
+          "local_path": "templates/goodui/backgrounds/dot-grid/dot-grid.tsx",
+          "lines": 128,
+          "bytes": 4784
+        }
+      ]
+    },
+    {
+      "name": "flickering-grid",
+      "title": "Flickering grid",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "description": "A canvas grid of small squares that flicker in opacity, follows the theme color, is sharp on retina and pauses off-screen.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/flickering-grid.json",
+      "files": [
+        {
+          "original_path": "registry/components/backgrounds/flickering-grid.tsx",
+          "local_path": "templates/goodui/backgrounds/flickering-grid/flickering-grid.tsx",
+          "lines": 172,
+          "bytes": 5404
+        }
+      ]
+    },
+    {
+      "name": "aurora",
+      "title": "Aurora",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "description": "Soft colored light drifts slowly behind a section, with light and dark palettes and only transform animations for low CPU.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/aurora.json",
+      "files": [
+        {
+          "original_path": "registry/components/backgrounds/aurora.tsx",
+          "local_path": "templates/goodui/backgrounds/aurora/aurora.tsx",
+          "lines": 109,
+          "bytes": 6055
+        }
+      ]
+    },
+    {
+      "name": "particles",
+      "title": "Particles",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "description": "Canvas particles drift gently, link up with fine lines and move out of the pointer's way; density scales with the area.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/particles.json",
+      "files": [
+        {
+          "original_path": "registry/components/backgrounds/particles.tsx",
+          "local_path": "templates/goodui/backgrounds/particles/particles.tsx",
+          "lines": 398,
+          "bytes": 14576
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "title": "Marquee",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "description": "An endless horizontal or vertical marquee with faded edges that pauses on hover, shown with customer logos, testimonials and a live bookings ticker.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/marquee.json",
+      "files": [
+        {
+          "original_path": "registry/components/backgrounds/marquee.tsx",
+          "local_path": "templates/goodui/backgrounds/marquee/marquee.tsx",
+          "lines": 124,
+          "bytes": 5490
+        }
+      ]
+    },
+    {
+      "name": "counter-up",
+      "title": "Counter up",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "Counts from 0 (or from) to the value with an ease-out curve when it scrolls into view, with locale formatting, once or replay-on-return, and counts from the current value when it changes.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/counter-up.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/counter-up.tsx",
+          "local_path": "templates/goodui/numbers/counter-up/counter-up.tsx",
+          "lines": 123,
+          "bytes": 4300
+        }
+      ]
+    },
+    {
+      "name": "meter",
+      "title": "Usage meter",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "Labeled usage meter like \"SMS credits 7,420 / 10,000\" whose fill springs to the new value and shifts to amber and rose near the limit, with optional per-seat segments.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/meter.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/meter.tsx",
+          "local_path": "templates/goodui/numbers/meter/meter.tsx",
+          "lines": 137,
+          "bytes": 5544
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "Linear progress in four variants: spring-filled determinate, indeterminate double sweep, moving stripes and segmented steps.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/progress.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/progress.tsx",
+          "local_path": "templates/goodui/numbers/progress/progress.tsx",
+          "lines": 142,
+          "bytes": 6861
+        }
+      ]
+    },
+    {
+      "name": "circular-progress",
+      "title": "Circular progress",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "SVG ring or 270° gauge whose arc springs to the value via stroke-dashoffset, with a rolling percentage or custom label in the center.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/circular-progress.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/circular-progress.tsx",
+          "local_path": "templates/goodui/numbers/circular-progress/circular-progress.tsx",
+          "lines": 125,
+          "bytes": 4456
+        }
+      ]
+    },
+    {
+      "name": "sparkline-draw",
+      "title": "Sparkline draw",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "Smooth monotone sparkline that draws itself in, fades in a gradient area, shows point values on hover or arrow keys, and redraws when the data changes.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/sparkline-draw.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/sparkline-draw.tsx",
+          "local_path": "templates/goodui/numbers/sparkline-draw/sparkline-draw.tsx",
+          "lines": 289,
+          "bytes": 11292
+        }
+      ]
+    },
+    {
+      "name": "delta-badge",
+      "title": "Delta badge",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "\"+12.4%\" change badge whose digits roll, arrow rotates to the new direction and background pulses green or red, with an inverted mode for metrics where down is good.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/delta-badge.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/delta-badge.tsx",
+          "local_path": "templates/goodui/numbers/delta-badge/delta-badge.tsx",
+          "lines": 145,
+          "bytes": 5775
+        }
+      ]
+    },
+    {
+      "name": "cell-flash",
+      "title": "Cell flash",
+      "category": "numbers",
+      "type": "registry:component",
+      "description": "Wraps a table value and briefly flashes it green when it rises, red when it falls, with a fading ▲/▼, like a trading terminal.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/cell-flash.json",
+      "files": [
+        {
+          "original_path": "registry/components/numbers/cell-flash.tsx",
+          "local_path": "templates/goodui/numbers/cell-flash/cell-flash.tsx",
+          "lines": 78,
+          "bytes": 3745
+        }
+      ]
+    },
+    {
+      "name": "toast-stack",
+      "title": "Toast stack",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "Self-contained toaster with toast() API: cards stack and expand on hover, swipe away with a drag, morph from loading to success or error for promises, and pause their timers on hover.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/toast-stack.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/toast-stack.tsx",
+          "local_path": "templates/goodui/feedback/toast-stack/toast-stack.tsx",
+          "lines": 586,
+          "bytes": 23138
+        }
+      ]
+    },
+    {
+      "name": "notification-badge",
+      "title": "Notification badge",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "Count badge for icon buttons that springs in, bumps when the count rises, rolls its digits, caps at 99+ and offers a pulse ring or dot variant.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/notification-badge.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/notification-badge.tsx",
+          "local_path": "templates/goodui/feedback/notification-badge/notification-badge.tsx",
+          "lines": 138,
+          "bytes": 5641
+        }
+      ]
+    },
+    {
+      "name": "skeleton-auto",
+      "title": "Skeleton auto",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "SkeletonSwap traces its children's text lines, controls and avatars (<img> or data-skeleton elements) into shimmer blocks with one shared sweep, then cross-fades to the real content; includes line, circle and block primitives.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/skeleton-auto.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/skeleton-auto.tsx",
+          "local_path": "templates/goodui/feedback/skeleton-auto/skeleton-auto.tsx",
+          "lines": 227,
+          "bytes": 9198
+        }
+      ]
+    },
+    {
+      "name": "spinners",
+      "title": "Spinners",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "Six CSS-only loaders (ring, dots, bars, pulse, orbit, typing) sized in px or presets and painted with currentColor.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/spinners.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/spinners.tsx",
+          "local_path": "templates/goodui/feedback/spinners/spinners.tsx",
+          "lines": 136,
+          "bytes": 6505
+        }
+      ]
+    },
+    {
+      "name": "multi-step-loader",
+      "title": "Multi-step loader",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "Card or overlay that ticks through steps like \"Reserving slot…\" with spinners, drawn checkmarks and a filling rail, ending on an animated success state.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/success-check.json"
+      ],
+      "raw_url": "https://goodui.dev/r/multi-step-loader.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/multi-step-loader.tsx",
+          "local_path": "templates/goodui/feedback/multi-step-loader/multi-step-loader.tsx",
+          "lines": 461,
+          "bytes": 19991
+        }
+      ]
+    },
+    {
+      "name": "confetti",
+      "title": "Confetti",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "Hand-written canvas 2D confetti with flipping paper physics, fired over the page from an element or inside a contained canvas via ref, and a no-op under reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/confetti.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/confetti.tsx",
+          "local_path": "templates/goodui/feedback/confetti/confetti.tsx",
+          "lines": 361,
+          "bytes": 11867
+        }
+      ]
+    },
+    {
+      "name": "success-check",
+      "title": "Success check",
+      "category": "feedback",
+      "type": "registry:component",
+      "description": "Check or X in a circle that draws its stroke, fills, then pops with a ray-and-ring burst, for payment and booking result screens.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/success-check.json",
+      "files": [
+        {
+          "original_path": "registry/components/feedback/success-check.tsx",
+          "local_path": "templates/goodui/feedback/success-check/success-check.tsx",
+          "lines": 209,
+          "bytes": 9357
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "category": "core",
+      "type": "registry:component",
+      "description": "One button with ten variants, six tones, seven shadows, ten animations, three shapes and five sizes that all combine, plus loading and icon slots.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/button.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/button.tsx",
+          "local_path": "templates/goodui/core/button/button.tsx",
+          "lines": 248,
+          "bytes": 15159
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "category": "core",
+      "type": "registry:component",
+      "description": "One badge, every layer: solid, soft, outline, status dot, gradient, glass and neo in six tones, with pulse, shine, bounce-in and count-pop animations, icons, removable chips and clickable filters.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/badge.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/badge.tsx",
+          "local_path": "templates/goodui/core/badge/badge.tsx",
+          "lines": 275,
+          "bytes": 12883
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Eight surfaces (elevated, glass, gradient border, neo, inset…) with shadow, padding, radius and accent stripes, plus hover layers (lift, 3D tilt, pointer spotlight, glow, scale) and a looping border beam.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/card.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/card.tsx",
+          "local_path": "templates/goodui/core/card/card.tsx",
+          "lines": 286,
+          "bytes": 15371
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Six field styles with top, floating, inline or hidden labels, focus ring, glow, underline-grow or lift, error shake with sliding messages, icon and text addons, clear button, counter and auto-growing textarea.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/input.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/input.tsx",
+          "local_path": "templates/goodui/core/input/input.tsx",
+          "lines": 464,
+          "bytes": 23605
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Six sizes and four shapes including squircle, status dots with pulse, solid, gradient and rotating story rings, image fade-in with name-based gradient initials, and groups that cap with +N and fan out on hover.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/avatar.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/avatar.tsx",
+          "local_path": "templates/goodui/core/avatar/avatar.tsx",
+          "lines": 341,
+          "bytes": 17804
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Soft, solid, outline, left-accent, glass, neo and full-width banner alerts with tone-picked icons, actions, slide, fade, shake or pop entrances, smooth collapse on dismiss and a pausable auto-dismiss countdown.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/alert.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/alert.tsx",
+          "local_path": "templates/goodui/core/alert/alert.tsx",
+          "lines": 299,
+          "bytes": 13788
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Six variants (underline, pill, segmented, enclosed folder tabs, soft, vertical line), a sliding, fading or static indicator, fade or directional slide panels, tones, sizes, shapes, shadows and orientation, with icons, count badges, arrow keys and a one-line items API.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tabs.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/tabs.tsx",
+          "local_path": "templates/goodui/core/tabs/tabs.tsx",
+          "lines": 495,
+          "bytes": 22197
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "category": "core",
+      "type": "registry:component",
+      "description": "iOS, Material 3, square, neo-brutalist, icon thumb and ON/OFF label variants with none, smooth, spring and bounce motion, six tones, three sizes, track shadows, sun/moon or check/x glyphs, label and description on either side, and a loading state.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/switch.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/switch.tsx",
+          "local_path": "templates/goodui/core/switch/switch.tsx",
+          "lines": 393,
+          "bytes": 17821
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox & Radio",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Checkbox and RadioGroup on real inputs with default, filled, outline, circle, neo and whole-card variants, draw, pop and bounce animations, tones, sizes, shadows, indeterminate, invalid and descriptions.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/checkbox.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/checkbox.tsx",
+          "local_path": "templates/goodui/core/checkbox/checkbox.tsx",
+          "lines": 463,
+          "bytes": 19966
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Line, dashed, dotted, gradient, double, glow and ornament separators with diamond, dot or icon marks, labels at the center, start or end, tones, thickness, vertical orientation, a draw-in-on-view and a shimmer animation.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/separator.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/separator.tsx",
+          "local_path": "templates/goodui/core/separator/separator.tsx",
+          "lines": 242,
+          "bytes": 13046
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Slash, chevron, dot, pill, arrow-step and underline trails with four current-page styles, tones, sizes, a staggered fade or sliding hover underline, and long trails that collapse into a keyboard-friendly menu.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/breadcrumb.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/breadcrumb.tsx",
+          "local_path": "templates/goodui/core/breadcrumb/breadcrumb.tsx",
+          "lines": 361,
+          "bytes": 17524
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Outline, soft, ghost, pill, neo, minimal and carousel-dot pagination with a sliding active marker or press feedback, tones, sizes and shapes, plus first/last, range info, page-size select and jump-to-page.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/pagination.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/pagination.tsx",
+          "local_path": "templates/goodui/core/pagination/pagination.tsx",
+          "lines": 482,
+          "bytes": 21616
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "title": "Heading",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Layered heading: semantic level and size decoupled, sans/serif/mono/display font slots you map to your own fonts, eight ink treatments (gradient, muted tail, outline, marker highlight, hand-drawn squiggle, shimmer…), serif-italic emphasis via _words_, and on-view word, letter and mask reveals.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/heading.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/heading.tsx",
+          "local_path": "templates/goodui/core/heading/heading.tsx",
+          "lines": 434,
+          "bytes": 21748
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "title": "Text",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Every body-copy role in one primitive: paragraph, lead, small, caption, overline, eyebrow pill, quote with attribution and inline code, with tones, readable measures, truncate or line clamp, and on-view entrances.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/text.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/text.tsx",
+          "local_path": "templates/goodui/core/text/text.tsx",
+          "lines": 225,
+          "bytes": 12656
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "title": "Link",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Inline link with seven underline styles (static, slide-in, grow from center, marker sweep, nudging arrow), line decorations, tones, leading icons and automatic external-link handling. Works with next/link via as.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/link.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/link.tsx",
+          "local_path": "templates/goodui/core/link/link.tsx",
+          "lines": 196,
+          "bytes": 9873
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Keyboard keys and combos in flat, raised 3D, outline, glass, neo and solid styles. Keycaps depress when the real keys are pressed, Mod maps to ⌘ or Ctrl, and onTrigger turns any combo or G-then-T sequence into a working hotkey.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/kbd.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/kbd.tsx",
+          "local_path": "templates/goodui/core/kbd/kbd.tsx",
+          "lines": 357,
+          "bytes": 16657
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "title": "Stat Card",
+      "category": "core",
+      "type": "registry:component",
+      "description": "KPI card with seven variants, tones, shadows and sizes: count-up or rolling NumberFlow values, auto-toned delta badges (invertible for no-show rates), line, area or bar sparklines that draw in, icons, footers and a skeleton state.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/stat-card.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/stat-card.tsx",
+          "local_path": "templates/goodui/core/stat-card/stat-card.tsx",
+          "lines": 467,
+          "bytes": 24607
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Fully custom single or multi select: outline, filled, ghost, underline, pill and neo triggers; icons, avatars, descriptions and groups; search with match highlight, chips, clear, type-ahead and full keyboard; animated menu that flips up when space runs out.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/select.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/select.tsx",
+          "local_path": "templates/goodui/core/select/select.tsx",
+          "lines": 735,
+          "bytes": 34909
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog & Sheet",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Modal dialog, alert dialog and sheet in one: default, soft, glass and neo surfaces in six tones; center, top, start/end/left/right and draggable bottom sheets, fullscreen, and a phone override to fullscreen or sheet; scale, slide, blur, fade or morph-from-trigger entrances; async confirm with spinner and inline error, type-to-confirm, nested dialogs that step back, focus trap and restore, and scroll lock without layout shift.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/dialog.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/dialog.tsx",
+          "local_path": "templates/goodui/core/dialog/dialog.tsx",
+          "lines": 875,
+          "bytes": 40931
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Dark, light, tone, glass and neo tooltips with sizes, shapes, shadows and an optional arrow; twelve placements that flip and shift at the screen edge, scale, fade, slide or spring entrances, rich title + keyboard-shortcut content, delay groups that open instantly after the first, follow-cursor for charts and touch long-press.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/kbd.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tooltip.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/tooltip.tsx",
+          "local_path": "templates/goodui/core/tooltip/tooltip.tsx",
+          "lines": 601,
+          "bytes": 25735
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Anchored popover with an arrow in default, soft, glass, neo and inverted surfaces, tones, sizes, radii and shadows; side and align that flip and shift to stay on screen, match-trigger-width, scale, fade, slide or spring entrances, header, close button and footer slots, and modal (focus trapped) or non-modal (Tab flows back to the page) behavior, shown as a date filter, share menu, switcher and inline note form.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/popover.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/popover.tsx",
+          "local_path": "templates/goodui/core/popover/popover.tsx",
+          "lines": 581,
+          "bytes": 27213
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Menu button and right-click context menu with default, glass, neo, inverted and flat surfaces, soft, solid, bar or outline highlights, tones, sizes, shapes and shadows; icons, descriptions, badges and live keyboard shortcuts, checkbox items, radio groups, labelled groups, destructive items and nested sub-menus with hover intent and a safe triangle; scale, fade, slide or stagger entrances, type-ahead and full APG keyboard, portaled and flipped to stay on screen.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/dropdown-menu.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/dropdown-menu.tsx",
+          "local_path": "templates/goodui/core/dropdown-menu/dropdown-menu.tsx",
+          "lines": 1261,
+          "bytes": 55590
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Autocomplete combobox (ARIA 1.2) with outline, filled, ghost, underline, pill and neo fields, tones, sizes and shadows; local ranked matching or debounced async search with abort, cache, loading, empty and error-with-retry states, every matched word highlighted, groups, avatars, single or multi-select chips, an “Add …” create row and automatic virtualization for 10,000+ rows, in a portaled list that flips above the field.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/combobox.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/combobox.tsx",
+          "local_path": "templates/goodui/core/combobox/combobox.tsx",
+          "lines": 1134,
+          "bytes": 48674
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "title": "Date Picker",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Date picker and calendar with no date library: single, range (two months side by side) and multiple modes, presets, time inputs, min/max, disabled weekdays, booked days, ISO week numbers, month/year quick switch, typed dates parsed in the locale's order via Intl with the locale's first weekday, popover or inline, six field variants, tones, solid/soft/ring selection, day shapes, sizes and slide, fade or scale month animations with APG grid keyboard.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/date-picker.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/date-picker.tsx",
+          "local_path": "templates/goodui/core/date-picker/date-picker.tsx",
+          "lines": 1488,
+          "bytes": 66208
+        }
+      ]
+    },
+    {
+      "name": "multi-step-form",
+      "title": "Multi-step Form",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Wizard with numbered, progress-bar or vertical step headers, sync and async per-step validation that blocks Continue and focuses the first invalid field, optional steps with Skip, an auto review step with Edit links, async submit with loading, error retry and success, draft persistence, direction-aware slide or fade transitions and screen-reader step announcements, in card, outline, plain, glass and neo shells with tones and sizes.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/button.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/multi-step-form.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/multi-step-form.tsx",
+          "local_path": "templates/goodui/core/multi-step-form/multi-step-form.tsx",
+          "lines": 850,
+          "bytes": 37204
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "title": "Number Input",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Numeric spinbutton with split, end or stacked steppers, press-and-hold acceleration, min/max/step and large steps, Intl currency, percent and unit formatting over a raw value, arrow, PageUp/PageDown, Home/End and focused-wheel stepping, slide or pop step feedback and an invalid state, in the six input variants with tones, sizes, shapes and shadows.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/number-input.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/number-input.tsx",
+          "local_path": "templates/goodui/core/number-input/number-input.tsx",
+          "lines": 547,
+          "bytes": 25785
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "title": "Rating",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Star, heart, circle, bolt, diamond or custom-icon rating in solid, soft, outline, glow and neo styles: half steps, hover preview, clear, animated clip fill with pop or wave, value, count and word labels, read-only exact averages, RTL fill and arrow flipping, with radiogroup or slider semantics.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/rating.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/rating.tsx",
+          "local_path": "templates/goodui/core/rating/rating.tsx",
+          "lines": 387,
+          "bytes": 17577
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Single (radiogroup) or multiple (aria-pressed) toggle buttons in outline, soft, solid, segmented, neo and glass styles with a sliding, fading or popping active marker, text or icon items, tones, sizes, shapes, shadows, attached or spaced, vertical, full width, disabled items and roving arrow-key focus that flips in RTL.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json"
+      ],
+      "raw_url": "https://goodui.dev/r/toggle-group.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/toggle-group.tsx",
+          "local_path": "templates/goodui/core/toggle-group/toggle-group.tsx",
+          "lines": 412,
+          "bytes": 18159
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Lined, striped, bordered, card-row and minimal tables with tones, three densities, shadows and corner shapes, tint, accent-bar or lift hover, row state tones and selection, sortable headers with aria-sort, sticky header, caption, footer totals, skeleton and empty states, fade or stagger entrances, and rows that stack into labelled cards on small containers.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/table.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/table.tsx",
+          "local_path": "templates/goodui/core/table/table.tsx",
+          "lines": 632,
+          "bytes": 33173
+        }
+      ]
+    },
+    {
+      "name": "data-grid",
+      "title": "Data Grid",
+      "category": "core",
+      "type": "registry:component",
+      "description": "Virtualized data grid for 100k+ rows with typed columns (number, currency, percent, date, boolean, badge, avatar, actions) formatted by Intl, multi-sort, per-column filters and global search, resize, drag reorder, pin, hide, Shift-range selection with a bulk action bar, inline editing with sync or async validation, spreadsheet keyboard navigation, expandable rows, footer aggregates, CSV and real .xlsx export, loading, empty and error states, server mode with pagination, RTL and tones, densities and variants.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/avatar.json",
+        "https://goodui.dev/r/badge.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/pagination.json"
+      ],
+      "raw_url": "https://goodui.dev/r/data-grid.json",
+      "files": [
+        {
+          "original_path": "registry/components/core/data-grid.tsx",
+          "local_path": "templates/goodui/core/data-grid/data-grid.tsx",
+          "lines": 3154,
+          "bytes": 144569
+        }
+      ]
+    },
+    {
+      "name": "chat-message",
+      "title": "Chat message",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "User, assistant and system messages with avatars, grouping, a hover actions row (copy, good/bad, retry, edit), markdown-ish rendering of lists, quotes and fenced code into CodeBlocks, and a blinking caret while the answer streams.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/code-block.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/chat-message.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/chat-message.tsx",
+          "local_path": "templates/goodui/ai/chat-message/chat-message.tsx",
+          "lines": 503,
+          "bytes": 19824
+        }
+      ]
+    },
+    {
+      "name": "streaming-text",
+      "title": "Streaming text",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Reveals an answer token by token at a steady speed with a cursor that blinks while waiting for more, stop and resume, word or character mode, and smooth catch-up when uneven SSE chunks arrive; reduced motion shows sentence chunks.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/streaming-text.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/streaming-text.tsx",
+          "local_path": "templates/goodui/ai/streaming-text/streaming-text.tsx",
+          "lines": 234,
+          "bytes": 9145
+        }
+      ]
+    },
+    {
+      "name": "tool-call",
+      "title": "Tool call",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Collapsible card for an agent's tool call: name and arguments in the header, a status that morphs from spinner to drawn check or error, a live duration while running, and argument and output panes inside.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/tool-call.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/tool-call.tsx",
+          "local_path": "templates/goodui/ai/tool-call/tool-call.tsx",
+          "lines": 262,
+          "bytes": 12495
+        }
+      ]
+    },
+    {
+      "name": "reasoning-block",
+      "title": "Reasoning block",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "\"Thinking 8.7s\" disclosure with a live tenths timer, a shimmering label while the model reasons, the current step previewed under the header and the full step list plus notes folded inside.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/reasoning-block.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/reasoning-block.tsx",
+          "local_path": "templates/goodui/ai/reasoning-block/reasoning-block.tsx",
+          "lines": 171,
+          "bytes": 8000
+        }
+      ]
+    },
+    {
+      "name": "model-picker",
+      "title": "Model picker",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Model dropdown grouped by provider with icon slots, speed and quality meters that grow in, context window and price per million tokens, a gliding highlight and full keyboard support with type-ahead.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/model-picker.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/model-picker.tsx",
+          "local_path": "templates/goodui/ai/model-picker/model-picker.tsx",
+          "lines": 379,
+          "bytes": 16214
+        }
+      ]
+    },
+    {
+      "name": "chat-composer",
+      "title": "Chat composer",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Prompt input with an auto-growing textarea, attachment chips from picker, paste or drop, a slash-command menu, model and mode selectors, a token ring against the context limit, Enter or Cmd+Enter to send and a Stop button while streaming.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/model-picker.json",
+        "https://goodui.dev/r/sounds.json"
+      ],
+      "raw_url": "https://goodui.dev/r/chat-composer.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/chat-composer.tsx",
+          "local_path": "templates/goodui/ai/chat-composer/chat-composer.tsx",
+          "lines": 575,
+          "bytes": 25118
+        }
+      ]
+    },
+    {
+      "name": "citations",
+      "title": "Citations",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Inline numbered source chips that open a spring hover card with title, domain, snippet and date, a CitedText helper that turns [1] markers into chips, and a sources list whose row lights up when its chip is hovered.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/citations.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/citations.tsx",
+          "local_path": "templates/goodui/ai/citations/citations.tsx",
+          "lines": 285,
+          "bytes": 12079
+        }
+      ]
+    },
+    {
+      "name": "agent-plan",
+      "title": "Agent plan",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Live checklist of an agent's plan: pending, active with a pulsing halo, drawn check, error and skipped states, nested substeps that fold away when done, and a spring progress bar with a step count.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/agent-plan.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/agent-plan.tsx",
+          "local_path": "templates/goodui/ai/agent-plan/agent-plan.tsx",
+          "lines": 229,
+          "bytes": 10978
+        }
+      ]
+    },
+    {
+      "name": "token-meter",
+      "title": "Token meter",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Context window usage bar whose segments (system, history, tools, response) spring to new widths, with rolling numbers, a legend, and amber then rose tones near and over the limit.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/token-meter.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/token-meter.tsx",
+          "local_path": "templates/goodui/ai/token-meter/token-meter.tsx",
+          "lines": 142,
+          "bytes": 6115
+        }
+      ]
+    },
+    {
+      "name": "voice-orb",
+      "title": "Voice orb",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Breathing voice-assistant orb that swells with a level prop through a spring: idle breathing, listening rings, speaking light that churns faster, and a spinning thinking arc, all in CSS on theme colors.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/voice-orb.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/voice-orb.tsx",
+          "local_path": "templates/goodui/ai/voice-orb/voice-orb.tsx",
+          "lines": 112,
+          "bytes": 6926
+        }
+      ]
+    },
+    {
+      "name": "diff-view",
+      "title": "Diff view",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Unified or split diff computed from before and after text, with old/new gutters, syntax colors, changed-character highlights inside replaced lines, and Accept or Reject per hunk that collapses the discarded lines.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/code-block.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/diff-view.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/diff-view.tsx",
+          "local_path": "templates/goodui/ai/diff-view/diff-view.tsx",
+          "lines": 473,
+          "bytes": 21582
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "title": "Code block",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Syntax-colored code from a built-in tokenizer or your own tokens, with theme-derived colors, line numbers, highlighted lines, a file tab, copy with a drawn check, a wrap toggle and a staggered line entrance.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/code-block.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/code-block.tsx",
+          "local_path": "templates/goodui/ai/code-block/code-block.tsx",
+          "lines": 375,
+          "bytes": 19454
+        }
+      ]
+    },
+    {
+      "name": "suggestion-chips",
+      "title": "Suggestion chips",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Starter prompts that stagger in on springs, lift on hover and fill the composer on click, as pills, cards with hints or a scrolling row with faded edges; swapping the set replays the entrance.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/suggestion-chips.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/suggestion-chips.tsx",
+          "local_path": "templates/goodui/ai/suggestion-chips/suggestion-chips.tsx",
+          "lines": 114,
+          "bytes": 5482
+        }
+      ]
+    },
+    {
+      "name": "thread-list",
+      "title": "Thread list",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Conversation sidebar with search highlighting, pinned and date groups, a selection that glides between rows, hover actions on desktop and swipe-to-reveal on touch, inline rename, delete and arrow-key navigation.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/thread-list.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/thread-list.tsx",
+          "local_path": "templates/goodui/ai/thread-list/thread-list.tsx",
+          "lines": 453,
+          "bytes": 17425
+        }
+      ]
+    },
+    {
+      "name": "eval-score",
+      "title": "Eval score",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Evaluation score with a rolling number, a pass, borderline or fail badge that pops in against a threshold, a spring-filled bar and a criteria breakdown with per-criterion thresholds, as card, inline row or badge.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/eval-score.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/eval-score.tsx",
+          "local_path": "templates/goodui/ai/eval-score/eval-score.tsx",
+          "lines": 222,
+          "bytes": 10755
+        }
+      ]
+    },
+    {
+      "name": "typing-indicator",
+      "title": "Typing indicator",
+      "category": "ai",
+      "type": "registry:component",
+      "description": "Three dots waving in turn with an \"Aiko is typing\" sentence for one or several names, as a chat bubble, inline or dots only, mounting and leaving on a spring; reduced motion keeps the dots still.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/typing-indicator.json",
+      "files": [
+        {
+          "original_path": "registry/components/ai/typing-indicator.tsx",
+          "local_path": "templates/goodui/ai/typing-indicator/typing-indicator.tsx",
+          "lines": 100,
+          "bytes": 5067
+        }
+      ]
+    },
+    {
+      "name": "area-chart",
+      "title": "Area chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Area chart that draws its line in on view, morphs between 1W / 1M / 1Y ranges, and rolls its headline value as a hairline and tooltip follow the pointer or the arrow keys.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/area-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/area-chart.tsx",
+          "local_path": "templates/goodui/charts/area-chart/area-chart.tsx",
+          "lines": 581,
+          "bytes": 27359
+        }
+      ]
+    },
+    {
+      "name": "line-chart",
+      "title": "Line chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Multi-series lines that draw in staggered, a legend that toggles series while the scale refits, a crosshair that reads every series at once, and a dashed forecast segment behind a divider.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/chart-legend.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/line-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/line-chart.tsx",
+          "local_path": "templates/goodui/charts/line-chart/line-chart.tsx",
+          "lines": 504,
+          "bytes": 20820
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "title": "Bar chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Grouped, stacked or horizontal bars that grow from the baseline on view and morph when data changes, with a gliding hover band, legend toggles, value labels and 2px surface gaps between segments.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/chart-legend.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/bar-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/bar-chart.tsx",
+          "local_path": "templates/goodui/charts/bar-chart/bar-chart.tsx",
+          "lines": 474,
+          "bytes": 21496
+        }
+      ]
+    },
+    {
+      "name": "donut-chart",
+      "title": "Donut chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Donut or pie whose slices sweep in clockwise, re-share the ring when a legend item is toggled, push out on hover and roll the center total to the slice under the pointer.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/chart-legend.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/donut-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/donut-chart.tsx",
+          "local_path": "templates/goodui/charts/donut-chart/donut-chart.tsx",
+          "lines": 292,
+          "bytes": 11847
+        }
+      ]
+    },
+    {
+      "name": "radial-progress",
+      "title": "Radial progress",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Activity-style concentric goal rings that fill from 12 o'clock on view, spring to new values, dim the others when one is pointed at, and roll the center percentage.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/chart-legend.json",
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/radial-progress.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/radial-progress.tsx",
+          "local_path": "templates/goodui/charts/radial-progress/radial-progress.tsx",
+          "lines": 221,
+          "bytes": 9212
+        }
+      ]
+    },
+    {
+      "name": "heatmap",
+      "title": "Heatmap",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Calendar (GitHub-style) or matrix heatmap on one hue with cells that pop in column by column, a tooltip, arrow-key navigation that scrolls the calendar along, and a Less–More scale.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/heatmap.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/heatmap.tsx",
+          "local_path": "templates/goodui/charts/heatmap/heatmap.tsx",
+          "lines": 390,
+          "bytes": 16596
+        }
+      ]
+    },
+    {
+      "name": "funnel-chart",
+      "title": "Funnel chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Funnel whose stage bars grow open one after another on an ordinal ramp, with drop-off chips between stages, conversion from the first stage beside each value, and arrow-key rows.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/funnel-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/funnel-chart.tsx",
+          "local_path": "templates/goodui/charts/funnel-chart/funnel-chart.tsx",
+          "lines": 240,
+          "bytes": 9952
+        }
+      ]
+    },
+    {
+      "name": "gauge",
+      "title": "Gauge",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Semi-circular gauge with Core-tone bands whose needle springs to the value with a small overshoot (or an arc that fills), a rolling readout and a band label pill, exposed as a meter.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json"
+      ],
+      "raw_url": "https://goodui.dev/r/gauge.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/gauge.tsx",
+          "local_path": "templates/goodui/charts/gauge/gauge.tsx",
+          "lines": 234,
+          "bytes": 9742
+        }
+      ]
+    },
+    {
+      "name": "bump-chart",
+      "title": "Bump chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Rank-over-time lines that draw in with popping dots and names at the line ends; hovering or arrowing through periods and neighbours highlights one item and reads its change.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/bump-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/bump-chart.tsx",
+          "local_path": "templates/goodui/charts/bump-chart/bump-chart.tsx",
+          "lines": 344,
+          "bytes": 14096
+        }
+      ]
+    },
+    {
+      "name": "treemap",
+      "title": "Treemap",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Squarified treemap whose tinted tiles fade in largest first and spring to a new layout when values change, with labels only where they fit, a tooltip and arrow-key tiles.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/treemap.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/treemap.tsx",
+          "local_path": "templates/goodui/charts/treemap/treemap.tsx",
+          "lines": 338,
+          "bytes": 12882
+        }
+      ]
+    },
+    {
+      "name": "timeline-chart",
+      "title": "Timeline chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Mini Gantt whose bars grow from their start date on view, with progress fills, milestones, group headers, day / week / month ticks, a today marker and arrow-key rows.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/timeline-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/timeline-chart.tsx",
+          "local_path": "templates/goodui/charts/timeline-chart/timeline-chart.tsx",
+          "lines": 363,
+          "bytes": 16421
+        }
+      ]
+    },
+    {
+      "name": "waterfall-chart",
+      "title": "Waterfall chart",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Running totals as floating bars that step in one after another in success and danger tones, with neutral total bars, connectors, signed value labels and a tooltip with the running total.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/waterfall-chart.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/waterfall-chart.tsx",
+          "local_path": "templates/goodui/charts/waterfall-chart/waterfall-chart.tsx",
+          "lines": 392,
+          "bytes": 16309
+        }
+      ]
+    },
+    {
+      "name": "kpi-trend",
+      "title": "KPI trend",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "KPI tile family: the number rolls in on view and on every change (NumberFlow), the delta badge pops and pulses, the sparkline draws itself (SparklineDraw), and a group lines tiles up with hairline dividers.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json",
+        "https://goodui.dev/r/number-flow.json",
+        "https://goodui.dev/r/sparkline-draw.json"
+      ],
+      "raw_url": "https://goodui.dev/r/kpi-trend.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/kpi-trend.tsx",
+          "local_path": "templates/goodui/charts/kpi-trend/kpi-trend.tsx",
+          "lines": 230,
+          "bytes": 10023
+        }
+      ]
+    },
+    {
+      "name": "chart-legend",
+      "title": "Chart legend",
+      "category": "charts",
+      "type": "registry:component",
+      "description": "Shared interactive legend: aria-pressed toggle buttons with popping square, dot, line or dashed swatches, hidden-state strike-through, optional values and a hover channel that highlights a series in its chart.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://goodui.dev/r/goodui-motion.json",
+        "https://goodui.dev/r/locale.json"
+      ],
+      "raw_url": "https://goodui.dev/r/chart-legend.json",
+      "files": [
+        {
+          "original_path": "registry/components/charts/chart-legend.tsx",
+          "local_path": "templates/goodui/charts/chart-legend/chart-legend.tsx",
+          "lines": 166,
+          "bytes": 7129
+        }
+      ]
+    },
+    {
+      "name": "agent",
+      "title": "goodui agent pack",
+      "category": "other",
+      "type": "registry:item",
+      "description": "goodui rules for Claude Code (skill), Cursor, GitHub Copilot and Windsurf: which component to use, how to install it, theming, motion, RTL and accessibility rules.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "raw_url": "https://goodui.dev/r/agent.json",
+      "files": [
+        {
+          "original_path": ".agent/.claude/skills/goodui/SKILL.md",
+          "local_path": "templates/goodui/other/agent/SKILL.md",
+          "lines": 366,
+          "bytes": 64955
+        },
+        {
+          "original_path": ".agent/.cursor/rules/goodui.mdc",
+          "local_path": "templates/goodui/other/agent/goodui.mdc",
+          "lines": 367,
+          "bytes": 64979
+        },
+        {
+          "original_path": ".agent/.github/instructions/goodui.instructions.md",
+          "local_path": "templates/goodui/other/agent/goodui.instructions.md",
+          "lines": 365,
+          "bytes": 64531
+        },
+        {
+          "original_path": ".agent/.windsurf/rules/goodui.md",
+          "local_path": "templates/goodui/other/agent/goodui.md",
+          "lines": 366,
+          "bytes": 64966
+        }
+      ]
+    }
+  ]
+}

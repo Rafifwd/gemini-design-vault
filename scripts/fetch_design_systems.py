@@ -26,7 +26,7 @@ RESEARCH_REPOS = [
 PREFERRED_BRANDS = [
     ("apple", "Consumer Hardware & Clinical Minimal"),
     ("stripe", "Fintech & B2B Payments"),
-    ("linear", "DevTools & Product Issue Tracker"),
+    ("linear.app", "DevTools & Product Issue Tracker"),
     ("vercel", "Cloud Infrastructure & Monochrome"),
     ("notion", "Workspace & Editorial Knowledge"),
     ("supabase", "Database & Developer Platform"),
@@ -34,9 +34,23 @@ PREFERRED_BRANDS = [
     ("spotify", "Consumer Media & Expressive Dark"),
     ("figma", "Creative Multiplayer Tooling"),
     ("claude", "AI Assistant & Warm Editorial"),
+    ("wise", "Global Fintech & Electric Forest Volt"),
+    ("miro", "Multiplayer Canvas & Sunny Vivid Board"),
+    ("mistral.ai", "Frontier AI & Flame Orange Heat Ladder"),
+    ("theverge", "Editorial Media & Acid Cyber Neon"),
+    ("wired", "Editorial Print & High-Contrast Monolith"),
+    ("ferrari", "Luxury Motorsport & Rosso Corsa Drama"),
+    ("lamborghini", "Supercar Atelier & Carbon Volt Contrast"),
     ("raycast", "Desktop Productivity & Tactile Dark"),
-    ("elevenlabs", "AI Audio & High-Contrast Editorial"),
+    ("framer", "Interactive Web Studio & Kinetic Electric"),
+    ("webflow", "Visual Web Builder & Crisp Electric Blue"),
+    ("posthog", "Product Analytics & Warm Quirky Craft"),
+    ("zapier", "Automation Platform & Safety Orange"),
+    ("revolut", "Neo-Bank & Crisp Contrast Bento"),
+    ("nike", "Athletic Storytelling & Monochrome Kinetic"),
 ]
+
+TARGET_COUNT = len(PREFERRED_BRANDS)
 
 
 def http_get_json(url: str) -> dict:
@@ -125,12 +139,13 @@ def main() -> int:
     selected: list[tuple[str, str, str]] = []
     used_paths = set()
     for slug, domain in PREFERRED_BRANDS:
-        if len(selected) >= 10:
+        if len(selected) >= TARGET_COUNT:
             break
         match_path = by_slug.get(slug)
         if not match_path:
+            base = slug.split(".")[0]
             for k, v in by_slug.items():
-                if slug in k and v not in used_paths:
+                if (slug in k or base == k or base in k) and v not in used_paths:
                     match_path = v
                     slug = k
                     break
@@ -139,7 +154,7 @@ def main() -> int:
             used_paths.add(match_path)
 
     for slug, path in sorted(by_slug.items()):
-        if len(selected) >= 10:
+        if len(selected) >= TARGET_COUNT:
             break
         if path not in used_paths:
             selected.append((slug, "Production Brand System", path))
@@ -178,28 +193,28 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    # 3. Fetch core pbakaus/impeccable docs
-    try:
-        imp_tree = http_get_json("https://api.github.com/repos/pbakaus/impeccable/git/trees/HEAD?recursive=1")
-        imp_blobs = [item["path"] for item in imp_tree.get("tree", []) if item.get("type") == "blob" and item["path"].endswith(".md")]
-        wanted_imp = []
-        for p in imp_blobs:
-            low = p.lower()
-            if low.endswith("skill.md") or any(k in low for k in ("color", "typography", "spatial", "layout", "critique", "polish")):
-                if p not in wanted_imp:
-                    wanted_imp.append(p)
-        # Prioritize skill.md + color/typography/spatial references (max 5 files)
-        wanted_imp.sort(key=lambda x: (0 if x.lower().endswith("skill.md") else 1, len(x)))
-        fetched_imp = 0
-        for p in wanted_imp[:5]:
-            raw_url = f"https://raw.githubusercontent.com/pbakaus/impeccable/HEAD/{p}"
-            txt = http_get_text(raw_url)
-            safe_name = p.replace("/", "__")
-            (IMPECCABLE_DIR / safe_name).write_text(txt, encoding="utf-8")
-            fetched_imp += 1
-            print(f"OK impeccable: {p} -> source/impeccable/{safe_name} ({len(txt.splitlines())} lines)")
-    except Exception as exc:
-        print(f"WARN impeccable: {exc}")
+    # 3. Fetch core pbakaus/impeccable docs (skip if already cached)
+    if not any(IMPECCABLE_DIR.glob("*.md")):
+        try:
+            imp_tree = http_get_json("https://api.github.com/repos/pbakaus/impeccable/git/trees/HEAD?recursive=1")
+            imp_blobs = [item["path"] for item in imp_tree.get("tree", []) if item.get("type") == "blob" and item["path"].endswith(".md")]
+            wanted_imp = []
+            for p in imp_blobs:
+                low = p.lower()
+                if low.endswith("skill.md") or any(k in low for k in ("color", "typography", "spatial", "layout", "critique", "polish")):
+                    if p not in wanted_imp:
+                        wanted_imp.append(p)
+            wanted_imp.sort(key=lambda x: (0 if x.lower().endswith("skill.md") else 1, len(x)))
+            for p in wanted_imp[:5]:
+                raw_url = f"https://raw.githubusercontent.com/pbakaus/impeccable/HEAD/{p}"
+                txt = http_get_text(raw_url)
+                safe_name = p.replace("/", "__")
+                (IMPECCABLE_DIR / safe_name).write_text(txt, encoding="utf-8")
+                print(f"OK impeccable: {p} -> source/impeccable/{safe_name} ({len(txt.splitlines())} lines)")
+        except Exception as exc:
+            print(f"WARN impeccable: {exc}")
+    else:
+        print("OK impeccable: using existing cached docs in source/impeccable/")
 
     return 0
 

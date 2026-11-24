@@ -1,0 +1,3859 @@
+<!DOCTYPE html>
+<html lang="en" data-livery="rosso-corsa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELOCE // ATELIER — Performance Hardware &amp; Livery Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       1. Design Tokens & 4-Livery Morph System
+       ========================================================================== */
+    :root {
+      /* Default: Rosso Corsa (Ferrari Motorsport) */
+      --bg-canvas: #141416;
+      --bg-elevated: #212125;
+      --bg-inner: #19191D;
+      --bg-stage: #18181C;
+      --bg-header: rgba(20, 20, 22, 0.78);
+      --bg-glass: rgba(30, 30, 36, 0.68);
+      --hairline: rgba(255, 255, 255, 0.10);
+      --hairline-strong: rgba(255, 255, 255, 0.18);
+      --ink: #FFFFFF;
+      --ink-secondary: #D4D4DA;
+      --muted: #9E9EA6;
+
+      --accent: #DA291C;
+      --accent-hover: #B01E0A;
+      --accent-2: #FFF200;
+      --accent-ink: #FFFFFF;
+      --accent-soft: rgba(218, 41, 28, 0.14);
+      --accent-ring: rgba(218, 41, 28, 0.45);
+
+      /* Car Paint & Hardware Tokens */
+      --paint-base: #DA291C;
+      --paint-highlight: #FF5D50;
+      --paint-shadow: #781008;
+      --paint-deep: #4A0904;
+      --paint-pin: #FFF200;
+      --caliper-fill: #FFF200;
+      --stage-grid: rgba(255, 255, 255, 0.045);
+      --spotlight-tint: rgba(218, 41, 28, 0.14);
+      --spotlight-border: rgba(255, 255, 255, 0.24);
+      --shadow-elevated: 0 24px 60px rgba(0, 0, 0, 0.48);
+
+      /* Typography */
+      --font-display: "Space Grotesk", "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-sans: "Plus Jakarta Sans", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      /* Strict Concentric Geometry */
+      --radius-card: 16px;
+      --radius-inner: 10px;
+      --radius-btn: 999px;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-spring: cubic-bezier(0.18, 0.89, 0.32, 1.15);
+      --t-fast: 140ms;
+      --t-med: 240ms;
+      --t-morph: 320ms;
+    }
+
+    html[data-livery="giallo-modena"] {
+      --bg-canvas: #09090B;
+      --bg-elevated: #18181D;
+      --bg-inner: #101014;
+      --bg-stage: #0E0E12;
+      --bg-header: rgba(9, 9, 11, 0.82);
+      --bg-glass: rgba(24, 24, 29, 0.72);
+      --hairline: rgba(255, 255, 255, 0.10);
+      --hairline-strong: rgba(255, 255, 255, 0.18);
+      --ink: #FFFFFF;
+      --ink-secondary: #D4D4D8;
+      --muted: #A1A1AA;
+
+      --accent: #FFC000;
+      --accent-hover: #FFCE3E;
+      --accent-2: #29ABE2;
+      --accent-ink: #09090B;
+      --accent-soft: rgba(255, 192, 0, 0.14);
+      --accent-ring: rgba(255, 192, 0, 0.45);
+
+      --paint-base: #FFC000;
+      --paint-highlight: #FFE066;
+      --paint-shadow: #996E00;
+      --paint-deep: #523900;
+      --paint-pin: #29ABE2;
+      --stage-grid: rgba(255, 255, 255, 0.04);
+      --spotlight-tint: rgba(255, 192, 0, 0.14);
+      --spotlight-border: rgba(255, 192, 0, 0.34);
+    }
+
+    html[data-livery="verde-mantis"] {
+      --bg-canvas: #0B0E0C;
+      --bg-elevated: #161D18;
+      --bg-inner: #0F1511;
+      --bg-stage: #0F1511;
+      --bg-header: rgba(11, 14, 12, 0.82);
+      --bg-glass: rgba(22, 29, 24, 0.72);
+      --hairline: rgba(255, 255, 255, 0.10);
+      --hairline-strong: rgba(255, 255, 255, 0.18);
+      --ink: #F4F7F4;
+      --ink-secondary: #D6E0D7;
+      --muted: #8FA193;
+
+      --accent: #9FE870;
+      --accent-hover: #CDFFAD;
+      --accent-2: #FFFFFF;
+      --accent-ink: #0E1A07;
+      --accent-soft: rgba(159, 232, 112, 0.14);
+      --accent-ring: rgba(159, 232, 112, 0.45);
+
+      --paint-base: #9FE870;
+      --paint-highlight: #D6FFB8;
+      --paint-shadow: #4D852A;
+      --paint-deep: #244512;
+      --paint-pin: #FFFFFF;
+      --stage-grid: rgba(159, 232, 112, 0.045);
+      --spotlight-tint: rgba(159, 232, 112, 0.13);
+      --spotlight-border: rgba(159, 232, 112, 0.34);
+    }
+
+    html[data-livery="bianco-fuji"] {
+      --bg-canvas: #FFFFFF;
+      --bg-elevated: #F5F5F7;
+      --bg-inner: #FFFFFF;
+      --bg-stage: #F5F5F7;
+      --bg-header: rgba(255, 255, 255, 0.84);
+      --bg-glass: rgba(255, 255, 255, 0.74);
+      --hairline: rgba(29, 29, 31, 0.10);
+      --hairline-strong: rgba(29, 29, 31, 0.18);
+      --ink: #1D1D1F;
+      --ink-secondary: #424245;
+      --muted: #6E6E73;
+
+      --accent: #0066CC;
+      --accent-hover: #0055B3;
+      --accent-2: #DA291C;
+      --accent-ink: #FFFFFF;
+      --accent-soft: rgba(0, 102, 204, 0.09);
+      --accent-ring: rgba(0, 113, 227, 0.40);
+
+      --paint-base: #E8EAEE;
+      --paint-highlight: #FFFFFF;
+      --paint-shadow: #B5BAC4;
+      --paint-deep: #7B8290;
+      --paint-pin: #0066CC;
+      --stage-grid: rgba(29, 29, 31, 0.045);
+      --spotlight-tint: rgba(0, 102, 204, 0.08);
+      --spotlight-border: rgba(0, 102, 204, 0.28);
+      --shadow-elevated: 0 20px 50px rgba(29, 29, 31, 0.10);
+    }
+
+    /* ==========================================================================
+       2. Reset & Base Typography
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-canvas);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+      transition: background-color var(--t-morph) var(--ease-out),
+                  color var(--t-morph) var(--ease-out);
+    }
+
+    h1, h2, h3, h4, p, ul, ol, dl, dt, dd {
+      margin: 0;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .tabular {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    :is(a, button, input, [tabindex]):focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ==========================================================================
+       3. Frosted Header Bar
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      height: 64px;
+      background: var(--bg-header);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border-bottom: 1px solid var(--hairline);
+      transition: background-color var(--t-morph) var(--ease-out),
+                  border-color var(--t-morph) var(--ease-out);
+    }
+
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      transition: background-color var(--t-morph) var(--ease-out),
+                  color var(--t-morph) var(--ease-out);
+    }
+
+    .brand-lockup .slash {
+      color: var(--accent);
+      margin: 0 2px;
+      transition: color var(--t-morph) var(--ease-out);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+      padding: 6px 2px;
+      position: relative;
+      transition: color var(--t-fast) var(--ease-out);
+    }
+
+    .header-nav a:hover {
+      color: var(--ink);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
+      padding: 0 13px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      white-space: nowrap;
+      transition: background-color var(--t-morph) var(--ease-out),
+                  border-color var(--t-morph) var(--ease-out),
+                  color var(--t-morph) var(--ease-out);
+    }
+
+    .livery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-btn);
+      background: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-soft);
+      transition: background-color var(--t-morph) var(--ease-out);
+    }
+
+    .audio-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: background-color var(--t-fast) var(--ease-out),
+                  border-color var(--t-fast) var(--ease-out),
+                  color var(--t-fast) var(--ease-out),
+                  transform var(--t-fast) var(--ease-out);
+    }
+
+    .audio-toggle:hover {
+      color: var(--ink);
+      border-color: var(--hairline-strong);
+    }
+
+    .audio-toggle:active {
+      transform: scale(0.97);
+    }
+
+    .audio-toggle[aria-pressed="true"] {
+      color: var(--ink);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .audio-toggle .audio-bars rect {
+      transition: transform var(--t-fast) var(--ease-out), opacity var(--t-fast) var(--ease-out);
+      transform-origin: bottom;
+    }
+
+    .audio-toggle[aria-pressed="false"] .audio-bars rect:nth-child(2),
+    .audio-toggle[aria-pressed="false"] .audio-bars rect:nth-child(3) {
+      opacity: 0.35;
+      transform: scaleY(0.45);
+    }
+
+    /* ==========================================================================
+       4. Hero Editorial Header & Asymmetric Centerpiece Grid
+       ========================================================================== */
+    .atelier-section {
+      padding: 36px 0 44px;
+    }
+
+    .hero-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      transition: color var(--t-morph) var(--ease-out);
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      width: 18px;
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.1vw, 54px);
+      font-weight: 500;
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      max-width: 18ch;
+    }
+
+    .hero-meta-strip {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 16px;
+      border-left: 1px solid var(--hairline);
+    }
+
+    .hero-stat-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-stat-val {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Asymmetric Centerpiece Grid (1.55fr / 1fr) */
+    .configurator-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    /* Left Stage Card */
+    .stage-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: var(--radius-card);
+      background: var(--bg-stage);
+      border: 1px solid var(--hairline);
+      padding: 20px 22px 22px;
+      overflow: hidden;
+      min-height: 610px;
+      box-shadow: var(--shadow-elevated);
+      transition: background-color var(--t-morph) var(--ease-out),
+                  border-color var(--t-morph) var(--ease-out),
+                  box-shadow var(--t-morph) var(--ease-out);
+    }
+
+    /* Subtle studio floor coordinate grid */
+    .stage-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--stage-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--stage-grid) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 85% 75% at 50% 54%, black 35%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 54%, black 35%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Ambient livery rim light behind car */
+    .stage-ambient {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 78%;
+      height: 52%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, var(--spotlight-tint) 0%, transparent 70%);
+      pointer-events: none;
+      transition: background var(--t-morph) var(--ease-out);
+    }
+
+    .stage-topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .stage-id-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stage-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      padding: 5px 11px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+    }
+
+    .stage-subtag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .stage-quick-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-pill-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 30px;
+      padding: 0 12px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink-secondary);
+      transition: all var(--t-fast) var(--ease-out);
+    }
+
+    .btn-pill-mini:hover {
+      border-color: var(--hairline-strong);
+      color: var(--ink);
+    }
+
+    .btn-pill-mini:active {
+      transform: scale(0.97);
+    }
+
+    .btn-pill-mini[aria-pressed="true"] {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--ink);
+    }
+
+    .btn-pill-mini .dot-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: var(--radius-btn);
+      background: var(--muted);
+      transition: background-color var(--t-fast) var(--ease-out);
+    }
+
+    .btn-pill-mini[aria-pressed="true"] .dot-indicator {
+      background: var(--accent);
+    }
+
+    /* Center Car SVG Viewport */
+    .stage-viewport {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 0 18px;
+    }
+
+    .car-svg {
+      width: 100%;
+      height: auto;
+      max-height: 410px;
+      display: block;
+      overflow: visible;
+    }
+
+    /* SVG Dynamic Transitions */
+    .car-svg [data-paint="primary"] {
+      transition: fill var(--t-morph) var(--ease-out), stroke var(--t-morph) var(--ease-out);
+    }
+
+    .car-svg .aero-overlay,
+    .car-svg .chassis-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms var(--ease-out);
+    }
+
+    .stage-card[data-view="airflow"] .car-svg .aero-overlay {
+      opacity: 1;
+    }
+
+    .stage-card[data-view="chassis"] .car-svg .chassis-overlay {
+      opacity: 1;
+    }
+
+    .stage-card[data-view="chassis"] .car-svg .bodywork-shell {
+      opacity: 0.20;
+      transition: opacity 280ms var(--ease-out);
+    }
+
+    .car-svg .bodywork-shell {
+      transition: opacity 280ms var(--ease-out);
+    }
+
+    .car-svg .streamline {
+      stroke-dasharray: 16 12;
+      animation: airflowDash 1.35s linear infinite;
+    }
+
+    @keyframes airflowDash {
+      from { stroke-dashoffset: 56; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    .car-svg .wing-flap {
+      transform-box: fill-box;
+      transform-origin: 85% 55%;
+      transition: transform 240ms var(--ease-out);
+    }
+
+    .stage-card[data-drs="open"] .car-svg .wing-flap {
+      transform: rotate(-16deg) translateY(-3px);
+    }
+
+    /* Stage Bottom Telemetry Footer & Liquid Glass Toolbar */
+    .stage-bottom {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stage-specs-inline {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stage-specs-inline strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* goodui.dev Liquid Glass Floating Pill Toolbar */
+    .liquid-glass-toolbar {
+      --lg-x: 50%;
+      --lg-y: 50%;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-glass);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid var(--hairline-strong);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 10px 30px rgba(0, 0, 0, 0.24);
+      overflow: hidden;
+    }
+
+    .liquid-glass-toolbar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        130px circle at var(--lg-x) var(--lg-y),
+        rgba(255, 255, 255, 0.22),
+        transparent 68%
+      );
+      pointer-events: none;
+      opacity: 0.85;
+      transition: opacity var(--t-fast) var(--ease-out);
+    }
+
+    html[data-livery="bianco-fuji"] .liquid-glass-toolbar {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 10px 28px rgba(29, 29, 31, 0.10);
+    }
+
+    html[data-livery="bianco-fuji"] .liquid-glass-toolbar::before {
+      background: radial-gradient(
+        130px circle at var(--lg-x) var(--lg-y),
+        rgba(0, 102, 204, 0.14),
+        transparent 68%
+      );
+    }
+
+    .lg-pill-btn {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: var(--radius-btn);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: color var(--t-fast) var(--ease-out),
+                  background-color var(--t-fast) var(--ease-out),
+                  transform var(--t-fast) var(--ease-out);
+    }
+
+    .lg-pill-btn:hover {
+      color: var(--ink);
+    }
+
+    .lg-pill-btn:active {
+      transform: scale(0.97);
+    }
+
+    .lg-pill-btn[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-ink);
+      box-shadow: 0 2px 10px var(--accent-soft);
+    }
+
+    /* ==========================================================================
+       5. Right Spec Panel (Configurator Controls & Number Flow Odometer)
+       ========================================================================== */
+    .spec-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      border-radius: var(--radius-card);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      padding: 22px;
+      box-shadow: var(--shadow-elevated);
+      transition: background-color var(--t-morph) var(--ease-out),
+                  border-color var(--t-morph) var(--ease-out),
+                  box-shadow var(--t-morph) var(--ease-out);
+    }
+
+    .spec-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .spec-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .spec-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .spec-value-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-secondary);
+    }
+
+    /* Trim Selector Cards (--radius-inner: 10px) */
+    .trim-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .trim-card {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 11px 12px;
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      transition: border-color var(--t-fast) var(--ease-out),
+                  background-color var(--t-fast) var(--ease-out),
+                  transform var(--t-fast) var(--ease-out);
+    }
+
+    .trim-card:hover {
+      border-color: var(--hairline-strong);
+    }
+
+    .trim-card:active {
+      transform: scale(0.985);
+    }
+
+    .trim-card[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .trim-name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .trim-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .trim-card[aria-pressed="true"] .trim-meta {
+      color: var(--ink-secondary);
+    }
+
+    /* 4 Livery Swatch Buttons (Circular Swatch Rings --radius-btn: 999px) */
+    .livery-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .livery-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 6px;
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      transition: border-color var(--t-fast) var(--ease-out),
+                  background-color var(--t-fast) var(--ease-out),
+                  transform var(--t-fast) var(--ease-out);
+    }
+
+    .livery-btn:hover {
+      border-color: var(--hairline-strong);
+    }
+
+    .livery-btn:active {
+      transform: scale(0.97);
+    }
+
+    .livery-btn[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .swatch-ring {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-btn);
+      padding: 2px;
+      border: 1.5px solid var(--hairline-strong);
+      display: grid;
+      place-items: center;
+      transition: border-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-out);
+    }
+
+    .livery-btn[aria-pressed="true"] .swatch-ring {
+      border-color: var(--accent);
+      transform: scale(1.06);
+    }
+
+    .swatch-core {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-btn);
+      display: block;
+    }
+
+    .livery-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Wheel Options (--radius-inner: 10px) */
+    .wheel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .option-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 10px 11px;
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      text-align: left;
+      transition: border-color var(--t-fast) var(--ease-out),
+                  background-color var(--t-fast) var(--ease-out),
+                  transform var(--t-fast) var(--ease-out);
+    }
+
+    .option-cell:hover {
+      border-color: var(--hairline-strong);
+    }
+
+    .option-cell:active {
+      transform: scale(0.985);
+    }
+
+    .option-cell[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .option-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .option-delta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Caliper Finish Pills (--radius-btn: 999px) */
+    .caliper-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .caliper-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 31px;
+      padding: 0 12px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      transition: all var(--t-fast) var(--ease-out);
+    }
+
+    .caliper-pill:hover {
+      border-color: var(--hairline-strong);
+      color: var(--ink);
+    }
+
+    .caliper-pill:active {
+      transform: scale(0.97);
+    }
+
+    .caliper-pill[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--ink);
+    }
+
+    .caliper-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: var(--radius-btn);
+      border: 1px solid rgba(128, 128, 128, 0.35);
+    }
+
+    /* Number Flow Rolling Odometer Counters */
+    .odometer-box {
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 14px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background-color var(--t-morph) var(--ease-out),
+                  border-color var(--t-morph) var(--ease-out);
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .price-caption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .price-display {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .price-currency {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .odo-wrap {
+      display: inline-flex;
+      align-items: baseline;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .odo-digit-slot {
+      display: inline-block;
+      height: 1.08em;
+      overflow: hidden;
+      position: relative;
+      vertical-align: bottom;
+    }
+
+    .odo-digit-strip {
+      display: flex;
+      flex-direction: column;
+      transform: translateY(0);
+      transition: transform 380ms var(--ease-out);
+      will-change: transform;
+    }
+
+    .odo-digit-strip span {
+      height: 1.08em;
+      line-height: 1.08em;
+      display: block;
+      text-align: center;
+    }
+
+    .odo-sep {
+      display: inline-block;
+      line-height: 1.08em;
+    }
+
+    .kpi-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .kpi-mini {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .kpi-mini-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .kpi-mini-val {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+
+    .kpi-mini-unit {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    /* Hold-to-Reserve Allocation CTA (--radius-btn: 999px) */
+    .cta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .hold-cta {
+      position: relative;
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-inner);
+      border: 1px solid var(--accent);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform var(--t-fast) var(--ease-out),
+                  border-color var(--t-fast) var(--ease-out),
+                  box-shadow var(--t-fast) var(--ease-out);
+    }
+
+    .hold-cta:hover {
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .hold-cta.is-holding {
+      transform: scale(0.985);
+    }
+
+    .hold-cta-fill {
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform-origin: left center;
+      transform: scaleX(0);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .hold-cta-content {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: color 120ms ease;
+    }
+
+    .hold-cta.is-complete .hold-cta-content,
+    .hold-cta.is-high-fill .hold-cta-content {
+      color: var(--accent-ink);
+    }
+
+    .cta-subrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .text-action-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hairline-strong);
+      transition: color var(--t-fast) var(--ease-out);
+    }
+
+    .text-action-btn:hover {
+      color: var(--accent);
+    }
+
+    /* ==========================================================================
+       6. Section Headers & Interactive Aero Downforce Chart
+       ========================================================================== */
+    .section-band {
+      padding: 40px 0;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.8vw, 34px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+    }
+
+    .section-desc {
+      max-width: 48ch;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .telemetry-card {
+      border-radius: var(--radius-card);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: background-color var(--t-morph) var(--ease-out),
+                  border-color var(--t-morph) var(--ease-out);
+    }
+
+    .telemetry-readout-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .telemetry-cell {
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .telemetry-cell-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .telemetry-cell-val {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .telemetry-cell.is-highlight {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .chart-stage {
+      position: relative;
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 14px 16px 10px;
+    }
+
+    .aero-chart-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .chart-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .speed-slider-wrap {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .speed-slider-wrap label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .speed-range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: var(--radius-btn);
+      background: var(--hairline-strong);
+      outline: none;
+    }
+
+    .speed-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: var(--radius-btn);
+      background: var(--accent);
+      border: 2px solid var(--bg-canvas);
+      cursor: ew-resize;
+      box-shadow: 0 0 0 2px var(--accent-soft);
+    }
+
+    .speed-range::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--radius-btn);
+      background: var(--accent);
+      border: 2px solid var(--bg-canvas);
+      cursor: ew-resize;
+    }
+
+    .chart-legend {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend-line {
+      width: 16px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .legend-line.is-secondary {
+      background: transparent;
+      border-top: 2px dashed var(--accent-2);
+    }
+
+    /* ==========================================================================
+       7. Cursor Spotlight Engineering Cards
+       ========================================================================== */
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .spotlight-card {
+      --spot-x: 50%;
+      --spot-y: 50%;
+      --spot-opacity: 0;
+      position: relative;
+      border-radius: var(--radius-card);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      overflow: hidden;
+      transition: border-color var(--t-med) var(--ease-out),
+                  background-color var(--t-morph) var(--ease-out);
+    }
+
+    /* Subtle engineered grid texture revealed by cursor spotlight */
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: radial-gradient(240px circle at var(--spot-x) var(--spot-y), black 0%, transparent 72%);
+      -webkit-mask-image: radial-gradient(240px circle at var(--spot-x) var(--spot-y), black 0%, transparent 72%);
+      opacity: var(--spot-opacity);
+      transition: opacity 220ms var(--ease-out);
+      pointer-events: none;
+    }
+
+    /* Radial illumination sheen */
+    .spotlight-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        340px circle at var(--spot-x) var(--spot-y),
+        var(--spotlight-tint),
+        transparent 68%
+      );
+      opacity: var(--spot-opacity);
+      transition: opacity 220ms var(--ease-out);
+      pointer-events: none;
+    }
+
+    .spotlight-card:hover {
+      border-color: var(--spotlight-border);
+    }
+
+    .spotlight-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .spot-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .spot-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .spot-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 10px;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--hairline);
+      background: var(--bg-inner);
+    }
+
+    .spot-diagram {
+      height: 112px;
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      display: grid;
+      place-items: center;
+      padding: 10px;
+    }
+
+    .spot-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 5px;
+    }
+
+    .spot-copy {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .spot-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .spot-spec-cell {
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 9px 11px;
+    }
+
+    .spot-spec-k {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .spot-spec-v {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ==========================================================================
+       8. Allocation Summary Strip & Interactive Controls
+       ========================================================================== */
+    .allocation-panel {
+      border-radius: var(--radius-card);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .alloc-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .alloc-cell {
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 11px 13px;
+    }
+
+    .alloc-cell-k {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .alloc-cell-v {
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    .alloc-actions-box {
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .build-code-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-inner);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline);
+    }
+
+    .build-code-val {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: var(--radius-btn);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transition: all var(--t-fast) var(--ease-out);
+    }
+
+    .btn-pill:active {
+      transform: scale(0.97);
+    }
+
+    .btn-pill-accent {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .btn-pill-accent:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-pill-outline {
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline-strong);
+      color: var(--ink);
+    }
+
+    .btn-pill-outline:hover {
+      border-color: var(--accent);
+    }
+
+    .btn-pill-outline.is-copied {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--ink);
+    }
+
+    .async-check-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .slot-status-text {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .slot-status-text[data-state="verified"] {
+      color: var(--accent);
+    }
+
+    .spin-icon {
+      animation: spin360 0.8s linear infinite;
+    }
+
+    @keyframes spin360 {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ==========================================================================
+       9. Allocation Modal & Toast Stack
+       ========================================================================== */
+    .modal-root {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 220ms var(--ease-out);
+    }
+
+    .modal-root[data-open="true"] {
+      pointer-events: auto;
+      opacity: 1;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.68);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .modal-dialog {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 640px;
+      border-radius: var(--radius-card);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: var(--shadow-elevated);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transform: translateY(10px) scale(0.985);
+      transition: transform 240ms var(--ease-out);
+    }
+
+    .modal-root[data-open="true"] .modal-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    .icon-close-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-btn);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      display: grid;
+      place-items: center;
+      color: var(--ink-secondary);
+      transition: all var(--t-fast) var(--ease-out);
+    }
+
+    .icon-close-btn:hover {
+      border-color: var(--hairline-strong);
+      color: var(--ink);
+    }
+
+    .modal-spec-list {
+      border-radius: var(--radius-inner);
+      background: var(--bg-inner);
+      border: 1px solid var(--hairline);
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 18px;
+    }
+
+    .modal-spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .modal-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Toast Stack */
+    .toast-stack {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: min(340px, calc(100vw - 32px));
+      pointer-events: none;
+    }
+
+    .toast-item {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-inner);
+      background: var(--bg-elevated);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+      font-size: 13px;
+      color: var(--ink);
+      animation: toastIn 220ms var(--ease-out);
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .toast-meta {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .toast-accent-bar {
+      width: 3px;
+      height: 20px;
+      border-radius: 2px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--hairline);
+      padding: 26px 0 36px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       10. Responsive & Reduced Motion
+       ========================================================================== */
+    @media (max-width: 1080px) {
+      .configurator-grid {
+        grid-template-columns: 1fr;
+      }
+      .stage-card {
+        min-height: 500px;
+      }
+      .telemetry-readout-strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .spotlight-grid {
+        grid-template-columns: 1fr;
+      }
+      .allocation-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 0 16px;
+      }
+      .header-nav {
+        display: none;
+      }
+      .hero-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .trim-grid,
+      .wheel-grid,
+      .alloc-summary-grid,
+      .modal-spec-list {
+        grid-template-columns: 1fr;
+      }
+      .livery-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .telemetry-readout-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .car-svg .streamline {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       Frosted Header Bar
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand-lockup" aria-label="Veloce Monolith 06 Atelier">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+            <path d="M2 3.5L8 13L14 3.5H10.8L8 8.2L5.2 3.5H2Z" fill="currentColor"/>
+            <path d="M6.4 2.5H9.6L8 5.2L6.4 2.5Z" fill="currentColor" opacity="0.7"/>
+          </svg>
+        </span>
+        <span>VELOCE <span class="slash">//</span> MONOLITH 06</span>
+      </a>
+
+      <nav class="header-nav" aria-label="Primary sections">
+        <a href="#configurator">Configurator</a>
+        <a href="#telemetry">Aero Telemetry</a>
+        <a href="#materials">Materials</a>
+        <a href="#allocation">Allocation</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="pill-badge" id="header-livery-badge">
+          <span class="livery-dot" aria-hidden="true"></span>
+          <span id="header-livery-label">Rosso Corsa</span>
+        </div>
+
+        <button type="button" class="audio-toggle" id="audio-toggle-btn" aria-pressed="false">
+          <svg class="audio-bars" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="1.5" y="5" width="2" height="7" rx="1" fill="currentColor"/>
+            <rect x="6" y="2" width="2" height="10" rx="1" fill="currentColor"/>
+            <rect x="10.5" y="4" width="2" height="8" rx="1" fill="currentColor"/>
+          </svg>
+          <span id="audio-toggle-text">Acoustic Feedback: Off</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ======================================================================
+         Configurator Section
+         ====================================================================== -->
+    <section class="atelier-section" id="configurator">
+      <div class="container">
+        <div class="hero-bar">
+          <div>
+            <p class="hero-eyebrow">Homologation Atelier // Series 06</p>
+            <h1 class="hero-title">Precision aero hardware, tailored to the gram.</h1>
+          </div>
+          <div class="hero-meta-strip">
+            <div class="hero-stat">
+              <span class="hero-stat-label">Redline</span>
+              <span class="hero-stat-val mono">9,400 RPM</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-label">Chassis</span>
+              <span class="hero-stat-val mono">T1100G Carbon</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-label">Production</span>
+              <span class="hero-stat-val mono">075 Units</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asymmetric Centerpiece Configurator Grid (1.55fr / 1fr) -->
+        <div class="configurator-grid">
+
+          <!-- LEFT STAGE -->
+          <div class="stage-card" id="stage-card" data-view="standard" data-drs="closed">
+            <div class="stage-ambient" aria-hidden="true"></div>
+
+            <div class="stage-topbar">
+              <div class="stage-id-group">
+                <span class="stage-code" id="stage-chassis-code">VLC-06 // STRADALE</span>
+                <span class="stage-subtag" id="stage-view-label">VIEW: STUDIO BODYWORK</span>
+              </div>
+              <div class="stage-quick-controls">
+                <button type="button" class="btn-pill-mini" id="drs-toggle-btn" aria-pressed="false">
+                  <span class="dot-indicator" aria-hidden="true"></span>
+                  <span id="drs-label">DRS: Closed</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Detailed Multi-Layer Inline SVG Hypercar & Telemetry Blueprint -->
+            <div class="stage-viewport">
+              <svg class="car-svg" id="hypercar-svg" viewBox="0 0 1120 490" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Veloce Monolith 06 Hypercar Configuration Preview">
+                <defs>
+                  <linearGradient id="bodyPaintGrad" x1="120" y1="130" x2="950" y2="350" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" style="stop-color: var(--paint-highlight)" />
+                    <stop offset="38%" style="stop-color: var(--paint-base)" />
+                    <stop offset="82%" style="stop-color: var(--paint-shadow)" />
+                    <stop offset="100%" style="stop-color: var(--paint-deep)" />
+                  </linearGradient>
+
+                  <linearGradient id="canopyGlassGrad" x1="360" y1="135" x2="660" y2="235" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#2D3440" />
+                    <stop offset="45%" stop-color="#111419" />
+                    <stop offset="100%" stop-color="#060709" />
+                  </linearGradient>
+
+                  <linearGradient id="carbonGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#2B2C32" />
+                    <stop offset="50%" stop-color="#191A1F" />
+                    <stop offset="100%" stop-color="#0E0F12" />
+                  </linearGradient>
+
+                  <radialGradient id="groundShadowGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(0,0,0,0.72)" />
+                    <stop offset="65%" stop-color="rgba(0,0,0,0.34)" />
+                    <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+                  </radialGradient>
+
+                  <linearGradient id="airflowGrad" x1="60" y1="0" x2="1080" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" style="stop-color: var(--accent-2)" stop-opacity="0.1" />
+                    <stop offset="45%" style="stop-color: var(--accent-2)" stop-opacity="0.92" />
+                    <stop offset="100%" style="stop-color: var(--accent)" stop-opacity="0.7" />
+                  </linearGradient>
+
+                  <linearGradient id="venturiGrad" x1="150" y1="0" x2="960" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" style="stop-color: var(--accent)" stop-opacity="0.2" />
+                    <stop offset="55%" style="stop-color: var(--accent)" stop-opacity="0.95" />
+                    <stop offset="100%" style="stop-color: var(--accent-2)" stop-opacity="0.8" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Dimension Baseline -->
+                <g opacity="0.45">
+                  <line x1="120" y1="444" x2="985" y2="444" stroke="var(--hairline-strong)" stroke-width="1" />
+                  <line x1="120" y1="438" x2="120" y2="450" stroke="var(--hairline-strong)" stroke-width="1" />
+                  <line x1="985" y1="438" x2="985" y2="450" stroke="var(--hairline-strong)" stroke-width="1" />
+                  <line x1="295" y1="438" x2="295" y2="450" stroke="var(--accent)" stroke-width="1.2" />
+                  <line x1="832" y1="438" x2="832" y2="450" stroke="var(--accent)" stroke-width="1.2" />
+                  <text x="563" y="462" text-anchor="middle" fill="var(--muted)" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.4">WHEELBASE 2,740 MM // OVERALL 4,680 MM</text>
+                </g>
+
+                <!-- Ground Contact Shadow -->
+                <ellipse cx="556" cy="404" rx="455" ry="26" fill="url(#groundShadowGrad)" />
+                <rect x="200" y="395" width="705" height="6" rx="3" fill="rgba(0,0,0,0.65)" />
+
+                <!-- =========================================================
+                     LAYER 1: BODYWORK SHELL (Fades cleanly in Chassis X-Ray)
+                     ========================================================= -->
+                <g class="bodywork-shell">
+                  <!-- Rear Aero Wing Variants (Controlled by JS via data-trim) -->
+                  <!-- Stradale Active Ducktail -->
+                  <g id="wing-stradale">
+                    <path d="M895 224 L956 208 L964 214 L916 232 Z" fill="url(#carbonGrad)" stroke="var(--hairline-strong)" stroke-width="1"/>
+                    <path d="M902 222 L958 210" style="stroke: var(--paint-pin)" stroke-width="1.5" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Competizione Twin-Strut Wing -->
+                  <g id="wing-competizione" style="display:none">
+                    <path d="M862 226 L882 174 L896 174 L880 228 Z" fill="#17181C" />
+                    <g class="wing-flap">
+                      <path d="M846 174 C885 170 945 162 978 156 L986 167 C948 175 888 182 848 182 Z" fill="url(#carbonGrad)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+                      <path d="M846 175 L978 157" style="stroke: var(--paint-pin)" stroke-width="1.6"/>
+                      <path d="M965 148 L992 145 L986 184 L962 184 Z" fill="url(#bodyPaintGrad)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+                    </g>
+                  </g>
+
+                  <!-- Pista Full Swan-Neck Endurance Wing & Dorsal Fin -->
+                  <g id="wing-pista" style="display:none">
+                    <!-- Shark dorsal fin -->
+                    <path d="M620 154 C695 160 792 172 885 186 L885 218 L645 205 Z" fill="url(#carbonGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+                    <path d="M635 160 L875 189" style="stroke: var(--paint-pin)" stroke-width="1.4" opacity="0.9"/>
+                    <!-- Swan-neck pylons -->
+                    <path d="M876 225 L896 146 L914 146 L898 228 Z" fill="#17181D" />
+                    <g class="wing-flap">
+                      <path d="M838 148 C896 144 960 136 1006 128 L1014 143 C966 154 898 160 842 159 Z" fill="url(#carbonGrad)" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"/>
+                      <path d="M842 150 L1006 130" style="stroke: var(--paint-pin)" stroke-width="2"/>
+                      <path d="M982 118 L1022 114 L1015 170 L978 170 Z" fill="url(#bodyPaintGrad)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+                    </g>
+                  </g>
+
+                  <!-- Lower Carbon Undertray, Splitter & Rear Diffuser -->
+                  <path d="M106 346 L176 364 L390 364 L735 364 L916 358 L976 336 L986 306 L944 300 L895 338 L750 338 L405 344 L182 342 L116 334 Z" fill="url(#carbonGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+                  <!-- Diffuser Strakes -->
+                  <path d="M918 356 L934 328 M936 353 L952 324 M954 348 L968 320" stroke="rgba(255,255,255,0.24)" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Front Splitter Lip Accent -->
+                  <path d="M108 345 L188 361" style="stroke: var(--paint-pin)" stroke-width="2" stroke-linecap="round"/>
+
+                  <!-- Main Sculpted Body Shell -->
+                  <path d="M114 333 C112 308 134 282 178 265 C234 242 294 232 342 216 C394 166 456 144 532 142 C606 140 682 162 746 196 C806 198 875 208 934 224 C962 232 978 250 982 276 L980 308 L924 318 L900 342 L750 342 L738 354 L392 354 L380 340 L205 342 L114 333 Z"
+                        fill="url(#bodyPaintGrad)"
+                        data-paint="primary"
+                        stroke="rgba(255,255,255,0.18)"
+                        stroke-width="1.2" />
+
+                  <!-- Wheel Arch Cutouts (Dark Inner Wheel Wells) -->
+                  <path d="M198 348 A96 96 0 0 1 392 348 Z" fill="#0B0C0E" />
+                  <path d="M735 348 A97 97 0 0 1 929 348 Z" fill="#0B0C0E" />
+
+                  <!-- Specular Fender Ridge & Door Shoulder Highlight -->
+                  <path d="M174 268 C228 248 292 239 348 225 C404 224 446 238 486 248 C565 266 648 262 722 232 C778 214 855 215 928 232"
+                        stroke="rgba(255,255,255,0.38)"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        fill="none" />
+
+                  <!-- Sculpted Side Venturi Channel / Air Curtain -->
+                  <path d="M446 254 C520 250 612 248 672 224 L692 288 C638 318 532 326 438 320 Z"
+                        fill="#101115"
+                        opacity="0.92"
+                        stroke="rgba(255,255,255,0.12)"
+                        stroke-width="1" />
+                  <path d="M624 238 L668 228 L684 282 L642 296 Z" fill="#07080A" />
+                  <!-- Horizontal Intake Blade -->
+                  <path d="M510 282 L674 262" style="stroke: var(--paint-pin)" stroke-width="2" stroke-linecap="round" opacity="0.88" />
+
+                  <!-- Teardrop Canopy Glasshouse & Roof Scoop -->
+                  <path d="M352 216 C404 166 462 148 532 147 C594 146 654 164 708 198 C650 206 575 214 486 218 C432 220 386 219 352 216 Z"
+                        fill="url(#canopyGlassGrad)"
+                        stroke="rgba(255,255,255,0.22)"
+                        stroke-width="1.1" />
+                  <!-- Canopy Carbon Pillar Divider -->
+                  <path d="M542 148 L560 214" stroke="#22252D" stroke-width="6" stroke-linecap="round" />
+                  <path d="M376 208 C425 168 475 156 530 154" stroke="rgba(255,255,255,0.34)" stroke-width="1.4" stroke-linecap="round" />
+
+                  <!-- Front Aero Dive Planes (Competizione + Pista) -->
+                  <g id="front-canards" style="display:none">
+                    <path d="M126 300 L194 286 L198 294 L132 308 Z" fill="url(#carbonGrad)" stroke="rgba(255,255,255,0.22)" stroke-width="1" />
+                    <path d="M132 306 L196 293" style="stroke: var(--paint-pin)" stroke-width="1.5" />
+                  </g>
+
+                  <!-- LED Blade Headlamp & Rear Taillight Signature -->
+                  <path d="M142 288 C166 276 206 266 232 263" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" />
+                  <path d="M142 288 C166 276 206 266 232 263" style="stroke: var(--paint-pin)" stroke-width="1.2" stroke-linecap="round" opacity="0.7" />
+                  <path d="M956 248 L981 255 L978 264 L952 258 Z" fill="#FF2D1A" />
+                  <!-- Central Twin Ceramic Exhaust Port -->
+                  <ellipse cx="972" cy="296" rx="9" ry="5" fill="#18191E" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" />
+
+                  <!-- Fender Vent Louvers -->
+                  <g stroke="rgba(0,0,0,0.65)" stroke-width="2.2" stroke-linecap="round">
+                    <line x1="250" y1="242" x2="264" y2="235" />
+                    <line x1="264" y1="240" x2="278" y2="233" />
+                    <line x1="278" y1="238" x2="292" y2="231" />
+                  </g>
+                </g>
+
+                <!-- =========================================================
+                     LAYER 2: CARBON CHASSIS X-RAY OVERLAY
+                     ========================================================= -->
+                <g class="chassis-overlay">
+                  <!-- Carbon Monocoque Tub -->
+                  <path d="M320 330 L368 232 L528 162 L652 204 L692 332 Z"
+                        fill="rgba(20, 22, 28, 0.72)"
+                        style="stroke: var(--accent)"
+                        stroke-width="2" />
+                  <!-- Internal Honeycomb / Structural Ribs -->
+                  <path d="M368 232 L465 330 M465 189 L565 330 M560 174 L645 330 M340 286 L680 286"
+                        style="stroke: var(--accent)"
+                        stroke-width="1"
+                        opacity="0.55" />
+                  <!-- Front Pushrod Crash Structure & Subframe -->
+                  <path d="M142 325 L295 292 L352 328 M295 292 L295 344 M222 310 L295 344"
+                        style="stroke: var(--accent-2)"
+                        stroke-width="1.8"
+                        stroke-linejoin="round" />
+                  <!-- Mid-Mounted Twin-Turbo V8 + Axial E-Motor Block -->
+                  <rect x="698" y="242" width="118" height="72" rx="8" fill="rgba(255,255,255,0.06)" style="stroke: var(--accent-2)" stroke-width="1.8" />
+                  <path d="M715 242 L715 314 M742 242 L742 314 M769 242 L769 314 M796 242 L796 314" style="stroke: var(--accent-2)" stroke-width="1.2" opacity="0.7" />
+                  <!-- Inconel Exhaust Manifold -> Tail -->
+                  <path d="M816 268 C862 268 892 296 968 296" style="stroke: var(--accent)" stroke-width="3.2" stroke-linecap="round" />
+                  <!-- High-Voltage Capacitor Spine -->
+                  <rect x="442" y="302" width="210" height="22" rx="4" style="fill: var(--accent-soft); stroke: var(--accent)" stroke-width="1.4" />
+                  <!-- Callout Annotations -->
+                  <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--ink)">
+                    <line x1="510" y1="168" x2="510" y2="112" stroke="var(--accent)" stroke-width="1" />
+                    <circle cx="510" cy="168" r="3" fill="var(--accent)" />
+                    <text x="518" y="118">T1100G MONOCOQUE TUB (74 KG)</text>
+
+                    <line x1="758" y1="242" x2="758" y2="122" stroke="var(--accent-2)" stroke-width="1" />
+                    <circle cx="758" cy="242" r="3" fill="var(--accent-2)" />
+                    <text x="766" y="128">4.0L V8 + AXIAL E-DRIVE</text>
+
+                    <line x1="546" y1="313" x2="546" y2="416" stroke="var(--accent)" stroke-width="1" />
+                    <text x="554" y="422" fill="var(--muted)">800V CAPACITOR SPINE</text>
+                  </g>
+                </g>
+
+                <!-- =========================================================
+                     LAYER 3: AERO AIRFLOW STREAMLINES OVERLAY
+                     ========================================================= -->
+                <g class="aero-overlay">
+                  <!-- Upper Laminar Streamlines -->
+                  <path class="streamline" d="M56 266 C160 264 250 220 355 186 C455 130 570 116 690 156 C800 184 915 174 1065 142"
+                        stroke="url(#airflowGrad)" stroke-width="2.2" fill="none" stroke-linecap="round" />
+                  <path class="streamline" d="M56 292 C175 288 268 242 372 204 C470 150 575 138 704 176 C820 206 925 198 1065 168"
+                        stroke="url(#airflowGrad)" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.82" />
+                  <path class="streamline" d="M56 318 C190 315 315 292 440 278 C575 268 705 248 845 232 C935 224 1005 216 1065 204"
+                        stroke="url(#airflowGrad)" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.7" />
+                  <!-- Underbody Venturi Ground-Effect Stream -->
+                  <path class="streamline" d="M76 358 C240 374 520 376 785 370 C890 368 975 344 1058 310"
+                        stroke="url(#venturiGrad)" stroke-width="2.8" fill="none" stroke-linecap="round" />
+
+                  <!-- Vertical Downforce Vector Arrows -->
+                  <g style="stroke: var(--accent); fill: var(--accent)">
+                    <line x1="286" y1="158" x2="286" y2="218" stroke-width="2" />
+                    <polygon points="286,226 281,214 291,214" />
+                    <line x1="874" y1="98" x2="874" y2="156" stroke-width="2" />
+                    <polygon points="874,164 869,152 879,152" />
+                  </g>
+
+                  <!-- Telemetry HUD Readouts on SVG -->
+                  <g font-family="JetBrains Mono, monospace" font-size="10.5">
+                    <rect x="172" y="122" width="166" height="34" rx="6" fill="var(--bg-elevated)" stroke="var(--hairline-strong)" />
+                    <text x="184" y="137" fill="var(--muted)">FRONT AXLE LOAD</text>
+                    <text x="184" y="150" fill="var(--ink)" font-weight="600" id="svg-front-load">242 KG @ 250 KM/H</text>
+
+                    <rect x="772" y="64" width="178" height="34" rx="6" fill="var(--bg-elevated)" stroke="var(--hairline-strong)" />
+                    <text x="784" y="79" fill="var(--muted)">REAR + VENTURI LOAD</text>
+                    <text x="784" y="92" fill="var(--ink)" font-weight="600" id="svg-rear-load">378 KG @ 250 KM/H</text>
+
+                    <rect x="448" y="388" width="212" height="26" rx="6" fill="var(--bg-elevated)" stroke="var(--accent)" />
+                    <text x="554" y="405" text-anchor="middle" fill="var(--ink)" font-weight="600" id="svg-cd-badge">VENTURI GROUND EFFECT: 64% // Cd 0.31</text>
+                  </g>
+                </g>
+
+                <!-- =========================================================
+                     FRONT & REAR FORGED WHEELS + BRAKE CALIPERS
+                     ========================================================= -->
+                <!-- Front Wheel Assembly (cx=295, cy=344) -->
+                <g id="wheel-front" transform="translate(295, 344)">
+                  <!-- Tire -->
+                  <circle r="76" fill="#121316" stroke="#262830" stroke-width="2" />
+                  <circle r="64" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+                  <!-- Carbon Ceramic Rotor -->
+                  <circle r="48" fill="#2A2C34" stroke="#454854" stroke-width="1.5" />
+                  <circle r="36" fill="none" stroke="#18191F" stroke-width="2" stroke-dasharray="4 5" />
+                  <!-- 6-Piston Brake Caliper -->
+                  <path class="caliper-shape" d="M24 -34 A42 42 0 0 1 42 4 L29 8 A28 28 0 0 0 17 -22 Z" style="fill: var(--caliper-fill)" stroke="rgba(0,0,0,0.45)" stroke-width="1" />
+                  <!-- Rim Lip -->
+                  <circle r="54" fill="none" stroke="#8C919E" stroke-width="3.5" />
+                  <g class="wheel-spokes-group"></g>
+                  <!-- Center-Lock Hub -->
+                  <circle r="11" fill="#18191E" stroke="rgba(255,255,255,0.4)" stroke-width="1.4" />
+                  <circle r="5" style="fill: var(--accent)" />
+                </g>
+
+                <!-- Rear Wheel Assembly (cx=832, cy=344) -->
+                <g id="wheel-rear" transform="translate(832, 344)">
+                  <!-- Tire -->
+                  <circle r="79" fill="#121316" stroke="#262830" stroke-width="2" />
+                  <circle r="67" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+                  <!-- Carbon Ceramic Rotor -->
+                  <circle r="50" fill="#2A2C34" stroke="#454854" stroke-width="1.5" />
+                  <circle r="38" fill="none" stroke="#18191F" stroke-width="2" stroke-dasharray="4 5" />
+                  <!-- 6-Piston Brake Caliper -->
+                  <path class="caliper-shape" d="M-25 -35 A43 43 0 0 0 -43 5 L-30 9 A29 29 0 0 1 -18 -23 Z" style="fill: var(--caliper-fill)" stroke="rgba(0,0,0,0.45)" stroke-width="1" />
+                  <!-- Rim Lip -->
+                  <circle r="56" fill="none" stroke="#8C919E" stroke-width="3.5" />
+                  <g class="wheel-spokes-group"></g>
+                  <!-- Center-Lock Hub -->
+                  <circle r="11" fill="#18191E" stroke="rgba(255,255,255,0.4)" stroke-width="1.4" />
+                  <circle r="5" style="fill: var(--accent)" />
+                </g>
+              </svg>
+            </div>
+
+            <!-- Stage Bottom: Inline Specs + Liquid Glass Floating Pill Toolbar -->
+            <div class="stage-bottom">
+              <div class="stage-specs-inline">
+                <span>WHEEL <strong id="stage-wheel-name">Monoblock 10-Spoke</strong></span>
+                <span>CALIPER <strong id="stage-caliper-name">Accent Match</strong></span>
+              </div>
+
+              <!-- goodui.dev Liquid Glass Floating Pill Toolbar -->
+              <div class="liquid-glass-toolbar" id="liquid-glass-toolbar" role="group" aria-label="Stage view modes">
+                <button type="button" class="lg-pill-btn" data-view-mode="standard" aria-pressed="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect x="2" y="3.5" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                  </svg>
+                  <span>Standard View</span>
+                </button>
+                <button type="button" class="lg-pill-btn" data-view-mode="airflow" aria-pressed="false">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 5.5H10.5C12 5.5 13 4.5 13 3.5C13 2.5 12 2 11 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                    <path d="M2 8.5H13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                    <path d="M2 11.5H9.5C11 11.5 12 12.5 12 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                  <span>Aero Airflow</span>
+                </button>
+                <button type="button" class="lg-pill-btn" data-view-mode="chassis" aria-pressed="false">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 4.5L8 2L13 4.5V11.5L8 14L3 11.5V4.5Z" stroke="currentColor" stroke-width="1.4"/>
+                    <path d="M8 2V14M3 4.5L13 11.5" stroke="currentColor" stroke-width="1.1" opacity="0.7"/>
+                  </svg>
+                  <span>Carbon Chassis</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT SPEC PANEL -->
+          <aside class="spec-panel" aria-label="Vehicle Configuration Controls">
+            <!-- 01 Trim Selector -->
+            <div class="spec-group">
+              <div class="spec-label-row">
+                <span class="spec-label">01 // Homologation Trim</span>
+                <span class="spec-value-hint mono" id="trim-power-hint">820 PS</span>
+              </div>
+              <div class="trim-grid" role="group" aria-label="Select homologation trim">
+                <button type="button" class="trim-card" data-trim="stradale" aria-pressed="true">
+                  <span class="trim-name">Stradale</span>
+                  <span class="trim-meta">820 PS · Base</span>
+                </button>
+                <button type="button" class="trim-card" data-trim="competizione" aria-pressed="false">
+                  <span class="trim-name">Competizione</span>
+                  <span class="trim-meta">910 PS · +€57k</span>
+                </button>
+                <button type="button" class="trim-card" data-trim="pista" aria-pressed="false">
+                  <span class="trim-name">Pista</span>
+                  <span class="trim-meta">1,040 PS · +€133k</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 02 Livery Selector -->
+            <div class="spec-group">
+              <div class="spec-label-row">
+                <span class="spec-label">02 // Atelier Livery</span>
+                <span class="spec-value-hint mono" id="livery-code-hint">#DA291C // IT-RC</span>
+              </div>
+              <div class="livery-row" role="group" aria-label="Select studio livery">
+                <button type="button" class="livery-btn" data-livery-pick="rosso-corsa" aria-pressed="true">
+                  <span class="swatch-ring">
+                    <span class="swatch-core" style="background: linear-gradient(135deg, #FF5B4D, #DA291C 55%, #781008);"></span>
+                  </span>
+                  <span class="livery-name">Rosso Corsa</span>
+                </button>
+                <button type="button" class="livery-btn" data-livery-pick="giallo-modena" aria-pressed="false">
+                  <span class="swatch-ring">
+                    <span class="swatch-core" style="background: linear-gradient(135deg, #FFE066, #FFC000 55%, #996E00);"></span>
+                  </span>
+                  <span class="livery-name">Giallo Modena</span>
+                </button>
+                <button type="button" class="livery-btn" data-livery-pick="verde-mantis" aria-pressed="false">
+                  <span class="swatch-ring">
+                    <span class="swatch-core" style="background: linear-gradient(135deg, #CDFFAD, #9FE870 55%, #4D852A);"></span>
+                  </span>
+                  <span class="livery-name">Verde Mantis</span>
+                </button>
+                <button type="button" class="livery-btn" data-livery-pick="bianco-fuji" aria-pressed="false">
+                  <span class="swatch-ring">
+                    <span class="swatch-core" style="background: linear-gradient(135deg, #FFFFFF, #EAECEF 58%, #B5BAC4);"></span>
+                  </span>
+                  <span class="livery-name">Bianco Fuji</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 03 Wheel Finish -->
+            <div class="spec-group">
+              <div class="spec-label-row">
+                <span class="spec-label">03 // Forged Wheel Set</span>
+                <span class="spec-value-hint mono">20&quot; F / 21&quot; R</span>
+              </div>
+              <div class="wheel-grid" role="group" aria-label="Select wheel set">
+                <button type="button" class="option-cell" data-wheel="monoblock" aria-pressed="true">
+                  <span class="option-title">Monoblock</span>
+                  <span class="option-delta">Included</span>
+                </button>
+                <button type="button" class="option-cell" data-wheel="aerodisc" aria-pressed="false">
+                  <span class="option-title">Aero-Disc</span>
+                  <span class="option-delta">+€12,500</span>
+                </button>
+                <button type="button" class="option-cell" data-wheel="magnesium" aria-pressed="false">
+                  <span class="option-title">Magnesium</span>
+                  <span class="option-delta">+€18,000</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 04 Caliper Finish -->
+            <div class="spec-group">
+              <div class="spec-label-row">
+                <span class="spec-label">04 // 6-Piston Caliper Finish</span>
+                <span class="spec-value-hint mono">420 MM CCM-R</span>
+              </div>
+              <div class="caliper-pills" role="group" aria-label="Select brake caliper finish">
+                <button type="button" class="caliper-pill" data-caliper="accent2" aria-pressed="true">
+                  <span class="caliper-dot" style="background: var(--accent-2);"></span>
+                  <span>Pin Contrast</span>
+                </button>
+                <button type="button" class="caliper-pill" data-caliper="livery" aria-pressed="false">
+                  <span class="caliper-dot" style="background: var(--accent);"></span>
+                  <span>Livery Match</span>
+                </button>
+                <button type="button" class="caliper-pill" data-caliper="rosso" aria-pressed="false">
+                  <span class="caliper-dot" style="background: #DA291C;"></span>
+                  <span>Rosso Ceramic</span>
+                </button>
+                <button type="button" class="caliper-pill" data-caliper="stealth" aria-pressed="false">
+                  <span class="caliper-dot" style="background: #4E525B;"></span>
+                  <span>Stealth Anodized</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Number Flow Rolling Odometer Counters -->
+            <div class="odometer-box" aria-live="polite">
+              <div class="price-row">
+                <span class="price-caption">Configured Valuation</span>
+                <div class="price-display">
+                  <span class="price-currency">EUR</span>
+                  <span class="odo-wrap" id="odo-price"></span>
+                </div>
+              </div>
+
+              <div class="kpi-mini-grid">
+                <div class="kpi-mini">
+                  <span class="kpi-mini-label">0–100 km/h</span>
+                  <span class="kpi-mini-val">
+                    <span class="odo-wrap" id="odo-accel"></span>
+                    <span class="kpi-mini-unit">s</span>
+                  </span>
+                </div>
+                <div class="kpi-mini">
+                  <span class="kpi-mini-label">Downforce</span>
+                  <span class="kpi-mini-val">
+                    <span class="odo-wrap" id="odo-downforce"></span>
+                    <span class="kpi-mini-unit">kg</span>
+                  </span>
+                </div>
+                <div class="kpi-mini">
+                  <span class="kpi-mini-label">Dry Mass</span>
+                  <span class="kpi-mini-val">
+                    <span class="odo-wrap" id="odo-mass"></span>
+                    <span class="kpi-mini-unit">kg</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hold-to-Reserve Allocation CTA -->
+            <div class="cta-stack">
+              <button type="button" class="hold-cta" id="hold-reserve-btn" aria-describedby="hold-hint-text">
+                <span class="hold-cta-fill" id="hold-cta-fill"></span>
+                <span class="hold-cta-content">
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M5 7V5C5 3.34 6.34 2 8 2C9.66 2 11 3.34 11 5V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  <span id="hold-cta-label">Hold 1.4s to Reserve Allocation</span>
+                </span>
+              </button>
+
+              <div class="cta-subrow">
+                <span id="hold-hint-text">Hold pointer or Space/Enter · Release rewinds</span>
+                <button type="button" class="text-action-btn" id="open-dossier-quick">Spec Dossier</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Aero Telemetry Section (Interactive Downforce vs Speed Chart)
+         ====================================================================== -->
+    <section class="section-band" id="telemetry">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Wind Tunnel Telemetry // CFD Verified</p>
+            <h2 class="section-title">Downforce &amp; Drag Curve across Velocity</h2>
+          </div>
+          <p class="section-desc">
+            Scrub across the velocity envelope from 100 km/h to 340 km/h. Curve profiles dynamically adapt to your active homologation trim and rear DRS flap angle.
+          </p>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telemetry-readout-strip">
+            <div class="telemetry-cell is-highlight">
+              <span class="telemetry-cell-label">Scrub Velocity</span>
+              <span class="telemetry-cell-val mono" id="tel-speed">250 km/h</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-cell-label">Total Downforce</span>
+              <span class="telemetry-cell-val mono" id="tel-total-df">620 kg</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-cell-label">Front / Rear Split</span>
+              <span class="telemetry-cell-val mono" id="tel-split">242 / 378 kg</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-cell-label">Aero Drag</span>
+              <span class="telemetry-cell-val mono" id="tel-drag">218 kg</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-cell-label">Efficiency (L/D)</span>
+              <span class="telemetry-cell-val mono" id="tel-ld">2.84 : 1</span>
+            </div>
+          </div>
+
+          <div class="chart-stage">
+            <svg class="aero-chart-svg" id="aero-chart-svg" viewBox="0 0 1000 310" role="img" aria-label="Interactive Downforce versus Speed Curve">
+              <!-- Grid & Axes injected/managed cleanly via SVG + JS -->
+              <g id="chart-grid"></g>
+              <path id="chart-df-area" fill="var(--accent-soft)" />
+              <path id="chart-df-line" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" />
+              <path id="chart-drag-line" fill="none" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round" opacity="0.9" />
+
+              <!-- Crosshair Group -->
+              <g id="chart-crosshair">
+                <line id="crosshair-line" x1="560" y1="24" x2="560" y2="262" stroke="var(--ink-secondary)" stroke-width="1" stroke-dasharray="3 3" />
+                <circle id="crosshair-df-halo" cx="560" cy="120" r="9" fill="var(--accent-soft)" />
+                <circle id="crosshair-df-dot" cx="560" cy="120" r="4.5" fill="var(--accent)" stroke="var(--bg-inner)" stroke-width="2" />
+                <circle id="crosshair-drag-dot" cx="560" cy="200" r="4" fill="var(--accent-2)" stroke="var(--bg-inner)" stroke-width="1.5" />
+                <g id="crosshair-tag" transform="translate(574, 40)">
+                  <rect x="0" y="0" width="150" height="44" rx="7" fill="var(--bg-elevated)" stroke="var(--hairline-strong)" />
+                  <text x="10" y="18" fill="var(--ink)" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" id="tag-df-text">DF: 620 kg</text>
+                  <text x="10" y="34" fill="var(--muted)" font-family="JetBrains Mono, monospace" font-size="10.5" id="tag-drag-text">DRAG: 218 kg</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="chart-controls-row">
+            <div class="speed-slider-wrap">
+              <label for="speed-scrub-slider" class="mono">VELOCITY SCRUB (100–340 KM/H)</label>
+              <input type="range" id="speed-scrub-slider" class="speed-range" min="100" max="340" step="5" value="250" />
+            </div>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="legend-line"></span>Total Downforce (kg)</span>
+              <span class="legend-item"><span class="legend-line is-secondary"></span>Aero Drag Equivalent (kg)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Materials & Hardware Spotlight Cards
+         ====================================================================== -->
+    <section class="section-band" id="materials">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Structural Architecture // Hardware</p>
+            <h2 class="section-title">Monolith Material Subsystems</h2>
+          </div>
+          <p class="section-desc">
+            Every load-bearing assembly is machined or autoclave-cured in-house. Hover each subsystem card to inspect the structural schematic.
+          </p>
+        </div>
+
+        <div class="spotlight-grid">
+          <!-- Card 1: Forged Monocoque -->
+          <article class="spotlight-card" data-spotlight>
+            <div class="spot-head">
+              <span class="spot-index mono">SUBSYSTEM // 01</span>
+              <span class="spot-tag">Autoclave T1100G</span>
+            </div>
+            <div class="spot-diagram">
+              <svg width="240" height="84" viewBox="0 0 240 84" fill="none" aria-hidden="true">
+                <path d="M24 62L48 22H144L198 38L216 62H24Z" stroke="var(--ink-secondary)" stroke-width="1.4" />
+                <path d="M48 22L88 62M96 22L136 62M144 22L184 62" stroke="var(--accent)" stroke-width="1.2" opacity="0.8" />
+                <rect x="64" y="34" width="66" height="16" rx="3" stroke="var(--accent-2)" stroke-width="1.2" />
+                <circle cx="48" cy="22" r="2.5" fill="var(--accent)" />
+                <circle cx="144" cy="22" r="2.5" fill="var(--accent)" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="spot-title">Forged Monocoque</h3>
+              <p class="spot-copy">
+                Single-piece pre-preg T1100G carbon tub cured at 7 bar with integrated titanium suspension bulkheads and zero bonded aluminum sub-rails.
+              </p>
+            </div>
+            <div class="spot-specs">
+              <div class="spot-spec-cell">
+                <div class="spot-spec-k">Torsional Stiffness</div>
+                <div class="spot-spec-v">68,000 Nm/deg</div>
+              </div>
+              <div class="spot-spec-cell">
+                <div class="spot-spec-k">Tub Core Mass</div>
+                <div class="spot-spec-v">74.0 kg</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Active Venturi Underbody -->
+          <article class="spotlight-card" data-spotlight>
+            <div class="spot-head">
+              <span class="spot-index mono">SUBSYSTEM // 02</span>
+              <span class="spot-tag">Ground Effect</span>
+            </div>
+            <div class="spot-diagram">
+              <svg width="240" height="84" viewBox="0 0 240 84" fill="none" aria-hidden="true">
+                <path d="M18 32C68 32 96 54 136 54C174 54 198 36 224 22" stroke="var(--ink-secondary)" stroke-width="1.5" />
+                <path d="M18 66H224" stroke="var(--hairline-strong)" stroke-width="1" stroke-dasharray="4 4" />
+                <path d="M24 48C72 48 102 60 138 60C172 60 198 48 220 34" stroke="var(--accent)" stroke-width="1.6" />
+                <line x1="136" y1="24" x2="136" y2="48" stroke="var(--accent-2)" stroke-width="1.4" />
+                <polygon points="136,52 132,45 140,45" fill="var(--accent-2)" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="spot-title">Active Venturi Underbody</h3>
+              <p class="spot-copy">
+                Twin variable-pitch floor strakes modulate throat expansion in 18 milliseconds, generating 64% of total vertical load without drag penalty.
+              </p>
+            </div>
+            <div class="spot-specs">
+              <div class="spot-spec-cell">
+                <div class="spot-spec-k">Actuation Speed</div>
+                <div class="spot-spec-v">18 ms</div>
+              </div>
+              <div class="spot-spec-cell">
+                <div class="spot-spec-k">Underbody Share</div>
+                <div class="spot-spec-v">64% Load</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Ceramic Acoustic Exhaust -->
+          <article class="spotlight-card" data-spotlight>
+            <div class="spot-head">
+              <span class="spot-index mono">SUBSYSTEM // 03</span>
+              <span class="spot-tag">Inconel 625 + SiC</span>
+            </div>
+            <div class="spot-diagram">
+              <svg width="240" height="84" viewBox="0 0 240 84" fill="none" aria-hidden="true">
+                <path d="M24 26H76C96 26 102 42 124 42H214" stroke="var(--accent)" stroke-width="1.6" />
+                <path d="M24 42H124" stroke="var(--ink-secondary)" stroke-width="1.4" />
+                <path d="M24 58H76C96 58 102 42 124 42" stroke="var(--accent)" stroke-width="1.6" />
+                <rect x="148" y="33" width="38" height="18" rx="4" stroke="var(--accent-2)" stroke-width="1.3" />
+                <circle cx="214" cy="42" r="5" stroke="var(--ink-secondary)" stroke-width="1.3" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="spot-title">Ceramic Acoustic Exhaust</h3>
+              <p class="spot-copy">
+                0.8 mm thin-wall Inconel 625 equal-length headers wrapped in silicon-carbide ceramic shielding for sustained 9,400 RPM thermal stability.
+              </p>
+            </div>
+            <div class="spot-specs">
+              <div class="spot-spec-cell">
+                <div class="spot-spec-k">Mass Delta</div>
+                <div class="spot-spec-v">-14.2 kg</div>
+              </div>
+              <div class="spot-spec-cell">
+                <div class="spot-spec-k">Peak Thermal</div>
+                <div class="spot-spec-v">1,080 °C</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Allocation Summary & Factory Build Slot Verification
+         ====================================================================== -->
+    <section class="section-band" id="allocation">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Build Specification // Modena Line 02</p>
+            <h2 class="section-title">Allocation Summary &amp; Slot Verification</h2>
+          </div>
+          <p class="section-desc">
+            Review your locked hardware manifest, verify live factory production slot availability, or copy your deterministic build code.
+          </p>
+        </div>
+
+        <div class="allocation-panel">
+          <div class="alloc-summary-grid" id="alloc-summary-grid">
+            <div class="alloc-cell">
+              <div class="alloc-cell-k">Homologation Trim</div>
+              <div class="alloc-cell-v" id="sum-trim">Stradale (820 PS)</div>
+            </div>
+            <div class="alloc-cell">
+              <div class="alloc-cell-k">Studio Livery</div>
+              <div class="alloc-cell-v" id="sum-livery">Rosso Corsa</div>
+            </div>
+            <div class="alloc-cell">
+              <div class="alloc-cell-k">Forged Wheel Set</div>
+              <div class="alloc-cell-v" id="sum-wheel">Monoblock 10-Spoke</div>
+            </div>
+            <div class="alloc-cell">
+              <div class="alloc-cell-k">Brake Calipers</div>
+              <div class="alloc-cell-v" id="sum-caliper">Pin Contrast</div>
+            </div>
+            <div class="alloc-cell">
+              <div class="alloc-cell-k">Peak Downforce</div>
+              <div class="alloc-cell-v mono" id="sum-df">620 kg</div>
+            </div>
+            <div class="alloc-cell">
+              <div class="alloc-cell-k">Configured Total</div>
+              <div class="alloc-cell-v mono" id="sum-price">EUR 485,000</div>
+            </div>
+          </div>
+
+          <div class="alloc-actions-box">
+            <div class="build-code-row">
+              <div>
+                <div class="alloc-cell-k">Deterministic Build Code</div>
+                <div class="build-code-val" id="main-build-code">VLC-06-STR-RC-MW1-C2</div>
+              </div>
+              <button type="button" class="btn-pill btn-pill-outline" id="copy-code-btn">
+                <svg class="copy-icon-svg" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <rect x="5" y="5" width="8" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M3 11V3.5C3 2.67 3.67 2 4.5 2H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                <span class="copy-btn-label">Copy Build Code</span>
+              </button>
+            </div>
+
+            <div class="async-check-row">
+              <button type="button" class="btn-pill btn-pill-accent" id="verify-slot-btn">
+                <span id="verify-slot-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M8 5V8L10 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span id="verify-slot-label">Verify Factory Build Slot</span>
+              </button>
+              <span class="slot-status-text" id="slot-status-text" data-state="idle">Line 02 status: Unchecked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>VELOCE // MONOLITH 06 ATELIER — MODENA PROTOTYPE DIVISION</span>
+      <span>ALL HOMOLOGATION FIGURES CFD &amp; DYNAMOMETER VERIFIED</span>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       Allocation Confirmed & Spec Dossier Modal
+       ======================================================================== -->
+  <div class="modal-root" id="allocation-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true" data-open="false">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <p class="section-kicker" id="modal-kicker">Allocation Dossier // VLC-06</p>
+          <h2 class="modal-title" id="modal-title">Build Specification Summary</h2>
+        </div>
+        <button type="button" class="icon-close-btn" id="modal-close-btn" aria-label="Close Specification Modal">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-spec-list" id="modal-spec-list">
+        <div class="modal-spec-item">
+          <span class="alloc-cell-k">Reservation Reference</span>
+          <span class="alloc-cell-v mono" id="modal-ref-id">PENDING HOLD</span>
+        </div>
+        <div class="modal-spec-item">
+          <span class="alloc-cell-k">Build Code</span>
+          <span class="alloc-cell-v mono" id="modal-build-code">VLC-06-STR-RC-MW1-C2</span>
+        </div>
+        <div class="modal-spec-item">
+          <span class="alloc-cell-k">Trim &amp; Output</span>
+          <span class="alloc-cell-v" id="modal-trim">Stradale · 820 PS</span>
+        </div>
+        <div class="modal-spec-item">
+          <span class="alloc-cell-k">Livery &amp; Calipers</span>
+          <span class="alloc-cell-v" id="modal-livery">Rosso Corsa · Pin Contrast</span>
+        </div>
+        <div class="modal-spec-item">
+          <span class="alloc-cell-k">Wheel Hardware</span>
+          <span class="alloc-cell-v" id="modal-wheel">Monoblock 10-Spoke</span>
+        </div>
+        <div class="modal-spec-item">
+          <span class="alloc-cell-k">Configured Valuation</span>
+          <span class="alloc-cell-v mono" id="modal-price">EUR 485,000</span>
+        </div>
+      </div>
+
+      <div class="async-check-row">
+        <button type="button" class="btn-pill btn-pill-accent" id="modal-verify-btn">
+          <span id="modal-verify-icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 5V8L10 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span id="modal-verify-label">Verify Factory Build Slot</span>
+        </button>
+        <span class="slot-status-text" id="modal-slot-status" data-state="idle">Line 02 status: Ready to verify</span>
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" class="btn-pill btn-pill-outline" id="modal-copy-btn">
+          <svg class="copy-icon-svg" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="5" y="5" width="8" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M3 11V3.5C3 2.67 3.67 2 4.5 2H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <span class="copy-btn-label">Copy Build Code</span>
+        </button>
+        <button type="button" class="btn-pill btn-pill-outline" id="modal-done-btn">Close Dossier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Stack -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      /* ======================================================================
+         1. Configuration Data Tables
+         ====================================================================== */
+      const TRIMS = {
+        stradale: {
+          id: "stradale",
+          code: "STR",
+          name: "Stradale",
+          power: "820 PS",
+          price: 485000,
+          accel: 2.4,
+          downforce250: 620,
+          mass: 1290,
+          dfCoeff: 0.00992,
+          dragCoeff: 0.00349,
+          frontShare: 0.39,
+          cdLabel: "Cd 0.31"
+        },
+        competizione: {
+          id: "competizione",
+          code: "CMP",
+          name: "Competizione",
+          power: "910 PS",
+          price: 542000,
+          accel: 2.2,
+          downforce250: 790,
+          mass: 1230,
+          dfCoeff: 0.01264,
+          dragCoeff: 0.00405,
+          frontShare: 0.41,
+          cdLabel: "Cd 0.34"
+        },
+        pista: {
+          id: "pista",
+          code: "PST",
+          name: "Pista",
+          power: "1,040 PS",
+          price: 618000,
+          accel: 2.0,
+          downforce250: 940,
+          mass: 1175,
+          dfCoeff: 0.01504,
+          dragCoeff: 0.00456,
+          frontShare: 0.43,
+          cdLabel: "Cd 0.37"
+        }
+      };
+
+      const LIVERIES = {
+        "rosso-corsa": {
+          id: "rosso-corsa",
+          code: "RC",
+          name: "Rosso Corsa",
+          paintTag: "#DA291C // IT-RC",
+          caliperAccent2: "#FFF200",
+          caliperLivery: "#DA291C"
+        },
+        "giallo-modena": {
+          id: "giallo-modena",
+          code: "GM",
+          name: "Giallo Modena",
+          paintTag: "#FFC000 // IT-GM",
+          caliperAccent2: "#29ABE2",
+          caliperLivery: "#FFC000"
+        },
+        "verde-mantis": {
+          id: "verde-mantis",
+          code: "VM",
+          name: "Verde Mantis",
+          paintTag: "#9FE870 // VM-06",
+          caliperAccent2: "#FFFFFF",
+          caliperLivery: "#9FE870"
+        },
+        "bianco-fuji": {
+          id: "bianco-fuji",
+          code: "BF",
+          name: "Bianco Fuji",
+          paintTag: "#FFFFFF // AG-BF",
+          caliperAccent2: "#DA291C",
+          caliperLivery: "#0066CC"
+        }
+      };
+
+      const WHEELS = {
+        monoblock: {
+          id: "monoblock",
+          code: "MW1",
+          name: "Monoblock 10-Spoke",
+          price: 0,
+          massDelta: 0
+        },
+        aerodisc: {
+          id: "aerodisc",
+          code: "AD2",
+          name: "Carbon Aero-Disc",
+          price: 12500,
+          massDelta: -6
+        },
+        magnesium: {
+          id: "magnesium",
+          code: "MG3",
+          name: "Magnesium Center-Lock",
+          price: 18000,
+          massDelta: -14
+        }
+      };
+
+      const CALIPERS = {
+        accent2: { id: "accent2", code: "C2", name: "Pin Contrast" },
+        livery: { id: "livery", code: "CL", name: "Livery Match" },
+        rosso: { id: "rosso", code: "CR", name: "Rosso Ceramic" },
+        stealth: { id: "stealth", code: "CS", name: "Stealth Anodized" }
+      };
+
+      const VIEW_LABELS = {
+        standard: "VIEW: STUDIO BODYWORK",
+        airflow: "VIEW: CFD AERO STREAMLINES",
+        chassis: "VIEW: T1100G CARBON X-RAY"
+      };
+
+      /* ======================================================================
+         2. Application State
+         ====================================================================== */
+      const state = {
+        livery: "rosso-corsa",
+        trim: "stradale",
+        wheel: "monoblock",
+        caliper: "accent2",
+        viewMode: "standard",
+        drsOpen: false,
+        scrubSpeed: 250,
+        audioEnabled: false,
+        reservedRef: null,
+        slotState: "idle", // idle | checking | verified
+        modalOpen: false
+      };
+
+      /* ======================================================================
+         3. Opt-In Web Audio Precision Synthesizer (Off by Default)
+         ====================================================================== */
+      const synth = (() => {
+        let ctx = null;
+        let holdOsc = null;
+        let holdGain = null;
+
+        function ensureCtx() {
+          if (!state.audioEnabled) return null;
+          if (!ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return null;
+            ctx = new AudioCtx();
+          }
+          if (ctx.state === "suspended") {
+            ctx.resume().catch(() => {});
+          }
+          return ctx;
+        }
+
+        function click() {
+          const c = ensureCtx();
+          if (!c) return;
+          const now = c.currentTime;
+          const osc = c.createOscillator();
+          const gain = c.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(1180, now);
+          osc.frequency.exponentialRampToValueAtTime(340, now + 0.032);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.036);
+          osc.connect(gain);
+          gain.connect(c.destination);
+          osc.start(now);
+          osc.stop(now + 0.04);
+        }
+
+        function thump() {
+          const c = ensureCtx();
+          if (!c) return;
+          const now = c.currentTime;
+          const osc = c.createOscillator();
+          const gain = c.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(135, now);
+          osc.frequency.exponentialRampToValueAtTime(42, now + 0.14);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+          osc.connect(gain);
+          gain.connect(c.destination);
+          osc.start(now);
+          osc.stop(now + 0.16);
+          click();
+        }
+
+        function startHold() {
+          const c = ensureCtx();
+          if (!c) return;
+          stopHold(false);
+          const now = c.currentTime;
+          holdOsc = c.createOscillator();
+          holdGain = c.createGain();
+          holdOsc.type = "sine";
+          holdOsc.frequency.setValueAtTime(160, now);
+          holdOsc.frequency.exponentialRampToValueAtTime(520, now + 1.4);
+          holdGain.gain.setValueAtTime(0.001, now);
+          holdGain.gain.linearRampToValueAtTime(0.075, now + 0.2);
+          holdOsc.connect(holdGain);
+          holdGain.connect(c.destination);
+          holdOsc.start(now);
+        }
+
+        function stopHold(completed) {
+          if (!ctx || !holdOsc || !holdGain) return;
+          const now = ctx.currentTime;
+          try {
+            holdGain.gain.cancelScheduledValues(now);
+            holdGain.gain.setValueAtTime(holdGain.gain.value || 0.04, now);
+            holdGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+            holdOsc.stop(now + 0.09);
+          } catch (_) {
+            // Safe cleanup if oscillator already stopped
+          }
+          holdOsc = null;
+          holdGain = null;
+          if (completed) {
+            chime();
+          }
+        }
+
+        function chime() {
+          const c = ensureCtx();
+          if (!c) return;
+          const now = c.currentTime;
+          const freqs = [523.25, 659.25, 783.99];
+          freqs.forEach((f, idx) => {
+            const osc = c.createOscillator();
+            const gain = c.createGain();
+            const start = now + idx * 0.055;
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(f, start);
+            gain.gain.setValueAtTime(0.001, start);
+            gain.gain.linearRampToValueAtTime(0.08, start + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.42);
+            osc.connect(gain);
+            gain.connect(c.destination);
+            osc.start(start);
+            osc.stop(start + 0.44);
+          });
+        }
+
+        function toggleOn() {
+          if (!state.audioEnabled) return;
+          const c = ensureCtx();
+          if (!c) return;
+          click();
+        }
+
+        return { click, thump, startHold, stopHold, chime, toggleOn };
+      })();
+
+      /* ======================================================================
+         4. Number Flow Rolling Odometer Renderer
+         ====================================================================== */
+      function renderOdometer(container, formattedString) {
+        if (!container) return;
+        const chars = formattedString.split("");
+        const existingKey = container.dataset.pattern || "";
+        const nextPattern = chars.map((ch) => (/\d/.test(ch) ? "d" : ch)).join("");
+
+        if (existingKey !== nextPattern) {
+          container.innerHTML = "";
+          container.dataset.pattern = nextPattern;
+          chars.forEach((ch) => {
+            if (/\d/.test(ch)) {
+              const slot = document.createElement("span");
+              slot.className = "odo-digit-slot";
+              const strip = document.createElement("span");
+              strip.className = "odo-digit-strip";
+              for (let n = 0; n <= 9; n++) {
+                const cell = document.createElement("span");
+                cell.textContent = String(n);
+                strip.appendChild(cell);
+              }
+              slot.appendChild(strip);
+              container.appendChild(slot);
+            } else {
+              const sep = document.createElement("span");
+              sep.className = "odo-sep";
+              sep.textContent = ch;
+              container.appendChild(sep);
+            }
+          });
+        }
+
+        const strips = container.querySelectorAll(".odo-digit-strip");
+        let digitIdx = 0;
+        chars.forEach((ch) => {
+          if (/\d/.test(ch)) {
+            const target = Number(ch);
+            const strip = strips[digitIdx++];
+            if (strip) {
+              requestAnimationFrame(() => {
+                strip.style.transform = `translateY(-${target * 10}%)`;
+              });
+            }
+          }
+        });
+      }
+
+      /* ======================================================================
+         5. Dynamic Wheel Spoke SVG Builder
+         ====================================================================== */
+      function buildWheelSpokesMarkup(wheelType) {
+        if (wheelType === "monoblock") {
+          let paths = "";
+          for (let i = 0; i < 5; i++) {
+            const deg = i * 72;
+            paths += `<g transform="rotate(${deg})">
+              <path d="M-4 -10 L-10 -51 L-4 -51 L0 -23 L4 -51 L10 -51 L4 -10 Z" fill="#C4C9D4" stroke="#363942" stroke-width="0.8"/>
+            </g>`;
+          }
+          return paths;
+        }
+        if (wheelType === "aerodisc") {
+          let fins = `<circle r="48" fill="rgba(22,24,29,0.88)" stroke="#484C58" stroke-width="1.5"/>`;
+          for (let i = 0; i < 12; i++) {
+            const deg = i * 30;
+            fins += `<g transform="rotate(${deg})">
+              <path d="M-2 -14 L6 -48 L12 -46 L3 -14 Z" fill="#2A2D36" stroke="rgba(255,255,255,0.16)" stroke-width="0.7"/>
+            </g>`;
+          }
+          fins += `<circle r="42" fill="none" style="stroke: var(--paint-pin)" stroke-width="1.3" stroke-dasharray="14 8" opacity="0.85"/>`;
+          return fins;
+        }
+        // magnesium center-lock
+        let mag = "";
+        for (let i = 0; i < 5; i++) {
+          const deg = i * 72 + 18;
+          mag += `<g transform="rotate(${deg})">
+            <path d="M-2.2 -10 L-3 -52 L3 -52 L2.2 -10 Z" fill="#B69E74" stroke="#2D2922" stroke-width="0.8"/>
+            <path d="M-6 -32 L6 -32" stroke="#D9C5A0" stroke-width="1.2"/>
+          </g>`;
+        }
+        return mag;
+      }
+
+      function renderWheels() {
+        const markup = buildWheelSpokesMarkup(state.wheel);
+        document.querySelectorAll(".wheel-spokes-group").forEach((g) => {
+          g.innerHTML = markup;
+        });
+      }
+
+      /* ======================================================================
+         6. Aero Telemetry Chart Calculations & Interactive Crosshair
+         ====================================================================== */
+      const CHART = {
+        xMin: 64,
+        xMax: 966,
+        yTop: 28,
+        yBottom: 262,
+        vMin: 100,
+        vMax: 340,
+        maxYVal: 1900
+      };
+
+      function getAeroMetricsAtSpeed(speedKmh) {
+        const trim = TRIMS[state.trim];
+        const drsDfFactor = state.drsOpen ? 0.78 : 1.0;
+        const drsDragFactor = state.drsOpen ? 0.84 : 1.0;
+        const vSq = speedKmh * speedKmh;
+        const totalDf = Math.round(trim.dfCoeff * vSq * drsDfFactor);
+        const drag = Math.round(trim.dragCoeff * vSq * drsDragFactor);
+        const frontDf = Math.round(totalDf * trim.frontShare);
+        const rearDf = totalDf - frontDf;
+        const ld = drag > 0 ? (totalDf / drag).toFixed(2) : "0.00";
+        return { totalDf, drag, frontDf, rearDf, ld };
+      }
+
+      function speedToX(v) {
+        const ratio = (v - CHART.vMin) / (CHART.vMax - CHART.vMin);
+        return CHART.xMin + ratio * (CHART.xMax - CHART.xMin);
+      }
+
+      function valToY(val) {
+        const clamped = Math.min(val, CHART.maxYVal);
+        const ratio = clamped / CHART.maxYVal;
+        return CHART.yBottom - ratio * (CHART.yBottom - CHART.yTop);
+      }
+
+      function renderChartGrid() {
+        const gridEl = document.getElementById("chart-grid");
+        let svgHtml = "";
+        const yTicks = [0, 450, 900, 1350, 1800];
+        yTicks.forEach((val) => {
+          const y = valToY(val);
+          svgHtml += `<line x1="${CHART.xMin}" y1="${y}" x2="${CHART.xMax}" y2="${y}" stroke="var(--hairline)" stroke-width="1" />`;
+          svgHtml += `<text x="${CHART.xMin - 10}" y="${y + 3}" text-anchor="end" fill="var(--muted)" font-family="JetBrains Mono, monospace" font-size="10">${val} kg</text>`;
+        });
+
+        const xTicks = [100, 140, 180, 220, 260, 300, 340];
+        xTicks.forEach((v) => {
+          const x = speedToX(v);
+          svgHtml += `<line x1="${x}" y1="${CHART.yTop}" x2="${x}" y2="${CHART.yBottom}" stroke="var(--hairline)" stroke-width="1" opacity="0.65" />`;
+          svgHtml += `<text x="${x}" y="${CHART.yBottom + 22}" text-anchor="middle" fill="var(--muted)" font-family="JetBrains Mono, monospace" font-size="10">${v} km/h</text>`;
+        });
+
+        gridEl.innerHTML = svgHtml;
+      }
+
+      function renderAeroCurves() {
+        const dfPts = [];
+        const dragPts = [];
+        for (let v = CHART.vMin; v <= CHART.vMax; v += 10) {
+          const m = getAeroMetricsAtSpeed(v);
+          const x = speedToX(v).toFixed(1);
+          const yDf = valToY(m.totalDf).toFixed(1);
+          const yDrag = valToY(m.drag).toFixed(1);
+          dfPts.push(`${x},${yDf}`);
+          dragPts.push(`${x},${yDrag}`);
+        }
+        const dfPath = "M" + dfPts.join(" L");
+        const dragPath = "M" + dragPts.join(" L");
+        const areaPath = `${dfPath} L${CHART.xMax},${CHART.yBottom} L${CHART.xMin},${CHART.yBottom} Z`;
+
+        document.getElementById("chart-df-line").setAttribute("d", dfPath);
+        document.getElementById("chart-df-area").setAttribute("d", areaPath);
+        document.getElementById("chart-drag-line").setAttribute("d", dragPath);
+
+        updateCrosshair();
+      }
+
+      function updateCrosshair() {
+        const v = state.scrubSpeed;
+        const m = getAeroMetricsAtSpeed(v);
+        const x = speedToX(v);
+        const yDf = valToY(m.totalDf);
+        const yDrag = valToY(m.drag);
+
+        document.getElementById("crosshair-line").setAttribute("x1", x);
+        document.getElementById("crosshair-line").setAttribute("x2", x);
+        document.getElementById("crosshair-df-halo").setAttribute("cx", x);
+        document.getElementById("crosshair-df-halo").setAttribute("cy", yDf);
+        document.getElementById("crosshair-df-dot").setAttribute("cx", x);
+        document.getElementById("crosshair-df-dot").setAttribute("cy", yDf);
+        document.getElementById("crosshair-drag-dot").setAttribute("cx", x);
+        document.getElementById("crosshair-drag-dot").setAttribute("cy", yDrag);
+
+        const tagX = x > 760 ? x - 166 : x + 14;
+        const tagY = Math.max(CHART.yTop + 4, Math.min(yDf - 22, CHART.yBottom - 54));
+        document.getElementById("crosshair-tag").setAttribute("transform", `translate(${tagX}, ${tagY})`);
+        document.getElementById("tag-df-text").textContent = `DF: ${m.totalDf} kg`;
+        document.getElementById("tag-drag-text").textContent = `DRAG: ${m.drag} kg`;
+
+        document.getElementById("tel-speed").textContent = `${v} km/h`;
+        document.getElementById("tel-total-df").textContent = `${m.totalDf} kg`;
+        document.getElementById("tel-split").textContent = `${m.frontDf} / ${m.rearDf} kg`;
+        document.getElementById("tel-drag").textContent = `${m.drag} kg`;
+        document.getElementById("tel-ld").textContent = `${m.ld} : 1`;
+      }
+
+      /* ======================================================================
+         7. Core UI Sync & Build Code Generator
+         ====================================================================== */
+      function computeBuildCode() {
+        const t = TRIMS[state.trim].code;
+        const l = LIVERIES[state.livery].code;
+        const w = WHEELS[state.wheel].code;
+        const c = CALIPERS[state.caliper].code;
+        return `VLC-06-${t}-${l}-${w}-${c}`;
+      }
+
+      function computeTotals() {
+        const trim = TRIMS[state.trim];
+        const wheel = WHEELS[state.wheel];
+        const price = trim.price + wheel.price;
+        const mass = trim.mass + wheel.massDelta;
+        const aero250 = getAeroMetricsAtSpeed(250);
+        return {
+          price,
+          mass,
+          accel: trim.accel.toFixed(1),
+          downforce250: aero250.totalDf,
+          front250: aero250.frontDf,
+          rear250: aero250.rearDf
+        };
+      }
+
+      function syncAllUI() {
+        const livery = LIVERIES[state.livery];
+        const trim = TRIMS[state.trim];
+        const wheel = WHEELS[state.wheel];
+        const caliper = CALIPERS[state.caliper];
+        const totals = computeTotals();
+        const buildCode = computeBuildCode();
+
+        // Update HTML data-livery attribute
+        document.documentElement.setAttribute("data-livery", state.livery);
+
+        // Caliper color resolution
+        let caliperHex = livery.caliperAccent2;
+        if (state.caliper === "livery") caliperHex = livery.caliperLivery;
+        if (state.caliper === "rosso") caliperHex = "#DA291C";
+        if (state.caliper === "stealth") caliperHex = "#4E525B";
+        document.documentElement.style.setProperty("--caliper-fill", caliperHex);
+
+        // Header & hints
+        document.getElementById("header-livery-label").textContent = livery.name;
+        document.getElementById("livery-code-hint").textContent = livery.paintTag;
+        document.getElementById("trim-power-hint").textContent = trim.power;
+        document.getElementById("stage-chassis-code").textContent = `VLC-06 // ${trim.name.toUpperCase()}`;
+        document.getElementById("stage-view-label").textContent = VIEW_LABELS[state.viewMode];
+        document.getElementById("stage-wheel-name").textContent = wheel.name;
+        document.getElementById("stage-caliper-name").textContent = caliper.name;
+
+        // Stage attributes
+        const stageCard = document.getElementById("stage-card");
+        stageCard.setAttribute("data-view", state.viewMode);
+        stageCard.setAttribute("data-drs", state.drsOpen ? "open" : "closed");
+
+        // Trim Aero SVG parts visibility
+        document.getElementById("wing-stradale").style.display = state.trim === "stradale" ? "block" : "none";
+        document.getElementById("wing-competizione").style.display = state.trim === "competizione" ? "block" : "none";
+        document.getElementById("wing-pista").style.display = state.trim === "pista" ? "block" : "none";
+        document.getElementById("front-canards").style.display = state.trim === "stradale" ? "none" : "block";
+
+        // Aero SVG overlay readouts
+        document.getElementById("svg-front-load").textContent = `${totals.front250} KG @ 250 KM/H`;
+        document.getElementById("svg-rear-load").textContent = `${totals.rear250} KG @ 250 KM/H`;
+        document.getElementById("svg-cd-badge").textContent = `VENTURI GROUND EFFECT: 64% // ${trim.cdLabel}${state.drsOpen ? " (DRS)" : ""}`;
+
+        // Toggle pressed states
+        document.querySelectorAll("[data-trim]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.trim === state.trim));
+        });
+        document.querySelectorAll("[data-livery-pick]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.liveryPick === state.livery));
+        });
+        document.querySelectorAll("[data-wheel]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.wheel === state.wheel));
+        });
+        document.querySelectorAll("[data-caliper]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.caliper === state.caliper));
+        });
+        document.querySelectorAll("[data-view-mode]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.viewMode === state.viewMode));
+        });
+
+        const drsBtn = document.getElementById("drs-toggle-btn");
+        drsBtn.setAttribute("aria-pressed", String(state.drsOpen));
+        document.getElementById("drs-label").textContent = state.drsOpen ? "DRS: Open" : "DRS: Closed";
+
+        // Number Flow Odometers
+        renderOdometer(document.getElementById("odo-price"), totals.price.toLocaleString("en-US"));
+        renderOdometer(document.getElementById("odo-accel"), totals.accel);
+        renderOdometer(document.getElementById("odo-downforce"), String(totals.downforce250));
+        renderOdometer(document.getElementById("odo-mass"), totals.mass.toLocaleString("en-US"));
+
+        // Allocation Summary & Modal sync
+        document.getElementById("sum-trim").textContent = `${trim.name} (${trim.power})`;
+        document.getElementById("sum-livery").textContent = livery.name;
+        document.getElementById("sum-wheel").textContent = wheel.name;
+        document.getElementById("sum-caliper").textContent = caliper.name;
+        document.getElementById("sum-df").textContent = `${totals.downforce250} kg`;
+        document.getElementById("sum-price").textContent = `EUR ${totals.price.toLocaleString("en-US")}`;
+        document.getElementById("main-build-code").textContent = buildCode;
+
+        document.getElementById("modal-build-code").textContent = buildCode;
+        document.getElementById("modal-trim").textContent = `${trim.name} · ${trim.power}`;
+        document.getElementById("modal-livery").textContent = `${livery.name} · ${caliper.name}`;
+        document.getElementById("modal-wheel").textContent = wheel.name;
+        document.getElementById("modal-price").textContent = `EUR ${totals.price.toLocaleString("en-US")}`;
+        document.getElementById("modal-ref-id").textContent = state.reservedRef || "UNRESERVED DRAFT";
+        document.getElementById("modal-kicker").textContent = state.reservedRef
+          ? `Allocation Confirmed // ${state.reservedRef}`
+          : "Allocation Dossier // VLC-06";
+        document.getElementById("modal-title").textContent = state.reservedRef
+          ? "Build Allocation Locked"
+          : "Build Specification Summary";
+
+        renderAeroCurves();
+      }
+
+      /* ======================================================================
+         8. Toast Notification Stack (No Emojis)
+         ====================================================================== */
+      function showToast(message) {
+        const stack = document.getElementById("toast-stack");
+        const item = document.createElement("div");
+        item.className = "toast-item";
+        item.innerHTML = `
+          <div class="toast-meta">
+            <span class="toast-accent-bar" aria-hidden="true"></span>
+            <span>${message}</span>
+          </div>
+          <button type="button" class="icon-close-btn" style="width:26px;height:26px;" aria-label="Dismiss notification">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </button>
+        `;
+        const dismissBtn = item.querySelector("button");
+        const removeToast = () => {
+          if (item.parentNode) item.parentNode.removeChild(item);
+        };
+        dismissBtn.addEventListener("click", removeToast);
+        stack.appendChild(item);
+        setTimeout(removeToast, 3400);
+      }
+
+      /* ======================================================================
+         9. Hold-to-Reserve Allocation (1400ms Sweep + Rewind + Keyboard)
+         ====================================================================== */
+      const HOLD_DURATION = 1400;
+      const holdBtn = document.getElementById("hold-reserve-btn");
+      const holdFill = document.getElementById("hold-cta-fill");
+      const holdLabel = document.getElementById("hold-cta-label");
+      let holdRaf = null;
+      let holdStart = 0;
+      let holdProgress = 0;
+      let isHolding = false;
+      let rewindRaf = null;
+
+      function setHoldVisual(p) {
+        holdProgress = Math.max(0, Math.min(1, p));
+        holdFill.style.transform = `scaleX(${holdProgress})`;
+        holdBtn.classList.toggle("is-high-fill", holdProgress > 0.45);
+      }
+
+      function beginHold() {
+        if (isHolding) return;
+        if (rewindRaf) {
+          cancelAnimationFrame(rewindRaf);
+          rewindRaf = null;
+        }
+        isHolding = true;
+        holdBtn.classList.add("is-holding");
+        holdBtn.classList.remove("is-complete");
+        holdLabel.textContent = "Locking Build Slot...";
+        holdStart = performance.now() - holdProgress * HOLD_DURATION;
+        synth.startHold();
+
+        const step = (now) => {
+          if (!isHolding) return;
+          const elapsed = now - holdStart;
+          const p = elapsed / HOLD_DURATION;
+          setHoldVisual(p);
+          if (p >= 1) {
+            completeHold();
+          } else {
+            holdRaf = requestAnimationFrame(step);
+          }
+        };
+        holdRaf = requestAnimationFrame(step);
+      }
+
+      function cancelHold() {
+        if (!isHolding) return;
+        isHolding = false;
+        holdBtn.classList.remove("is-holding");
+        if (holdRaf) cancelAnimationFrame(holdRaf);
+        synth.stopHold(false);
+        if (holdProgress < 1) {
+          holdLabel.textContent = "Hold 1.4s to Reserve Allocation";
+          const startP = holdProgress;
+          const rewindStart = performance.now();
+          const rewindMs = Math.max(120, startP * 320);
+          const rewindStep = (now) => {
+            const t = Math.min(1, (now - rewindStart) / rewindMs);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setHoldVisual(startP * (1 - eased));
+            if (t < 1) {
+              rewindRaf = requestAnimationFrame(rewindStep);
+            } else {
+              setHoldVisual(0);
+            }
+          };
+          rewindRaf = requestAnimationFrame(rewindStep);
+        }
+      }
+
+      function completeHold() {
+        isHolding = false;
+        if (holdRaf) cancelAnimationFrame(holdRaf);
+        setHoldVisual(1);
+        holdBtn.classList.remove("is-holding");
+        holdBtn.classList.add("is-complete");
+        synth.stopHold(true);
+
+        const suffix = Math.floor(1000 + Math.random() * 8999);
+        state.reservedRef = `VLC-${suffix}`;
+        holdLabel.textContent = `Allocation Locked (${state.reservedRef})`;
+        syncAllUI();
+        showToast(`Allocation confirmed · Reference ${state.reservedRef}`);
+        openModal();
+
+        setTimeout(() => {
+          setHoldVisual(0);
+          holdBtn.classList.remove("is-complete");
+          holdLabel.textContent = "Hold 1.4s to Reserve Allocation";
+        }, 1600);
+      }
+
+      holdBtn.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0 && e.pointerType === "mouse") return;
+        beginHold();
+      });
+      window.addEventListener("pointerup", cancelHold);
+      window.addEventListener("pointercancel", cancelHold);
+      holdBtn.addEventListener("pointerleave", () => {
+        if (isHolding) cancelHold();
+      });
+
+      holdBtn.addEventListener("keydown", (e) => {
+        if ((e.code === "Space" || e.code === "Enter") && !e.repeat) {
+          e.preventDefault();
+          beginHold();
+        }
+      });
+      holdBtn.addEventListener("keyup", (e) => {
+        if (e.code === "Space" || e.code === "Enter") {
+          e.preventDefault();
+          cancelHold();
+        }
+      });
+
+      /* ======================================================================
+         10. Modal Controls, Clipboard-to-Check & Stateful Async Slot Check
+         ====================================================================== */
+      const modalRoot = document.getElementById("allocation-modal");
+      let lastFocused = null;
+
+      function openModal() {
+        lastFocused = document.activeElement;
+        state.modalOpen = true;
+        modalRoot.setAttribute("data-open", "true");
+        modalRoot.setAttribute("aria-hidden", "false");
+        document.getElementById("modal-close-btn").focus();
+      }
+
+      function closeModal() {
+        state.modalOpen = false;
+        modalRoot.setAttribute("data-open", "false");
+        modalRoot.setAttribute("aria-hidden", "true");
+        if (lastFocused && typeof lastFocused.focus === "function") {
+          lastFocused.focus();
+        }
+      }
+
+      document.getElementById("open-dossier-quick").addEventListener("click", () => {
+        synth.click();
+        openModal();
+      });
+      document.getElementById("modal-close-btn").addEventListener("click", () => {
+        synth.click();
+        closeModal();
+      });
+      document.getElementById("modal-done-btn").addEventListener("click", () => {
+        synth.click();
+        closeModal();
+      });
+      document.getElementById("modal-backdrop").addEventListener("click", closeModal);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && state.modalOpen) {
+          closeModal();
+        }
+      });
+
+      /* Clipboard-to-Check Morph */
+      function bindCopyButton(btnId) {
+        const btn = document.getElementById(btnId);
+        const iconSvg = btn.querySelector(".copy-icon-svg");
+        const labelEl = btn.querySelector(".copy-btn-label");
+        let timer = null;
+
+        btn.addEventListener("click", () => {
+          const code = computeBuildCode();
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(code).catch(() => {});
+          }
+          synth.click();
+          btn.classList.add("is-copied");
+          labelEl.textContent = "Copied";
+          iconSvg.innerHTML = `<path d="M3.2 8.4L6.4 11.6L13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`;
+          showToast(`Build code ${code} copied to clipboard`);
+
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            btn.classList.remove("is-copied");
+            labelEl.textContent = "Copy Build Code";
+            iconSvg.innerHTML = `
+              <rect x="5" y="5" width="8" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M3 11V3.5C3 2.67 3.67 2 4.5 2H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            `;
+          }, 1800);
+        });
+      }
+
+      bindCopyButton("copy-code-btn");
+      bindCopyButton("modal-copy-btn");
+
+      /* Stateful Async Build Slot Verification */
+      function syncAsyncSlotUI() {
+        const pairs = [
+          {
+            btn: document.getElementById("verify-slot-btn"),
+            icon: document.getElementById("verify-slot-icon"),
+            label: document.getElementById("verify-slot-label"),
+            status: document.getElementById("slot-status-text")
+          },
+          {
+            btn: document.getElementById("modal-verify-btn"),
+            icon: document.getElementById("modal-verify-icon"),
+            label: document.getElementById("modal-verify-label"),
+            status: document.getElementById("modal-slot-status")
+          }
+        ];
+
+        pairs.forEach((p) => {
+          p.status.setAttribute("data-state", state.slotState);
+          if (state.slotState === "checking") {
+            p.btn.disabled = true;
+            p.label.textContent = "Checking Modena Line 02...";
+            p.status.textContent = "Querying autoclave & paint queue...";
+            p.icon.innerHTML = `<svg class="spin-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6" stroke-dasharray="22 14" stroke-linecap="round"/></svg>`;
+          } else if (state.slotState === "verified") {
+            p.btn.disabled = false;
+            p.label.textContent = "Slot #042 Verified";
+            p.status.textContent = "Line 02 status: Q4 Production Confirmed";
+            p.icon.innerHTML = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3.2 8.4L6.4 11.6L13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+          } else {
+            p.btn.disabled = false;
+            p.label.textContent = "Verify Factory Build Slot";
+            p.status.textContent = "Line 02 status: Unchecked";
+            p.icon.innerHTML = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5V8L10 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+          }
+        });
+      }
+
+      function triggerSlotCheck() {
+        if (state.slotState === "checking") return;
+        synth.click();
+        state.slotState = "checking";
+        syncAsyncSlotUI();
+        setTimeout(() => {
+          state.slotState = "verified";
+          syncAsyncSlotUI();
+          synth.chime();
+          showToast("Modena Line 02 Slot #042 verified for Q4 build");
+        }, 950);
+      }
+
+      document.getElementById("verify-slot-btn").addEventListener("click", triggerSlotCheck);
+      document.getElementById("modal-verify-btn").addEventListener("click", triggerSlotCheck);
+
+      /* ======================================================================
+         11. Event Bindings: Controls, Liquid Glass, Chart Scrub, Spotlights
+         ====================================================================== */
+      document.querySelectorAll("[data-trim]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (state.trim === btn.dataset.trim) return;
+          state.trim = btn.dataset.trim;
+          state.slotState = "idle";
+          synth.click();
+          syncAllUI();
+          syncAsyncSlotUI();
+        });
+      });
+
+      document.querySelectorAll("[data-livery-pick]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (state.livery === btn.dataset.liveryPick) return;
+          state.livery = btn.dataset.liveryPick;
+          state.slotState = "idle";
+          synth.thump();
+          syncAllUI();
+          syncAsyncSlotUI();
+          showToast(`Livery switched to ${LIVERIES[state.livery].name}`);
+        });
+      });
+
+      document.querySelectorAll("[data-wheel]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (state.wheel === btn.dataset.wheel) return;
+          state.wheel = btn.dataset.wheel;
+          state.slotState = "idle";
+          synth.click();
+          renderWheels();
+          syncAllUI();
+          syncAsyncSlotUI();
+        });
+      });
+
+      document.querySelectorAll("[data-caliper]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (state.caliper === btn.dataset.caliper) return;
+          state.caliper = btn.dataset.caliper;
+          synth.click();
+          syncAllUI();
+        });
+      });
+
+      document.querySelectorAll("[data-view-mode]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (state.viewMode === btn.dataset.viewMode) return;
+          state.viewMode = btn.dataset.viewMode;
+          synth.click();
+          syncAllUI();
+        });
+      });
+
+      document.getElementById("drs-toggle-btn").addEventListener("click", () => {
+        state.drsOpen = !state.drsOpen;
+        synth.click();
+        syncAllUI();
+      });
+
+      /* Opt-in Web Audio Toggle */
+      const audioBtn = document.getElementById("audio-toggle-btn");
+      audioBtn.addEventListener("click", () => {
+        state.audioEnabled = !state.audioEnabled;
+        audioBtn.setAttribute("aria-pressed", String(state.audioEnabled));
+        document.getElementById("audio-toggle-text").textContent = state.audioEnabled
+          ? "Acoustic Feedback: On"
+          : "Acoustic Feedback: Off";
+        if (state.audioEnabled) {
+          synth.toggleOn();
+          showToast("Web Audio tactile synthesis enabled");
+        }
+      });
+
+      /* goodui.dev Liquid Glass Pointer Tracking */
+      const glassToolbar = document.getElementById("liquid-glass-toolbar");
+      glassToolbar.addEventListener("pointermove", (e) => {
+        const rect = glassToolbar.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        glassToolbar.style.setProperty("--lg-x", `${x.toFixed(1)}%`);
+        glassToolbar.style.setProperty("--lg-y", `${y.toFixed(1)}%`);
+      });
+
+      /* Interactive Aero Chart Scrubbing */
+      const chartSvg = document.getElementById("aero-chart-svg");
+      const speedSlider = document.getElementById("speed-scrub-slider");
+
+      function scrubFromPointer(clientX) {
+        const rect = chartSvg.getBoundingClientRect();
+        const viewX = ((clientX - rect.left) / rect.width) * 1000;
+        const clampedRatio = Math.max(0, Math.min(1, (viewX - CHART.xMin) / (CHART.xMax - CHART.xMin)));
+        const rawSpeed = CHART.vMin + clampedRatio * (CHART.vMax - CHART.vMin);
+        const snapped = Math.round(rawSpeed / 5) * 5;
+        if (snapped !== state.scrubSpeed) {
+          state.scrubSpeed = snapped;
+          speedSlider.value = String(snapped);
+          updateCrosshair();
+        }
+      }
+
+      let chartDragging = false;
+      chartSvg.addEventListener("pointerdown", (e) => {
+        chartDragging = true;
+        scrubFromPointer(e.clientX);
+      });
+      chartSvg.addEventListener("pointermove", (e) => {
+        if (e.pointerType === "mouse" || chartDragging) {
+          scrubFromPointer(e.clientX);
+        }
+      });
+      window.addEventListener("pointerup", () => {
+        chartDragging = false;
+      });
+
+      speedSlider.addEventListener("input", () => {
+        state.scrubSpeed = Number(speedSlider.value);
+        updateCrosshair();
+      });
+
+      /* Cursor Spotlight Engineering Cards */
+      document.querySelectorAll("[data-spotlight]").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+          card.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+          card.style.setProperty("--spot-opacity", "1");
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.setProperty("--spot-opacity", "0");
+        });
+      });
+
+      /* ======================================================================
+         12. Initial Render
+         ====================================================================== */
+      renderWheels();
+      renderChartGrid();
+      syncAllUI();
+      syncAsyncSlotUI();
+    })();
+  </script>
+</body>
+</html>

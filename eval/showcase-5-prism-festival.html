@@ -1,0 +1,3580 @@
+<!DOCTYPE html>
+<html lang="en" data-world="acid-sprint" data-polarity="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRISM // CHROMATIC WORLDS — Expressive Color &amp; Tactile Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ==========================================================================
+       PRISM // CHROMATIC WORLDS — Design Tokens & 5 Vivid Color Worlds
+       Geometry Rule:
+         --radius-btn: 999px    (ONLY single-line pills, buttons, badges)
+         --radius-card: 16px    (ALL cards, panels, grids, dock container)
+         --radius-inner: 10px   (inner swatches, code frames, dock tiles)
+       ========================================================================== */
+    :root {
+      --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --radius-btn: 999px;
+      --radius-card: 16px;
+      --radius-inner: 10px;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.22, 1.15, 0.36, 1);
+      --dur-micro: 150ms;
+      --dur-morph: 280ms;
+
+      /* Default World: Acid Sprint */
+      --canvas: #F4F3EE;
+      --surface: #FFFFFF;
+      --surface-alt: #ECEBE3;
+      --ink: #0D0E0C;
+      --muted: #575951;
+      --accent: #D2FF00;
+      --accent-ink: #0D0E0C;
+      --accent-2: #2B44FF;
+      --story-a: #D2FF00;
+      --story-b: #2B44FF;
+      --story-c: #141612;
+
+      /* Adaptive Polarity Tokens (Light default) */
+      --hairline: rgba(13, 14, 12, 0.12);
+      --hairline-strong: rgba(13, 14, 12, 0.24);
+      --nav-glass: rgba(244, 243, 238, 0.82);
+      --dock-glass: rgba(255, 255, 255, 0.72);
+      --shadow-card: 0 12px 32px -12px rgba(13, 14, 12, 0.1);
+      --shadow-elevated: 0 22px 48px -18px rgba(13, 14, 12, 0.18);
+      --aurora-opacity: 0.38;
+      --grid-dot: rgba(13, 14, 12, 0.12);
+      --ok-bg: #15803d;
+      --ok-ink: #ffffff;
+      --err-bg: #dc2626;
+      --err-ink: #ffffff;
+    }
+
+    html[data-world="acid-sprint"] {
+      --canvas: #F4F3EE;
+      --surface: #FFFFFF;
+      --surface-alt: #ECEBE3;
+      --ink: #0D0E0C;
+      --muted: #575951;
+      --accent: #D2FF00;
+      --accent-ink: #0D0E0C;
+      --accent-2: #2B44FF;
+      --story-a: #D2FF00;
+      --story-b: #2B44FF;
+      --story-c: #141612;
+      --nav-glass: rgba(244, 243, 238, 0.82);
+    }
+
+    html[data-world="solar-mistral"] {
+      --canvas: #FFFBF2;
+      --surface: #FFFFFF;
+      --surface-alt: #FFF0D6;
+      --ink: #141210;
+      --muted: #665848;
+      --accent: #FA520F;
+      --accent-ink: #FFFFFF;
+      --accent-2: #FFD06A;
+      --story-a: #FA520F;
+      --story-b: #FFB83E;
+      --story-c: #141210;
+      --hairline: rgba(20, 18, 16, 0.12);
+      --hairline-strong: rgba(20, 18, 16, 0.24);
+      --nav-glass: rgba(255, 251, 242, 0.84);
+      --dock-glass: rgba(255, 255, 255, 0.76);
+      --grid-dot: rgba(20, 18, 16, 0.11);
+    }
+
+    html[data-world="museum-peach"] {
+      --canvas: #001317;
+      --surface: #06242B;
+      --surface-alt: #0B333D;
+      --ink: #FECD8C;
+      --muted: #A8CBB7;
+      --accent: #FECD8C;
+      --accent-ink: #001317;
+      --accent-2: #FF5E3A;
+      --story-a: #FECD8C;
+      --story-b: #A8CBB7;
+      --story-c: #FF5E3A;
+      --hairline: rgba(254, 205, 140, 0.16);
+      --hairline-strong: rgba(254, 205, 140, 0.34);
+      --nav-glass: rgba(0, 19, 23, 0.82);
+      --dock-glass: rgba(6, 36, 43, 0.78);
+      --shadow-card: 0 18px 40px -14px rgba(0, 0, 0, 0.52);
+      --shadow-elevated: 0 28px 56px -18px rgba(0, 0, 0, 0.68);
+      --aurora-opacity: 0.26;
+      --grid-dot: rgba(254, 205, 140, 0.15);
+    }
+
+    html[data-world="forest-volt"] {
+      --canvas: #E8EBE6;
+      --surface: #FFFFFF;
+      --surface-alt: #D7E2D2;
+      --ink: #0E0F0C;
+      --muted: #454745;
+      --accent: #9FE870;
+      --accent-ink: #163300;
+      --accent-2: #163300;
+      --story-a: #9FE870;
+      --story-b: #163300;
+      --story-c: #CDFFAD;
+      --hairline: rgba(22, 51, 0, 0.13);
+      --hairline-strong: rgba(22, 51, 0, 0.26);
+      --nav-glass: rgba(232, 235, 230, 0.84);
+      --dock-glass: rgba(255, 255, 255, 0.76);
+      --grid-dot: rgba(22, 51, 0, 0.12);
+    }
+
+    html[data-world="cyber-verge"] {
+      --canvas: #13091F;
+      --surface: #1E1130;
+      --surface-alt: #2A1842;
+      --ink: #FFFFFF;
+      --muted: #C2B5D9;
+      --accent: #3CFFD0;
+      --accent-ink: #0A0810;
+      --accent-2: #FF2E93;
+      --story-a: #FF2E93;
+      --story-b: #3CFFD0;
+      --story-c: #5200FF;
+      --hairline: rgba(255, 255, 255, 0.14);
+      --hairline-strong: rgba(60, 255, 208, 0.36);
+      --nav-glass: rgba(19, 9, 31, 0.82);
+      --dock-glass: rgba(30, 17, 48, 0.78);
+      --shadow-card: 0 18px 40px -14px rgba(0, 0, 0, 0.6);
+      --shadow-elevated: 0 28px 56px -18px rgba(0, 0, 0, 0.75);
+      --aurora-opacity: 0.32;
+      --grid-dot: rgba(60, 255, 208, 0.16);
+    }
+
+    /* ==========================================================================
+       Base & Reset
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.5;
+      transition:
+        background-color var(--dur-morph) var(--ease-out),
+        color var(--dur-morph) var(--ease-out);
+      overflow-x: hidden;
+      padding-bottom: 124px;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+    }
+
+    .serif-italic {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 3px;
+    }
+
+    html[data-polarity="dark"] :focus-visible {
+      outline-color: var(--accent);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    button:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: clamp(20px, 4vw, 40px);
+      padding-right: clamp(20px, 4vw, 40px);
+    }
+
+    /* ==========================================================================
+       Top Frosted Navigation & 5-World Switcher
+       ========================================================================== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: var(--nav-glass);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border-bottom: 1px solid var(--hairline);
+      transition:
+        background-color var(--dur-morph) var(--ease-out),
+        border-color var(--dur-morph) var(--ease-out);
+    }
+
+    .top-nav-inner {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-inner);
+      background: var(--accent);
+      color: var(--accent-ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--hairline-strong);
+      transition: background-color var(--dur-morph) var(--ease-out), color var(--dur-morph) var(--ease-out);
+    }
+
+    .world-switcher {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-btn);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .world-switcher::-webkit-scrollbar {
+      display: none;
+    }
+
+    .world-pill {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: var(--radius-btn);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--muted);
+      white-space: nowrap;
+      transition:
+        color var(--dur-micro) var(--ease-out),
+        background-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .world-pill:hover {
+      color: var(--ink);
+    }
+
+    .world-pill:active {
+      transform: scale(0.97);
+    }
+
+    .world-pill[aria-pressed="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), inset 0 0 0 1px var(--hairline-strong);
+    }
+
+    .world-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--radius-btn);
+      border: 1px solid rgba(0, 0, 0, 0.22);
+      flex-shrink: 0;
+    }
+
+    .world-kbd {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      opacity: 0.65;
+      padding: 1px 5px;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--hairline);
+    }
+
+    .sound-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: var(--radius-btn);
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .sound-toggle:active {
+      transform: scale(0.97);
+    }
+
+    .sound-toggle[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: transparent;
+    }
+
+    .sound-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .sound-bars span {
+      width: 2px;
+      height: 4px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: height 180ms var(--ease-out);
+    }
+
+    .sound-toggle[aria-pressed="true"] .sound-bars span:nth-child(1) {
+      animation: eqBar 0.7s ease-in-out infinite alternate;
+    }
+
+    .sound-toggle[aria-pressed="true"] .sound-bars span:nth-child(2) {
+      animation: eqBar 0.5s ease-in-out 0.15s infinite alternate;
+    }
+
+    .sound-toggle[aria-pressed="true"] .sound-bars span:nth-child(3) {
+      animation: eqBar 0.8s ease-in-out 0.3s infinite alternate;
+    }
+
+    @keyframes eqBar {
+      from { height: 3px; }
+      to { height: 12px; }
+    }
+
+    /* ==========================================================================
+       Hero Stage with Aurora Atmospheric Mesh
+       ========================================================================== */
+    .hero-stage {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--hairline);
+      padding: clamp(44px, 6vw, 84px) 0 clamp(48px, 6vw, 80px);
+    }
+
+    .pc-aurora {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      opacity: var(--aurora-opacity);
+      transition: opacity var(--dur-morph) var(--ease-out);
+    }
+
+    .pc-aurora[data-paused="true"] .pc-aurora-blob {
+      animation-play-state: paused;
+    }
+
+    .pc-aurora-blob {
+      position: absolute;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      filter: blur(76px);
+      will-change: transform;
+      animation: var(--au-anim) var(--au-dur) ease-in-out infinite alternate;
+    }
+
+    .pc-aurora-blob--a {
+      top: -36%;
+      left: -12%;
+      width: 58%;
+      background: var(--accent);
+      --au-anim: pc-aurora-a;
+      --au-dur: 18s;
+    }
+
+    .pc-aurora-blob--b {
+      top: -28%;
+      right: -16%;
+      width: 62%;
+      background: var(--accent-2);
+      --au-anim: pc-aurora-b;
+      --au-dur: 22s;
+    }
+
+    .pc-aurora-blob--c {
+      bottom: -44%;
+      left: 8%;
+      width: 54%;
+      background: var(--story-a);
+      --au-anim: pc-aurora-c;
+      --au-dur: 26s;
+    }
+
+    .pc-aurora-blob--d {
+      bottom: -38%;
+      right: -6%;
+      width: 48%;
+      background: var(--story-b);
+      --au-anim: pc-aurora-d;
+      --au-dur: 20s;
+    }
+
+    @keyframes pc-aurora-a {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(18%, 12%, 0) scale(1.1); }
+      100% { transform: translate3d(-8%, 20%, 0) scale(0.96); }
+    }
+
+    @keyframes pc-aurora-b {
+      0% { transform: translate3d(0, 0, 0) scale(1.04); }
+      50% { transform: translate3d(-16%, 16%, 0) scale(0.92); }
+      100% { transform: translate3d(-24%, -6%, 0) scale(1.08); }
+    }
+
+    @keyframes pc-aurora-c {
+      0% { transform: translate3d(0, 0, 0) scale(0.95); }
+      50% { transform: translate3d(18%, -14%, 0) scale(1.1); }
+      100% { transform: translate3d(26%, -4%, 0) scale(1); }
+    }
+
+    @keyframes pc-aurora-d {
+      0% { transform: translate3d(0, 0, 0) scale(1.08); }
+      50% { transform: translate3d(-14%, -18%, 0) scale(0.94); }
+      100% { transform: translate3d(-22%, 6%, 0) scale(1.08); }
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: clamp(28px, 4vw, 56px);
+      align-items: start;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 30px;
+      padding: 0 12px;
+      border-radius: var(--radius-btn);
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .hero-kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--radius-btn);
+      background: var(--accent-2);
+    }
+
+    html[data-polarity="dark"] .hero-kicker-dot {
+      background: var(--accent);
+    }
+
+    .hero-title {
+      margin: 0 0 20px;
+      font-size: clamp(44px, 6vw, 84px);
+      line-height: 0.96;
+      letter-spacing: -0.038em;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .hero-title .serif-italic {
+      font-size: 1.08em;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-lead {
+      margin: 0 0 28px;
+      max-width: 58ch;
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    /* Hero Action Row */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    /* Rainbow / Prismatic Focal CTA (goodui RainbowButton pattern) */
+    @keyframes pc-rainbow-flow {
+      to { transform: translateX(-50%); }
+    }
+
+    .rainbow-cta {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 48px;
+      padding: 0 26px;
+      border-radius: var(--radius-btn);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--surface);
+      white-space: nowrap;
+      transition: transform var(--dur-micro) var(--ease-out);
+    }
+
+    html[data-polarity="dark"] .rainbow-cta {
+      color: #0A0810;
+    }
+
+    .rainbow-cta:active {
+      transform: scale(0.975);
+    }
+
+    .rainbow-cta-glow {
+      position: absolute;
+      inset: auto 8% -18% 8%;
+      height: 60%;
+      z-index: -2;
+      border-radius: inherit;
+      overflow: hidden;
+      filter: blur(14px);
+      opacity: 0.6;
+      pointer-events: none;
+      transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+    }
+
+    .rainbow-cta:hover .rainbow-cta-glow {
+      opacity: 0.92;
+      transform: translateY(2px) scaleX(1.04);
+    }
+
+    .rainbow-cta-border {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .rainbow-cta-strip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--accent),
+        var(--accent-2),
+        var(--story-a),
+        var(--story-b),
+        var(--accent)
+      ) 0 0 / 50% 100% repeat-x;
+      animation: pc-rainbow-flow 3.2s linear infinite;
+    }
+
+    .rainbow-cta-face {
+      position: absolute;
+      inset: 2px;
+      z-index: -1;
+      border-radius: inherit;
+      background: var(--ink);
+      pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      transition: background-color var(--dur-morph) var(--ease-out);
+    }
+
+    .btn-ghost-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 22px;
+      border-radius: var(--radius-btn);
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-ghost-pill:hover {
+      background: var(--surface-alt);
+    }
+
+    .btn-ghost-pill:active {
+      transform: scale(0.98);
+    }
+
+    /* Number Flow Odometer Telemetry Strip */
+    .telemetry-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .telemetry-cell {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .telemetry-cell + .telemetry-cell {
+      border-left: 1px solid var(--hairline);
+    }
+
+    .telemetry-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .telemetry-value {
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    /* NumberFlow Vanilla Odometer */
+    .nf-wrap {
+      display: inline-flex;
+      align-items: baseline;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nf-digit-box {
+      position: relative;
+      display: inline-block;
+      height: 1.15em;
+      width: 0.64em;
+      overflow: hidden;
+      line-height: 1.15em;
+      -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+      mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+      vertical-align: bottom;
+    }
+
+    .nf-digit-track {
+      position: absolute;
+      inset: 0 0 auto 0;
+      display: flex;
+      flex-direction: column;
+      transition: transform 420ms var(--ease-spring);
+      will-change: transform;
+    }
+
+    .nf-digit-track span {
+      height: 1.15em;
+      text-align: center;
+      line-height: 1.15em;
+    }
+
+    .nf-static {
+      display: inline-block;
+      height: 1.15em;
+      line-height: 1.15em;
+      vertical-align: bottom;
+    }
+
+    /* ==========================================================================
+       Interactive Swatch DNA Card (Hero Right Column)
+       ========================================================================== */
+    .dna-card {
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      box-shadow: var(--shadow-elevated);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .dna-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dna-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dna-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .dna-world-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .wcag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 28px;
+      padding: 0 11px;
+      border-radius: var(--radius-btn);
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Interactive Chromatic Spectrum Bars */
+    .dna-spectrum {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr 1fr 0.85fr 0.7fr;
+      gap: 6px;
+      height: 84px;
+    }
+
+    .dna-bar {
+      position: relative;
+      border-radius: var(--radius-inner);
+      border: 1px solid var(--hairline-strong);
+      overflow: hidden;
+      transition: transform 200ms var(--ease-out);
+      cursor: pointer;
+    }
+
+    .dna-bar:hover {
+      transform: translateY(-3px);
+    }
+
+    .dna-bar-tag {
+      position: absolute;
+      left: 8px;
+      bottom: 7px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: var(--radius-btn);
+      background: rgba(0, 0, 0, 0.56);
+      color: #ffffff;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Token Swatch Matrix */
+    .dna-swatches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .swatch-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius-inner);
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+      text-align: left;
+      transition:
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .swatch-chip:hover {
+      border-color: var(--hairline-strong);
+      transform: translateY(-1px);
+    }
+
+    .swatch-chip:active {
+      transform: scale(0.985);
+    }
+
+    .swatch-well {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      flex-shrink: 0;
+    }
+
+    .swatch-meta {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .swatch-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .dna-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 6px;
+      border-top: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .dna-copy-toast {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       Section Header Pattern
+       ========================================================================== */
+    .lab-section {
+      padding: clamp(48px, 6vw, 80px) 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .section-desc {
+      margin: 0;
+      max-width: 48ch;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       Tactile Button & Feedback Lab (4 Modules)
+       ========================================================================== */
+    .tactile-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .lab-card {
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .lab-card--wide {
+      grid-column: span 7;
+    }
+
+    .lab-card--narrow {
+      grid-column: span 5;
+    }
+
+    .lab-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .lab-card-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: var(--radius-btn);
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .lab-card-title {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .lab-card-sub {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .lab-stage {
+      position: relative;
+      border-radius: var(--radius-inner);
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 14px;
+      min-height: 156px;
+    }
+
+    .lab-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .lab-status-line {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+
+    /* 1. Hold-to-Confirm Button */
+    .hold-btn {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      height: 46px;
+      padding: 0 22px;
+      border-radius: var(--radius-btn);
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      user-select: none;
+      touch-action: none;
+      transition: transform 120ms var(--ease-out), border-color 150ms var(--ease-out);
+    }
+
+    .hold-btn:active {
+      transform: scale(0.985);
+    }
+
+    .hold-btn.is-shake {
+      animation: microShake 320ms ease-in-out;
+    }
+
+    .hold-btn-fill {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      clip-path: inset(0 100% 0 0);
+      pointer-events: none;
+    }
+
+    .hold-btn--alt .hold-btn-fill {
+      background: var(--accent-2);
+      color: #ffffff;
+    }
+
+    .hold-btn[data-phase="confirmed"] {
+      border-color: var(--ok-bg);
+    }
+
+    .hold-btn[data-phase="confirmed"] .hold-btn-fill {
+      background: var(--ok-bg);
+      color: var(--ok-ink);
+    }
+
+    .hold-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-btn);
+      background: var(--ink);
+      color: var(--canvas);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+      pointer-events: none;
+    }
+
+    .hold-hint.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 2. Liquid Glass Stage & Specular Controls */
+    .liquid-stage {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-inner);
+      padding: 24px 20px;
+      min-height: 156px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      border: 1px solid var(--hairline-strong);
+      background:
+        radial-gradient(circle at 16% 24%, var(--accent) 0%, transparent 52%),
+        radial-gradient(circle at 82% 28%, var(--accent-2) 0%, transparent 54%),
+        radial-gradient(circle at 52% 92%, var(--story-a) 0%, transparent 56%),
+        #111318;
+    }
+
+    .pc-liquid-glass {
+      --lg-x: 50%;
+      --lg-y: -20%;
+      position: relative;
+      isolation: isolate;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08));
+      -webkit-backdrop-filter: blur(14px) saturate(170%);
+      backdrop-filter: blur(14px) saturate(170%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.12),
+        0 10px 28px -10px rgba(0, 0, 0, 0.42);
+    }
+
+    .pc-liquid-glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(
+        115px circle at var(--lg-x) var(--lg-y),
+        rgba(255, 255, 255, 0.55),
+        transparent 70%
+      );
+      opacity: 0.4;
+      transition: opacity 280ms ease;
+    }
+
+    .pc-liquid-glass:hover::before {
+      opacity: 1;
+    }
+
+    .pc-liquid-glass::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      pointer-events: none;
+      background: linear-gradient(
+        140deg,
+        rgba(255, 255, 255, 0.85),
+        rgba(255, 255, 255, 0.16) 36%,
+        rgba(255, 255, 255, 0.06) 62%,
+        rgba(255, 255, 255, 0.48)
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    }
+
+    .liquid-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 150ms var(--ease-out);
+    }
+
+    .liquid-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .liquid-btn:active {
+      transform: scale(0.96);
+    }
+
+    .liquid-toolbar {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--radius-btn);
+    }
+
+    .liquid-seg {
+      height: 34px;
+      padding: 0 13px;
+      border-radius: var(--radius-btn);
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.84);
+      transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out);
+    }
+
+    .liquid-seg[aria-pressed="true"] {
+      background: rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    /* 3. Stateful Async Morph Button */
+    .stateful-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      height: 46px;
+      min-width: 186px;
+      padding: 0 22px;
+      border-radius: var(--radius-btn);
+      background: var(--ink);
+      color: var(--canvas);
+      font-size: 14px;
+      font-weight: 600;
+      transition:
+        background-color 220ms var(--ease-out),
+        color 220ms var(--ease-out),
+        transform 140ms var(--ease-out),
+        min-width 220ms var(--ease-out);
+    }
+
+    .stateful-btn:active {
+      transform: scale(0.97);
+    }
+
+    .stateful-btn[data-state="loading"] {
+      min-width: 150px;
+      opacity: 0.92;
+    }
+
+    .stateful-btn[data-state="success"] {
+      background: var(--ok-bg);
+      color: var(--ok-ink);
+    }
+
+    .stateful-btn[data-state="error"] {
+      background: var(--err-bg);
+      color: var(--err-ink);
+      animation: microShake 360ms ease-in-out;
+    }
+
+    @keyframes microShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-3px); }
+      80% { transform: translateX(3px); }
+    }
+
+    .spin-svg {
+      animation: spin360 760ms linear infinite;
+    }
+
+    @keyframes spin360 {
+      to { transform: rotate(360deg); }
+    }
+
+    .draw-check path {
+      stroke-dasharray: 32;
+      stroke-dashoffset: 32;
+      animation: drawStroke 320ms var(--ease-out) forwards;
+    }
+
+    @keyframes drawStroke {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .outcome-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border-radius: var(--radius-btn);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+    }
+
+    .outcome-opt {
+      height: 30px;
+      padding: 0 11px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: background-color 150ms, color 150ms;
+    }
+
+    .outcome-opt[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    /* 4. Ripple + Copy-Token Buttons */
+    .ripple-btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 46px;
+      padding: 0 22px;
+      border-radius: var(--radius-btn);
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid var(--hairline-strong);
+      transition: transform 140ms var(--ease-out);
+    }
+
+    .ripple-btn:active {
+      transform: scale(0.98);
+    }
+
+    .ripple-wave {
+      position: absolute;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.24;
+      transform: scale(0);
+      pointer-events: none;
+      animation: rippleExpand 560ms var(--ease-out) forwards;
+    }
+
+    @keyframes rippleExpand {
+      to {
+        transform: scale(3.6);
+        opacity: 0;
+      }
+    }
+
+    .copy-token-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 46px;
+      padding: 0 20px;
+      border-radius: var(--radius-btn);
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--hairline-strong);
+      font-size: 14px;
+      font-weight: 600;
+      transition: background-color 180ms, color 180ms, transform 140ms;
+    }
+
+    .copy-token-btn[data-copied="true"] {
+      background: var(--ok-bg);
+      color: var(--ok-ink);
+      border-color: transparent;
+    }
+
+    .copy-token-btn:active {
+      transform: scale(0.98);
+    }
+
+    .token-preview {
+      width: 100%;
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: var(--radius-inner);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+      overflow-x: auto;
+      max-height: 104px;
+    }
+
+    /* ==========================================================================
+       Color-Block Editorial Bento + 3D Tilt + Spotlight Token Grid
+       ========================================================================== */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .story-card {
+      border-radius: var(--radius-card);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 240px;
+      border: 1px solid var(--hairline);
+      transition:
+        background-color var(--dur-morph) var(--ease-out),
+        color var(--dur-morph) var(--ease-out),
+        transform 200ms var(--ease-out);
+    }
+
+    .story-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .story-card--a {
+      grid-column: span 5;
+      background: var(--story-a);
+    }
+
+    .story-card--b {
+      grid-column: span 4;
+      background: var(--story-b);
+    }
+
+    .story-card--c {
+      grid-column: span 3;
+      background: var(--story-c);
+    }
+
+    .story-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid currentColor;
+      width: fit-content;
+    }
+
+    .story-quote {
+      margin: 18px 0 10px;
+      font-size: clamp(22px, 2.3vw, 30px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+    }
+
+    .story-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      opacity: 0.84;
+    }
+
+    /* 3D Perspective Tilt Card */
+    .tilt-wrap {
+      grid-column: span 5;
+      perspective: 900px;
+    }
+
+    .tilt-card {
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      min-height: 260px;
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform-style: preserve-3d;
+      transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+      box-shadow: var(--shadow-card);
+      --tx: 50%;
+      --ty: 50%;
+    }
+
+    .tilt-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 250ms ease;
+      background: radial-gradient(
+        280px circle at var(--tx) var(--ty),
+        rgba(255, 255, 255, 0.32),
+        transparent 70%
+      );
+      mix-blend-mode: overlay;
+    }
+
+    .tilt-card:hover::before {
+      opacity: 1;
+    }
+
+    .tilt-foil {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 28px;
+      padding: 0 12px;
+      border-radius: var(--radius-btn);
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .tilt-readout {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Spotlight Group (2 Linked Cards) */
+    .spotlight-group {
+      grid-column: span 7;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .spotlight-card {
+      --pc-x: -999px;
+      --pc-y: -999px;
+      position: relative;
+      isolation: isolate;
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      padding: 24px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .spotlight-card::before,
+    .spotlight-card::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .spotlight-card::before {
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(280px circle at var(--pc-x) var(--pc-y), var(--accent), transparent 72%),
+        radial-gradient(var(--grid-dot) 1px, transparent 1px);
+      background-size: auto, 14px 14px;
+      opacity: 0;
+      mix-blend-mode: normal;
+    }
+
+    .spotlight-card[data-hovered="true"]::before {
+      opacity: 0.14;
+    }
+
+    .spotlight-card::after {
+      inset: -1px;
+      padding: 1.5px;
+      z-index: 2;
+      background: radial-gradient(
+        220px circle at var(--pc-x) var(--pc-y),
+        var(--accent-2),
+        transparent 70%
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    }
+
+    html[data-polarity="dark"] .spotlight-card::after {
+      background: radial-gradient(
+        220px circle at var(--pc-x) var(--pc-y),
+        var(--accent),
+        transparent 70%
+      );
+    }
+
+    .spotlight-card[data-active="true"]::after {
+      opacity: 1;
+    }
+
+    .token-matrix {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .token-cell {
+      padding: 8px 10px;
+      border-radius: var(--radius-inner);
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+    }
+
+    /* ==========================================================================
+       Live Contrast & Pairing Inspector
+       ========================================================================== */
+    .inspector-panel {
+      background: var(--surface);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .inspector-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .picker-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .token-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .token-pick-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: var(--radius-btn);
+      background: var(--surface-alt);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: border-color 140ms, background-color 140ms, transform 120ms;
+    }
+
+    .token-pick-btn[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--canvas);
+      border-color: transparent;
+    }
+
+    .token-pick-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: var(--radius-btn);
+      border: 1px solid rgba(128, 128, 128, 0.45);
+    }
+
+    .inspector-stage {
+      border-radius: var(--radius-inner);
+      border: 1px solid var(--hairline-strong);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 230px;
+      transition: background-color 220ms var(--ease-out), color 220ms var(--ease-out);
+    }
+
+    .inspector-sample-head {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 2.5vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .inspector-sample-body {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .inspector-metrics {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 1px solid currentColor;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .wcag-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: var(--radius-btn);
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    /* ==========================================================================
+       Floating macOS-Style Proximity Dock (Bottom Stage)
+       ========================================================================== */
+    .dock-anchor {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      z-index: 70;
+      max-width: calc(100vw - 24px);
+    }
+
+    .pc-dock {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 64px;
+      padding: 10px 12px;
+      border-radius: var(--radius-card);
+      background: var(--dock-glass);
+      -webkit-backdrop-filter: blur(20px) saturate(170%);
+      backdrop-filter: blur(20px) saturate(170%);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    .dock-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-inner);
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 10px -4px rgba(0, 0, 0, 0.25);
+      transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .dock-item--accent {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: transparent;
+    }
+
+    .dock-item.is-bouncing {
+      animation: dockBounce 620ms var(--ease-out);
+    }
+
+    @keyframes dockBounce {
+      0% { transform: translateY(0); }
+      32% { transform: translateY(-16px) scale(1.06, 0.94); }
+      60% { transform: translateY(0) scale(0.96, 1.04); }
+      80% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    .dock-tip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      padding: 4px 10px;
+      border-radius: var(--radius-btn);
+      background: var(--ink);
+      color: var(--canvas);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .dock-item:hover .dock-tip,
+    .dock-item:focus-visible .dock-tip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dock-sep {
+      width: 1px;
+      height: 30px;
+      align-self: center;
+      background: var(--hairline-strong);
+      margin: 0 2px;
+      flex-shrink: 0;
+    }
+
+    /* Confetti Layer */
+    .confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 80;
+    }
+
+    /* ==========================================================================
+       Responsive Breakpoints
+       ========================================================================== */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .inspector-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .lab-card--wide,
+      .lab-card--narrow,
+      .story-card--a,
+      .story-card--b,
+      .story-card--c,
+      .tilt-wrap,
+      .spotlight-group {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .telemetry-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .telemetry-cell + .telemetry-cell {
+        border-left: none;
+        border-top: 1px solid var(--hairline);
+      }
+
+      .spotlight-group {
+        grid-template-columns: 1fr;
+      }
+
+      .world-kbd {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       Reduced Motion Respect
+       ========================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .pc-aurora-blob,
+      .rainbow-cta-strip,
+      .sound-toggle[aria-pressed="true"] .sound-bars span {
+        animation: none !important;
+      }
+
+      .nf-digit-track,
+      .tilt-card,
+      .hold-btn-fill {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti-canvas" id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <!-- ========================================================================
+       Top Frosted Navigation Bar
+       ======================================================================== -->
+  <header class="top-nav">
+    <div class="container top-nav-inner">
+      <a href="#top" class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 3 21 19 3 19" />
+            <line x1="12" y1="3" x2="12" y2="19" />
+          </svg>
+        </span>
+        <span>PRISM // 05</span>
+      </a>
+
+      <div class="world-switcher" role="group" aria-label="Chromatic Worlds (Keys 1 to 5)">
+        <button class="world-pill" data-world-btn="acid-sprint" aria-pressed="true" type="button">
+          <span class="world-dot" style="background: #D2FF00;"></span>
+          <span>Acid Sprint</span>
+          <span class="world-kbd">1</span>
+        </button>
+        <button class="world-pill" data-world-btn="solar-mistral" aria-pressed="false" type="button">
+          <span class="world-dot" style="background: #FA520F;"></span>
+          <span>Solar Mistral</span>
+          <span class="world-kbd">2</span>
+        </button>
+        <button class="world-pill" data-world-btn="museum-peach" aria-pressed="false" type="button">
+          <span class="world-dot" style="background: #FECD8C;"></span>
+          <span>Museum Peach</span>
+          <span class="world-kbd">3</span>
+        </button>
+        <button class="world-pill" data-world-btn="forest-volt" aria-pressed="false" type="button">
+          <span class="world-dot" style="background: #9FE870;"></span>
+          <span>Forest Volt</span>
+          <span class="world-kbd">4</span>
+        </button>
+        <button class="world-pill" data-world-btn="cyber-verge" aria-pressed="false" type="button">
+          <span class="world-dot" style="background: #3CFFD0;"></span>
+          <span>Cyber Verge</span>
+          <span class="world-kbd">5</span>
+        </button>
+      </div>
+
+      <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">
+        <span class="sound-bars" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span id="soundLabel">Sound: Off</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ======================================================================
+         Hero Section with Aurora Backdrop, Number Flow & Swatch DNA Card
+         ====================================================================== -->
+    <section class="hero-stage" id="hero" aria-labelledby="heroHeading">
+      <div class="pc-aurora" id="auroraBackdrop" aria-hidden="true">
+        <div class="pc-aurora-blob pc-aurora-blob--a"></div>
+        <div class="pc-aurora-blob pc-aurora-blob--b"></div>
+        <div class="pc-aurora-blob pc-aurora-blob--c"></div>
+        <div class="pc-aurora-blob pc-aurora-blob--d"></div>
+      </div>
+
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-kicker">
+            <span class="hero-kicker-dot" aria-hidden="true"></span>
+            <span id="worldTagline">EXPRESSIVE COLOR &amp; TACTILE LAB // PRESS KEYS 1-5</span>
+          </div>
+
+          <h1 class="hero-title" id="heroHeading">
+            Vivid Worlds,<br />
+            <span class="serif-italic">Tactile</span> Precision.
+          </h1>
+
+          <p class="hero-lead">
+            Five production-grade chromatic worlds paired with physics-tuned UI controls.
+            Switch worlds on the fly, test pointer refraction and hold-to-confirm affordances,
+            and inspect live WCAG contrast across every surface token.
+          </p>
+
+          <div class="hero-actions">
+            <button class="rainbow-cta" id="focalCta" type="button">
+              <span class="rainbow-cta-glow" aria-hidden="true">
+                <span class="rainbow-cta-strip"></span>
+              </span>
+              <span class="rainbow-cta-border" aria-hidden="true">
+                <span class="rainbow-cta-strip"></span>
+              </span>
+              <span class="rainbow-cta-face" aria-hidden="true"></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l1.9 5.8L20 10.7l-5.8 1.9L12 19l-1.9-6.4L4 10.7l6.1-1.9z" />
+              </svg>
+              <span>Enter Tactile Lab</span>
+            </button>
+
+            <a class="btn-ghost-pill" href="#bento">
+              <span>Inspect Story Blocks</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="telemetry-strip" aria-label="Live World Telemetry">
+            <div class="telemetry-cell">
+              <span class="telemetry-label">Canvas / Ink Contrast</span>
+              <span class="telemetry-value tabular-nums">
+                <span id="nfContrast" data-nf-suffix=":1">17.2:1</span>
+              </span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-label">Accent Hue Angle</span>
+              <span class="telemetry-value tabular-nums">
+                <span id="nfHue" data-nf-suffix=" deg">71 deg</span>
+              </span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-label">Active Interactions</span>
+              <span class="telemetry-value tabular-nums">
+                <span id="nfInteractions">0</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expressive Swatch DNA Card -->
+        <aside class="dna-card" aria-label="Active World Swatch DNA">
+          <div class="dna-header">
+            <div class="dna-title-group">
+              <span class="dna-eyebrow">SWATCH DNA // LIVE TOKENS</span>
+              <strong class="dna-world-name" id="dnaWorldTitle">Acid Sprint</strong>
+            </div>
+            <span class="wcag-badge" id="dnaWcagBadge">WCAG AAA</span>
+          </div>
+
+          <div class="dna-spectrum" id="dnaSpectrum" aria-label="Proportional 60-30-10 color allocation bars">
+            <button class="dna-bar" type="button" data-copy-token="canvas" style="background: var(--canvas);" title="Copy --canvas">
+              <span class="dna-bar-tag">60%</span>
+            </button>
+            <button class="dna-bar" type="button" data-copy-token="surface-alt" style="background: var(--surface-alt);" title="Copy --surface-alt">
+              <span class="dna-bar-tag">30%</span>
+            </button>
+            <button class="dna-bar" type="button" data-copy-token="accent" style="background: var(--accent);" title="Copy --accent">
+              <span class="dna-bar-tag">10%</span>
+            </button>
+            <button class="dna-bar" type="button" data-copy-token="accent-2" style="background: var(--accent-2);" title="Copy --accent-2">
+              <span class="dna-bar-tag">2ND</span>
+            </button>
+            <button class="dna-bar" type="button" data-copy-token="ink" style="background: var(--ink);" title="Copy --ink">
+              <span class="dna-bar-tag">INK</span>
+            </button>
+          </div>
+
+          <div class="dna-swatches" id="dnaSwatches"></div>
+
+          <div class="dna-footer">
+            <span id="dnaSourceNote">Ref: Lando Norris Sprint System</span>
+            <span class="dna-copy-toast" id="dnaToast">Click swatch to copy hex</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Section 2: Tactile Button & Feedback Lab
+         ====================================================================== -->
+    <section class="lab-section container" id="lab" aria-labelledby="labHeading">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">02 // TACTILE FEEDBACK LAB</div>
+          <h2 class="section-title" id="labHeading">Buttons with Physical Consequence</h2>
+        </div>
+        <p class="section-desc">
+          Four native vanilla implementations of tactile button affordances: press-and-hold commitment,
+          pointer-tracked liquid refraction, async state morphing, and origin-aware ripples.
+        </p>
+      </div>
+
+      <div class="tactile-grid">
+        <!-- Module 1: Hold-to-Confirm -->
+        <article class="lab-card lab-card--wide">
+          <div class="lab-card-head">
+            <div>
+              <h3 class="lab-card-title">Hold-to-Confirm Commitment</h3>
+              <p class="lab-card-sub">
+                Press and hold with pointer or Space/Enter for 1.2s. Early release rewinds smoothly; quick tap reveals a hint.
+              </p>
+            </div>
+            <span class="lab-card-num">LAB // 01</span>
+          </div>
+
+          <div class="lab-stage">
+            <div class="lab-row">
+              <button class="hold-btn" id="holdDeployBtn" type="button" data-phase="idle" aria-describedby="holdHintDesc">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2v10" />
+                  <path d="M18.4 6.6a9 9 0 1 1-12.77.04" />
+                </svg>
+                <span class="hold-label-base">Deploy Palette</span>
+                <span class="hold-btn-fill" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v10" />
+                    <path d="M18.4 6.6a9 9 0 1 1-12.77.04" />
+                  </svg>
+                  <span class="hold-label-fill">Deploy Palette</span>
+                </span>
+              </button>
+
+              <button class="hold-btn hold-btn--alt" id="holdResetBtn" type="button" data-phase="idle">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="1 4 1 10 7 10" />
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                </svg>
+                <span class="hold-label-base">Reset World</span>
+                <span class="hold-btn-fill" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10" />
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                  </svg>
+                  <span class="hold-label-fill">Reset World</span>
+                </span>
+              </button>
+
+              <span class="hold-hint" id="holdTapHint" role="status">Press &amp; hold 1.2s</span>
+            </div>
+            <span class="sr-only" id="holdHintDesc">Press and hold for 1.2 seconds to confirm action.</span>
+          </div>
+
+          <div class="lab-status-line">
+            <span id="holdStatusText">Status: Idle — awaiting 1200ms hold</span>
+            <span class="tabular-nums" id="holdPercentText">0%</span>
+          </div>
+        </article>
+
+        <!-- Module 2: Liquid Glass Specular Toolbar & Button -->
+        <article class="lab-card lab-card--narrow">
+          <div class="lab-card-head">
+            <div>
+              <h3 class="lab-card-title">Liquid Glass Specular</h3>
+              <p class="lab-card-sub">
+                Frosted backdrop-filter over vivid aurora gradients with pointer-tracked specular light and masked rim.
+              </p>
+            </div>
+            <span class="lab-card-num">LAB // 02</span>
+          </div>
+
+          <div class="liquid-stage">
+            <div class="lab-row">
+              <div class="pc-liquid-glass liquid-toolbar" role="group" aria-label="Glass lens mode" data-specular>
+                <button class="liquid-seg" type="button" aria-pressed="true" data-glass-mode="Specular">Specular</button>
+                <button class="liquid-seg" type="button" aria-pressed="false" data-glass-mode="Refract">Refract</button>
+                <button class="liquid-seg" type="button" aria-pressed="false" data-glass-mode="Frosted">Frosted</button>
+              </div>
+            </div>
+            <div class="lab-row">
+              <button class="pc-liquid-glass liquid-btn" id="liquidLensBtn" type="button" data-specular>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="5" />
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                </svg>
+                <span>Capture Lens</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="lab-status-line">
+            <span id="liquidStatusText">Lens Mode: Specular (blur 14px)</span>
+            <span>pointer-css</span>
+          </div>
+        </article>
+
+        <!-- Module 3: Stateful Async Morph Button -->
+        <article class="lab-card lab-card--narrow">
+          <div class="lab-card-head">
+            <div>
+              <h3 class="lab-card-title">Stateful Async Morph</h3>
+              <p class="lab-card-sub">
+                Cycles idle, loading spinner, and drawn check or shake error state with clean timing.
+              </p>
+            </div>
+            <span class="lab-card-num">LAB // 03</span>
+          </div>
+
+          <div class="lab-stage">
+            <div class="lab-row">
+              <button class="stateful-btn" id="statefulBtn" type="button" data-state="idle">
+                <span id="statefulIcon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span id="statefulText">Sync Design Tokens</span>
+              </button>
+            </div>
+
+            <div class="lab-row">
+              <span class="mono" style="font-size: 11px; color: var(--muted);">Outcome:</span>
+              <div class="outcome-toggle" role="group" aria-label="Simulated async outcome">
+                <button class="outcome-opt" type="button" data-outcome="success" aria-pressed="true">Success</button>
+                <button class="outcome-opt" type="button" data-outcome="error" aria-pressed="false">Error</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lab-status-line">
+            <span id="statefulStatus">Phase: idle (click to run 900ms async job)</span>
+          </div>
+        </article>
+
+        <!-- Module 4: Ripple + Copy-Token Buttons -->
+        <article class="lab-card lab-card--wide">
+          <div class="lab-card-head">
+            <div>
+              <h3 class="lab-card-title">Origin Ripple &amp; Copy-Token</h3>
+              <p class="lab-card-sub">
+                Radial wave expands from exact pointer coordinates; copy button writes active CSS variables to clipboard.
+              </p>
+            </div>
+            <span class="lab-card-num">LAB // 04</span>
+          </div>
+
+          <div class="lab-stage">
+            <div class="lab-row">
+              <button class="ripple-btn" id="rippleBtn" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3" />
+                  <circle cx="12" cy="12" r="8" />
+                </svg>
+                <span>Emit Pointer Ripple</span>
+              </button>
+
+              <button class="copy-token-btn" id="copyCssBtn" type="button" data-copied="false">
+                <span id="copyCssIcon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                </span>
+                <span id="copyCssLabel">Copy :root CSS</span>
+              </button>
+            </div>
+
+            <pre class="token-preview" id="cssSnippetPreview" aria-label="Active world CSS variables"></pre>
+          </div>
+
+          <div class="lab-status-line">
+            <span id="copyStatusText">Ready to export 11 CSS custom properties</span>
+            <span class="tabular-nums" id="rippleCountText">0 ripples</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Section 3: Color-Block Editorial Bento + 3D Tilt + Spotlight Cards
+         ====================================================================== -->
+    <section class="lab-section container" id="bento" aria-labelledby="bentoHeading">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">03 // EDITORIAL STORY BLOCKS &amp; SURFACES</div>
+          <h2 class="section-title" id="bentoHeading">Chromatic Architecture</h2>
+        </div>
+        <p class="section-desc">
+          Asymmetric story blocks paired with a 3D perspective foil card and linked cursor-spotlight token matrices.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <article class="story-card story-card--a" id="storyCardA">
+          <span class="story-badge">STORY BLOCK A // PRIMARY</span>
+          <div>
+            <p class="story-quote" id="storyQuoteA">Unapologetic energy anchored by crisp ink.</p>
+            <div class="story-meta" id="storyMetaA">--story-a: #D2FF00</div>
+          </div>
+        </article>
+
+        <article class="story-card story-card--b" id="storyCardB">
+          <span class="story-badge">STORY BLOCK B // COUNTER</span>
+          <div>
+            <p class="story-quote" id="storyQuoteB">Cobalt tension cuts through neutral bone.</p>
+            <div class="story-meta" id="storyMetaB">--story-b: #2B44FF</div>
+          </div>
+        </article>
+
+        <article class="story-card story-card--c" id="storyCardC">
+          <span class="story-badge">STORY BLOCK C // GROUND</span>
+          <div>
+            <p class="story-quote" id="storyQuoteC">Deep anchor for editorial balance.</p>
+            <div class="story-meta" id="storyMetaC">--story-c: #141612</div>
+          </div>
+        </article>
+
+        <!-- 3D Perspective Tilt Card -->
+        <div class="tilt-wrap">
+          <article class="tilt-card" id="tiltCard">
+            <div class="tilt-foil">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2l9 4.9V17L12 22l-9-5V7z" />
+                <path d="M12 22V12" />
+                <path d="M21 7l-9 5-9-5" />
+              </svg>
+              <span>3D PERSPECTIVE TILT // +-10 DEG</span>
+            </div>
+
+            <div>
+              <h3 class="story-quote" style="margin-bottom: 8px;">Depth Without Heavy Shadow</h3>
+              <p class="lab-card-sub">
+                Pointer position maps to subtle rotateX/rotateY tilt and a specular foil sheen that settles back to rest.
+              </p>
+            </div>
+
+            <div class="tilt-readout tabular-nums" id="tiltReadout">rotX: 0.0 deg | rotY: 0.0 deg</div>
+          </article>
+        </div>
+
+        <!-- Linked Cursor Spotlight Group -->
+        <div class="spotlight-group" id="spotlightGroup">
+          <article class="spotlight-card" data-spotlight-card>
+            <span class="lab-card-num" style="width: fit-content;">SPOTLIGHT // SURFACE</span>
+            <div>
+              <h3 class="lab-card-title">Token Grid Illumination</h3>
+              <p class="lab-card-sub">Move cursor across cards to illuminate the hairline border and reveal the underlying dot matrix.</p>
+            </div>
+            <div class="token-matrix">
+              <div class="token-cell">radius-btn: 999px</div>
+              <div class="token-cell">radius-card: 16px</div>
+              <div class="token-cell">radius-inner: 10px</div>
+              <div class="token-cell">timing: 150ms</div>
+            </div>
+          </article>
+
+          <article class="spotlight-card" data-spotlight-card>
+            <span class="lab-card-num" style="width: fit-content;">SPOTLIGHT // AUDIO</span>
+            <div>
+              <h3 class="lab-card-title">C-Major Pentatonic Kit</h3>
+              <p class="lab-card-sub">Zero audio assets. Pure Web Audio oscillators &amp; filtered noise bursts capped at -14 dBFS.</p>
+            </div>
+            <div class="token-matrix">
+              <div class="token-cell">scale: C D E G A</div>
+              <div class="token-cell">master: 0.20 gain</div>
+              <div class="token-cell">opt-in: default off</div>
+              <div class="token-cell">a11y: independent</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Section 4: Live Interactive Contrast & Pairing Inspector
+         ====================================================================== -->
+    <section class="lab-section container" id="inspector" aria-labelledby="inspectorHeading" style="border-bottom: none;">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">04 // CONTRAST &amp; PAIRING INSPECTOR</div>
+          <h2 class="section-title" id="inspectorHeading">Verify Legibility Across Tokens</h2>
+        </div>
+        <p class="section-desc">
+          Pair any foreground and background token from the active world to compute live WCAG 2.1 luminance contrast.
+        </p>
+      </div>
+
+      <div class="inspector-panel">
+        <div class="inspector-controls">
+          <div>
+            <span class="picker-label">Foreground Token</span>
+            <div class="token-pill-row" id="fgPicker"></div>
+          </div>
+
+          <div>
+            <span class="picker-label">Background Token</span>
+            <div class="token-pill-row" id="bgPicker"></div>
+          </div>
+        </div>
+
+        <div class="inspector-stage" id="inspectorStage">
+          <div>
+            <div class="mono" style="font-size: 11px; letter-spacing: 0.08em; margin-bottom: 10px;" id="pairLabel">
+              --ink on --canvas
+            </div>
+            <h3 class="inspector-sample-head">
+              Chromatic clarity <span class="serif-italic">never</span> compromises readability.
+            </h3>
+            <p class="inspector-sample-body">
+              Expressive color systems work because structural neutrals carry 60% of the canvas while accents stay disciplined.
+            </p>
+          </div>
+
+          <div class="inspector-metrics">
+            <span class="tabular-nums" id="inspectorRatioText">Ratio: 17.20 : 1</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="wcag-pill" id="inspectorAA">AA Normal: PASS</span>
+              <span class="wcag-pill" id="inspectorAAA">AAA Normal: PASS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       Bottom macOS-Style Proximity Dock
+       ======================================================================== -->
+  <nav class="dock-anchor" aria-label="Quick Stage Navigation Dock">
+    <div class="pc-dock" id="prismDock">
+      <button class="dock-item" type="button" data-scroll-target="#hero" aria-label="Hero and Swatch DNA">
+        <span class="dock-tip">Hero &amp; DNA</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+          <line x1="12" y1="22" x2="12" y2="15.5" />
+          <polyline points="22 8.5 12 15.5 2 8.5" />
+        </svg>
+      </button>
+
+      <button class="dock-item" type="button" data-scroll-target="#lab" aria-label="Tactile Button Lab">
+        <span class="dock-tip">Tactile Lab</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="8" width="18" height="8" rx="4" />
+          <circle cx="15" cy="12" r="2" />
+        </svg>
+      </button>
+
+      <button class="dock-item" type="button" data-scroll-target="#bento" aria-label="Color-Block Bento">
+        <span class="dock-tip">Story Bento</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="8" height="10" rx="2" />
+          <rect x="13" y="3" width="8" height="6" rx="2" />
+          <rect x="13" y="11" width="8" height="10" rx="2" />
+          <rect x="3" y="15" width="8" height="6" rx="2" />
+        </svg>
+      </button>
+
+      <button class="dock-item" type="button" data-scroll-target="#inspector" aria-label="Contrast Inspector">
+        <span class="dock-tip">Contrast Lab</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 3v18" />
+          <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+        </svg>
+      </button>
+
+      <span class="dock-sep" aria-hidden="true"></span>
+
+      <button class="dock-item dock-item--accent" id="celebrateDockBtn" type="button" aria-label="Trigger Prism Celebration">
+        <span class="dock-tip">Prism Chime</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
+          <path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    (() => {
+      "use strict";
+
+      /* ======================================================================
+         1. Five Vivid Color Worlds Specification
+         ====================================================================== */
+      const WORLDS = {
+        "acid-sprint": {
+          name: "Acid Sprint",
+          polarity: "light",
+          hue: 71,
+          source: "Ref: Lando Norris Sprint System",
+          tagline: "ACID SPRINT // HIGH-VOLTAGE SPORT LAUNCH",
+          quotes: [
+            "Acid lime slices through raw architectural bone.",
+            "Electric cobalt creates instant focal hierarchy.",
+            "Deep charcoal grounds high-chroma bursts."
+          ],
+          tokens: {
+            canvas: "#F4F3EE",
+            surface: "#FFFFFF",
+            "surface-alt": "#ECEBE3",
+            ink: "#0D0E0C",
+            muted: "#575951",
+            accent: "#D2FF00",
+            "accent-ink": "#0D0E0C",
+            "accent-2": "#2B44FF",
+            "story-a": "#D2FF00",
+            "story-b": "#2B44FF",
+            "story-c": "#141612"
+          }
+        },
+        "solar-mistral": {
+          name: "Solar Mistral",
+          polarity: "light",
+          hue: 17,
+          source: "Ref: Mistral Heat Ladder System",
+          tagline: "SOLAR MISTRAL // WARM COMPUTE & ENERGY",
+          quotes: [
+            "Flame orange leads primary conversion signals.",
+            "Amber heat steps clarify dense data bands.",
+            "Obsidian espresso anchors bright daylight cards."
+          ],
+          tokens: {
+            canvas: "#FFFBF2",
+            surface: "#FFFFFF",
+            "surface-alt": "#FFF0D6",
+            ink: "#141210",
+            muted: "#665848",
+            accent: "#FA520F",
+            "accent-ink": "#FFFFFF",
+            "accent-2": "#FFD06A",
+            "story-a": "#FA520F",
+            "story-b": "#FFB83E",
+            "story-c": "#141210"
+          }
+        },
+        "museum-peach": {
+          name: "Museum Peach",
+          polarity: "dark",
+          hue: 34,
+          source: "Ref: Frans Hals Exhibition System",
+          tagline: "MUSEUM PEACH // CURATORIAL NOCTURNE",
+          quotes: [
+            "Warm exhibition peach glows on abyssal teal.",
+            "Botanical sage calms secondary metadata.",
+            "Terracotta signal marks live gallery events."
+          ],
+          tokens: {
+            canvas: "#001317",
+            surface: "#06242B",
+            "surface-alt": "#0B333D",
+            ink: "#FECD8C",
+            muted: "#A8CBB7",
+            accent: "#FECD8C",
+            "accent-ink": "#001317",
+            "accent-2": "#FF5E3A",
+            "story-a": "#FECD8C",
+            "story-b": "#A8CBB7",
+            "story-c": "#FF5E3A"
+          }
+        },
+        "forest-volt": {
+          name: "Forest Volt",
+          polarity: "light",
+          hue: 96,
+          source: "Ref: Wise Global Fintech System",
+          tagline: "FOREST VOLT // CRISP FINANCIAL CLARITY",
+          quotes: [
+            "Electric volt lime signals speed and settlement.",
+            "Deep botanical green locks typographic trust.",
+            "Soft sage canvas lowers daytime eye strain."
+          ],
+          tokens: {
+            canvas: "#E8EBE6",
+            surface: "#FFFFFF",
+            "surface-alt": "#D7E2D2",
+            ink: "#0E0F0C",
+            muted: "#454745",
+            accent: "#9FE870",
+            "accent-ink": "#163300",
+            "accent-2": "#163300",
+            "story-a": "#9FE870",
+            "story-b": "#163300",
+            "story-c": "#CDFFAD"
+          }
+        },
+        "cyber-verge": {
+          name: "Cyber Verge",
+          polarity: "dark",
+          hue: 166,
+          source: "Ref: The Verge Editorial Cyber System",
+          tagline: "CYBER VERGE // DIGITAL FESTIVAL STAGE",
+          quotes: [
+            "Hyper-magenta energizes editorial callouts.",
+            "Jelly mint cuts cleanly over deep violet.",
+            "Ultraviolet anchors midnight stage modules."
+          ],
+          tokens: {
+            canvas: "#13091F",
+            surface: "#1E1130",
+            "surface-alt": "#2A1842",
+            ink: "#FFFFFF",
+            muted: "#C2B5D9",
+            accent: "#3CFFD0",
+            "accent-ink": "#0A0810",
+            "accent-2": "#FF2E93",
+            "story-a": "#FF2E93",
+            "story-b": "#3CFFD0",
+            "story-c": "#5200FF"
+          }
+        }
+      };
+
+      const WORLD_KEYS = Object.keys(WORLDS);
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      const state = {
+        world: "acid-sprint",
+        soundEnabled: false,
+        interactions: 0,
+        ripples: 0,
+        asyncOutcome: "success",
+        fgToken: "ink",
+        bgToken: "canvas"
+      };
+
+      /* ======================================================================
+         2. Web Audio API C-Major Pentatonic Synth (Opt-in, Off by Default)
+         ====================================================================== */
+      const PITCH = {
+        C4: 261.63, E4: 329.63, G4: 392.0, A4: 440.0,
+        C5: 523.25, D5: 587.33, E5: 659.25, G5: 783.99, A5: 880.0,
+        C6: 1046.5, E6: 1318.51, A6: 1760.0
+      };
+
+      function tone(freq, dur, opts = {}) {
+        const { at = 0, gain = 0.5, to, glide, wave = "sine", attack, shine = 0.22 } = opts;
+        const voices = [{ wave, freq, to, glide, at, dur, gain, attack }];
+        if (shine > 0) {
+          voices.push({
+            wave: "sine",
+            freq: freq * 2,
+            to: to ? to * 2 : undefined,
+            glide,
+            at,
+            dur: dur * 0.7,
+            gain: gain * shine,
+            attack
+          });
+        }
+        return voices;
+      }
+
+      function noise(dur, opts = {}) {
+        const { at = 0, gain = 0.2, filter = 2400, filterTo, q = 1, attack = 0.001 } = opts;
+        return { wave: "noise", at, dur, gain, filter, filterTo, q, attack };
+      }
+
+      const RECIPES = {
+        tap: [...tone(PITCH.C6, 0.06, { gain: 0.42, to: PITCH.A5, glide: 0.05, shine: 0.15 }), noise(0.012, { gain: 0.1, filter: 4000 })],
+        "toggle-on": [...tone(PITCH.E5, 0.09, { gain: 0.38 }), ...tone(PITCH.A5, 0.14, { at: 0.055, gain: 0.42 })],
+        "toggle-off": [...tone(PITCH.A5, 0.09, { gain: 0.38 }), ...tone(PITCH.E5, 0.14, { at: 0.055, gain: 0.38 })],
+        tick: [...tone(PITCH.A6, 0.022, { gain: 0.3, shine: 0, attack: 0.001 }), noise(0.01, { gain: 0.1, filter: 5000 })],
+        confirm: [
+          ...tone(PITCH.C5, 0.26, { gain: 0.26, attack: 0.012, shine: 0.15 }),
+          ...tone(PITCH.E5, 0.26, { gain: 0.22, attack: 0.012, shine: 0.15 }),
+          ...tone(PITCH.G5, 0.3, { gain: 0.24, attack: 0.012, shine: 0.15 })
+        ],
+        success: [
+          ...tone(PITCH.C5, 0.16, { gain: 0.34 }),
+          ...tone(PITCH.E5, 0.16, { at: 0.07, gain: 0.36 }),
+          ...tone(PITCH.G5, 0.2, { at: 0.14, gain: 0.4 })
+        ],
+        error: [
+          ...tone(PITCH.E4, 0.14, { gain: 0.4, wave: "triangle", shine: 0.1 }),
+          ...tone(PITCH.C4, 0.2, { at: 0.12, gain: 0.42, wave: "triangle", shine: 0.1 })
+        ],
+        pop: [...tone(300, 0.07, { gain: 0.5, to: 1000, glide: 0.03, shine: 0.1, attack: 0.002 })],
+        celebrate: [
+          ...tone(PITCH.C5, 0.14, { gain: 0.3, shine: 0.3 }),
+          ...tone(PITCH.E5, 0.14, { at: 0.05, gain: 0.32, shine: 0.3 }),
+          ...tone(PITCH.G5, 0.14, { at: 0.1, gain: 0.34, shine: 0.3 }),
+          ...tone(PITCH.A5, 0.14, { at: 0.15, gain: 0.36, shine: 0.3 }),
+          ...tone(PITCH.C6, 0.15, { at: 0.2, gain: 0.4, shine: 0.3 })
+        ]
+      };
+
+      let audioCtx = null;
+      let masterGain = null;
+      let cachedNoise = null;
+
+      function ensureAudio() {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return null;
+        if (!audioCtx) {
+          audioCtx = new Ctx();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = 0.2;
+          masterGain.connect(audioCtx.destination);
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function getNoiseBuffer(ctx) {
+        if (cachedNoise) return cachedNoise;
+        const len = Math.floor(ctx.sampleRate * 0.5);
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        let s = 0x2f6e2b1;
+        for (let i = 0; i < len; i++) {
+          s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+          data[i] = (s / 0xffffffff) * 2 - 1;
+        }
+        cachedNoise = buf;
+        return buf;
+      }
+
+      function playSound(name, force = false) {
+        if (!state.soundEnabled && !force) return;
+        const recipe = RECIPES[name];
+        if (!recipe) return;
+        const ctx = ensureAudio();
+        if (!ctx || !masterGain) return;
+
+        const now = ctx.currentTime + 0.005;
+        for (const v of recipe) {
+          const t0 = now + (v.at || 0);
+          const dur = Math.max(0.005, v.dur);
+          const attack = Math.min(dur * 0.5, Math.max(0.0015, v.attack || 0.004));
+          const glide = Math.max(0.002, v.glide || v.dur);
+          const peak = Math.max(0.0001, v.gain || 0.5);
+
+          const env = ctx.createGain();
+          env.gain.setValueAtTime(0, t0);
+          env.gain.linearRampToValueAtTime(peak, t0 + attack);
+          env.gain.exponentialRampToValueAtTime(0.0004, t0 + dur);
+          env.gain.setValueAtTime(0, t0 + dur + 0.002);
+
+          let src;
+          let head;
+          if (v.wave === "noise") {
+            src = ctx.createBufferSource();
+            src.buffer = getNoiseBuffer(ctx);
+            src.loop = true;
+            const filter = ctx.createBiquadFilter();
+            filter.type = "bandpass";
+            filter.Q.value = v.q || 1;
+            filter.frequency.setValueAtTime(v.filter || 2400, t0);
+            if (v.filterTo) filter.frequency.exponentialRampToValueAtTime(v.filterTo, t0 + glide);
+            src.connect(filter);
+            head = filter;
+          } else {
+            src = ctx.createOscillator();
+            src.type = v.wave || "sine";
+            src.frequency.setValueAtTime(v.freq || PITCH.A4, t0);
+            if (v.to) src.frequency.exponentialRampToValueAtTime(v.to, t0 + glide);
+            head = src;
+          }
+          head.connect(env);
+          env.connect(masterGain);
+          src.start(t0);
+          src.stop(t0 + dur + 0.02);
+        }
+      }
+
+      /* ======================================================================
+         3. Color Math & WCAG 2.1 Contrast Utilities
+         ====================================================================== */
+      function hexToRgb(hex) {
+        const clean = hex.replace("#", "").trim();
+        const n = parseInt(clean, 16);
+        return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+      }
+
+      function relLuminance(hex) {
+        const [r, g, b] = hexToRgb(hex).map((c) => {
+          const s = c / 255;
+          return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
+
+      function contrastRatio(hexA, hexB) {
+        const l1 = relLuminance(hexA);
+        const l2 = relLuminance(hexB);
+        return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+      }
+
+      function bestInkForBg(bgHex) {
+        const dark = "#0D0E0C";
+        const light = "#FFFFFF";
+        return contrastRatio(bgHex, dark) >= contrastRatio(bgHex, light) ? dark : light;
+      }
+
+      /* ======================================================================
+         4. NumberFlow Rolling Odometer Renderer
+         ====================================================================== */
+      function renderNumberFlow(el, textValue) {
+        if (!el) return;
+        const prev = el.getAttribute("data-nf-current");
+        if (prev === textValue) return;
+        el.setAttribute("data-nf-current", textValue);
+
+        el.innerHTML = "";
+        const wrap = document.createElement("span");
+        wrap.className = "nf-wrap";
+
+        const sr = document.createElement("span");
+        sr.className = "sr-only";
+        sr.textContent = textValue;
+        wrap.appendChild(sr);
+
+        const chars = Array.from(textValue);
+        const digitBoxes = [];
+
+        chars.forEach((ch) => {
+          if (/\d/.test(ch)) {
+            const box = document.createElement("span");
+            box.className = "nf-digit-box";
+            box.setAttribute("aria-hidden", "true");
+
+            const track = document.createElement("span");
+            track.className = "nf-digit-track";
+            for (let d = 0; d <= 9; d++) {
+              const cell = document.createElement("span");
+              cell.textContent = String(d);
+              track.appendChild(cell);
+            }
+            const targetDigit = Number(ch);
+            const startDigit = prev ? (targetDigit + 7) % 10 : targetDigit;
+            track.style.transform = `translateY(${-startDigit * 1.15}em)`;
+            box.appendChild(track);
+            wrap.appendChild(box);
+            digitBoxes.push({ track, targetDigit });
+          } else {
+            const sym = document.createElement("span");
+            sym.className = "nf-static";
+            sym.setAttribute("aria-hidden", "true");
+            sym.textContent = ch;
+            wrap.appendChild(sym);
+          }
+        });
+
+        el.appendChild(wrap);
+        if (prev && !prefersReducedMotion.matches) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              digitBoxes.forEach(({ track, targetDigit }, idx) => {
+                track.style.transitionDelay = `${idx * 24}ms`;
+                track.style.transform = `translateY(${-targetDigit * 1.15}em)`;
+              });
+            });
+          });
+        } else {
+          digitBoxes.forEach(({ track, targetDigit }) => {
+            track.style.transform = `translateY(${-targetDigit * 1.15}em)`;
+          });
+        }
+      }
+
+      function bumpInteraction() {
+        state.interactions += 1;
+        renderNumberFlow(document.getElementById("nfInteractions"), String(state.interactions));
+      }
+
+      /* ======================================================================
+         5. World Switching & UI Synchronization
+         ====================================================================== */
+      const dnaSwatchesEl = document.getElementById("dnaSwatches");
+      const cssSnippetEl = document.getElementById("cssSnippetPreview");
+
+      function buildCssSnippet(worldKey) {
+        const t = WORLDS[worldKey].tokens;
+        return `:root[data-world="${worldKey}"] {\n` +
+          Object.entries(t).map(([k, v]) => `  --${k}: ${v};`).join("\n") +
+          "\n}";
+      }
+
+      function renderSwatches(worldKey) {
+        const w = WORLDS[worldKey];
+        const keys = ["canvas", "surface", "surface-alt", "ink", "muted", "accent", "accent-2", "story-a"];
+        dnaSwatchesEl.innerHTML = "";
+        keys.forEach((k) => {
+          const hex = w.tokens[k];
+          const btn = document.createElement("button");
+          btn.className = "swatch-chip";
+          btn.type = "button";
+          btn.setAttribute("data-copy-token", k);
+          btn.innerHTML = `
+            <span class="swatch-well" style="background:${hex}"></span>
+            <span class="swatch-meta">
+              <span class="swatch-name">--${k}</span>
+              <span class="swatch-hex">${hex}</span>
+            </span>
+          `;
+          btn.addEventListener("click", () => {
+            copyText(hex);
+            document.getElementById("dnaToast").textContent = `Copied ${hex}`;
+            playSound("pop");
+            bumpInteraction();
+          });
+          dnaSwatchesEl.appendChild(btn);
+        });
+      }
+
+      function updateStoryCards(worldKey) {
+        const w = WORLDS[worldKey];
+        const mapping = [
+          { card: "storyCardA", quote: "storyQuoteA", meta: "storyMetaA", token: "story-a", idx: 0 },
+          { card: "storyCardB", quote: "storyQuoteB", meta: "storyMetaB", token: "story-b", idx: 1 },
+          { card: "storyCardC", quote: "storyQuoteC", meta: "storyMetaC", token: "story-c", idx: 2 }
+        ];
+        mapping.forEach(({ card, quote, meta, token, idx }) => {
+          const cardEl = document.getElementById(card);
+          const bg = w.tokens[token];
+          cardEl.style.color = bestInkForBg(bg);
+          document.getElementById(quote).textContent = w.quotes[idx];
+          document.getElementById(meta).textContent = `--${token}: ${bg}`;
+        });
+      }
+
+      function updateInspector() {
+        const t = WORLDS[state.world].tokens;
+        const fgHex = t[state.fgToken];
+        const bgHex = t[state.bgToken];
+        const ratio = contrastRatio(fgHex, bgHex);
+        const stage = document.getElementById("inspectorStage");
+        stage.style.color = fgHex;
+        stage.style.backgroundColor = bgHex;
+
+        document.getElementById("pairLabel").textContent = `--${state.fgToken} (${fgHex}) on --${state.bgToken} (${bgHex})`;
+        document.getElementById("inspectorRatioText").textContent = `Ratio: ${ratio.toFixed(2)} : 1`;
+
+        const aaEl = document.getElementById("inspectorAA");
+        const aaaEl = document.getElementById("inspectorAAA");
+        const passAA = ratio >= 4.5;
+        const passAAA = ratio >= 7.0;
+
+        aaEl.textContent = `AA Normal: ${passAA ? "PASS" : "FAIL"}`;
+        aaEl.style.background = passAA ? "#15803d" : "#dc2626";
+        aaEl.style.color = "#ffffff";
+
+        aaaEl.textContent = `AAA Normal: ${passAAA ? "PASS" : "FAIL"}`;
+        aaaEl.style.background = passAAA ? "#15803d" : "#64748b";
+        aaaEl.style.color = "#ffffff";
+
+        document.querySelectorAll("#fgPicker .token-pick-btn").forEach((b) => {
+          b.setAttribute("aria-pressed", String(b.dataset.token === state.fgToken));
+          b.querySelector(".token-pick-dot").style.background = t[b.dataset.token];
+        });
+        document.querySelectorAll("#bgPicker .token-pick-btn").forEach((b) => {
+          b.setAttribute("aria-pressed", String(b.dataset.token === state.bgToken));
+          b.querySelector(".token-pick-dot").style.background = t[b.dataset.token];
+        });
+      }
+
+      function setWorld(worldKey, silent = false) {
+        if (!WORLDS[worldKey]) return;
+        state.world = worldKey;
+        const w = WORLDS[worldKey];
+        document.documentElement.setAttribute("data-world", worldKey);
+        document.documentElement.setAttribute("data-polarity", w.polarity);
+
+        document.querySelectorAll("[data-world-btn]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.worldBtn === worldKey));
+        });
+
+        document.getElementById("worldTagline").textContent = `${w.tagline} // KEYS 1-5`;
+        document.getElementById("dnaWorldTitle").textContent = w.name;
+        document.getElementById("dnaSourceNote").textContent = w.source;
+        document.getElementById("dnaToast").textContent = "Click swatch to copy hex";
+
+        const ratio = contrastRatio(w.tokens.canvas, w.tokens.ink);
+        const badge = ratio >= 7 ? "WCAG AAA" : ratio >= 4.5 ? "WCAG AA" : "CHECK";
+        document.getElementById("dnaWcagBadge").textContent = `${badge} ${ratio.toFixed(1)}:1`;
+
+        renderNumberFlow(document.getElementById("nfContrast"), `${ratio.toFixed(1)}:1`);
+        renderNumberFlow(document.getElementById("nfHue"), `${w.hue} deg`);
+        renderSwatches(worldKey);
+        updateStoryCards(worldKey);
+        updateInspector();
+        cssSnippetEl.textContent = buildCssSnippet(worldKey);
+
+        if (!silent) {
+          playSound("tap");
+          bumpInteraction();
+        }
+      }
+
+      /* ======================================================================
+         6. Clipboard Helper
+         ====================================================================== */
+      async function copyText(text) {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch (_) {
+          /* fallback below */
+        }
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+        } finally {
+          document.body.removeChild(ta);
+        }
+        return true;
+      }
+
+      /* ======================================================================
+         7. Hold-to-Confirm Engine (1200ms pointer or Space/Enter)
+         ====================================================================== */
+      function initHoldButton(btn, opts) {
+        const fill = btn.querySelector(".hold-btn-fill");
+        const baseLabel = btn.querySelector(".hold-label-base");
+        const fillLabel = btn.querySelector(".hold-label-fill");
+        const hintEl = document.getElementById("holdTapHint");
+        const statusEl = document.getElementById("holdStatusText");
+        const pctEl = document.getElementById("holdPercentText");
+
+        const DURATION = 1200;
+        let progress = 0;
+        let rafId = 0;
+        let holding = false;
+        let lastTime = 0;
+        let resetTimer = 0;
+        let hintTimer = 0;
+
+        function setVisual(p) {
+          progress = Math.max(0, Math.min(1, p));
+          fill.style.clipPath = `inset(0 ${(1 - progress) * 100}% 0 0)`;
+          pctEl.textContent = `${Math.round(progress * 100)}%`;
+        }
+
+        function setLabels(txt) {
+          baseLabel.textContent = txt;
+          fillLabel.textContent = txt;
+        }
+
+        function tickFrame(ts) {
+          if (!lastTime) lastTime = ts;
+          const dt = ts - lastTime;
+          lastTime = ts;
+
+          if (holding) {
+            setVisual(progress + dt / DURATION);
+            if (progress >= 1) {
+              holding = false;
+              btn.dataset.phase = "confirmed";
+              setLabels(opts.confirmedLabel);
+              statusEl.textContent = opts.confirmedStatus;
+              playSound("confirm");
+              bumpInteraction();
+              opts.onConfirm();
+              clearTimeout(resetTimer);
+              resetTimer = setTimeout(() => {
+                btn.dataset.phase = "idle";
+                setLabels(opts.idleLabel);
+                setVisual(0);
+                statusEl.textContent = "Status: Idle — awaiting 1200ms hold";
+              }, 1900);
+              return;
+            }
+            rafId = requestAnimationFrame(tickFrame);
+          } else if (progress > 0) {
+            setVisual(progress - dt / 260);
+            if (progress > 0) {
+              rafId = requestAnimationFrame(tickFrame);
+            } else {
+              btn.dataset.phase = "idle";
+              setLabels(opts.idleLabel);
+              statusEl.textContent = "Released early — rewound cleanly";
+            }
+          }
+        }
+
+        function startHold() {
+          if (holding || btn.dataset.phase === "confirmed") return;
+          holding = true;
+          btn.dataset.phase = "holding";
+          setLabels(opts.holdingLabel);
+          statusEl.textContent = `Holding ${opts.idleLabel}...`;
+          playSound("tick");
+          lastTime = 0;
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(tickFrame);
+        }
+
+        function cancelHold() {
+          if (!holding) return;
+          const wasQuickTap = progress < 0.22;
+          holding = false;
+          if (wasQuickTap) {
+            hintEl.classList.add("is-visible");
+            btn.classList.remove("is-shake");
+            void btn.offsetWidth;
+            btn.classList.add("is-shake");
+            clearTimeout(hintTimer);
+            hintTimer = setTimeout(() => hintEl.classList.remove("is-visible"), 1600);
+          }
+          lastTime = 0;
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(tickFrame);
+        }
+
+        btn.addEventListener("pointerdown", (e) => {
+          if (e.button !== 0) return;
+          btn.setPointerCapture(e.pointerId);
+          startHold();
+        });
+        btn.addEventListener("pointerup", cancelHold);
+        btn.addEventListener("pointercancel", cancelHold);
+        btn.addEventListener("keydown", (e) => {
+          if ((e.key === " " || e.key === "Enter") && !e.repeat) {
+            e.preventDefault();
+            startHold();
+          }
+        });
+        btn.addEventListener("keyup", (e) => {
+          if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            cancelHold();
+          }
+        });
+        btn.addEventListener("blur", cancelHold);
+      }
+
+      /* ======================================================================
+         8. Confetti Celebration Engine (Zero Emojis, Pure Geometry)
+         ====================================================================== */
+      function launchPrismConfetti() {
+        if (prefersReducedMotion.matches) return;
+        const canvas = document.getElementById("confettiCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const t = WORLDS[state.world].tokens;
+        const palette = [t.accent, t["accent-2"], t["story-a"], t["story-b"], t.ink];
+        const particles = Array.from({ length: 64 }, (_, i) => {
+          const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.4;
+          const speed = 7 + Math.random() * 9;
+          return {
+            x: canvas.width * (0.35 + Math.random() * 0.3),
+            y: canvas.height - 68,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 3,
+            w: 6 + Math.random() * 6,
+            h: 4 + Math.random() * 5,
+            rot: Math.random() * Math.PI * 2,
+            vr: (Math.random() - 0.5) * 0.24,
+            color: palette[i % palette.length],
+            alpha: 1
+          };
+        });
+
+        function step() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          let alive = 0;
+          for (const p of particles) {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.32;
+            p.vx *= 0.99;
+            p.rot += p.vr;
+            p.alpha -= 0.012;
+            if (p.alpha > 0 && p.y < canvas.height + 24) {
+              alive++;
+              ctx.save();
+              ctx.globalAlpha = Math.max(0, p.alpha);
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rot);
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+              ctx.restore();
+            }
+          }
+          if (alive > 0) {
+            requestAnimationFrame(step);
+          } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      /* ======================================================================
+         9. Initialize All Interactive Modules
+         ====================================================================== */
+      function init() {
+        // World switcher buttons
+        document.querySelectorAll("[data-world-btn]").forEach((btn) => {
+          btn.addEventListener("click", () => setWorld(btn.dataset.worldBtn));
+        });
+
+        // Keyboard 1-5 shortcuts
+        window.addEventListener("keydown", (e) => {
+          if (e.metaKey || e.ctrlKey || e.altKey) return;
+          const tag = (e.target && e.target.tagName) || "";
+          if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+          const idx = Number(e.key) - 1;
+          if (idx >= 0 && idx < WORLD_KEYS.length) {
+            setWorld(WORLD_KEYS[idx]);
+          }
+        });
+
+        // Sound Opt-in Toggle
+        const soundBtn = document.getElementById("soundToggle");
+        const soundLabel = document.getElementById("soundLabel");
+        soundBtn.addEventListener("click", () => {
+          state.soundEnabled = !state.soundEnabled;
+          soundBtn.setAttribute("aria-pressed", String(state.soundEnabled));
+          soundLabel.textContent = state.soundEnabled ? "Sound: On" : "Sound: Off";
+          playSound(state.soundEnabled ? "toggle-on" : "toggle-off", true);
+          bumpInteraction();
+        });
+
+        // Focal CTA
+        document.getElementById("focalCta").addEventListener("click", () => {
+          playSound("confirm");
+          bumpInteraction();
+          document.getElementById("lab").scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth" });
+        });
+
+        // Swatch DNA spectrum bars copy
+        document.querySelectorAll("#dnaSpectrum [data-copy-token]").forEach((bar) => {
+          bar.addEventListener("click", () => {
+            const hex = WORLDS[state.world].tokens[bar.dataset.copyToken];
+            copyText(hex);
+            document.getElementById("dnaToast").textContent = `Copied ${hex}`;
+            playSound("pop");
+            bumpInteraction();
+          });
+        });
+
+        // Aurora visibility pause
+        const auroraEl = document.getElementById("auroraBackdrop");
+        if ("IntersectionObserver" in window && auroraEl) {
+          let inView = true;
+          const syncAurora = () => {
+            auroraEl.setAttribute("data-paused", !inView || document.hidden ? "true" : "false");
+          };
+          const io = new IntersectionObserver(([entry]) => {
+            if (!entry) return;
+            inView = entry.isIntersecting;
+            syncAurora();
+          });
+          io.observe(auroraEl);
+          document.addEventListener("visibilitychange", syncAurora);
+        }
+
+        // Hold-to-Confirm Buttons
+        initHoldButton(document.getElementById("holdDeployBtn"), {
+          idleLabel: "Deploy Palette",
+          holdingLabel: "Deploying...",
+          confirmedLabel: "Deployed!",
+          confirmedStatus: "Confirmed: Active world tokens deployed to stage",
+          onConfirm: () => launchPrismConfetti()
+        });
+
+        initHoldButton(document.getElementById("holdResetBtn"), {
+          idleLabel: "Reset World",
+          holdingLabel: "Resetting...",
+          confirmedLabel: "Reset Complete",
+          confirmedStatus: "Confirmed: Returned to Acid Sprint baseline",
+          onConfirm: () => setWorld("acid-sprint", true)
+        });
+
+        // Liquid Glass Specular Pointer Tracking
+        document.querySelectorAll("[data-specular]").forEach((el) => {
+          el.addEventListener("pointermove", (e) => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty("--lg-x", `${e.clientX - r.left}px`);
+            el.style.setProperty("--lg-y", `${e.clientY - r.top}px`);
+          });
+        });
+
+        document.querySelectorAll("[data-glass-mode]").forEach((seg) => {
+          seg.addEventListener("click", () => {
+            document.querySelectorAll("[data-glass-mode]").forEach((s) => s.setAttribute("aria-pressed", "false"));
+            seg.setAttribute("aria-pressed", "true");
+            const mode = seg.dataset.glassMode;
+            const blurVal = mode === "Frosted" ? "22px" : mode === "Refract" ? "8px" : "14px";
+            document.querySelectorAll(".pc-liquid-glass").forEach((g) => {
+              g.style.backdropFilter = `blur(${blurVal}) saturate(175%)`;
+              g.style.webkitBackdropFilter = `blur(${blurVal}) saturate(175%)`;
+            });
+            document.getElementById("liquidStatusText").textContent = `Lens Mode: ${mode} (blur ${blurVal})`;
+            playSound("tap");
+            bumpInteraction();
+          });
+        });
+
+        document.getElementById("liquidLensBtn").addEventListener("click", () => {
+          playSound("pop");
+          bumpInteraction();
+          document.getElementById("liquidStatusText").textContent = "Specular lens snapshot captured";
+        });
+
+        // Stateful Async Morph Button
+        const statefulBtn = document.getElementById("statefulBtn");
+        const statefulIcon = document.getElementById("statefulIcon");
+        const statefulText = document.getElementById("statefulText");
+        const statefulStatus = document.getElementById("statefulStatus");
+        let asyncTimer = 0;
+        let resetAsyncTimer = 0;
+
+        const SVG_ARROW = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>`;
+        const SVG_SPIN = `<svg class="spin-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9" stroke-opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9" stroke-linecap="round"/></svg>`;
+        const SVG_CHECK = `<svg class="draw-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19.5 7"/></svg>`;
+        const SVG_ERR = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 7l10 10"/><path d="M17 7 7 17"/></svg>`;
+
+        document.querySelectorAll("[data-outcome]").forEach((opt) => {
+          opt.addEventListener("click", () => {
+            state.asyncOutcome = opt.dataset.outcome;
+            document.querySelectorAll("[data-outcome]").forEach((o) => {
+              o.setAttribute("aria-pressed", String(o.dataset.outcome === state.asyncOutcome));
+            });
+            playSound("tap");
+          });
+        });
+
+        statefulBtn.addEventListener("click", () => {
+          if (statefulBtn.dataset.state === "loading") return;
+          clearTimeout(asyncTimer);
+          clearTimeout(resetAsyncTimer);
+          playSound("tap");
+          bumpInteraction();
+
+          statefulBtn.dataset.state = "loading";
+          statefulIcon.innerHTML = SVG_SPIN;
+          statefulText.textContent = "Syncing...";
+          statefulStatus.textContent = "Phase: loading (dispatching token bundle)";
+
+          asyncTimer = setTimeout(() => {
+            const ok = state.asyncOutcome === "success";
+            statefulBtn.dataset.state = ok ? "success" : "error";
+            statefulIcon.innerHTML = ok ? SVG_CHECK : SVG_ERR;
+            statefulText.textContent = ok ? "Tokens Synced" : "Sync Failed";
+            statefulStatus.textContent = ok
+              ? "Phase: success — 11 CSS tokens verified"
+              : "Phase: error — simulated checksum mismatch";
+            playSound(ok ? "success" : "error");
+
+            resetAsyncTimer = setTimeout(() => {
+              statefulBtn.dataset.state = "idle";
+              statefulIcon.innerHTML = SVG_ARROW;
+              statefulText.textContent = "Sync Design Tokens";
+              statefulStatus.textContent = "Phase: idle (click to run 900ms async job)";
+            }, 2000);
+          }, 900);
+        });
+
+        // Ripple Button
+        document.getElementById("rippleBtn").addEventListener("click", function (e) {
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const wave = document.createElement("span");
+          wave.className = "ripple-wave";
+          wave.style.width = `${size}px`;
+          wave.style.height = `${size}px`;
+          const x = e.clientX ? e.clientX - rect.left : rect.width / 2;
+          const y = e.clientY ? e.clientY - rect.top : rect.height / 2;
+          wave.style.left = `${x - size / 2}px`;
+          wave.style.top = `${y - size / 2}px`;
+          this.appendChild(wave);
+          wave.addEventListener("animationend", () => wave.remove());
+
+          state.ripples += 1;
+          document.getElementById("rippleCountText").textContent = `${state.ripples} ripple${state.ripples === 1 ? "" : "s"}`;
+          playSound("pop");
+          bumpInteraction();
+        });
+
+        // Copy :root CSS Button
+        const copyCssBtn = document.getElementById("copyCssBtn");
+        const copyCssIcon = document.getElementById("copyCssIcon");
+        const copyCssLabel = document.getElementById("copyCssLabel");
+        const SVG_CLIP = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+        let copyTimer = 0;
+
+        copyCssBtn.addEventListener("click", async () => {
+          await copyText(buildCssSnippet(state.world));
+          copyCssBtn.dataset.copied = "true";
+          copyCssIcon.innerHTML = SVG_CHECK;
+          copyCssLabel.textContent = "Copied 11 Tokens";
+          document.getElementById("copyStatusText").textContent = `Copied :root[data-world="${state.world}"] to clipboard`;
+          playSound("success");
+          bumpInteraction();
+
+          clearTimeout(copyTimer);
+          copyTimer = setTimeout(() => {
+            copyCssBtn.dataset.copied = "false";
+            copyCssIcon.innerHTML = SVG_CLIP;
+            copyCssLabel.textContent = "Copy :root CSS";
+          }, 1800);
+        });
+
+        // 3D Perspective Tilt Card
+        const tiltCard = document.getElementById("tiltCard");
+        const tiltReadout = document.getElementById("tiltReadout");
+        tiltCard.addEventListener("pointermove", (e) => {
+          if (prefersReducedMotion.matches) return;
+          const r = tiltCard.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width;
+          const py = (e.clientY - r.top) / r.height;
+          const rotY = (px - 0.5) * 16;
+          const rotX = (0.5 - py) * 16;
+          tiltCard.style.transform = `rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg) scale(1.015)`;
+          tiltCard.style.setProperty("--tx", `${(px * 100).toFixed(1)}%`);
+          tiltCard.style.setProperty("--ty", `${(py * 100).toFixed(1)}%`);
+          tiltReadout.textContent = `rotX: ${rotX.toFixed(1)} deg | rotY: ${rotY.toFixed(1)} deg`;
+        });
+        tiltCard.addEventListener("pointerleave", () => {
+          tiltCard.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+          tiltReadout.textContent = "rotX: 0.0 deg | rotY: 0.0 deg";
+        });
+
+        // Linked Cursor Spotlight Cards
+        const spotGroup = document.getElementById("spotlightGroup");
+        const spotCards = spotGroup.querySelectorAll("[data-spotlight-card]");
+        spotGroup.addEventListener("pointermove", (e) => {
+          spotCards.forEach((card) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--pc-x", `${e.clientX - r.left}px`);
+            card.style.setProperty("--pc-y", `${e.clientY - r.top}px`);
+            card.setAttribute("data-active", "true");
+            const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+            card.setAttribute("data-hovered", inside ? "true" : "false");
+          });
+        });
+        spotGroup.addEventListener("pointerleave", () => {
+          spotCards.forEach((card) => {
+            card.setAttribute("data-active", "false");
+            card.setAttribute("data-hovered", "false");
+          });
+        });
+
+        // Contrast Inspector Pickers
+        const fgTokens = ["ink", "muted", "accent", "accent-2", "surface"];
+        const bgTokens = ["canvas", "surface", "surface-alt", "story-a", "story-b", "story-c"];
+
+        function buildPickers(containerId, list, keyProp) {
+          const el = document.getElementById(containerId);
+          el.innerHTML = "";
+          list.forEach((tok) => {
+            const btn = document.createElement("button");
+            btn.className = "token-pick-btn";
+            btn.type = "button";
+            btn.dataset.token = tok;
+            btn.setAttribute("aria-pressed", String(state[keyProp] === tok));
+            btn.innerHTML = `<span class="token-pick-dot"></span><span>--${tok}</span>`;
+            btn.addEventListener("click", () => {
+              state[keyProp] = tok;
+              updateInspector();
+              playSound("tap");
+              bumpInteraction();
+            });
+            el.appendChild(btn);
+          });
+        }
+        buildPickers("fgPicker", fgTokens, "fgToken");
+        buildPickers("bgPicker", bgTokens, "bgToken");
+
+        // Floating Proximity Dock
+        const dock = document.getElementById("prismDock");
+        const dockItems = Array.from(dock.querySelectorAll(".dock-item"));
+        const BASE_SIZE = 44;
+        const MAX_SIZE = 62;
+        const PROX_DIST = 110;
+
+        dock.addEventListener("pointermove", (e) => {
+          if (prefersReducedMotion.matches) return;
+          dockItems.forEach((item) => {
+            const r = item.getBoundingClientRect();
+            const center = r.left + r.width / 2;
+            const d = Math.abs(e.clientX - center);
+            const t = Math.max(0, 1 - d / PROX_DIST);
+            const size = BASE_SIZE + (MAX_SIZE - BASE_SIZE) * (0.5 - 0.5 * Math.cos(Math.PI * t));
+            item.style.width = `${size.toFixed(1)}px`;
+            item.style.height = `${size.toFixed(1)}px`;
+          });
+        });
+
+        dock.addEventListener("pointerleave", () => {
+          dockItems.forEach((item) => {
+            item.style.width = `${BASE_SIZE}px`;
+            item.style.height = `${BASE_SIZE}px`;
+          });
+        });
+
+        dockItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            if (!prefersReducedMotion.matches) {
+              item.classList.remove("is-bouncing");
+              void item.offsetWidth;
+              item.classList.add("is-bouncing");
+            }
+            const targetSel = item.dataset.scrollTarget;
+            if (targetSel) {
+              const target = document.querySelector(targetSel);
+              if (target) {
+                target.scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth" });
+              }
+              playSound("tap");
+              bumpInteraction();
+            }
+          });
+        });
+
+        document.getElementById("celebrateDockBtn").addEventListener("click", () => {
+          playSound("celebrate");
+          launchPrismConfetti();
+          bumpInteraction();
+        });
+
+        // Initial render
+        renderNumberFlow(document.getElementById("nfInteractions"), "0");
+        setWorld("acid-sprint", true);
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

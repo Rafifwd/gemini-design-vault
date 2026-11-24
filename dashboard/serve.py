@@ -715,6 +715,27 @@ def parse_design_systems(vault_root: Path) -> dict[str, Any]:
     }
 
 
+def parse_goodui_registry(vault_root: Path) -> dict[str, Any]:
+    idx_path = vault_root / "templates" / "goodui" / "INDEX.json"
+    if not idx_path.is_file():
+        return {"exists": False, "count": 0, "categories": {}, "items": []}
+    try:
+        data = json.loads(idx_path.read_text(encoding="utf-8"))
+    except Exception:
+        return {"exists": False, "count": 0, "categories": {}, "items": []}
+
+    items = data.get("items", [])
+    return {
+        "exists": True,
+        "path": "templates/goodui/INDEX.json",
+        "source": data.get("source"),
+        "license": data.get("license"),
+        "count": len(items),
+        "categories": data.get("categories", {}),
+        "items": items,
+    }
+
+
 def build_vault_payload(vault_root: Path) -> dict[str, Any]:
     skill = parse_skill(vault_root)
     taste = parse_taste(vault_root)
@@ -725,6 +746,7 @@ def build_vault_payload(vault_root: Path) -> dict[str, Any]:
     rea_dossiers = parse_rea_dossiers(vault_root)
     templates_data = parse_templates(vault_root)
     design_systems_data = parse_design_systems(vault_root)
+    goodui_data = parse_goodui_registry(vault_root)
 
     md_refs = [r for r in references if not r.get("is_dir")]
     ready_count = sum(1 for r in md_refs if r["status"] == "ready")
@@ -747,6 +769,7 @@ def build_vault_payload(vault_root: Path) -> dict[str, Any]:
         "rea_dossiers": rea_dossiers,
         "templates": templates_data,
         "design_systems": design_systems_data,
+        "goodui_registry": goodui_data,
         "eval": eval_data,
         "handoff": handoff,
         "sync": sync,
@@ -764,6 +787,7 @@ def build_vault_payload(vault_root: Path) -> dict[str, Any]:
             "rea_count": len(rea_dossiers),
             "templates_count": templates_data["count"],
             "design_systems_count": design_systems_data["count"],
+            "goodui_count": goodui_data["count"],
         },
     }
 

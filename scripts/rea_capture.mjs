@@ -17,6 +17,7 @@ const TARGETS = [
   { slug: 'vercel', url: 'https://vercel.com' },
   { slug: 'stripe', url: 'https://stripe.com' },
   { slug: 'raycast', url: 'https://www.raycast.com' },
+  { slug: 'goodui', url: 'https://goodui.dev' },
 ];
 
 fs.mkdirSync(REA_DIR, { recursive: true });
@@ -317,11 +318,17 @@ async function captureSite(port, target) {
 }
 
 async function main() {
+  const filter = process.argv.slice(2).map((s) => s.toLowerCase());
+  const selectedTargets = filter.length ? TARGETS.filter((t) => filter.includes(t.slug)) : TARGETS;
+  if (!selectedTargets.length) {
+    console.error(`No matching REA targets for args: ${filter.join(', ')}`);
+    process.exit(1);
+  }
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gdv-rea-'));
   let chrome = null;
   try {
     chrome = await launchChrome(tmpDir);
-    for (const target of TARGETS) {
+    for (const target of selectedTargets) {
       await captureSite(chrome.port, target);
     }
   } finally {

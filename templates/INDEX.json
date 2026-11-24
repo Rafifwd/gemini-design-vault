@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-24T14:25:38+07:00",
-  "count": 16,
+  "generated_at": "2026-11-24T21:25:33+07:00",
+  "count": 28,
   "templates": [
     {
       "id": "shadcn-button",
@@ -296,6 +296,227 @@
         "react"
       ],
       "use_case": "Accessible Radix modal dialog primitive"
+    },
+    {
+      "id": "goodui-hold-to-confirm",
+      "name": "hold-to-confirm.tsx",
+      "category": "buttons",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/buttons/hold-to-confirm",
+      "raw_url": "https://goodui.dev/r/hold-to-confirm.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/buttons/hold-to-confirm/hold-to-confirm.tsx",
+      "lines": 268,
+      "bytes": 9952,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Destructive press-and-hold fill sweep button with early-release rewind & Space/Enter accessibility"
+    },
+    {
+      "id": "goodui-liquid-glass-button",
+      "name": "liquid-glass-button.tsx",
+      "category": "buttons",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/buttons/liquid-glass-button",
+      "raw_url": "https://goodui.dev/r/liquid-glass-button.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/buttons/liquid-glass-button/liquid-glass-button.tsx",
+      "lines": 232,
+      "bytes": 9610,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Frosted translucent glass button & pill bar with pointer-tracking specular highlight & rim light"
+    },
+    {
+      "id": "goodui-stateful-button",
+      "name": "stateful-button.tsx",
+      "category": "buttons",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/buttons/stateful-button",
+      "raw_url": "https://goodui.dev/r/stateful-button.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/buttons/stateful-button/stateful-button.tsx",
+      "lines": 291,
+      "bytes": 10401,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Async button morphing idle -> spinner -> drawn check / shake error with spring width transition"
+    },
+    {
+      "id": "goodui-rainbow-button",
+      "name": "rainbow-button.tsx",
+      "category": "buttons",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/buttons/rainbow-button",
+      "raw_url": "https://goodui.dev/r/rainbow-button.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/buttons/rainbow-button/rainbow-button.tsx",
+      "lines": 108,
+      "bytes": 4308,
+      "dependencies": [
+        "react"
+      ],
+      "use_case": "Prismatic multi-hue focal CTA button with crisp dark/light inner core & animated spectrum border"
+    },
+    {
+      "id": "goodui-ripple-button",
+      "name": "ripple-button.tsx",
+      "category": "buttons",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/buttons/ripple-button",
+      "raw_url": "https://goodui.dev/r/ripple-button.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/buttons/ripple-button/ripple-button.tsx",
+      "lines": 161,
+      "bytes": 5632,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Tactile click-origin radial ripple feedback button respecting reduced motion"
+    },
+    {
+      "id": "goodui-copy-button",
+      "name": "copy-button.tsx",
+      "category": "buttons",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/buttons/copy-button",
+      "raw_url": "https://goodui.dev/r/copy-button.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/buttons/copy-button/copy-button.tsx",
+      "lines": 287,
+      "bytes": 11174,
+      "dependencies": [
+        "lucide-react",
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Inline copy button with animated clipboard-to-check morph & zero width shift"
+    },
+    {
+      "id": "goodui-spotlight-card",
+      "name": "spotlight-card.tsx",
+      "category": "cards",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/cards/spotlight-card",
+      "raw_url": "https://goodui.dev/r/spotlight-card.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/cards/spotlight-card/spotlight-card.tsx",
+      "lines": 138,
+      "bytes": 5252,
+      "dependencies": [
+        "react"
+      ],
+      "use_case": "Pointer-tracked radial spotlight surface reveal card for dark and moody stages"
+    },
+    {
+      "id": "goodui-tilt-card",
+      "name": "tilt-card.tsx",
+      "category": "cards",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/cards/tilt-card",
+      "raw_url": "https://goodui.dev/r/tilt-card.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/cards/tilt-card/tilt-card.tsx",
+      "lines": 191,
+      "bytes": 7905,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Perspective 3D tilt showcase card with subtle specular sheen on pointer move"
+    },
+    {
+      "id": "goodui-aurora",
+      "name": "aurora.tsx",
+      "category": "assets",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/backgrounds/aurora",
+      "raw_url": "https://goodui.dev/r/aurora.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/backgrounds/aurora/aurora.tsx",
+      "lines": 109,
+      "bytes": 6055,
+      "dependencies": [
+        "react"
+      ],
+      "use_case": "Dynamic atmospheric aurora gradient backdrop layer for expressive hero stages"
+    },
+    {
+      "id": "goodui-dock",
+      "name": "dock.tsx",
+      "category": "navigation",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/navigation/dock",
+      "raw_url": "https://goodui.dev/r/dock.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/navigation/dock/dock.tsx",
+      "lines": 293,
+      "bytes": 11420,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Interactive macOS-style proximity-magnified floating navigation dock"
+    },
+    {
+      "id": "goodui-number-flow",
+      "name": "number-flow.tsx",
+      "category": "motion",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/components/numbers/number-flow",
+      "raw_url": "https://goodui.dev/r/number-flow.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/numbers/number-flow/number-flow.tsx",
+      "lines": 84,
+      "bytes": 3329,
+      "dependencies": [
+        "motion",
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Tabular rolling odometer number transition for live KPIs, pricing, and telemetry"
+    },
+    {
+      "id": "goodui-sounds",
+      "name": "sounds.ts",
+      "category": "assets",
+      "repo": "goodui.dev",
+      "license": "Free Public Registry",
+      "source_url": "https://goodui.dev/docs/sounds",
+      "raw_url": "https://goodui.dev/r/sounds.json",
+      "fetched_at": "2026-11-24T21:25:33+07:00",
+      "local_path": "templates/goodui/lib/sounds/sounds.ts",
+      "lines": 516,
+      "bytes": 19236,
+      "dependencies": [
+        "react"
+      ],
+      "use_case": "24 synthesized Web Audio UI micro-sounds (tap, toggle, success, error, celebrate) with zero audio files"
     }
   ]
 }

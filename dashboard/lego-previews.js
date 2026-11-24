@@ -6,6 +6,10 @@
     'magicui-shimmer-button': true,
     'magicui-border-beam': true,
     'magicui-shiny-button': true,
+    'goodui-liquid-glass-button': true,
+    'goodui-rainbow-button': true,
+    'goodui-spotlight-card': true,
+    'goodui-aurora': true,
   };
 
   function esc(str) {
@@ -175,9 +179,39 @@
       '.lp-input:focus-visible { outline: none; border-color: var(--st-accent); box-shadow: 0 0 0 3px var(--st-accent-tint); }',
       '.lp-input[aria-invalid="true"] { border-color: #B91C1C; box-shadow: 0 0 0 3px rgba(185,28,28,0.16); }',
       '.lp-input:disabled { opacity: 0.45; cursor: not-allowed; }',
+      /* 17-28 goodui.dev interactive demos */
+      '.lp-hold-btn { position: relative; overflow: hidden; height: 42px; padding: 0 22px; border-radius: 10px; border: 1px solid rgba(220,38,38,0.35); background: rgba(220,38,38,0.10); color: #B91C1C; font-size: 13.5px; font-weight: 600; cursor: pointer; user-select: none; display: inline-flex; align-items: center; gap: 8px; }',
+      '.lego-studio-stage[data-stage-theme="dark"] .lp-hold-btn { color: #FCA5A5; background: rgba(220,38,38,0.18); border-color: rgba(248,113,113,0.40); }',
+      '.lp-hold-fill { position: absolute; inset: 0; width: 0%; background: #DC2626; pointer-events: none; transition: none; }',
+      '.lp-hold-lbl { position: relative; z-index: 1; transition: color 120ms ease; }',
+      '.lp-hold-btn[data-holding="true"] .lp-hold-lbl, .lp-hold-btn[data-done="true"] .lp-hold-lbl { color: #FFFFFF; }',
+      '.lp-glass-backdrop { width: 100%; max-width: 480px; padding: 28px 20px; border-radius: 12px; background: radial-gradient(circle at 18% 22%, #FA520F, transparent 48%), radial-gradient(circle at 82% 72%, #5200FF, transparent 52%), linear-gradient(135deg, #13091F, #06242B); display: flex; flex-direction: column; align-items: center; gap: 14px; border: 1px solid rgba(255,255,255,0.14); }',
+      '.lp-lglass-btn { position: relative; isolation: isolate; height: 42px; padding: 0 22px; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.32); color: #FFFFFF; font-size: 13.5px; font-weight: 600; cursor: pointer; background: linear-gradient(180deg, rgba(255,255,255,0.26), rgba(255,255,255,0.08)); backdrop-filter: blur(14px) saturate(170%); -webkit-backdrop-filter: blur(14px) saturate(170%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 26px rgba(0,0,0,0.34); transition: transform 160ms ease; }',
+      '.lp-lglass-btn::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none; background: radial-gradient(100px circle at var(--gx, 50%) var(--gy, -20%), rgba(255,255,255,0.55), transparent 70%); opacity: 0.45; transition: opacity 220ms ease; }',
+      '.lp-lglass-btn:hover::before { opacity: 1; }',
+      '.lp-lglass-btn:hover { transform: scale(1.03); }',
+      '.lp-lglass-btn:active { transform: scale(0.96); }',
+      '@keyframes lp-rb-flow { to { transform: translateX(-50%); } }',
+      '.lp-rainbow-btn { position: relative; isolation: isolate; height: 44px; padding: 0 26px; border-radius: 12px; border: none; background: transparent; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }',
+      '.lp-rainbow-border { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; z-index: -2; }',
+      '.lp-rainbow-strip { position: absolute; top: 0; left: 0; height: 100%; width: 200%; background: linear-gradient(90deg, #FF3B30, #8B5CF6, #3B82F6, #10B981, #D2FF00, #FF3B30) 0 0 / 50% 100% repeat-x; animation: lp-rb-flow 3s linear infinite; }',
+      '.lp-rainbow-face { position: absolute; inset: 2px; border-radius: 10px; background: #111214; z-index: -1; box-shadow: inset 0 1px 0 rgba(255,255,255,0.16); }',
+      '@keyframes lp-ripple-go { to { transform: scale(2.8); opacity: 0; } }',
+      '.lp-ripple-btn { position: relative; overflow: hidden; height: 40px; padding: 0 20px; border-radius: 8px; border: 1px solid var(--st-border-strong); background: var(--st-accent); color: var(--st-accent-ink); font-size: 13.5px; font-weight: 600; cursor: pointer; }',
+      '.lp-ripple-dot { position: absolute; border-radius: 9999px; background: rgba(255,255,255,0.45); transform: scale(0); animation: lp-ripple-go 520ms ease-out forwards; pointer-events: none; }',
+      '.lp-spot-card { position: relative; overflow: hidden; width: 100%; max-width: 420px; border-radius: 12px; border: 1px solid var(--st-border-strong); background: var(--st-surface); padding: 20px; }',
+      '.lp-spot-glow { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 220ms ease; background: radial-gradient(220px circle at var(--sx, 50%) var(--sy, 50%), rgba(60, 255, 208, 0.22), transparent 72%); }',
+      '.lp-spot-card:hover .lp-spot-glow { opacity: 1; }',
+      '.lp-tilt-stage { perspective: 900px; }',
+      '.lp-tilt-card { width: 320px; border-radius: 14px; padding: 20px; background: linear-gradient(145deg, #163300, #0A1702); color: #F4F7F0; border: 1px solid rgba(159, 232, 112, 0.35); box-shadow: 0 18px 38px rgba(0,0,0,0.28); transition: transform 140ms ease-out; transform-style: preserve-3d; }',
+      '@keyframes lp-aur-drift { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(18px, -12px) scale(1.12); } }',
+      '.lp-aurora-box { position: relative; overflow: hidden; width: 100%; max-width: 480px; height: 210px; border-radius: 12px; background: #09090F; border: 1px solid rgba(255,255,255,0.12); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; color: #FFFFFF; }',
+      '.lp-aur-blob { position: absolute; border-radius: 9999px; filter: blur(42px); opacity: 0.72; animation: lp-aur-drift 7s ease-in-out infinite; pointer-events: none; }',
+      '.lp-dock-bar { display: inline-flex; align-items: flex-end; gap: 8px; padding: 8px 12px; border-radius: 14px; background: var(--st-surface); border: 1px solid var(--st-border-strong); box-shadow: 0 10px 26px rgba(0,0,0,0.12); }',
+      '.lp-dock-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--st-border); background: var(--st-subtle); color: var(--st-ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 140ms ease-out, background-color 140ms ease; transform-origin: bottom center; }',
       '@media (prefers-reduced-motion: reduce) {',
-      '  .lp-shimmer-btn::before, .lp-shiny-btn::after, .lp-beam-spin, .lp-sh-btn.is-loading .lp-spin { animation: none !important; }',
-      '  .lp-anim-pill, .lp-tile-hl, .lp-bento-inner, .lp-bento-cta, .lp-disc-body, .lp-sonner-item, .lp-stage-dialog { transition: none !important; }',
+      '  .lp-shimmer-btn::before, .lp-shiny-btn::after, .lp-beam-spin, .lp-sh-btn.is-loading .lp-spin, .lp-rainbow-strip, .lp-aur-blob, .lp-ripple-dot { animation: none !important; }',
+      '  .lp-anim-pill, .lp-tile-hl, .lp-bento-inner, .lp-bento-cta, .lp-disc-body, .lp-sonner-item, .lp-stage-dialog, .lp-tilt-card, .lp-dock-btn { transition: none !important; }',
       '}',
     ].join('\n');
     document.head.appendChild(style);
@@ -656,6 +690,272 @@
         ov.onclick = function (e) { if (e.target === ov) { ov.remove(); st.textContent = 'Dialog ditutup'; } };
         el.appendChild(ov);
       };
+      return;
+    }
+
+    if (id === 'goodui-hold-to-confirm') {
+      el.innerHTML =
+        '<div class="lp-panel-card" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">' +
+          '<button type="button" class="lp-hold-btn" data-hold><span class="lp-hold-fill" data-fill></span><span class="lp-hold-lbl" data-lbl>Tahan 1.2s untuk Hapus Cache</span></button>' +
+          '<span class="lp-note" data-s>Tahan mouse/touch atau tekan Spasi/Enter · Lepas cepat untuk uji rewind</span>' +
+        '</div>';
+      var btn = el.querySelector('[data-hold]'), fill = el.querySelector('[data-fill]'), lbl = el.querySelector('[data-lbl]'), st = el.querySelector('[data-s]');
+      var timer = 0, prog = 0, done = false, holding = false, dur = 1200, startTs = 0;
+      function frame(ts) {
+        if (!holding) return;
+        prog = Math.min(1, (ts - startTs) / dur);
+        fill.style.width = (prog * 100).toFixed(1) + '%';
+        if (prog >= 1) {
+          holding = false; done = true;
+          btn.setAttribute('data-holding', 'false'); btn.setAttribute('data-done', 'true');
+          lbl.textContent = 'Terkonfirmasi'; st.textContent = 'Aksi destruktif dijalankan (auto-reset 1.8s)';
+          setTimeout(function () {
+            done = false; prog = 0; fill.style.width = '0%';
+            btn.setAttribute('data-done', 'false'); lbl.textContent = 'Tahan 1.2s untuk Hapus Cache';
+          }, 1800);
+          return;
+        }
+        timer = requestAnimationFrame(frame);
+      }
+      function begin() {
+        if (done || holding) return;
+        holding = true; startTs = performance.now();
+        btn.setAttribute('data-holding', 'true');
+        lbl.textContent = 'Menahan...';
+        timer = requestAnimationFrame(frame);
+      }
+      function abort() {
+        if (!holding) return;
+        holding = false; cancelAnimationFrame(timer);
+        btn.setAttribute('data-holding', 'false');
+        fill.style.transition = 'width 180ms ease-out';
+        fill.style.width = '0%';
+        setTimeout(function () { fill.style.transition = 'none'; }, 190);
+        if (prog < 0.15) st.textContent = 'Ketuk singkat — tahan 1.2 detik untuk konfirmasi';
+        else st.textContent = 'Dilepas lebih awal — sapuan di-rewind';
+        lbl.textContent = 'Tahan 1.2s untuk Hapus Cache';
+      }
+      btn.onpointerdown = begin; btn.onpointerup = abort; btn.onpointerleave = abort;
+      btn.onkeydown = function (e) { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); begin(); } };
+      btn.onkeyup = function (e) { if (e.key === ' ' || e.key === 'Enter') abort(); };
+      return;
+    }
+
+    if (id === 'goodui-liquid-glass-button') {
+      el.innerHTML =
+        '<div class="lp-glass-backdrop">' +
+          '<button type="button" class="lp-lglass-btn" data-lg>Liquid Glass Specular</button>' +
+          '<span class="lp-note" style="color:rgba(255,255,255,0.78);" data-s>Gerakkan kursor di atas tombol · Sorot cahaya mengikuti pointer</span>' +
+        '</div>';
+      var lg = el.querySelector('[data-lg]'), st = el.querySelector('[data-s]');
+      lg.onpointermove = function (e) {
+        var r = lg.getBoundingClientRect();
+        var x = Math.round(e.clientX - r.left), y = Math.round(e.clientY - r.top);
+        lg.style.setProperty('--gx', x + 'px');
+        lg.style.setProperty('--gy', y + 'px');
+        st.textContent = '--pc-lg-x: ' + x + 'px · --pc-lg-y: ' + y + 'px';
+      };
+      return;
+    }
+
+    if (id === 'goodui-stateful-button') {
+      var mode = 'success';
+      el.innerHTML =
+        '<div class="lp-panel-card" style="display:flex;flex-direction:column;gap:12px;">' +
+          '<div class="lp-row"><button type="button" class="lp-pill" data-m="success" aria-pressed="true">Simulasi Sukses</button><button type="button" class="lp-pill" data-m="error" aria-pressed="false">Simulasi Error</button></div>' +
+          '<div class="lp-row"><button type="button" class="lp-sh-btn" data-variant="default" data-size="default" data-sb>Kirim Transaksi</button><span class="lp-note" data-s>State: idle</span></div>' +
+        '</div>';
+      var sb = el.querySelector('[data-sb]'), st = el.querySelector('[data-s]'), busy = false;
+      el.querySelectorAll('[data-m]').forEach(function (b) {
+        b.onclick = function () { mode = b.dataset.m; el.querySelectorAll('[data-m]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); };
+      });
+      sb.onclick = function () {
+        if (busy) return; busy = true;
+        sb.textContent = 'Memproses...'; st.textContent = 'State: loading';
+        setTimeout(function () {
+          if (mode === 'success') {
+            sb.style.background = '#059669'; sb.style.color = '#FFFFFF';
+            sb.textContent = 'Terkirim'; st.textContent = 'State: success (drawn check)';
+          } else {
+            sb.style.background = '#B91C1C'; sb.style.color = '#FFFFFF';
+            sb.textContent = 'Coba Lagi'; st.textContent = 'State: error';
+          }
+          setTimeout(function () {
+            sb.style.background = ''; sb.style.color = ''; sb.textContent = 'Kirim Transaksi';
+            st.textContent = 'State: idle'; busy = false;
+          }, 1400);
+        }, 700);
+      };
+      return;
+    }
+
+    if (id === 'goodui-rainbow-button') {
+      el.innerHTML =
+        '<button type="button" class="lp-rainbow-btn" data-rb><span class="lp-rainbow-border"><span class="lp-rainbow-strip"></span></span><span class="lp-rainbow-face"></span><span>Generate Design System</span></button>' +
+        '<span class="lp-note" data-s>Wajah solid high-contrast · Spektrum warna hanya di perimeter 2px</span>';
+      el.querySelector('[data-rb]').onclick = function () { el.querySelector('[data-s]').textContent = 'Prismatic CTA diklik'; };
+      return;
+    }
+
+    if (id === 'goodui-ripple-button') {
+      el.innerHTML =
+        '<button type="button" class="lp-ripple-btn" data-rp>Klik di Titik Mana Saja</button>' +
+        '<span class="lp-note" data-s>Gelombang radial muncul tepat dari koordinat klik</span>';
+      var rp = el.querySelector('[data-rp]');
+      rp.onclick = function (e) {
+        var r = rp.getBoundingClientRect(), d = Math.max(r.width, r.height);
+        var dot = document.createElement('span');
+        dot.className = 'lp-ripple-dot';
+        dot.style.width = dot.style.height = d + 'px';
+        dot.style.left = (e.clientX - r.left - d / 2) + 'px';
+        dot.style.top = (e.clientY - r.top - d / 2) + 'px';
+        rp.appendChild(dot);
+        setTimeout(function () { dot.remove(); }, 540);
+        el.querySelector('[data-s]').textContent = 'Ripple origin (' + Math.round(e.clientX - r.left) + ', ' + Math.round(e.clientY - r.top) + ')';
+      };
+      return;
+    }
+
+    if (id === 'goodui-copy-button') {
+      el.innerHTML =
+        '<div class="lp-panel-card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;">' +
+          '<code class="lp-note" style="color:var(--st-ink);">npx shadcn@latest add https://goodui.dev/r/sounds.json</code>' +
+          '<button type="button" class="lp-sh-btn" data-variant="outline" data-size="sm" data-cp>Salin</button>' +
+        '</div>';
+      var cp = el.querySelector('[data-cp]');
+      cp.onclick = function () {
+        cp.textContent = 'Tersalin'; cp.setAttribute('data-variant', 'default');
+        setTimeout(function () { cp.textContent = 'Salin'; cp.setAttribute('data-variant', 'outline'); }, 1400);
+      };
+      return;
+    }
+
+    if (id === 'goodui-spotlight-card') {
+      el.innerHTML =
+        '<div class="lp-spot-card" data-sc><div class="lp-spot-glow"></div>' +
+          '<div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:6px;">' +
+            '<span class="badge badge-accent" style="align-self:flex-start;">Pointer Spotlight</span>' +
+            '<strong style="font-size:15px;">Radial Cursor Reveal Surface</strong>' +
+            '<div class="lp-note">Gerakkan kursor di dalam kartu untuk menerangi border & tekstur permukaan.</div>' +
+          '</div>' +
+        '</div>';
+      var sc = el.querySelector('[data-sc]');
+      sc.onpointermove = function (e) {
+        var r = sc.getBoundingClientRect();
+        sc.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+        sc.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+      };
+      return;
+    }
+
+    if (id === 'goodui-tilt-card') {
+      el.innerHTML =
+        '<div class="lp-tilt-stage">' +
+          '<div class="lp-tilt-card" data-tc>' +
+            '<div class="lp-note" style="color:#9FE870;margin-bottom:8px;">WISE // FOREST VOLT</div>' +
+            '<strong style="font-size:17px;">Perspective 3D Tilt Card</strong>' +
+            '<div class="lp-note" style="color:rgba(244,247,240,0.72);margin-top:6px;">Arahkan kursor untuk rotasi sumbu X/Y halus tanpa distorsi teks.</div>' +
+          '</div>' +
+        '</div>';
+      var tc = el.querySelector('[data-tc]');
+      tc.onpointermove = function (e) {
+        var r = tc.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        tc.style.transform = 'rotateX(' + (-py * 14).toFixed(2) + 'deg) rotateY(' + (px * 16).toFixed(2) + 'deg)';
+      };
+      tc.onpointerleave = function () { tc.style.transform = 'rotateX(0deg) rotateY(0deg)'; };
+      return;
+    }
+
+    if (id === 'goodui-aurora') {
+      el.innerHTML =
+        '<div class="lp-aurora-box">' +
+          '<div class="lp-aur-blob" style="width:200px;height:200px;top:-40px;left:-20px;background:#3CFFD0;"></div>' +
+          '<div class="lp-aur-blob" style="width:220px;height:220px;top:10px;right:-30px;background:#FA520F;animation-delay:-3s;"></div>' +
+          '<div style="position:relative;z-index:1;"><strong style="font-size:16px;">Aurora Atmospheric Mesh</strong><div class="lp-note" style="color:rgba(255,255,255,0.76);margin-top:4px;">Lapisan cahaya multi-hue lembut · Berhenti otomatis bila prefers-reduced-motion aktif</div></div>' +
+        '</div>';
+      return;
+    }
+
+    if (id === 'goodui-dock') {
+      var labels = ['Canvas', 'Tokens', 'Icons', 'Audio', 'Export'];
+      el.innerHTML =
+        '<div class="lp-dock-bar" data-dk>' +
+          labels.map(function (l, i) { return '<button type="button" class="lp-dock-btn" data-idx="' + i + '" title="' + l + '">' + l.slice(0, 2).toUpperCase() + '</button>'; }).join('') +
+        '</div><span class="lp-note" data-s>Sorot bar dock untuk magnifikasi berbasis jarak kursor</span>';
+      var dk = el.querySelector('[data-dk]'), btns = dk.querySelectorAll('.lp-dock-btn'), st = el.querySelector('[data-s]');
+      dk.onmousemove = function (e) {
+        btns.forEach(function (b) {
+          var r = b.getBoundingClientRect(), dist = Math.abs(e.clientX - (r.left + r.width / 2));
+          var sc = Math.max(1, 1.48 - dist / 95);
+          b.style.transform = 'scale(' + sc.toFixed(2) + ') translateY(' + (-Math.max(0, (sc - 1) * 16)).toFixed(1) + 'px)';
+        });
+      };
+      dk.onmouseleave = function () { btns.forEach(function (b) { b.style.transform = 'scale(1)'; }); };
+      btns.forEach(function (b, i) { b.onclick = function () { st.textContent = 'Item dock aktif: ' + labels[i]; }; });
+      return;
+    }
+
+    if (id === 'goodui-number-flow') {
+      var vals = [1284, 4892, 9640];
+      el.innerHTML =
+        '<div class="lp-panel-card" style="display:flex;flex-direction:column;gap:12px;">' +
+          '<div class="lp-row">' + vals.map(function (v) { return '<button type="button" class="lp-pill" data-val="' + v + '">' + v + ' req/s</button>'; }).join('') + '</div>' +
+          '<div style="font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.03em;" data-nf>1,284</div>' +
+          '<span class="lp-note">Tabular rolling counter (tanpa geser lebar kolom)</span>' +
+        '</div>';
+      var nf = el.querySelector('[data-nf]'), cur = 1284;
+      el.querySelectorAll('[data-val]').forEach(function (b) {
+        b.onclick = function () {
+          var target = Number(b.dataset.val), start = cur, t0 = performance.now();
+          function step(ts) {
+            var p = Math.min(1, (ts - t0) / 380);
+            var eased = 1 - Math.pow(1 - p, 3);
+            cur = Math.round(start + (target - start) * eased);
+            nf.textContent = cur.toLocaleString('en-US');
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        };
+      });
+      return;
+    }
+
+    if (id === 'goodui-sounds') {
+      var recipes = [
+        { k: 'tap', f: 440, to: 520, d: 0.05 },
+        { k: 'success', f: 523.25, to: 783.99, d: 0.14 },
+        { k: 'confirm', f: 659.25, to: 987.77, d: 0.16 },
+        { k: 'error', f: 240, to: 160, d: 0.16 },
+        { k: 'celebrate', f: 587.33, to: 1046.5, d: 0.22 },
+      ];
+      el.innerHTML =
+        '<div class="lp-panel-card" style="display:flex;flex-direction:column;gap:12px;">' +
+          '<div class="lp-row">' + recipes.map(function (r) { return '<button type="button" class="lp-pill" data-sn="' + r.k + '">' + r.k + '</button>'; }).join('') + '</div>' +
+          '<span class="lp-note" data-s>Web Audio API sintetis murni (-14 dBFS, 0 file audio eksternal) · Klik tombol untuk dengar</span>' +
+        '</div>';
+      var ctx = null, st = el.querySelector('[data-s]');
+      el.querySelectorAll('[data-sn]').forEach(function (b, idx) {
+        b.onclick = function () {
+          var rec = recipes[idx];
+          try {
+            ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+            if (ctx.state === 'suspended') ctx.resume();
+            var now = ctx.currentTime, osc = ctx.createOscillator(), gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(rec.f, now);
+            osc.frequency.exponentialRampToValueAtTime(rec.to, now + rec.d);
+            gain.gain.setValueAtTime(0.14, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + rec.d);
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.start(now); osc.stop(now + rec.d + 0.02);
+            st.textContent = 'Memainkan resep Web Audio: "' + rec.k + '" (' + rec.f + 'Hz -> ' + rec.to + 'Hz)';
+          } catch (err) {
+            st.textContent = 'Web Audio tidak tersedia di browser ini';
+          }
+        };
+      });
     }
   }
 

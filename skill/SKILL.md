@@ -21,16 +21,25 @@ Semua path di bawah relatif terhadap folder tempat `SKILL.md` ini berada (global
 
 1. **Urutan baca wajib:**
    - Baca `references/TASTE-PROFILE.md` (selalu).
-   - Baca `references/DESIGN-GRAMMAR.md` dan pilih **1 Art Direction + suhu warna yang cocok dengan domain & mode permukaan** (`Persuade` / `Operate` / `Read` / `Experience`) dari `design-systems/INDEX.json` (`apple`, `stripe`, `linear.app`, `vercel`, `notion`, `supabase`, `airbnb`, `spotify`, `figma`, `claude`) **sebelum** memilih warna atau font — dilarang jatuh ke satu palet default "krem + teal" di semua proyek.
+   - Baca `references/DESIGN-GRAMMAR.md` dan pilih **1 Art Direction + suhu warna yang cocok dengan domain & mode permukaan** (`Persuade` / `Operate` / `Read` / `Experience`) dari 24 sistem brand `design-systems/INDEX.json` atau 10 **Expressive & Vivid Color Worlds** (§4) **sebelum** memilih warna atau font — dilarang jatuh ke satu palet default "krem + teal" atau biru netral aman di semua proyek.
+   - Baca `references/STYLE-PACKS.md` bila ingin meramu karakter material/geometri (`Clean`, `Brutal`, `Glass`, `Retro 98`, `8-bit`, `Soft`, `Swiss`, `Luxe` × 8 aksen × 4 material `Glassmorphism`/`Claymorphism`/`Skeuomorphism`/`Neumorphism`).
    - Baca `references/INDEX.md` (router kategori), lalu buka **hanya** file `references/` berstatus `seeded` atau `ready` yang relevan; lewati file `template`.
-   - **Rakit Lego dari produksi nyata:** Untuk komponen standar (button, tab, command palette, bento card, dialog, input, toast), cek `templates/INDEX.json` + dossier `rea/*.json` / `references/assets/rea-*.png` dan **adaptasikan kode/token produksi verbatim** dari `templates/` daripada mengarang CSS/komponen dari nol.
+   - **Rakit Lego dari produksi nyata (A la Carte):** Untuk komponen (button, hold-to-confirm, liquid glass, stateful button, tab, command palette, bento/spotlight/tilt card, chart, dialog, input, toast, hingga 24 Web Audio sounds), cek `templates/INDEX.json` (28 unggulan) + `templates/goodui/INDEX.json` (195 blok gratis `goodui.dev`) + 6 dossier `rea/*.json` / `references/assets/rea-*.png` dan **adaptasikan kode/token produksi verbatim** daripada mengarang CSS/komponen dari nol.
    - Jika vault belum punya contoh yang cocok, rujuk Layer 2: `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `python3 /home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"`.
 2. **Prioritas sumber (dari tertinggi ke terendah):**
    `Instruksi eksplisit user > Brand / design system / codebase eksisting > TASTE-PROFILE.md > Referensi vault > Corpus eksternal`.
    Taste profile adalah *default* saat konteks kosong dan tidak boleh menimpa design system produk yang sudah ada (Jalur A).
 3. **Constraint HARD vs SOFT:**
    - **HARD (selalu berlaku):** Daftar larangan di `references/TASTE-PROFILE.md` §6 dan `Anti-Slop Audit Checklist` di bawah.
-   - **SOFT (jangkar arah):** Arah estetika dan produk panutan (Linear, Raycast, Vercel, Stripe, dll.). Referensi adalah aturan untuk diterjemahkan sesuai konteks proyek, bukan komponen untuk di-clone — jangan pernah menyalin satu referensi mentah-mentah.
+   - **SOFT (jangkar arah):** Arah estetika dan produk panutan (Linear, Raycast, Vercel, Stripe, Ferrari, Wise, GoodUI, dll.). Referensi adalah aturan untuk diterjemahkan sesuai konteks proyek, bukan komponen untuk di-clone — jangan pernah menyalin satu referensi mentah-mentah.
+4. **Wajib Kreatif — Mix-and-Match A la Carte (Dilarang Template Paketan):**
+   - Perlakukan seluruh isi `design-systems/*.md`, `references/DESIGN-GRAMMAR.md`, `references/STYLE-PACKS.md`, `templates/`, dan `templates/goodui/` sebagai **daftar bahan modular (*ingredients*) untuk diracik bebas**, BUKAN paket template utuh yang ditelan bulat-bulat.
+   - Untuk setiap desain baru, agent **wajib mengombinasikan 4 sumbu secara independen**:
+     1. *Color World & Polarity* (pilih dari 24 brand `design-systems/*.md` atau 10 Expressive Color Worlds — misalnya memadukan tipografi editorial + aksen hidup yang tidak klise),
+     2. *Surface & Geometry Grammar* (pilih/silang dari 8 Style Packs & 4 Material; **wajib** memisahkan `--radius-btn` untuk tombol/pill satu-baris dari `--radius-card` / `--radius-inner` untuk panel/chart/tabel agar kontainer tidak pernah berubah menjadi kapsul raksasa),
+     3. *Selective Tactile Components (2–4 blok tepat guna per layar)* dari `templates/INDEX.json` & `templates/goodui/INDEX.json` (misal: cukup 1 `Hold-to-Confirm` untuk aksi destruktif + 1 `StatefulButton` untuk submit + `NumberFlow` untuk KPI; dilarang menumpuk semua efek sekaligus seperti etalase demo),
+     4. *Domain-Specific Layout Rhythm* berdasarkan 6 REA capture & `better-ui`.
+   - **Dilarang keras** menduplikasi satu file `eval/showcase-*.html` atau menyalin utuh seluruh blok 1 brand/style pack tanpa adaptasi kreatif terhadap konteks produk user.
 
 ---
 
@@ -78,7 +87,7 @@ Jauh lebih mudah bagi user menjawab pertanyaan terarah daripada memikirkan semua
 
 Jangan langsung berhenti pada satu desain pertama (kecuali pada Jalur C yang bersifat bedah terarah).
 
-1. **Pergi selebar mungkin:** Pada Jalur B, hasilkan **5–10 opsi yang benar-benar berbeda** (atau sesuai batas jumlah yang diminta user) — ubah **keluarga font, palet warna, struktur layout, dan bahasa visual secara menyeluruh**, bukan sekadar menggeser warna aksen.
+1. **Pergi selebar mungkin:** Pada Jalur B, hasilkan **5–10 opsi yang benar-benar berbeda** (atau sesuai batas jumlah yang diminta user) — **lakukan remix di seluruh 4 sumbu** (*Color World*, *Style Pack/Material*, *Tipografi*, dan *2–4 Selective Tactile Components* pilihan dari vault) secara menyeluruh, bukan sekadar menggeser warna aksen pada layout yang sama.
 2. **Selaras dengan taste profile:** Berpijaklah pada `TASTE-PROFILE.md` untuk 1–2 opsi awal; opsi sisanya tetap bereksplorasi lebar, namun **semua opsi** wajib mematuhi constraint **HARD**.
 3. **Loop rekombinasi:** Saat user menyukai potongan dari beberapa opsi (misalnya layout A + tipografi C), hasilkan **3–5 variasi baru** yang mengawinkan elemen tersebut.
 4. **Simpan histori berdampingan:** Jangan menimpa opsi lama yang sudah dieksplorasi; pertahankan versi sebelumnya berdampingan untuk perbandingan agar keputusan desain mudah ditinjau ulang.
@@ -120,7 +129,7 @@ Gunakan sebagai gerbang sebelum menyerahkan hasil atau saat mengaudit UI di Jalu
 
 - **Bentuk:**
   - Proporsi tombol optik (padding horizontal ~`2–2.5×` vertikal), bukan kotak kaku? (Ya/Tidak)
-  - `border-radius` tombol & kontrol konsisten dengan komponen tetangga/kontainer? (Ya/Tidak)
+  - `border-radius` tombol & kontrol konsisten dengan komponen tetangga/kontainer, serta `--radius-btn` (pill `999px`) dipisahkan tegas dari `--radius-card`/`--radius-inner` sehingga tidak ada kontainer multi-baris berbentuk kapsul raksasa? (Ya/Tidak)
   - *Tactile cues* terukur (`1px` border / inner highlight tipis, bukan shadow tebal atau gradien mencolok)? (Ya/Tidak)
   - Semua state tersedia (`default`, `hover`, `active`, `focus-visible`, `disabled`, `loading`) tanpa layout shift? (Ya/Tidak)
 - **Warna:**
@@ -147,6 +156,7 @@ Gunakan sebagai gerbang sebelum menyerahkan hasil atau saat mengaudit UI di Jalu
 
 1. **Pakai checklist biner (Ya/Tidak), bukan skor 1–5:** Skor subjektif sulit dikalibrasi oleh model. Jalankan seluruh item `Anti-Slop Audit Checklist` di atas plus cek tambahan berikut:
    - Apakah 5+ opsi awal (Jalur B) benar-benar menggunakan font, palet, dan struktur yang berbeda? (Ya/Tidak)
+   - Apakah desain merupakan hasil **Mix-and-Match orisinal** lintas warna, material, dan 2–4 komponen pilihan tepat guna (bukan copy-paste 1 template paketan utuh)? (Ya/Tidak)
    - Apakah jeda baca pada animasi cukup untuk dibaca manusia normal? (Ya/Tidak)
    - Apakah warna, layout, dan data konsisten dengan sumber kebenaran (codebase/dataset)? (Ya/Tidak)
 2. **Mata manusia tetap penentu akhir taste:** Jangan mengandalkan model untuk menilai sendiri apakah seleranya sudah "bagus".

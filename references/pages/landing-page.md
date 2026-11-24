@@ -1,6 +1,6 @@
 # Referensi Halaman — Landing Page
 
-> **Status:** `ready` — 5 dossier REA langsung (*live* 1440×900 capture + computed DOM CSS) dari Apple, Linear, Vercel, Stripe, dan Raycast.
+> **Status:** `ready` — 6 dossier REA langsung (*live* 1440×900 capture + computed DOM CSS) dari Apple, Linear, Vercel, Stripe, Raycast, dan GoodUI (`goodui.dev`).
 
 ## Catatan Koneksi Eksternal
 Untuk inspirasi struktur situs lengkap tambahan (59 analisis situs nyata), lihat `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` (bucket *SaaS*, *Editorial*, *Commerce*, atau *Agency*).
@@ -73,3 +73,16 @@ Untuk inspirasi struktur situs lengkap tambahan (59 analisis situs nyata), lihat
   - **Motion / Timing (jika relevan):** `transition-duration: 0.2s, 0.2s, 0.2s, 0.1s` (transform/scale lebih cepat daripada warna).
 - **Cocok untuk:** Aplikasi desktop/launcher, AI workbench, dan tool kreatif berkarakter hardware/tactile.
 - **Hindari saat:** Memakai efek bevel mengilap tersebut di atas latar putih terang tanpa penyesuaian kontras.
+
+### GoodUI (`goodui.dev`) — Multi-Style Kit & Oversized Display Hero
+- **Sumber:** `https://goodui.dev/` · Screenshot [`../assets/rea-goodui.png`](../assets/rea-goodui.png) · Dossier [`../../rea/goodui.json`](../../rea/goodui.json)
+- **Tag:** `landing-page`, `ui-kit`, `style-packs`, `high-contrast`, `shadcn`
+- **Kenapa bagus:** Memadukan tipografi display super ketat (`88px`, `-3.96px` tracking) di atas canvas `lab(100 0 0)` dengan sistem kontrol multi-tema ortogonal (*8 Style Packs × 8 Accent Colors × Light/Dark*) lewat kapsul mengambang di bawah layar (*"Make it yours"*).
+- **Aturan konkret:**
+  - **Layout & Spacing:** Header `57px` (`blur(8px)`, border `1px`, `19` link); tombol utility header tinggi `32px`, sedangkan hero CTA setinggi `48px` (`0px 24px`).
+  - **Radius, Border & Elevation:** Sistem dua tingkat radius: `10px` pada kontrol header dan `14px` pada hero CTA (`43` elemen memakai `14px`); tombol primer memakai `box-shadow: 0 8px 30px -8px` lembut.
+  - **Tipografi & Warna:** `gooduiDisplay` (`88px / 86.24px`, `weight: 600`, tracking `-3.96px` untuk H1; `48px / 50.4px` untuk H2) + `gooduiSans` (`16px / 24px`) + `Geist Mono`; warna dasar `oklab`/`lab` presisi.
+  - **States & Interaksi:** `Style: Clean` switcher langsung di header (`32px`, radius `10px`), hero CTA `transition-duration: 0.2s` (primer) / `0.15s` (outline sekunder), plus floating Theme Studio bar di bawah viewport.
+  - **Motion / Timing (jika relevan):** Semua animasi dan material efek mematuhi `prefers-reduced-motion`, dengan token pegas terpusat (`goodui-motion`).
+- **Cocok untuk:** Landing page library komponen, design system showcase, SaaS produktivitas dengan demo interaktif live.
+- **Hindari saat:** Halaman baca panjang tanpa interaksi widget atau formulir pendaftaran sederhana satu langkah.

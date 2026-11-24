@@ -1,0 +1,158 @@
+{
+  "slug": "goodui",
+  "url": "https://goodui.dev",
+  "captured_at": "2026-11-24T14:45:45.511Z",
+  "screenshot": "references/assets/rea-goodui.png",
+  "screenshot_bytes": 296009,
+  "title": "goodui — application & booking blocks for shadcn/ui",
+  "finalUrl": "https://goodui.dev/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "backgroundColor": "lab(100 0 0)",
+    "color": "lab(2.75381 0 0)",
+    "fontFamily": "gooduiSans, \"gooduiSans Fallback\", ui-sans-serif, system-ui, sans-serif",
+    "fontSize": "16px",
+    "lineHeight": "24px"
+  },
+  "header": {
+    "tag": "header",
+    "height": "57px",
+    "backgroundColor": "oklab(0.999998 -0.00000980496 0.0000234246 / 0.8)",
+    "backdropFilter": "blur(8px)",
+    "borderBottom": "1px solid lab(90.952 -0.0000596046 0)",
+    "linkCount": 19
+  },
+  "h1": {
+    "text": "One kit. Every screen.",
+    "fontFamily": "gooduiDisplay, \"gooduiDisplay Fallback\", ui-sans-serif, system-ui, sans-serif",
+    "fontSize": "88px",
+    "fontWeight": "600",
+    "letterSpacing": "-3.96px",
+    "lineHeight": "86.24px",
+    "color": "lab(2.75381 0 0)"
+  },
+  "h2": {
+    "text": "132 components. All live. Try them.",
+    "fontFamily": "gooduiDisplay, \"gooduiDisplay Fallback\", ui-sans-serif, system-ui, sans-serif",
+    "fontSize": "48px",
+    "fontWeight": "600",
+    "letterSpacing": "-1.44px",
+    "lineHeight": "50.4px",
+    "color": "lab(2.75381 0 0)"
+  },
+  "buttons": [
+    {
+      "text": "Style: Clean",
+      "tag": "button",
+      "height": "32px",
+      "width": "147px",
+      "padding": "0px 10px",
+      "borderRadius": "10px",
+      "backgroundColor": "lab(100 0 0)",
+      "color": "lab(2.75381 0 0)",
+      "border": "1px solid lab(90.952 -0.0000596046 0)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0s"
+    },
+    {
+      "text": "Get Pro",
+      "tag": "a",
+      "height": "32px",
+      "width": "71px",
+      "padding": "0px 12px",
+      "borderRadius": "10px",
+      "backgroundColor": "lab(7.78201 -0.0000149012 0)",
+      "color": "lab(98.26 0 0)",
+      "border": "0px solid lab(90.952 -0.0000596046 0)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0s"
+    },
+    {
+      "text": "Browse the kit",
+      "tag": "a",
+      "height": "48px",
+      "width": "159px",
+      "padding": "0px 24px",
+      "borderRadius": "14px",
+      "backgroundColor": "lab(7.78201 -0.0000149012 0)",
+      "color": "lab(98.26 0 0)",
+      "border": "0px solid lab(90.952 -0.0000596046 0)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, oklab(0.205 -0.00000207871 0.00000478327 / 0.6) 0px 8px 30px -8px",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.2s"
+    },
+    {
+      "text": "Get Pro · $99 once",
+      "tag": "a",
+      "height": "48px",
+      "width": "163px",
+      "padding": "0px 24px",
+      "borderRadius": "14px",
+      "backgroundColor": "lab(100 0 0)",
+      "color": "lab(2.75381 0 0)",
+      "border": "1px solid lab(90.952 -0.0000596046 0)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.15s"
+    }
+  ],
+  "top_fonts": [
+    {
+      "value": "gooduiSans",
+      "count": 130
+    },
+    {
+      "value": "gooduiDisplay",
+      "count": 3
+    },
+    {
+      "value": "Geist Mono",
+      "count": 1
+    }
+  ],
+  "top_backgrounds": [
+    {
+      "value": "lab(100 0 0)",
+      "count": 44
+    },
+    {
+      "value": "lab(7.78201 -0.0000149012 0)",
+      "count": 3
+    },
+    {
+      "value": "oklab(0.999998 -0.00000980496 0.0000234246 / 0.8)",
+      "count": 2
+    },
+    {
+      "value": "oklab(0.769006 0.0640422 0.176756 / 0.07)",
+      "count": 1
+    }
+  ],
+  "top_radii": [
+    {
+      "value": "14px",
+      "count": 43
+    },
+    {
+      "value": "10px",
+      "count": 7
+    },
+    {
+      "value": "28%",
+      "count": 6
+    },
+    {
+      "value": "3.35544e+07px",
+      "count": 1
+    }
+  ]
+}

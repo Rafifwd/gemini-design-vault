@@ -926,6 +926,8 @@
         legoStageTheme: 'auto',
         legoStageWidth: '100%',
         showLegoCode: true,
+        gooduiCategory: 'all',
+        gooduiQuery: '',
         selectedReaSlug: 'apple',
         selectedEvalId: null,
         compareMode: false,
@@ -1053,7 +1055,7 @@
         el('kpi-skill-hash').textContent = 'sha256:' + (d.skill.sha256 || '–');
 
         el('kpi-refs-ready').textContent = d.stats.ready_count + ' / ' + d.stats.total_ref_files;
-        el('kpi-refs-entries').textContent = (d.stats.rea_count || 0) + ' REA · ' + (d.stats.templates_count || 0) + ' template Lego';
+        el('kpi-refs-entries').textContent = (d.stats.rea_count || 0) + ' REA · ' + (d.stats.templates_count || 0) + ' Lego · ' + (d.stats.goodui_count || 0) + ' GoodUI';
 
         el('kpi-rules-total').textContent = d.stats.checklist_count + ' + ' + d.stats.ban_count;
         el('kpi-rules-sub').textContent = 'Checklist biner + Ban List';
@@ -1519,7 +1521,7 @@
         const dossiers = d.rea_dossiers || [];
         const tplWrap = d.templates || { count: 0, templates: [] };
         const allTpls = tplWrap.templates || [];
-        const cats = ['all', 'buttons', 'navigation', 'cards', 'motion', 'forms'];
+        const cats = ['all', 'buttons', 'navigation', 'cards', 'motion', 'forms', 'assets'];
         const filteredTpls = allTpls.filter((t) => state.legoCategory === 'all' || t.category === state.legoCategory);
 
         if (!state.selectedLegoId || !filteredTpls.some((t) => t.id === state.selectedLegoId)) {
@@ -1623,6 +1625,10 @@
           '</div>';
         }).join('');
 
+        const guiReg = d.goodui_registry || { count: 0, categories: {}, items: [] };
+        const guiItems = guiReg.items || [];
+        const guiCats = ['all'].concat(Object.keys(guiReg.categories || {}));
+
         el('panel-lego').innerHTML =
           '<div class="panel">' +
             '<div class="panel-header">' +
@@ -1633,7 +1639,7 @@
           '</div>' +
           '<div class="panel">' +
             '<div class="panel-header">' +
-              '<div><h2 class="panel-title">Lego Interactive Studio Workbench (' + allTpls.length + ' Komponen MIT)</h2><div class="panel-sub">Pilih komponen di rail kiri untuk mencoba demo interaktif ukuran penuh sekaligus menyalin kode produksi verbatim.</div></div>' +
+              '<div><h2 class="panel-title">Lego Interactive Studio Workbench (' + allTpls.length + ' Komponen MIT &amp; GoodUI)</h2><div class="panel-sub">Pilih komponen di rail kiri untuk mencoba demo interaktif ukuran penuh sekaligus menyalin kode produksi verbatim.</div></div>' +
               '<div class="chip-row">' +
                 cats.map((c) => '<button type="button" class="chip-btn" data-lego-cat="' + c + '" aria-pressed="' + (state.legoCategory === c) + '">' + (c === 'all' ? 'Semua (' + allTpls.length + ')' : c) + '</button>').join('') +
               '</div>' +
@@ -1645,13 +1651,93 @@
           '</div>' +
           '<div class="panel">' +
             '<div class="panel-header">' +
-              '<div><h2 class="panel-title">REA Production Benchmark Inspector (5 Situs Nyata)</h2><div class="panel-sub">Bandingkan screenshot 1440×900 asli dengan specimen interaktif dari computed CSS DOM terukur.</div></div>' +
+              '<div><h2 class="panel-title">GoodUI ' + guiItems.length + ' Public Registry Browser</h2><div class="panel-sub">Seluruh blok, komponen, chart, input, AI UI &amp; Web Audio sounds gratis dari <span class="mono">templates/goodui/</span>.</div></div>' +
+              '<span class="badge badge-accent tabular">' + guiItems.length + ' item · 17 kategori</span>' +
+            '</div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;">' +
+              '<input type="search" class="input" id="goodui-search" style="max-width:300px;" placeholder="Cari komponen goodui (button, chart, sound...)" value="' + escapeHtml(state.gooduiQuery) + '" />' +
+              '<span class="mono tabular" id="goodui-match-count" style="font-size:12px;color:var(--text-muted);"></span>' +
+            '</div>' +
+            '<div class="chip-row" style="margin-bottom:14px;">' +
+              guiCats.map((c) => '<button type="button" class="chip-btn" data-goodui-cat="' + escapeHtml(c) + '" aria-pressed="' + (state.gooduiCategory === c) + '">' + (c === 'all' ? 'Semua (' + guiItems.length + ')' : escapeHtml(c) + ' (' + (guiReg.categories[c] || 0) + ')') + '</button>').join('') +
+            '</div>' +
+            '<div class="grid-3" id="goodui-grid-host"></div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">REA Production Benchmark Inspector (' + dossiers.length + ' Situs Nyata)</h2><div class="panel-sub">Bandingkan screenshot 1440×900 asli dengan specimen interaktif dari computed CSS DOM terukur.</div></div>' +
               '<div class="chip-row">' +
                 dossiers.map((r) => '<button type="button" class="chip-btn" data-rea-select="' + escapeHtml(r.slug) + '" aria-pressed="' + (activeRea && activeRea.slug === r.slug) + '">' + escapeHtml(r.slug[0].toUpperCase() + r.slug.slice(1)) + '</button>').join('') +
               '</div>' +
             '</div>' +
             reaBodyHtml +
           '</div>';
+
+        function renderGooduiGrid() {
+          const host = el('goodui-grid-host');
+          if (!host) return;
+          const q = state.gooduiQuery.trim().toLowerCase();
+          const filtered = guiItems.filter((it) => {
+            if (state.gooduiCategory !== 'all' && it.category !== state.gooduiCategory) return false;
+            if (!q) return true;
+            const hay = (it.name + ' ' + it.title + ' ' + it.description + ' ' + it.category).toLowerCase();
+            return hay.indexOf(q) !== -1;
+          });
+          const cntEl = el('goodui-match-count');
+          if (cntEl) cntEl.textContent = filtered.length + ' / ' + guiItems.length + ' item tampil';
+          if (!filtered.length) {
+            host.innerHTML = '<div class="sub-surface">Tidak ada komponen goodui yang cocok.</div>';
+            return;
+          }
+          host.innerHTML = filtered.map((it) => {
+            const firstFile = (it.files || [])[0] || {};
+            return '<div class="sub-surface" style="display:flex;flex-direction:column;gap:6px;">' +
+              '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">' +
+                '<strong style="font-size:13px;">' + escapeHtml(it.title || it.name) + '</strong>' +
+                '<span class="badge badge-neutral">' + escapeHtml(it.category) + '</span>' +
+              '</div>' +
+              '<div style="font-size:12px;color:var(--text-secondary);line-height:1.45;">' + escapeHtml((it.description || '').slice(0, 125)) + '</div>' +
+              '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:6px;">' +
+                '<span class="mono tabular" style="font-size:11px;color:var(--text-muted);">' + (it.files ? it.files.length : 0) + ' file · ' + escapeHtml(firstFile.lines || 0) + 'L</span>' +
+                '<button type="button" class="btn btn-secondary" data-goodui-view="' + escapeHtml(it.name) + '"><span class="btn-label">Lihat Kode</span></button>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+          host.querySelectorAll('[data-goodui-view]').forEach((btn) => {
+            btn.onclick = async () => {
+              const item = guiItems.find((x) => x.name === btn.dataset.gooduiView);
+              if (!item || !item.files || !item.files.length) return;
+              const f0 = item.files[0];
+              let code = '';
+              if (location.protocol !== 'file:') {
+                try {
+                  const resp = await fetch('/' + f0.local_path, { cache: 'no-store' });
+                  if (resp.ok) code = await resp.text();
+                } catch (_) {}
+              }
+              if (!code) {
+                code = '// Buka melalui live server (`python3 dashboard/serve.py`) untuk melihat kode lengkap.\n// Path lokal: ' + f0.local_path + '\n// Registry: ' + item.raw_url;
+              }
+              openSourcesDrawer('GoodUI — ' + item.title + ' (' + f0.local_path.split('/').pop() + ')', f0.local_path, 'category: ' + item.category + ' | lines: ' + f0.lines + ' | registry: ' + item.name, code);
+            };
+          });
+        }
+        renderGooduiGrid();
+
+        const guiSearch = el('goodui-search');
+        if (guiSearch) {
+          guiSearch.oninput = (e) => {
+            state.gooduiQuery = e.target.value;
+            renderGooduiGrid();
+          };
+        }
+        el('panel-lego').querySelectorAll('[data-goodui-cat]').forEach((btn) => {
+          btn.onclick = () => {
+            state.gooduiCategory = btn.dataset.gooduiCat;
+            el('panel-lego').querySelectorAll('[data-goodui-cat]').forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
+            renderGooduiGrid();
+          };
+        });
 
         el('panel-lego').querySelectorAll('[data-ds-view]').forEach((btn) => {
           btn.onclick = () => {
