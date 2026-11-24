@@ -1,0 +1,95 @@
+{
+  "slug": "apple",
+  "url": "https://www.apple.com",
+  "captured_at": "2026-11-24T07:23:15.024Z",
+  "screenshot": "references/assets/rea-apple.png",
+  "screenshot_bytes": 285331,
+  "title": "Apple",
+  "finalUrl": "https://www.apple.com/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "backgroundColor": "rgb(255, 255, 255)",
+    "color": "rgb(29, 29, 31)",
+    "fontFamily": "\"SF Pro Text\", \"SF Pro Icons\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+    "fontSize": "17px",
+    "lineHeight": "25px"
+  },
+  "header": {
+    "tag": "nav",
+    "height": "44px",
+    "backgroundColor": "rgba(245, 245, 247, 0.8)",
+    "backdropFilter": "saturate(1.8) blur(20px)",
+    "borderBottom": "0px none rgb(29, 29, 31)",
+    "linkCount": 256
+  },
+  "h1": {
+    "text": "Apple",
+    "fontFamily": "\"SF Pro Text\", \"SF Pro Icons\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+    "fontSize": "34px",
+    "fontWeight": "600",
+    "letterSpacing": "-0.374px",
+    "lineHeight": "50px",
+    "color": "rgb(29, 29, 31)"
+  },
+  "h2": {
+    "text": "iPhone",
+    "fontFamily": "\"SF Pro Display\", \"SF Pro Icons\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+    "fontSize": "56px",
+    "fontWeight": "600",
+    "letterSpacing": "-0.28px",
+    "lineHeight": "60px",
+    "color": "rgb(29, 29, 31)"
+  },
+  "buttons": [
+    {
+      "text": "Learn more",
+      "tag": "a",
+      "height": "44px",
+      "width": "131px",
+      "padding": "11px 21px",
+      "borderRadius": "980px",
+      "backgroundColor": "rgb(0, 113, 227)",
+      "color": "rgb(255, 255, 255)",
+      "border": "1px solid rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "transitionDuration": "0s"
+    },
+    {
+      "text": "Shop iPhone",
+      "tag": "a",
+      "height": "44px",
+      "width": "141px",
+      "padding": "11px 21px",
+      "borderRadius": "980px",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 102, 204)",
+      "border": "1px solid rgb(0, 102, 204)",
+      "boxShadow": "none",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "transitionDuration": "0s"
+    }
+  ],
+  "top_fonts": [
+    {
+      "value": "SF Pro Text",
+      "count": 14
+    }
+  ],
+  "top_backgrounds": [
+    {
+      "value": "rgb(255, 255, 255)",
+      "count": 1
+    },
+    {
+      "value": "rgba(245, 245, 247, 0.8)",
+      "count": 1
+    }
+  ],
+  "top_radii": []
+}

@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini Design Vault — Katalog & Monitoring Skill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-canvas: #F6F5F1;
+      --bg-surface: #FCFBF9;
+      --bg-subtle: #EFEDE7;
+      --bg-hover: #E8E5DD;
+
+      --text-primary: #1B1917;
+      --text-secondary: #57534E;
+      --text-muted: #78716C;
+      --text-on-accent: #FCFBF9;
+
+      --border-hairline: rgba(28, 25, 23, 0.09);
+      --border-strong: rgba(28, 25, 23, 0.16);
+
+      --accent: #0F6E66;
+      --accent-hover: #0B5852;
+      --accent-border: #094742;
+      --accent-tint: rgba(15, 110, 102, 0.09);
+      --accent-ring: rgba(15, 110, 102, 0.35);
+
+      --ok-bg: rgba(21, 128, 61, 0.10);
+      --ok-border: rgba(21, 128, 61, 0.20);
+      --ok-text: #166534;
+
+      --warn-bg: rgba(180, 83, 9, 0.10);
+      --warn-border: rgba(180, 83, 9, 0.22);
+      --warn-text: #92400E;
+
+      --danger-bg: rgba(185, 28, 28, 0.10);
+      --danger-border: rgba(185, 28, 28, 0.22);
+      --danger-text: #991B1B;
+
+      --neutral-bg: rgba(28, 25, 23, 0.065);
+      --neutral-border: rgba(28, 25, 23, 0.12);
+
+      --radius-panel: 10px;
+      --radius-track: 8px;
+      --radius-control: 6px;
+      --radius-badge: 5px;
+
+      --ease-crisp: cubic-bezier(0.2, 0, 0, 1);
+      --dur-fast: 140ms;
+      --dur-tab: 180ms;
+
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    html[data-theme="dark"] {
+      --bg-canvas: #111315;
+      --bg-surface: #171A1D;
+      --bg-subtle: #1E2226;
+      --bg-hover: #252A2F;
+
+      --text-primary: #ECEAE4;
+      --text-secondary: #A09D96;
+      --text-muted: #73706A;
+      --text-on-accent: #0B1917;
+
+      --border-hairline: rgba(236, 234, 228, 0.08);
+      --border-strong: rgba(236, 234, 228, 0.15);
+
+      --accent: #34B399;
+      --accent-hover: #2CA088;
+      --accent-border: #238974;
+      --accent-tint: rgba(52, 179, 153, 0.11);
+      --accent-ring: rgba(52, 179, 153, 0.40);
+
+      --ok-bg: rgba(52, 211, 153, 0.12);
+      --ok-border: rgba(52, 211, 153, 0.24);
+      --ok-text: #6EE7B7;
+
+      --warn-bg: rgba(251, 191, 36, 0.12);
+      --warn-border: rgba(251, 191, 36, 0.24);
+      --warn-text: #FCD34D;
+
+      --danger-bg: rgba(248, 113, 113, 0.12);
+      --danger-border: rgba(248, 113, 113, 0.26);
+      --danger-text: #FCA5A5;
+
+      --neutral-bg: rgba(236, 234, 228, 0.07);
+      --neutral-border: rgba(236, 234, 228, 0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .tabular { font-variant-numeric: tabular-nums; }
+    .mono { font-family: var(--font-mono); }
+
+    /* Shell */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(246, 245, 241, 0.86);
+      backdrop-filter: saturate(1.4) blur(16px);
+      -webkit-backdrop-filter: saturate(1.4) blur(16px);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    html[data-theme="dark"] .topbar {
+      background: rgba(17, 19, 21, 0.84);
+    }
+
+    .topbar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px 24px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 18px;
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-bar-wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* 1 Focal Interactive Primitive: Segmented Navigation with shared-layout sliding pill */
+    .seg-nav {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-track);
+      gap: 2px;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .seg-pill {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      height: calc(100% - 6px);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: calc(var(--radius-track) - 2px);
+      box-shadow: 0 1px 2px rgba(27, 25, 23, 0.06);
+      transition: transform var(--dur-tab) var(--ease-crisp), width var(--dur-tab) var(--ease-crisp);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .seg-btn {
+      position: relative;
+      z-index: 1;
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: calc(var(--radius-track) - 2px);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color var(--dur-fast) var(--ease-crisp), transform var(--dur-fast) var(--ease-crisp);
+    }
+
+    .seg-btn:hover { color: var(--text-primary); }
+    .seg-btn:active { transform: scale(0.98); }
+    .seg-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .seg-btn[aria-selected="true"] { color: var(--text-primary); font-weight: 600; }
+
+    /* Buttons (optical padding, hairline + inner highlight, all states, zero layout shift) */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.2;
+      border-radius: var(--radius-control);
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      user-select: none;
+      transition:
+        background-color var(--dur-fast) var(--ease-crisp),
+        border-color var(--dur-fast) var(--ease-crisp),
+        color var(--dur-fast) var(--ease-crisp),
+        transform var(--dur-fast) var(--ease-crisp),
+        opacity var(--dur-fast) var(--ease-crisp);
+    }
+
+    .btn-primary {
+      padding: 7px 15px;
+      background: var(--accent);
+      color: var(--text-on-accent);
+      border: 1px solid var(--accent-border);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 1px 2px rgba(27, 25, 23, 0.08);
+    }
+
+    .btn-primary:hover:not(:disabled):not(.is-loading) { background: var(--accent-hover); }
+
+    .btn-secondary {
+      padding: 7px 15px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-secondary:hover:not(:disabled):not(.is-loading) { background: var(--bg-subtle); }
+
+    .btn-ghost {
+      padding: 5px 11px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+    }
+
+    .btn-ghost:hover:not(:disabled):not(.is-loading) {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn:active:not(:disabled):not(.is-loading) { transform: scale(0.98); }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .btn .btn-label { display: inline-flex; align-items: center; gap: 6px; transition: opacity var(--dur-fast) var(--ease-crisp); }
+    .btn .btn-spinner {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 14px;
+      height: 14px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .btn.is-loading { cursor: wait; }
+    .btn.is-loading .btn-label { opacity: 0; }
+    .btn.is-loading .btn-spinner { opacity: 1; animation: spin 650ms linear infinite; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: var(--radius-badge);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.45;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .badge-ok { background: var(--ok-bg); border-color: var(--ok-border); color: var(--ok-text); }
+    .badge-warn { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-text); }
+    .badge-danger { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger-text); }
+    .badge-neutral { background: var(--neutral-bg); border-color: var(--neutral-border); color: var(--text-secondary); }
+    .badge-accent { background: var(--accent-tint); border-color: var(--accent-ring); color: var(--accent); }
+
+    /* Main Container */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 22px 24px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Flat KPI Strip (no nested cards, no border-left stripe) */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-panel);
+      overflow: hidden;
+    }
+
+    .kpi-cell {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-left: 1px solid var(--border-hairline);
+    }
+
+    .kpi-cell:first-child { border-left: none; }
+
+    .kpi-label {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .kpi-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-panel);
+      padding: 18px 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 16px;
+      margin-bottom: 14px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+    }
+
+    .panel-sub {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+
+    /* Sub-panels / flat surfaces (no border+shadow+left-stripe combo) */
+    .sub-surface {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: calc(var(--radius-panel) - 2px);
+      padding: 14px 16px;
+    }
+
+    .router-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .router-step {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: calc(var(--radius-panel) - 2px);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .router-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* List rows separated by spacing + hover tint (no heavy horizontal dividers) */
+    .clean-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .clean-row {
+      padding: 10px 12px;
+      border-radius: var(--radius-control);
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 14px;
+      transition: background-color var(--dur-fast) var(--ease-crisp), border-color var(--dur-fast) var(--ease-crisp);
+    }
+
+    .clean-row:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+
+    /* Inputs & filters */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .search-input {
+      min-width: 240px;
+      flex: 1;
+      max-width: 360px;
+      padding: 7px 11px;
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-control);
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .search-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip-btn {
+      appearance: none;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-canvas);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 11px;
+      border-radius: var(--radius-control);
+      cursor: pointer;
+      transition: background-color var(--dur-fast) var(--ease-crisp), color var(--dur-fast) var(--ease-crisp), transform var(--dur-fast) var(--ease-crisp);
+    }
+
+    .chip-btn:hover { background: var(--bg-subtle); color: var(--text-primary); }
+    .chip-btn:active { transform: scale(0.98); }
+    .chip-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .chip-btn[aria-pressed="true"] {
+      background: var(--accent-tint);
+      border-color: var(--accent-ring);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Reference Entry Accordion / Details */
+    .entry-card {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: calc(var(--radius-panel) - 2px);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .entry-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 16px;
+      font-size: 12.5px;
+    }
+
+    .rule-list {
+      margin: 0;
+      padding-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    .rule-list strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Interactive Checklist */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: var(--radius-control);
+      cursor: pointer;
+      transition: background-color var(--dur-fast) var(--ease-crisp);
+    }
+
+    .check-item:hover { background: var(--bg-subtle); }
+
+    .check-item input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--accent);
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    /* Eval Live Preview */
+    .preview-shell {
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-panel);
+      background: var(--bg-canvas);
+      overflow: hidden;
+    }
+
+    .preview-bar {
+      padding: 10px 14px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 12px;
+    }
+
+    .preview-viewport {
+      padding: 14px;
+      display: flex;
+      justify-content: center;
+      background: var(--bg-canvas);
+      overflow-x: auto;
+    }
+
+    .preview-iframe {
+      width: 100%;
+      height: 620px;
+      border: 1px solid var(--border-strong);
+      border-radius: calc(var(--radius-panel) - 2px);
+      background: #FFFFFF;
+      transition: width var(--dur-tab) var(--ease-crisp);
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      width: 100%;
+    }
+
+    /* Code block */
+    pre.code-block {
+      margin: 0;
+      padding: 12px 14px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-control);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-primary);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Sources Mode Slide-over Drawer */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 19, 21, 0.42);
+      z-index: 60;
+      display: none;
+      justify-content: flex-end;
+    }
+
+    .drawer-backdrop.is-open { display: flex; }
+
+    .drawer {
+      width: min(740px, 100vw);
+      height: 100%;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .drawer-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .drawer-body {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      padding: 8px 12px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-control);
+    }
+
+    .sync-banner {
+      padding: 12px 16px;
+      border-radius: var(--radius-panel);
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-surface);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 16px;
+    }
+
+    /* Split-Pane Studio Workbench */
+    .workbench-split {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .rail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 620px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .rail-item {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      padding: 9px 11px;
+      border-radius: var(--radius-control);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: background-color var(--dur-fast) var(--ease-crisp), border-color var(--dur-fast) var(--ease-crisp), transform var(--dur-fast) var(--ease-crisp);
+    }
+
+    .rail-item:hover { background: var(--bg-subtle); }
+    .rail-item:active { transform: scale(0.99); }
+    .rail-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .rail-item[aria-selected="true"] {
+      background: var(--bg-canvas);
+      border-color: var(--border-strong);
+      box-shadow: 0 1px 2px rgba(27, 25, 23, 0.04);
+    }
+
+    .studio-main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .studio-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 14px;
+      padding: 10px 14px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: calc(var(--radius-panel) - 2px);
+    }
+
+    .studio-stage-wrap {
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    .rea-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .rea-shot-frame {
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+    }
+
+    .rea-shot-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 410px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 960px) {
+      .kpi-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kpi-cell:nth-child(odd) { border-left: none; }
+      .router-flow, .grid-2, .grid-3, .entry-meta-grid, .compare-grid, .workbench-split, .rea-split { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-block">
+        <div class="brand-kicker">
+          <span id="conn-badge" class="badge badge-neutral">Memuat...</span>
+          <span class="mono tabular" id="last-updated">–</span>
+        </div>
+        <h1 class="brand-title">Gemini Design Vault — Katalog &amp; Monitoring Skill</h1>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" class="btn btn-secondary" id="btn-theme" aria-label="Ganti tema terang/gelap">
+          <span class="btn-label" id="theme-label">Mode Gelap</span>
+        </button>
+        <button type="button" class="btn btn-secondary" id="btn-open-skill-src">
+          <span class="btn-label">Sumber SKILL.md</span>
+        </button>
+        <button type="button" class="btn btn-primary" id="btn-refresh">
+          <span class="btn-label">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.4-3.65"/><path d="M13.5 2.5v3h-3"/></svg>
+            Muat Ulang Data
+          </span>
+          <svg class="btn-spinner" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke-opacity="0.28"/><path d="M14 8a6 6 0 0 0-6-6" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="nav-bar-wrap">
+      <nav class="seg-nav" role="tablist" aria-label="Kategori monitoring skill" id="main-tablist">
+        <div class="seg-pill" id="seg-pill" aria-hidden="true"></div>
+        <button type="button" class="seg-btn" role="tab" aria-selected="true" data-tab="overview">Ikhtisar &amp; Router</button>
+        <button type="button" class="seg-btn" role="tab" aria-selected="false" data-tab="catalog">Katalog Referensi</button>
+        <button type="button" class="seg-btn" role="tab" aria-selected="false" data-tab="lego">Lego &amp; REA Real</button>
+        <button type="button" class="seg-btn" role="tab" aria-selected="false" data-tab="taste">Taste &amp; Anti-Slop</button>
+        <button type="button" class="seg-btn" role="tab" aria-selected="false" data-tab="eval">Eval &amp; Live Preview</button>
+        <button type="button" class="seg-btn" role="tab" aria-selected="false" data-tab="ops">Operasional &amp; Prompt</button>
+      </nav>
+      <div class="mono tabular" style="font-size:11.5px; color:var(--text-muted)" id="vault-path-label"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="kpi-strip" aria-label="Ringkasan statistik vault">
+      <div class="kpi-cell">
+        <span class="kpi-label">Ukuran SKILL.md</span>
+        <span class="kpi-value tabular" id="kpi-skill-lines">–</span>
+        <span class="kpi-sub mono tabular" id="kpi-skill-hash">–</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Referensi Siap Pakai</span>
+        <span class="kpi-value tabular" id="kpi-refs-ready">–</span>
+        <span class="kpi-sub tabular" id="kpi-refs-entries">–</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Checklist &amp; Ban List</span>
+        <span class="kpi-value tabular" id="kpi-rules-total">–</span>
+        <span class="kpi-sub tabular" id="kpi-rules-sub">–</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Ad-Hoc Eval</span>
+        <span class="kpi-value tabular" id="kpi-eval-score">–</span>
+        <span class="kpi-sub" id="kpi-eval-sub">–</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-label">Status Sync Global</span>
+        <span class="kpi-value" style="font-size:16px; padding-top:4px;" id="kpi-sync-status">–</span>
+        <span class="kpi-sub tabular" id="kpi-sync-sub">–</span>
+      </div>
+    </section>
+
+    <!-- Tab 1: Overview & Router -->
+    <section id="panel-overview" class="clean-list" style="gap:16px;" role="tabpanel"></section>
+
+    <!-- Tab 2: Reference Catalog -->
+    <section id="panel-catalog" class="clean-list hidden" style="gap:16px;" role="tabpanel"></section>
+
+    <!-- Tab 3: Lego & REA Real -->
+    <section id="panel-lego" class="clean-list hidden" style="gap:16px;" role="tabpanel"></section>
+
+    <!-- Tab 4: Taste & Anti-Slop -->
+    <section id="panel-taste" class="clean-list hidden" style="gap:16px;" role="tabpanel"></section>
+
+    <!-- Tab 4: Eval & Live Preview -->
+    <section id="panel-eval" class="clean-list hidden" style="gap:16px;" role="tabpanel"></section>
+
+    <!-- Tab 5: Ops & Prompts -->
+    <section id="panel-ops" class="clean-list hidden" style="gap:16px;" role="tabpanel"></section>
+  </main>
+
+  <!-- Sources Mode Slide-over Drawer -->
+  <div class="drawer-backdrop" id="sources-backdrop" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <aside class="drawer">
+      <div class="drawer-head">
+        <div>
+          <span class="badge badge-accent">Sources Mode</span>
+          <h2 class="panel-title" id="drawer-title" style="margin-top:6px;">–</h2>
+        </div>
+        <button type="button" class="btn btn-ghost" id="btn-close-drawer" aria-label="Tutup Sources Mode">Tutup (Esc)</button>
+      </div>
+      <div class="drawer-body">
+        <div class="meta-strip tabular" id="drawer-meta"></div>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-secondary" id="btn-copy-source">
+            <span class="btn-label">Salin Isi File</span>
+          </button>
+          <a class="btn btn-ghost" id="link-open-raw" target="_blank" rel="noopener">Buka File Mentah</a>
+        </div>
+        <pre class="code-block" id="drawer-content"></pre>
+      </div>
+    </aside>
+  </div>
+
+  <script src="vault-snapshot.js"></script>
+  <script src="lego-previews.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      const state = {
+        data: window.__VAULT_SNAPSHOT__ || null,
+        mode: location.protocol === 'file:' ? 'snapshot' : 'live',
+        activeTab: 'overview',
+        catalogQuery: '',
+        catalogStatus: 'all',
+        legoCategory: 'all',
+        selectedLegoId: null,
+        legoStageTheme: 'auto',
+        legoStageWidth: '100%',
+        showLegoCode: true,
+        selectedReaSlug: 'apple',
+        selectedEvalId: null,
+        compareMode: false,
+        previewWidth: '100%',
+        manualChecks: {},
+        drawerSource: { title: '', path: '', raw: '' },
+      };
+
+      try {
+        const savedTheme = localStorage.getItem('gdv_theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        const savedChecks = localStorage.getItem('gdv_manual_checks');
+        if (savedChecks) state.manualChecks = JSON.parse(savedChecks);
+      } catch (_) {}
+
+      const el = (id) => document.getElementById(id);
+
+      function escapeHtml(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function resolveVaultUrl(relPath) {
+        const clean = String(relPath || '').replace(/^\/+/, '');
+        if (!clean) return '#';
+        return location.protocol === 'file:' ? '../' + clean : '/' + clean;
+      }
+
+      function formatBytes(bytes) {
+        const n = Number(bytes || 0);
+        if (n < 1024) return n + ' B';
+        return (n / 1024).toFixed(1) + ' KB';
+      }
+
+      function statusBadgeClass(status) {
+        const s = String(status || '').toLowerCase();
+        if (s.includes('ready') || s.includes('selesai') || s.includes('lolos')) return 'badge-ok';
+        if (s.includes('seeded') || s.includes('parsial') || s.includes('drift')) return 'badge-warn';
+        if (s.includes('missing') || s.includes('fail') || s.includes('gagal')) return 'badge-danger';
+        return 'badge-neutral';
+      }
+
+      async function copyText(text, btn) {
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (_) {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+        if (btn) {
+          const label = btn.querySelector('.btn-label') || btn;
+          const prev = label.textContent;
+          label.textContent = 'Tersalin';
+          setTimeout(() => { label.textContent = prev; }, 1200);
+        }
+      }
+
+      function openSourcesDrawer(title, relPath, metaText, rawContent) {
+        state.drawerSource = { title, path: relPath, raw: rawContent || '' };
+        el('drawer-title').textContent = title;
+        el('drawer-meta').textContent = metaText;
+        el('drawer-content').textContent = rawContent || '(Kosong)';
+        const link = el('link-open-raw');
+        if (relPath) {
+          link.href = resolveVaultUrl(relPath);
+          link.classList.remove('hidden');
+        } else {
+          link.classList.add('hidden');
+        }
+        el('sources-backdrop').classList.add('is-open');
+      }
+
+      function closeSourcesDrawer() {
+        el('sources-backdrop').classList.remove('is-open');
+      }
+
+      function updateTabIndicator() {
+        const tablist = el('main-tablist');
+        const pill = el('seg-pill');
+        const activeBtn = tablist.querySelector('.seg-btn[aria-selected="true"]');
+        if (!activeBtn || !pill) return;
+        const navRect = tablist.getBoundingClientRect();
+        const btnRect = activeBtn.getBoundingClientRect();
+        const offsetX = btnRect.left - navRect.left - 3 + tablist.scrollLeft;
+        pill.style.width = btnRect.width + 'px';
+        pill.style.transform = 'translateX(' + offsetX + 'px)';
+      }
+
+      function switchTab(tabName) {
+        state.activeTab = tabName;
+        const buttons = document.querySelectorAll('#main-tablist .seg-btn');
+        buttons.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tabName)));
+        ['overview', 'catalog', 'lego', 'taste', 'eval', 'ops'].forEach((name) => {
+          el('panel-' + name).classList.toggle('hidden', name !== tabName);
+        });
+        updateTabIndicator();
+      }
+
+      function renderHeaderAndKpis(d) {
+        const badge = el('conn-badge');
+        if (state.mode === 'live') {
+          badge.className = 'badge badge-ok';
+          badge.textContent = 'Live Server (/api/vault)';
+        } else {
+          badge.className = 'badge badge-warn';
+          badge.textContent = 'Snapshot Lokal (file://)';
+        }
+        el('last-updated').textContent = 'Update: ' + (d.generated_at || '–');
+        el('vault-path-label').textContent = d.vault_root || '';
+
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+        el('theme-label').textContent = theme === 'dark' ? 'Mode Terang' : 'Mode Gelap';
+
+        el('kpi-skill-lines').textContent = (d.skill.lines || 0) + ' baris';
+        el('kpi-skill-hash').textContent = 'sha256:' + (d.skill.sha256 || '–');
+
+        el('kpi-refs-ready').textContent = d.stats.ready_count + ' / ' + d.stats.total_ref_files;
+        el('kpi-refs-entries').textContent = (d.stats.rea_count || 0) + ' REA · ' + (d.stats.templates_count || 0) + ' template Lego';
+
+        el('kpi-rules-total').textContent = d.stats.checklist_count + ' + ' + d.stats.ban_count;
+        el('kpi-rules-sub').textContent = 'Checklist biner + Ban List';
+
+        el('kpi-eval-score').textContent = d.stats.eval_passed + ' / ' + d.stats.eval_total;
+        el('kpi-eval-sub').textContent = d.eval.cases.map((c) => c.id).join(', ') || 'Belum ada eval';
+
+        const sync = d.sync || {};
+        const syncEl = el('kpi-sync-status');
+        const syncSub = el('kpi-sync-sub');
+        if (!sync.accessible) {
+          syncEl.innerHTML = '<span class="badge badge-neutral">Perlu Server Lokal</span>';
+          syncSub.textContent = 'Jalankan serve.py untuk cek ~/.agents';
+        } else if (sync.in_sync) {
+          syncEl.innerHTML = '<span class="badge badge-ok">In Sync</span>';
+          syncSub.textContent = (sync.backups || []).length + ' backup tersimpan';
+        } else {
+          syncEl.innerHTML = '<span class="badge badge-warn">Drift (' + (sync.diffs || []).length + ')</span>';
+          syncSub.textContent = 'Vault dan global berbeda';
+        }
+      }
+
+      function renderOverview(d) {
+        const sync = d.sync || {};
+        let syncBannerHtml = '';
+        if (!sync.accessible) {
+          syncBannerHtml =
+            '<div class="sync-banner">' +
+            '<div><strong>Cek Sync Global:</strong> <span style="color:var(--text-secondary)">' + escapeHtml(sync.note || '') + '</span></div>' +
+            '<span class="badge badge-neutral">' + escapeHtml(sync.global_path || '') + '</span>' +
+            '</div>';
+        } else if (sync.in_sync) {
+          syncBannerHtml =
+            '<div class="sync-banner">' +
+            '<div><span class="badge badge-ok">Global In Sync</span> <span style="margin-left:8px; color:var(--text-secondary)">Isi vault identik dengan <span class="mono">' + escapeHtml(sync.global_path) + '</span></span></div>' +
+            '<span class="mono tabular" style="font-size:12px; color:var(--text-muted)">Backup: ' + escapeHtml((sync.backups || []).join(', ') || 'belum ada') + '</span>' +
+            '</div>';
+        } else {
+          const diffBadges = (sync.diffs || []).map((df) => '<span class="badge badge-warn">' + escapeHtml(df.file + ' (' + df.state + ')') + '</span>').join(' ');
+          syncBannerHtml =
+            '<div class="sync-banner">' +
+            '<div><span class="badge badge-warn">Sync Drift Terdeteksi</span> <span style="margin-left:8px; color:var(--text-secondary)">Ada perbedaan antara vault dan global:</span> <div class="chip-row" style="margin-top:8px;">' + diffBadges + '</div></div>' +
+            '</div>';
+        }
+
+        const shadowHtml = (sync.shadowing_warnings && sync.shadowing_warnings.length)
+          ? '<div class="sync-banner" style="border-color:var(--warn-border); background:var(--warn-bg);">' +
+            '<div><strong style="color:var(--warn-text)">Peringatan Shadowing Skill:</strong> Folder <span class="mono">' + escapeHtml(sync.shadowing_warnings.join(', ')) + '</span> berada di dalam <span class="mono">~/.agents/skills/</span> dan bisa menimpa skill aktif. Pindahkan ke <span class="mono">' + escapeHtml(sync.backup_dir) + '</span>.</div>' +
+            '</div>'
+          : '';
+
+        const stagesHtml = (d.handoff.stages || []).map((st) => {
+          const bullets = (st.bullets || []).map((b) => '<li>' + escapeHtml(b) + '</li>').join('');
+          return '<div class="sub-surface">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:6px;">' +
+            '<strong style="font-size:13.5px;">' + escapeHtml(st.title) + '</strong>' +
+            '<span class="badge ' + statusBadgeClass(st.status) + '">' + escapeHtml(st.status) + '</span>' +
+            '</div>' +
+            '<ul class="rule-list">' + bullets + '</ul>' +
+            '</div>';
+        }).join('');
+
+        const sectionsHtml = (d.skill.sections || []).map((sec) => {
+          const subs = (sec.subheadings || []).map((s) => '<span class="badge badge-neutral">' + escapeHtml(s) + '</span>').join(' ');
+          return '<div class="clean-row">' +
+            '<div>' +
+            '<div style="font-weight:600;">' + escapeHtml(sec.title) + '</div>' +
+            (subs ? '<div class="chip-row" style="margin-top:6px;">' + subs + '</div>' : '') +
+            '</div>' +
+            '<div style="display:flex; align-items:center; gap:8px;">' +
+            '<span class="mono tabular" style="font-size:11.5px; color:var(--text-muted)">' + sec.lines + ' baris</span>' +
+            '<button type="button" class="btn btn-ghost" data-open-sec="' + escapeHtml(sec.anchor) + '"><span class="btn-label">Lihat Isi</span></button>' +
+            '</div>' +
+            '</div>';
+        }).join('');
+
+        el('panel-overview').innerHTML =
+          syncBannerHtml +
+          shadowHtml +
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">Langkah 0 — Reference Router &amp; Prioritas Sumber</h2><div class="panel-sub">Urutan baca wajib sebelum skill menulis desain apa pun.</div></div>' +
+              '<button type="button" class="btn btn-ghost" id="btn-src-index"><span class="btn-label">Sources: INDEX.md</span></button>' +
+            '</div>' +
+            '<div class="router-flow">' +
+              '<div class="router-step"><span class="router-num">01 · WAJIB</span><strong>TASTE-PROFILE.md</strong><span style="font-size:12px; color:var(--text-secondary)">Kunci vibe, font, warna, density, dan Ban List (HARD).</span></div>' +
+              '<div class="router-step"><span class="router-num">02 · ROUTER</span><strong>INDEX.md</strong><span style="font-size:12px; color:var(--text-secondary)">Pilih kategori tugas tanpa membaca seluruh vault.</span></div>' +
+              '<div class="router-step"><span class="router-num">03 · LAYER 1</span><strong>' + d.stats.ready_count + ' File Ready</strong><span style="font-size:12px; color:var(--text-secondary)">Buka hanya referensi berstatus ready/seeded; lewati template.</span></div>' +
+              '<div class="router-step"><span class="router-num">04 · LAYER 2</span><strong>Corpus Eksternal</strong><span style="font-size:12px; color:var(--text-secondary)">better-ui (59 situs), ui-ux-pro-max, dan gate ui-craft.</span></div>' +
+            '</div>' +
+            '<div class="sub-surface" style="margin-top:12px; font-size:12.5px;">' +
+              '<strong>Prioritas Sumber:</strong> <span class="mono">Instruksi user &gt; Brand/codebase eksisting &gt; TASTE-PROFILE.md &gt; Referensi vault &gt; Corpus eksternal</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="grid-2">' +
+            '<div class="panel">' +
+              '<div class="panel-header"><div><h2 class="panel-title">Struktur Workflow SKILL.md</h2><div class="panel-sub">3 jalur masuk: Jalur A (Codebase), Jalur B (Green-field), Jalur C (De-Slop).</div></div></div>' +
+              '<div class="clean-list">' + sectionsHtml + '</div>' +
+            '</div>' +
+            '<div class="panel">' +
+              '<div class="panel-header"><div><h2 class="panel-title">Roadmap &amp; Status Tahap (HANDOFF.md)</h2><div class="panel-sub">Progres evolusi vault dan skill global.</div></div>' +
+              '<button type="button" class="btn btn-ghost" id="btn-src-handoff"><span class="btn-label">Sources: HANDOFF.md</span></button></div>' +
+              '<div class="clean-list">' + stagesHtml + '</div>' +
+            '</div>' +
+          '</div>';
+
+        const srcIndex = el('btn-src-index');
+        if (srcIndex) srcIndex.onclick = () => openSourcesDrawer('INDEX.md', d.references_index.path, 'path: ' + d.references_index.path + ' | lines: ' + d.references_index.lines + ' | sha256: ' + d.references_index.sha256, d.references_index.raw);
+        const srcHandoff = el('btn-src-handoff');
+        if (srcHandoff) srcHandoff.onclick = () => openSourcesDrawer('HANDOFF.md', d.handoff.path, 'path: ' + d.handoff.path + ' | lines: ' + d.handoff.lines + ' | sha256: ' + d.handoff.sha256, d.handoff.raw);
+        el('panel-overview').querySelectorAll('[data-open-sec]').forEach((btn) => {
+          btn.onclick = () => {
+            const sec = (d.skill.sections || []).find((s) => s.anchor === btn.dataset.openSec);
+            if (sec) openSourcesDrawer('SKILL.md — ' + sec.title, d.skill.path, 'path: ' + d.skill.path + ' | section lines: ' + sec.lines, '## ' + sec.title + '\n\n' + sec.body);
+          };
+        });
+      }
+
+      function renderCatalog(d) {
+        const q = state.catalogQuery.trim().toLowerCase();
+        const stFilter = state.catalogStatus;
+
+        const filtered = (d.references || []).filter((ref) => {
+          const matchStatus = stFilter === 'all' || ref.status === stFilter;
+          if (!matchStatus) return false;
+          if (!q) return true;
+          const hay = [
+            ref.category,
+            ref.file_label,
+            ref.summary,
+            ...(ref.entries || []).flatMap((e) => [e.name, ...(e.tags || []), e.why_good]),
+          ].join(' ').toLowerCase();
+          return hay.includes(q);
+        });
+
+        const refsHtml = filtered.map((ref) => {
+          const entriesHtml = (ref.entries || []).map((entry) => {
+            const tagsHtml = (entry.tags || []).map((t) => '<span class="badge badge-neutral">' + escapeHtml(t) + '</span>').join(' ');
+            const rulesHtml = (entry.rules || []).map((r) => '<li><strong>' + escapeHtml(r.label) + ':</strong> ' + escapeHtml(r.text) + '</li>').join('');
+            return '<div class="entry-card">' +
+              '<div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px;">' +
+              '<strong style="font-size:14px;">' + escapeHtml(entry.name) + '</strong>' +
+              '<div class="chip-row">' + tagsHtml + '</div>' +
+              '</div>' +
+              '<div style="font-size:12.5px; color:var(--text-secondary)"><strong>Kenapa bagus:</strong> ' + escapeHtml(entry.why_good) + '</div>' +
+              (rulesHtml ? '<ul class="rule-list">' + rulesHtml + '</ul>' : '') +
+              '<div class="entry-meta-grid">' +
+                '<div><strong style="color:var(--ok-text)">Cocok untuk:</strong> <span style="color:var(--text-secondary)">' + escapeHtml(entry.good_for) + '</span></div>' +
+                '<div><strong style="color:var(--warn-text)">Hindari saat:</strong> <span style="color:var(--text-secondary)">' + escapeHtml(entry.avoid_when) + '</span></div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+
+          return '<div class="panel">' +
+            '<div class="panel-header" style="margin-bottom:' + (entriesHtml ? '12px' : '0') + ';">' +
+              '<div>' +
+                '<div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">' +
+                  '<h3 class="panel-title">' + escapeHtml(ref.category) + '</h3>' +
+                  '<span class="badge ' + statusBadgeClass(ref.status) + '">' + escapeHtml(ref.status) + '</span>' +
+                  '<span class="mono" style="font-size:12px; color:var(--text-muted)">' + escapeHtml(ref.rel_path) + '</span>' +
+                '</div>' +
+                '<div class="panel-sub">' + escapeHtml(ref.summary) + '</div>' +
+              '</div>' +
+              '<div style="display:flex; align-items:center; gap:8px;">' +
+                (ref.is_dir ? '' : '<span class="mono tabular" style="font-size:11.5px; color:var(--text-muted)">' + ref.entry_count + ' entri · ' + (ref.lines || 0) + ' baris</span>') +
+                (ref.is_dir ? '' : '<button type="button" class="btn btn-secondary" data-src-ref="' + escapeHtml(ref.rel_path) + '"><span class="btn-label">Sources</span></button>') +
+              '</div>' +
+            '</div>' +
+            (entriesHtml ? '<div class="clean-list" style="gap:10px;">' + entriesHtml + '</div>' : '') +
+          '</div>';
+        }).join('');
+
+        const layer2Html = (d.layer2 || []).map((l2) =>
+          '<div class="sub-surface">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">' +
+              '<strong>' + escapeHtml(l2.name) + '</strong>' +
+              '<span class="badge badge-neutral">Layer 2</span>' +
+            '</div>' +
+            '<div style="font-size:12.5px; color:var(--text-secondary); margin-top:4px;">' + escapeHtml(l2.role) + '</div>' +
+            '<div class="mono" style="font-size:11.5px; color:var(--text-muted); margin-top:6px; word-break:break-all;">' + escapeHtml(l2.command || l2.path) + '</div>' +
+          '</div>'
+        ).join('');
+
+        const assetsHtml = (d.assets && d.assets.length)
+          ? '<div class="grid-3">' + d.assets.map((a) =>
+              '<div class="sub-surface">' +
+                '<img src="' + escapeHtml(resolveVaultUrl(a.rel_path)) + '" alt="' + escapeHtml(a.name) + '" style="width:100%; height:140px; object-fit:cover; border-radius:6px; border:1px solid var(--border-hairline);" />' +
+                '<div style="margin-top:8px; font-weight:600; font-size:12.5px;">' + escapeHtml(a.name) + '</div>' +
+                '<div class="mono tabular" style="font-size:11px; color:var(--text-muted)">' + formatBytes(a.size_bytes) + '</div>' +
+              '</div>'
+            ).join('') + '</div>'
+          : '<div class="sub-surface" style="color:var(--text-secondary)">Folder <span class="mono">references/assets/</span> masih kosong. Tambahkan screenshot atau UI crop ke sini saat menyetor referensi nyata.</div>';
+
+        el('panel-catalog').innerHTML =
+          '<div class="panel">' +
+            '<div class="toolbar" style="margin-bottom:0;">' +
+              '<input type="search" class="search-input" id="catalog-search" placeholder="Cari referensi, tag, komponen, atau aturan..." value="' + escapeHtml(state.catalogQuery) + '" />' +
+              '<div class="chip-row" role="group" aria-label="Filter status referensi">' +
+                ['all', 'ready', 'seeded', 'template'].map((st) => {
+                  const lbl = st === 'all' ? 'Semua' : st[0].toUpperCase() + st.slice(1);
+                  return '<button type="button" class="chip-btn" data-status-filter="' + st + '" aria-pressed="' + (state.catalogStatus === st) + '">' + lbl + '</button>';
+                }).join('') +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          (refsHtml || '<div class="panel" style="color:var(--text-secondary)">Tidak ada referensi yang cocok dengan filter saat ini.</div>') +
+          '<div class="panel">' +
+            '<div class="panel-header"><div><h2 class="panel-title">Layer 2 — Corpus Eksternal (Read-Only)</h2><div class="panel-sub">Rujukan sekunder saat vault belum memiliki contoh halaman/domain tertentu.</div></div></div>' +
+            '<div class="grid-3">' + layer2Html + '</div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<div class="panel-header"><div><h2 class="panel-title">Galeri Aset Visual (references/assets/)</h2><div class="panel-sub">Screenshot dan mood board lokal yang ditautkan dari referensi.</div></div></div>' +
+            assetsHtml +
+          '</div>';
+
+        const searchEl = el('catalog-search');
+        searchEl.oninput = (e) => {
+          state.catalogQuery = e.target.value;
+          const pos = e.target.selectionStart;
+          renderCatalog(state.data);
+          const nextSearch = el('catalog-search');
+          nextSearch.focus();
+          nextSearch.setSelectionRange(pos, pos);
+        };
+        el('panel-catalog').querySelectorAll('[data-status-filter]').forEach((btn) => {
+          btn.onclick = () => {
+            state.catalogStatus = btn.dataset.statusFilter;
+            renderCatalog(state.data);
+          };
+        });
+        el('panel-catalog').querySelectorAll('[data-src-ref]').forEach((btn) => {
+          btn.onclick = () => {
+            const ref = (state.data.references || []).find((r) => r.rel_path === btn.dataset.srcRef);
+            if (ref) openSourcesDrawer(ref.category + ' (' + ref.file_label + ')', ref.rel_path, 'path: ' + ref.rel_path + ' | status: ' + ref.status + ' | lines: ' + ref.lines + ' | sha256: ' + ref.sha256, ref.raw);
+          };
+        });
+      }
+
+      function renderTaste(d) {
+        const wordsHtml = (d.taste.three_words || []).map((w) => '<span class="badge badge-accent">' + escapeHtml(w) + '</span>').join(' ');
+        const tasteSectionsHtml = (d.taste.sections || []).filter((s) => !s.title.startsWith('6.')).map((s) =>
+          '<div class="sub-surface">' +
+            '<strong style="display:block; margin-bottom:6px;">' + escapeHtml(s.title) + '</strong>' +
+            '<pre class="code-block" style="padding:8px 10px; font-family:var(--font-sans); font-size:12.5px;">' + escapeHtml(s.body) + '</pre>' +
+          '</div>'
+        ).join('');
+
+        const banHtml = (d.taste.ban_list || []).map((b) =>
+          '<div class="clean-row" style="padding:8px 12px;">' +
+            '<span>' + escapeHtml(b.text) + '</span>' +
+            '<span class="badge badge-danger">HARD BAN</span>' +
+          '</div>'
+        ).join('');
+
+        const checklistHtml = (d.skill.checklist || []).map((grp) => {
+          const itemsHtml = grp.items.map((item, idx) => {
+            const key = grp.group + '::' + idx;
+            const checked = !!state.manualChecks[key];
+            return '<label class="check-item">' +
+              '<input type="checkbox" data-check-key="' + escapeHtml(key) + '" ' + (checked ? 'checked' : '') + ' />' +
+              '<span>' + escapeHtml(item) + '</span>' +
+            '</label>';
+          }).join('');
+          return '<div class="sub-surface">' +
+            '<strong style="display:block; margin-bottom:6px; color:var(--accent);">' + escapeHtml(grp.group) + '</strong>' +
+            '<div>' + itemsHtml + '</div>' +
+          '</div>';
+        }).join('');
+
+        const totalChecks = (d.skill.checklist || []).reduce((acc, g) => acc + g.items.length, 0);
+        const doneChecks = Object.values(state.manualChecks).filter(Boolean).length;
+
+        el('panel-taste').innerHTML =
+          '<div class="grid-2">' +
+            '<div class="panel">' +
+              '<div class="panel-header">' +
+                '<div><div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;"><h2 class="panel-title">Profil Selera Pribadi</h2><span class="badge ' + statusBadgeClass(d.taste.status) + '">' + escapeHtml(d.taste.status) + '</span></div><div class="chip-row" style="margin-top:8px;">' + wordsHtml + '</div></div>' +
+                '<button type="button" class="btn btn-secondary" id="btn-src-taste"><span class="btn-label">Sources</span></button>' +
+              '</div>' +
+              '<div class="clean-list" style="gap:10px;">' + tasteSectionsHtml + '</div>' +
+            '</div>' +
+            '<div class="panel">' +
+              '<div class="panel-header">' +
+                '<div><h2 class="panel-title">Personal Anti-Slop Ban List</h2><div class="panel-sub">Constraint HARD dari TASTE-PROFILE.md §6 yang selalu berlaku.</div></div>' +
+                '<span class="badge badge-danger tabular">' + (d.taste.ban_list || []).length + ' aturan</span>' +
+              '</div>' +
+              '<div class="clean-list">' + banHtml + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">Anti-Slop Audit Checklist (Biner Ya/Tidak)</h2><div class="panel-sub">Scratchpad QA manual interaktif — progres tersimpan di browser lokal (<span class="tabular">' + doneChecks + '/' + totalChecks + '</span> dicentang).</div></div>' +
+              '<button type="button" class="btn btn-ghost" id="btn-reset-checks"><span class="btn-label">Reset Centang</span></button>' +
+            '</div>' +
+            '<div class="grid-2">' + checklistHtml + '</div>' +
+          '</div>';
+
+        el('btn-src-taste').onclick = () => openSourcesDrawer('TASTE-PROFILE.md', d.taste.path, 'path: ' + d.taste.path + ' | status: ' + d.taste.status + ' | lines: ' + d.taste.lines + ' | sha256: ' + d.taste.sha256, d.taste.raw);
+        el('btn-reset-checks').onclick = () => {
+          state.manualChecks = {};
+          try { localStorage.removeItem('gdv_manual_checks'); } catch (_) {}
+          renderTaste(state.data);
+        };
+        el('panel-taste').querySelectorAll('[data-check-key]').forEach((cb) => {
+          cb.onchange = (e) => {
+            state.manualChecks[e.target.dataset.checkKey] = e.target.checked;
+            try { localStorage.setItem('gdv_manual_checks', JSON.stringify(state.manualChecks)); } catch (_) {}
+            renderTaste(state.data);
+          };
+        });
+      }
+
+      function renderEval(d) {
+        const cases = d.eval.cases || [];
+        if (!state.selectedEvalId && cases.length) {
+          state.selectedEvalId = cases[0].id;
+        }
+        const activeCase = cases.find((c) => c.id === state.selectedEvalId) || cases[0] || null;
+        const fixture = d.eval.fixture;
+
+        const cardsHtml = cases.map((c) => {
+          const isSel = activeCase && activeCase.id === c.id;
+          return '<div class="sub-surface" style="border-color:' + (isSel ? 'var(--accent)' : 'var(--border-hairline)') + '; display:flex; flex-direction:column; gap:8px;">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">' +
+              '<strong>' + escapeHtml(c.id) + ' · ' + escapeHtml(c.jalur) + '</strong>' +
+              '<span class="badge ' + statusBadgeClass(c.status) + '">' + escapeHtml(c.status) + '</span>' +
+            '</div>' +
+            '<div style="font-size:12.5px; color:var(--text-secondary)">' + escapeHtml(c.title) + '</div>' +
+            '<div class="mono tabular" style="font-size:11.5px; color:var(--text-muted)">' + escapeHtml(c.html_path || '') + ' · ' + (c.lines || 0) + ' baris · ' + formatBytes(c.size_bytes) + '</div>' +
+            '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:auto;">' +
+              '<button type="button" class="btn ' + (isSel ? 'btn-primary' : 'btn-secondary') + '" data-preview-case="' + escapeHtml(c.id) + '"><span class="btn-label">Pratinjau</span></button>' +
+              (c.html_path ? '<a class="btn btn-ghost" href="' + escapeHtml(resolveVaultUrl(c.html_path)) + '" target="_blank" rel="noopener">Tab Baru</a>' : '') +
+              (c.audit_raw ? '<button type="button" class="btn btn-ghost" data-audit-case="' + escapeHtml(c.id) + '"><span class="btn-label">Audit E3</span></button>' : '') +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        let previewContent = '';
+        if (state.compareMode && fixture && activeCase && activeCase.html_path) {
+          previewContent =
+            '<div class="compare-grid">' +
+              '<div><div class="mono" style="font-size:11.5px; margin-bottom:6px; color:var(--danger-text)">SEBELUM: ' + escapeHtml(fixture.rel_path) + '</div><iframe class="preview-iframe" title="Slop Fixture" src="' + escapeHtml(resolveVaultUrl(fixture.rel_path)) + '"></iframe></div>' +
+              '<div><div class="mono" style="font-size:11.5px; margin-bottom:6px; color:var(--ok-text)">SESUDAH: ' + escapeHtml(activeCase.html_path) + '</div><iframe class="preview-iframe" title="Eval Result" src="' + escapeHtml(resolveVaultUrl(activeCase.html_path)) + '"></iframe></div>' +
+            '</div>';
+        } else if (activeCase && activeCase.html_path) {
+          previewContent = '<iframe class="preview-iframe" style="width:' + escapeHtml(state.previewWidth) + ';" title="Live Preview ' + escapeHtml(activeCase.id) + '" src="' + escapeHtml(resolveVaultUrl(activeCase.html_path)) + '"></iframe>';
+        } else {
+          previewContent = '<div style="padding:32px; color:var(--text-secondary)">Belum ada file HTML eval untuk ditampilkan.</div>';
+        }
+
+        el('panel-eval').innerHTML =
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">Ad-Hoc Eval Anti-Overfit</h2><div class="panel-sub">Hasil uji subagent independen pada kasus domain netral dan fixture slop.</div></div>' +
+              '<div style="display:flex; gap:8px;">' +
+                (fixture ? '<a class="btn btn-ghost" href="' + escapeHtml(resolveVaultUrl(fixture.rel_path)) + '" target="_blank" rel="noopener">Buka slop-fixture.html</a>' : '') +
+                '<button type="button" class="btn btn-secondary" id="btn-src-results"><span class="btn-label">Sources: RESULTS.md</span></button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="grid-3">' + cardsHtml + '</div>' +
+          '</div>' +
+          '<div class="preview-shell">' +
+            '<div class="preview-bar">' +
+              '<div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">' +
+                '<strong>Live Preview: ' + escapeHtml(activeCase ? activeCase.id + ' — ' + activeCase.html_path : '–') + '</strong>' +
+                (fixture ? '<button type="button" class="chip-btn" id="btn-toggle-compare" aria-pressed="' + state.compareMode + '">Bandingkan vs slop-fixture</button>' : '') +
+              '</div>' +
+              '<div class="chip-row">' +
+                ['390px', '768px', '100%'].map((w) =>
+                  '<button type="button" class="chip-btn" data-vp-width="' + w + '" aria-pressed="' + (!state.compareMode && state.previewWidth === w) + '">' + (w === '100%' ? 'Penuh' : w) + '</button>'
+                ).join('') +
+              '</div>' +
+            '</div>' +
+            '<div class="preview-viewport">' + previewContent + '</div>' +
+          '</div>';
+
+        const srcRes = el('btn-src-results');
+        if (srcRes) srcRes.onclick = () => openSourcesDrawer('eval/RESULTS.md', d.eval.results_path, 'path: ' + d.eval.results_path + ' | lines: ' + d.eval.results_lines + ' | sha256: ' + d.eval.results_sha256, d.eval.results_raw);
+
+        el('panel-eval').querySelectorAll('[data-preview-case]').forEach((btn) => {
+          btn.onclick = () => {
+            state.selectedEvalId = btn.dataset.previewCase;
+            renderEval(state.data);
+          };
+        });
+        el('panel-eval').querySelectorAll('[data-audit-case]').forEach((btn) => {
+          btn.onclick = () => {
+            const c = cases.find((x) => x.id === btn.dataset.auditCase);
+            if (c && c.audit_raw) openSourcesDrawer('Audit ' + c.id + ' (' + c.audit_path + ')', c.audit_path, 'path: ' + c.audit_path, c.audit_raw);
+          };
+        });
+        const cmpBtn = el('btn-toggle-compare');
+        if (cmpBtn) cmpBtn.onclick = () => { state.compareMode = !state.compareMode; renderEval(state.data); };
+        el('panel-eval').querySelectorAll('[data-vp-width]').forEach((btn) => {
+          btn.onclick = () => {
+            state.compareMode = false;
+            state.previewWidth = btn.dataset.vpWidth;
+            renderEval(state.data);
+          };
+        });
+      }
+
+      function renderOps(d) {
+        const root = d.vault_root || '/home/rafif/Projects/gemini-design-vault';
+        const commands = [
+          {
+            title: 'Jalankan Dashboard Katalog Lokal (Live + Auto Buka Browser)',
+            desc: 'Menyajikan /api/vault secara live dari file vault dan memeriksa status sync ~/.agents/skills/gemini-design/.',
+            cmd: 'python3 ' + root + '/dashboard/serve.py --open',
+          },
+          {
+            title: 'Perbarui Snapshot Statis untuk Mode file://',
+            desc: 'Menulis ulang dashboard/vault-snapshot.js tanpa menyalakan web server.',
+            cmd: 'python3 ' + root + '/dashboard/serve.py --snapshot',
+          },
+          {
+            title: 'Backup Aman + Sync Vault ke Skill Global (Sesuai Aturan AGENTS.md)',
+            desc: 'Backup selalu ditaruh di ~/.agents/skill-backups/ (di luar ~/.agents/skills/ agar tidak terjadi shadowing).',
+            cmd: 'mkdir -p ~/.agents/skill-backups && cp -a ~/.agents/skills/gemini-design ~/.agents/skill-backups/gemini-design.bak-$(date +%Y%m%d-%H%M) && cp ' + root + '/skill/SKILL.md ~/.agents/skills/gemini-design/SKILL.md && cp -r ' + root + '/references/. ~/.agents/skills/gemini-design/references/ && diff -r ' + root + '/references ~/.agents/skills/gemini-design/references && diff ' + root + '/skill/SKILL.md ~/.agents/skills/gemini-design/SKILL.md',
+          },
+        ];
+
+        const cmdHtml = commands.map((c, idx) =>
+          '<div class="sub-surface" style="display:flex; flex-direction:column; gap:8px;">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">' +
+              '<strong>' + escapeHtml(c.title) + '</strong>' +
+              '<button type="button" class="btn btn-secondary" data-copy-cmd="' + idx + '"><span class="btn-label">Salin Perintah</span></button>' +
+            '</div>' +
+            '<div style="font-size:12.5px; color:var(--text-secondary)">' + escapeHtml(c.desc) + '</div>' +
+            '<pre class="code-block">' + escapeHtml(c.cmd) + '</pre>' +
+          '</div>'
+        ).join('');
+
+        const promptsHtml = (d.handoff.prompts || []).map((p, idx) =>
+          '<div class="sub-surface" style="display:flex; flex-direction:column; gap:8px;">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">' +
+              '<strong>' + escapeHtml(p.title) + '</strong>' +
+              '<button type="button" class="btn btn-primary" data-copy-prompt="' + idx + '"><span class="btn-label">Salin Prompt</span></button>' +
+            '</div>' +
+            '<pre class="code-block" style="font-family:var(--font-sans); font-size:13px;">' + escapeHtml(p.prompt) + '</pre>' +
+          '</div>'
+        ).join('');
+
+        el('panel-ops').innerHTML =
+          '<div class="panel">' +
+            '<div class="panel-header"><div><h2 class="panel-title">Perintah Lokal &amp; Sinkronisasi Global</h2><div class="panel-sub">Gunakan langsung di terminal lokal.</div></div></div>' +
+            '<div class="clean-list" style="gap:10px;">' + cmdHtml + '</div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<div class="panel-header"><div><h2 class="panel-title">Starter Prompt Sesi Baru (HANDOFF.md §4)</h2><div class="panel-sub">Siap tempel ke sesi baru untuk setor referensi atau jalankan Jalur C De-Slop.</div></div></div>' +
+            '<div class="clean-list" style="gap:10px;">' + promptsHtml + '</div>' +
+          '</div>';
+
+        el('panel-ops').querySelectorAll('[data-copy-cmd]').forEach((btn) => {
+          btn.onclick = () => copyText(commands[Number(btn.dataset.copyCmd)].cmd, btn);
+        });
+        el('panel-ops').querySelectorAll('[data-copy-prompt]').forEach((btn) => {
+          btn.onclick = () => copyText((d.handoff.prompts || [])[Number(btn.dataset.copyPrompt)].prompt, btn);
+        });
+      }
+
+      function renderLego(d) {
+        const dossiers = d.rea_dossiers || [];
+        const tplWrap = d.templates || { count: 0, templates: [] };
+        const allTpls = tplWrap.templates || [];
+        const cats = ['all', 'buttons', 'navigation', 'cards', 'motion', 'forms'];
+        const filteredTpls = allTpls.filter((t) => state.legoCategory === 'all' || t.category === state.legoCategory);
+
+        if (!state.selectedLegoId || !filteredTpls.some((t) => t.id === state.selectedLegoId)) {
+          state.selectedLegoId = filteredTpls[0] ? filteredTpls[0].id : null;
+        }
+        const activeTpl = filteredTpls.find((t) => t.id === state.selectedLegoId) || filteredTpls[0] || null;
+        const resolvedStageTheme = activeTpl
+          ? (state.legoStageTheme === 'auto'
+            ? (window.LegoPreviews ? window.LegoPreviews.defaultStageTheme(activeTpl.id) : 'light')
+            : state.legoStageTheme)
+          : 'light';
+
+        const railHtml = filteredTpls.map((t) => {
+          const isSel = activeTpl && t.id === activeTpl.id;
+          return '<button type="button" class="rail-item" data-lego-select="' + escapeHtml(t.id) + '" aria-selected="' + isSel + '">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">' +
+              '<strong style="font-size:12.5px;">' + escapeHtml(t.name) + '</strong>' +
+              '<span class="badge ' + (isSel ? 'badge-accent' : 'badge-neutral') + '">' + escapeHtml(t.category) + '</span>' +
+            '</div>' +
+            '<div class="mono tabular" style="font-size:11px;color:var(--text-muted);">' + escapeHtml(t.repo) + ' · ' + t.lines + ' baris</div>' +
+          '</button>';
+        }).join('');
+
+        let studioMainHtml = '<div class="sub-surface">Belum ada template di kategori ini.</div>';
+        if (activeTpl) {
+          const depsHtml = (activeTpl.dependencies || []).map((dep) => '<span class="badge badge-neutral">' + escapeHtml(dep) + '</span>').join(' ');
+          studioMainHtml =
+            '<div class="studio-toolbar">' +
+              '<div>' +
+                '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+                  '<strong style="font-size:14.5px;">' + escapeHtml(activeTpl.name) + '</strong>' +
+                  '<span class="badge badge-ok">' + escapeHtml(activeTpl.license) + '</span>' +
+                  '<span class="mono" style="font-size:11.5px;color:var(--text-muted);">' + escapeHtml(activeTpl.local_path) + '</span>' +
+                '</div>' +
+                '<div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">' + escapeHtml(activeTpl.use_case) + '</div>' +
+              '</div>' +
+              '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">' +
+                '<button type="button" class="chip-btn" id="btn-stage-theme" aria-pressed="' + (resolvedStageTheme === 'dark') + '">' + (resolvedStageTheme === 'dark' ? 'Stage: Gelap' : 'Stage: Terang') + '</button>' +
+                ['390px', '680px', '100%'].map((w) => '<button type="button" class="chip-btn" data-stage-w="' + w + '" aria-pressed="' + (state.legoStageWidth === w) + '">' + (w === '100%' ? 'Penuh' : w) + '</button>').join('') +
+                '<button type="button" class="btn btn-ghost" id="btn-stage-reset"><span class="btn-label">Reset</span></button>' +
+                '<button type="button" class="btn btn-primary" id="btn-tpl-copy-active"><span class="btn-label">Salin Kode</span></button>' +
+                '<a class="btn btn-ghost" href="' + escapeHtml(activeTpl.source_url) + '" target="_blank" rel="noopener">GitHub</a>' +
+              '</div>' +
+            '</div>' +
+            '<div class="studio-stage-wrap">' +
+              '<div class="lego-studio-stage" id="active-lego-stage" data-stage-theme="' + escapeHtml(resolvedStageTheme) + '" style="width:' + escapeHtml(state.legoStageWidth) + ';"></div>' +
+            '</div>' +
+            '<div class="sub-surface" style="display:flex;flex-direction:column;gap:8px;">' +
+              '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+                '<div class="chip-row" style="align-items:center;"><strong style="font-size:12.5px;">Dependensi:</strong> ' + (depsHtml || '<span class="badge badge-neutral">Tanpa dependensi eksternal</span>') + '</div>' +
+                '<div style="display:flex;gap:6px;">' +
+                  '<button type="button" class="btn btn-ghost" id="btn-toggle-code"><span class="btn-label">' + (state.showLegoCode ? 'Sembunyikan Kode' : 'Lihat Kode Verbatim') + '</span></button>' +
+                  '<button type="button" class="btn btn-secondary" id="btn-open-code-drawer"><span class="btn-label">Sources Drawer</span></button>' +
+                '</div>' +
+              '</div>' +
+              (state.showLegoCode ? '<pre class="code-block" style="max-height:280px;overflow:auto;">' + escapeHtml(activeTpl.raw || '') + '</pre>' : '') +
+            '</div>';
+        }
+
+        if (!dossiers.some((x) => x.slug === state.selectedReaSlug) && dossiers.length) {
+          state.selectedReaSlug = dossiers[0].slug;
+        }
+        const activeRea = dossiers.find((x) => x.slug === state.selectedReaSlug) || dossiers[0] || null;
+        let reaBodyHtml = '<div class="sub-surface">Belum ada dossier REA.</div>';
+        if (activeRea) {
+          const shotUrl = activeRea.screenshot ? resolveVaultUrl(activeRea.screenshot) : '';
+          reaBodyHtml =
+            '<div class="rea-split">' +
+              '<div style="display:flex;flex-direction:column;gap:10px;">' +
+                (shotUrl ? '<a class="rea-shot-frame" href="' + escapeHtml(shotUrl) + '" target="_blank" rel="noopener"><img src="' + escapeHtml(shotUrl) + '" alt="Screenshot ' + escapeHtml(activeRea.slug) + '" /></a>' : '') +
+                '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+                  '<span class="mono" style="font-size:11.5px;color:var(--text-muted);">' + escapeHtml(activeRea.url) + ' · 1440×900</span>' +
+                  '<div style="display:flex;gap:6px;">' +
+                    '<button type="button" class="btn btn-secondary" id="btn-rea-json-active"><span class="btn-label">Sources: JSON</span></button>' +
+                    (shotUrl ? '<a class="btn btn-ghost" href="' + escapeHtml(shotUrl) + '" target="_blank" rel="noopener">Buka PNG Penuh</a>' : '') +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              (window.LegoPreviews ? window.LegoPreviews.renderReaSpecimen(activeRea) : '') +
+            '</div>';
+        }
+
+        const dsWrap = d.design_systems || { count: 0, systems: [] };
+        const dsSystems = dsWrap.systems || [];
+        const dsHtml = dsSystems.map((ds) => {
+          const swatches = (ds.palette_hex || []).map((hx) =>
+            '<span title="' + escapeHtml(hx) + '" style="display:inline-block;width:22px;height:22px;border-radius:5px;border:1px solid var(--border-strong);background:' + escapeHtml(hx) + ';"></span>'
+          ).join('');
+          return '<div class="sub-surface" style="display:flex;flex-direction:column;gap:8px;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">' +
+              '<strong style="font-size:13.5px;">' + escapeHtml(ds.name) + '</strong>' +
+              '<span class="mono tabular" style="font-size:11px;color:var(--text-muted);">' + ds.lines + ' baris</span>' +
+            '</div>' +
+            '<div><span class="badge badge-neutral">' + escapeHtml(ds.domain) + '</span></div>' +
+            '<div class="chip-row" style="gap:5px;">' + swatches + '</div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px;">' +
+              '<button type="button" class="btn btn-secondary" data-ds-view="' + escapeHtml(ds.slug) + '"><span class="btn-label">Lihat DESIGN.md</span></button>' +
+              '<button type="button" class="btn btn-ghost" data-ds-copy="' + escapeHtml(ds.slug) + '"><span class="btn-label">Salin</span></button>' +
+              '<a class="btn btn-ghost" href="' + escapeHtml(ds.source_url) + '" target="_blank" rel="noopener">GitHub</a>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        el('panel-lego').innerHTML =
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">Brand Art-Direction Systems (' + dsSystems.length + ' DESIGN.md Nyata)</h2><div class="panel-sub">Palet warna, suhu surface, &amp; tipografi terkalibrasi per domain dari <span class="mono">VoltAgent/awesome-design-md</span> (anti mode-collapse krem+teal).</div></div>' +
+              '<span class="badge badge-ok tabular">' + dsSystems.length + ' sistem brand</span>' +
+            '</div>' +
+            '<div class="grid-3">' + (dsHtml || '<div class="sub-surface">Belum ada DESIGN.md di design-systems/.</div>') + '</div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">Lego Interactive Studio Workbench (' + allTpls.length + ' Komponen MIT)</h2><div class="panel-sub">Pilih komponen di rail kiri untuk mencoba demo interaktif ukuran penuh sekaligus menyalin kode produksi verbatim.</div></div>' +
+              '<div class="chip-row">' +
+                cats.map((c) => '<button type="button" class="chip-btn" data-lego-cat="' + c + '" aria-pressed="' + (state.legoCategory === c) + '">' + (c === 'all' ? 'Semua (' + allTpls.length + ')' : c) + '</button>').join('') +
+              '</div>' +
+            '</div>' +
+            '<div class="workbench-split">' +
+              '<div class="rail-list" role="listbox" aria-label="Daftar template Lego">' + railHtml + '</div>' +
+              '<div class="studio-main">' + studioMainHtml + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<div class="panel-header">' +
+              '<div><h2 class="panel-title">REA Production Benchmark Inspector (5 Situs Nyata)</h2><div class="panel-sub">Bandingkan screenshot 1440×900 asli dengan specimen interaktif dari computed CSS DOM terukur.</div></div>' +
+              '<div class="chip-row">' +
+                dossiers.map((r) => '<button type="button" class="chip-btn" data-rea-select="' + escapeHtml(r.slug) + '" aria-pressed="' + (activeRea && activeRea.slug === r.slug) + '">' + escapeHtml(r.slug[0].toUpperCase() + r.slug.slice(1)) + '</button>').join('') +
+              '</div>' +
+            '</div>' +
+            reaBodyHtml +
+          '</div>';
+
+        el('panel-lego').querySelectorAll('[data-ds-view]').forEach((btn) => {
+          btn.onclick = () => {
+            const ds = dsSystems.find((x) => x.slug === btn.dataset.dsView);
+            if (ds) openSourcesDrawer('DESIGN.md — ' + ds.name, ds.local_path, 'domain: ' + ds.domain + ' | lines: ' + ds.lines, ds.raw);
+          };
+        });
+        el('panel-lego').querySelectorAll('[data-ds-copy]').forEach((btn) => {
+          btn.onclick = () => {
+            const ds = dsSystems.find((x) => x.slug === btn.dataset.dsCopy);
+            if (ds) copyText(ds.raw || '', btn);
+          };
+        });
+
+        const stageEl = el('active-lego-stage');
+        if (stageEl && activeTpl && window.LegoPreviews) {
+          window.LegoPreviews.mountTemplatePreview(stageEl, activeTpl.id);
+        }
+
+        el('panel-lego').querySelectorAll('[data-lego-cat]').forEach((btn) => {
+          btn.onclick = () => { state.legoCategory = btn.dataset.legoCat; renderLego(state.data); };
+        });
+        el('panel-lego').querySelectorAll('[data-lego-select]').forEach((btn) => {
+          btn.onclick = () => {
+            state.selectedLegoId = btn.dataset.legoSelect;
+            state.legoStageTheme = 'auto';
+            renderLego(state.data);
+          };
+        });
+        const stThemeBtn = el('btn-stage-theme');
+        if (stThemeBtn) stThemeBtn.onclick = () => {
+          state.legoStageTheme = resolvedStageTheme === 'dark' ? 'light' : 'dark';
+          renderLego(state.data);
+        };
+        el('panel-lego').querySelectorAll('[data-stage-w]').forEach((btn) => {
+          btn.onclick = () => { state.legoStageWidth = btn.dataset.stageW; renderLego(state.data); };
+        });
+        const resetBtn = el('btn-stage-reset');
+        if (resetBtn && stageEl && activeTpl && window.LegoPreviews) {
+          resetBtn.onclick = () => window.LegoPreviews.mountTemplatePreview(stageEl, activeTpl.id);
+        }
+        const copyActiveBtn = el('btn-tpl-copy-active');
+        if (copyActiveBtn && activeTpl) copyActiveBtn.onclick = () => copyText(activeTpl.raw || '', copyActiveBtn);
+        const toggleCodeBtn = el('btn-toggle-code');
+        if (toggleCodeBtn) toggleCodeBtn.onclick = () => { state.showLegoCode = !state.showLegoCode; renderLego(state.data); };
+        const openDrawerBtn = el('btn-open-code-drawer');
+        if (openDrawerBtn && activeTpl) openDrawerBtn.onclick = () => openSourcesDrawer('Template Lego — ' + activeTpl.local_path, activeTpl.local_path, 'repo: ' + activeTpl.repo + ' | license: ' + activeTpl.license + ' | lines: ' + activeTpl.lines, activeTpl.raw);
+
+        el('panel-lego').querySelectorAll('[data-rea-select]').forEach((btn) => {
+          btn.onclick = () => { state.selectedReaSlug = btn.dataset.reaSelect; renderLego(state.data); };
+        });
+        const reaJsonBtn = el('btn-rea-json-active');
+        if (reaJsonBtn && activeRea) reaJsonBtn.onclick = () => openSourcesDrawer('REA JSON — ' + activeRea.slug, activeRea.rel_path, 'url: ' + activeRea.url + ' | captured: ' + activeRea.captured_at, activeRea.raw);
+        el('panel-lego').querySelectorAll('[data-rea-tap]').forEach((btn) => {
+          btn.onclick = () => {
+            const fb = el('panel-lego').querySelector('[data-rea-feedback]');
+            if (fb) {
+              fb.textContent = 'Clicked: ' + btn.textContent.trim();
+              setTimeout(() => { fb.textContent = 'Rekonstruksi Live · Klik CTA'; }, 1100);
+            }
+          };
+        });
+      }
+
+      function renderAll() {
+        const d = state.data;
+        if (!d) {
+          el('panel-overview').innerHTML = '<div class="panel">Data vault tidak ditemukan. Jalankan <span class="mono">python3 dashboard/serve.py</span> atau <span class="mono">python3 dashboard/serve.py --snapshot</span>.</div>';
+          return;
+        }
+        renderHeaderAndKpis(d);
+        renderOverview(d);
+        renderCatalog(d);
+        renderLego(d);
+        renderTaste(d);
+        renderEval(d);
+        renderOps(d);
+        updateTabIndicator();
+      }
+
+      async function refreshFromApi() {
+        if (location.protocol === 'file:') {
+          renderAll();
+          return;
+        }
+        const btn = el('btn-refresh');
+        btn.classList.add('is-loading');
+        try {
+          const res = await fetch('/api/vault', { cache: 'no-store' });
+          if (res.ok) {
+            state.data = await res.json();
+            state.mode = 'live';
+            renderAll();
+          }
+        } catch (_) {
+          if (window.__VAULT_SNAPSHOT__) {
+            state.data = window.__VAULT_SNAPSHOT__;
+            state.mode = 'snapshot';
+            renderAll();
+          }
+        } finally {
+          setTimeout(() => btn.classList.remove('is-loading'), 160);
+        }
+      }
+
+      document.querySelectorAll('#main-tablist .seg-btn').forEach((btn) => {
+        btn.onclick = () => switchTab(btn.dataset.tab);
+      });
+
+      el('btn-refresh').onclick = refreshFromApi;
+      el('btn-theme').onclick = () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('gdv_theme', next); } catch (_) {}
+        if (state.data) renderHeaderAndKpis(state.data);
+      };
+      el('btn-open-skill-src').onclick = () => {
+        const d = state.data;
+        if (d && d.skill) openSourcesDrawer('SKILL.md (Full Source)', d.skill.path, 'path: ' + d.skill.path + ' | lines: ' + d.skill.lines + ' | sha256: ' + d.skill.sha256, d.skill.raw);
+      };
+      el('btn-close-drawer').onclick = closeSourcesDrawer;
+      el('sources-backdrop').onclick = (e) => { if (e.target === el('sources-backdrop')) closeSourcesDrawer(); };
+      el('btn-copy-source').onclick = () => copyText(state.drawerSource.raw, el('btn-copy-source'));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSourcesDrawer(); });
+      window.addEventListener('resize', updateTabIndicator);
+
+      renderAll();
+      if (location.protocol !== 'file:') {
+        refreshFromApi();
+      }
+    })();
+  </script>
+</body>
+</html>

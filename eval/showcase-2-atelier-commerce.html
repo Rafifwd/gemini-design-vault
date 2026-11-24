@@ -1,0 +1,3139 @@
+<!DOCTYPE html>
+<html lang="en" data-finish="silver">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KOVA Audio — Reference Studio Monitor (Model M1)</title>
+  <style>
+    /* ==========================================================================
+       1. Design Tokens — Apple Gallery + Acoustic Stage + Dynamic Finish Accent
+       ========================================================================== */
+    :root {
+      /* Surface & Ink (Pure Gallery White, Cool Silver, Acoustic Dark) */
+      --bg-canvas: #FFFFFF;
+      --bg-silver: #F5F5F7;
+      --bg-pearl: #FAFAFC;
+      --stage-dark: #111214;
+      --stage-elevated: #181A1D;
+      --stage-panel: #1F2227;
+
+      --ink-primary: #1D1D1F;
+      --ink-secondary: #424245;
+      --ink-muted: #6E6E73;
+      --ink-on-dark: #FFFFFF;
+      --ink-muted-dark: #A1A1A6;
+
+      --hairline-light: rgba(29, 29, 31, 0.10);
+      --hairline-card: #E0E0E0;
+      --hairline-dark: rgba(255, 255, 255, 0.11);
+
+      /* Dynamic Accent — Defaults to Anodized Silver Clinical Blue (#0066CC) */
+      --accent: #0066CC;
+      --accent-hover: #0055B3;
+      --accent-on-dark: #2997FF;
+      --accent-soft: rgba(0, 102, 204, 0.08);
+      --accent-soft-dark: rgba(41, 151, 255, 0.14);
+      --accent-ring: rgba(0, 113, 227, 0.42);
+
+      /* Typography */
+      --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+      --font-sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+      --font-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Concentric Geometry Scale (Containers strictly 6px–12px; Pill ONLY for 1-line buttons/tags/badges) */
+      --radius-container: 12px;
+      --radius-track: 10px;
+      --radius-inner: 8px;
+      --radius-chip: 6px;
+      --radius-pill: 9999px;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --t-fast: 140ms;
+      --t-med: 220ms;
+
+      /* Product Resting Shadow (Apple single-shadow discipline) */
+      --shadow-product: 0 28px 60px rgba(0, 0, 0, 0.55), 0 8px 20px rgba(0, 0, 0, 0.35);
+      --shadow-drawer: -12px 0 40px rgba(17, 18, 20, 0.16);
+    }
+
+    html[data-finish="silver"] {
+      --accent: #0066CC;
+      --accent-hover: #0055B3;
+      --accent-on-dark: #2997FF;
+      --accent-soft: rgba(0, 102, 204, 0.08);
+      --accent-soft-dark: rgba(41, 151, 255, 0.14);
+      --accent-ring: rgba(0, 113, 227, 0.42);
+    }
+
+    html[data-finish="obsidian"] {
+      --accent: #334E68;
+      --accent-hover: #243B53;
+      --accent-on-dark: #829AB1;
+      --accent-soft: rgba(51, 78, 104, 0.09);
+      --accent-soft-dark: rgba(130, 154, 177, 0.16);
+      --accent-ring: rgba(51, 78, 104, 0.45);
+    }
+
+    html[data-finish="orange"] {
+      --accent: #C44014;
+      --accent-hover: #A8340E;
+      --accent-on-dark: #FF6B3D;
+      --accent-soft: rgba(196, 64, 20, 0.09);
+      --accent-soft-dark: rgba(255, 107, 61, 0.15);
+      --accent-ring: rgba(196, 64, 20, 0.45);
+    }
+
+    /* ==========================================================================
+       2. Reset & Base Typography
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.47;
+      letter-spacing: -0.014em;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, p, ul, ol, figure {
+      margin: 0;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .tabular {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Universal Focus Ring & Tactile Press */
+    :is(a, button, input, [tabindex]):focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .on-dark :is(a, button, [tabindex]):focus-visible {
+      outline-color: var(--accent-on-dark);
+    }
+
+    /* ==========================================================================
+       3. Layout Containers & Reusable Interactive Primitives
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin-inline: auto;
+      padding-inline: 24px;
+    }
+
+    .section-pad {
+      padding-block: 80px;
+    }
+
+    /* Single-line Pill Buttons (Allowed per Geometry Rule) */
+    .btn-pill {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      height: 44px;
+      padding-inline: 22px;
+      border-radius: var(--radius-pill);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      white-space: nowrap;
+      transition:
+        background-color var(--t-fast) var(--ease-out),
+        border-color var(--t-fast) var(--ease-out),
+        color var(--t-fast) var(--ease-out),
+        transform var(--t-fast) var(--ease-out),
+        opacity var(--t-fast) var(--ease-out);
+    }
+
+    .btn-pill:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn-pill:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-ghost-dark {
+      background-color: rgba(255, 255, 255, 0.06);
+      color: var(--ink-on-dark);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-ghost-dark:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.30);
+    }
+
+    .btn-outline-light {
+      background-color: var(--bg-canvas);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .btn-outline-light:hover:not(:disabled) {
+      background-color: var(--accent-soft);
+    }
+
+    .btn-compact {
+      height: 34px;
+      padding-inline: 14px;
+      font-size: 13px;
+    }
+
+    /* Zero-Shift Loading Spinner inside Button */
+    .btn-label {
+      grid-area: 1 / 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 120ms ease-out;
+    }
+
+    .btn-spinner {
+      grid-area: 1 / 1;
+      width: 16px;
+      height: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 120ms ease-out;
+    }
+
+    .btn-pill.is-loading .btn-label {
+      opacity: 0;
+    }
+
+    .btn-pill.is-loading .btn-spinner {
+      opacity: 1;
+      animation: spin 700ms linear infinite;
+    }
+
+    .btn-pill.is-loading {
+      cursor: progress;
+      pointer-events: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Pill Tag / Badge (Single-line only) */
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 24px;
+      padding-inline: 10px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    .tag-dark {
+      background-color: var(--accent-soft-dark);
+      color: var(--accent-on-dark);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tag-light {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ==========================================================================
+       4. Sticky 44px Frosted Glass Navbar
+       ========================================================================== */
+    .global-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: 44px;
+      width: 100%;
+      background-color: rgba(245, 245, 247, 0.8);
+      backdrop-filter: saturate(1.8) blur(20px);
+      -webkit-backdrop-filter: saturate(1.8) blur(20px);
+      border-bottom: 1px solid var(--hairline-light);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-primary);
+      padding-block: 4px;
+      border-radius: var(--radius-chip);
+    }
+
+    .nav-brand-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--ink-muted);
+      text-transform: none;
+      padding-left: 8px;
+      border-left: 1px solid var(--hairline-light);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav-link {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--ink-secondary);
+      padding: 4px 6px;
+      border-radius: var(--radius-chip);
+      transition: color var(--t-fast) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--ink-primary);
+    }
+
+    .nav-cart-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 28px;
+      padding-inline: 10px 8px;
+      border-radius: var(--radius-pill);
+      background-color: rgba(29, 29, 31, 0.05);
+      border: 1px solid var(--hairline-light);
+      color: var(--ink-primary);
+      font-size: 12px;
+      font-weight: 500;
+      transition:
+        background-color var(--t-fast) var(--ease-out),
+        border-color var(--t-fast) var(--ease-out),
+        transform var(--t-fast) var(--ease-out);
+    }
+
+    .nav-cart-btn:hover {
+      background-color: rgba(29, 29, 31, 0.09);
+      border-color: rgba(29, 29, 31, 0.18);
+    }
+
+    .nav-cart-btn:active {
+      transform: scale(0.98);
+    }
+
+    .cart-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding-inline: 5px;
+      border-radius: var(--radius-pill);
+      background-color: var(--accent);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      transition: background-color var(--t-fast) var(--ease-out);
+    }
+
+    .cart-count-badge[data-empty="true"] {
+      background-color: rgba(29, 29, 31, 0.16);
+      color: var(--ink-primary);
+    }
+
+    /* ==========================================================================
+       5. Dark Acoustic Hero Stage (#111214)
+       ========================================================================== */
+    .hero-stage {
+      background-color: var(--stage-dark);
+      color: var(--ink-on-dark);
+      padding-block: 56px 76px;
+      border-bottom: 1px solid var(--hairline-dark);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    /* Hardware Illustration Stage Box (Concentric 12px Container — NOT pill) */
+    .hardware-pedestal {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 28px 28px;
+      background-color: var(--stage-elevated);
+      border: 1px solid var(--hairline-dark);
+      border-radius: var(--radius-container);
+      min-height: 540px;
+    }
+
+    .pedestal-meta-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--ink-muted-dark);
+      margin-bottom: 12px;
+    }
+
+    .pedestal-axis-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 22px;
+      padding-inline: 9px;
+      border-radius: var(--radius-pill);
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--hairline-dark);
+      color: var(--ink-muted-dark);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .pedestal-led {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent-on-dark);
+      transition: background-color var(--t-med) var(--ease-out);
+    }
+
+    .monitor-svg-wrap {
+      width: 100%;
+      max-width: 390px;
+      display: flex;
+      justify-content: center;
+      filter: drop-shadow(0 28px 44px rgba(0, 0, 0, 0.65));
+    }
+
+    .monitor-svg-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .monitor-svg-wrap svg * {
+      transition: fill var(--t-med) var(--ease-out), stroke var(--t-med) var(--ease-out), stop-color var(--t-med) var(--ease-out);
+    }
+
+    .pedestal-caption {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--hairline-dark);
+      font-size: 12px;
+      color: var(--ink-muted-dark);
+    }
+
+    /* Hero Right Column — Copy & Interactive Configurator */
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 56px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.028em;
+      color: var(--ink-on-dark);
+    }
+
+    .hero-lead {
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      color: var(--ink-muted-dark);
+      max-width: 44ch;
+    }
+
+    .price-row {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 14px;
+      border-top: 1px solid var(--hairline-dark);
+      border-bottom: 1px solid var(--hairline-dark);
+    }
+
+    .price-figure {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink-on-dark);
+    }
+
+    .price-unit-note {
+      font-size: 13px;
+      color: var(--ink-muted-dark);
+    }
+
+    .config-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-muted-dark);
+      margin-bottom: 8px;
+    }
+
+    .config-label strong {
+      color: var(--ink-on-dark);
+      font-weight: 600;
+    }
+
+    /* 3-Finish Switcher (10px Track, 6px Inner Options — Strictly Non-Pill Containers) */
+    .finish-group {
+      width: 100%;
+    }
+
+    .finish-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 4px;
+      background-color: var(--stage-elevated);
+      border: 1px solid var(--hairline-dark);
+      border-radius: var(--radius-track);
+    }
+
+    .finish-option {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: var(--radius-chip);
+      background-color: transparent;
+      border: 1px solid transparent;
+      text-align: left;
+      transition:
+        background-color var(--t-fast) var(--ease-out),
+        border-color var(--t-fast) var(--ease-out),
+        transform var(--t-fast) var(--ease-out);
+    }
+
+    .finish-option:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .finish-option:active {
+      transform: scale(0.98);
+    }
+
+    .finish-option[aria-checked="true"] {
+      background-color: var(--stage-panel);
+      border-color: var(--accent-on-dark);
+    }
+
+    .finish-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      flex-shrink: 0;
+    }
+
+    .swatch-silver {
+      background: linear-gradient(135deg, #ECEEF2 0%, #B4B9C2 55%, #7F8590 100%);
+    }
+
+    .swatch-obsidian {
+      background: linear-gradient(135deg, #3A3D45 0%, #1D1F24 60%, #101114 100%);
+    }
+
+    .swatch-orange {
+      background: linear-gradient(135deg, #F0622D 0%, #C44014 60%, #7C2409 100%);
+    }
+
+    .finish-name {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--ink-on-dark);
+    }
+
+    .finish-delta {
+      font-size: 11px;
+      color: var(--ink-muted-dark);
+    }
+
+    /* Unit / Pair Selector */
+    .pack-group {
+      width: 100%;
+    }
+
+    .pack-track {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      padding: 4px;
+      background-color: var(--stage-elevated);
+      border: 1px solid var(--hairline-dark);
+      border-radius: var(--radius-track);
+    }
+
+    .pack-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: var(--radius-chip);
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-muted-dark);
+      transition:
+        background-color var(--t-fast) var(--ease-out),
+        border-color var(--t-fast) var(--ease-out),
+        color var(--t-fast) var(--ease-out),
+        transform var(--t-fast) var(--ease-out);
+    }
+
+    .pack-option:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      color: var(--ink-on-dark);
+    }
+
+    .pack-option:active {
+      transform: scale(0.98);
+    }
+
+    .pack-option[aria-checked="true"] {
+      background-color: var(--stage-panel);
+      border-color: rgba(255, 255, 255, 0.24);
+      color: var(--ink-on-dark);
+    }
+
+    .pack-save {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-on-dark);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding-top: 4px;
+    }
+
+    .hero-cta-main {
+      min-width: 224px;
+    }
+
+    .hero-assurance {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--ink-muted-dark);
+    }
+
+    .hero-assurance-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================================
+       6. Asymmetric Specifications & Interactive SVG Frequency Curve (#FFFFFF)
+       ========================================================================== */
+    .acoustics-section {
+      background-color: var(--bg-canvas);
+      color: var(--ink-primary);
+    }
+
+    .section-header {
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    .section-eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.6vw, 40px);
+      font-weight: 600;
+      line-height: 1.10;
+      letter-spacing: -0.022em;
+      color: var(--ink-primary);
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      line-height: 1.47;
+      color: var(--ink-secondary);
+    }
+
+    .specs-asymmetric-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.38fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    /* Chart Panel (12px Outer Radius, 8px Inner Plot Surface — ZERO Pill!) */
+    .chart-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      background-color: var(--bg-silver);
+      border: 1px solid var(--hairline-card);
+      border-radius: var(--radius-container);
+      gap: 18px;
+    }
+
+    .chart-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .chart-title-block h3 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink-primary);
+    }
+
+    .chart-title-block p {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    /* Voicing Segmented Control (10px Track, 6px Tab) */
+    .voicing-track {
+      display: inline-grid;
+      grid-auto-flow: column;
+      gap: 4px;
+      padding: 3px;
+      background-color: rgba(29, 29, 31, 0.06);
+      border: 1px solid var(--hairline-light);
+      border-radius: var(--radius-track);
+    }
+
+    .voicing-btn {
+      padding: 6px 12px;
+      border-radius: var(--radius-chip);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      white-space: nowrap;
+      transition:
+        background-color var(--t-fast) var(--ease-out),
+        color var(--t-fast) var(--ease-out),
+        transform var(--t-fast) var(--ease-out);
+    }
+
+    .voicing-btn:hover {
+      color: var(--ink-primary);
+    }
+
+    .voicing-btn:active {
+      transform: scale(0.98);
+    }
+
+    .voicing-btn[aria-selected="true"] {
+      background-color: var(--bg-canvas);
+      color: var(--ink-primary);
+      box-shadow: 0 1px 2px rgba(29, 29, 31, 0.08);
+    }
+
+    .chart-frame {
+      position: relative;
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-light);
+      border-radius: var(--radius-inner);
+      padding: 16px 14px 10px;
+    }
+
+    .freq-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: crosshair;
+      touch-action: pan-y;
+    }
+
+    .freq-curve-primary {
+      transition: d var(--t-med) var(--ease-out), stroke var(--t-fast) var(--ease-out);
+    }
+
+    .freq-curve-offaxis {
+      transition: d var(--t-med) var(--ease-out);
+    }
+
+    .chart-telemetry {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 12px 14px;
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-light);
+      border-radius: var(--radius-inner);
+    }
+
+    .telemetry-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .telemetry-k {
+      font-size: 11px;
+      color: var(--ink-muted);
+      letter-spacing: 0.01em;
+    }
+
+    .telemetry-v {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .legend-items {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-swatch-solid {
+      width: 14px;
+      height: 2.5px;
+      background-color: var(--accent);
+      border-radius: 2px;
+    }
+
+    .legend-swatch-dash {
+      width: 14px;
+      height: 0;
+      border-top: 2px dashed var(--ink-muted);
+    }
+
+    /* Right Spec Table Panel (12px Container, Single-Layer Hairlines) */
+    .spec-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-card);
+      border-radius: var(--radius-container);
+      padding: 24px;
+    }
+
+    .spec-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--hairline-card);
+    }
+
+    .spec-panel-head h3 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spec-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 11px;
+      border-bottom: 1px solid rgba(29, 29, 31, 0.07);
+      font-size: 14px;
+    }
+
+    .spec-row:last-child {
+      border-bottom: 0;
+    }
+
+    .spec-key {
+      color: var(--ink-muted);
+      flex-shrink: 0;
+    }
+
+    .spec-val {
+      font-weight: 500;
+      color: var(--ink-primary);
+      text-align: right;
+    }
+
+    .spec-footer-note {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--hairline-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    /* ==========================================================================
+       7. Engineering Architecture Asymmetric Bento (#F5F5F7 Cool Silver)
+       ========================================================================== */
+    .architecture-section {
+      background-color: var(--bg-silver);
+      border-top: 1px solid var(--hairline-light);
+      border-bottom: 1px solid var(--hairline-light);
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .bento-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 28px;
+      border-radius: var(--radius-container);
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-card);
+    }
+
+    .bento-card.bento-dark {
+      background-color: var(--stage-dark);
+      color: var(--ink-on-dark);
+      border-color: var(--hairline-dark);
+    }
+
+    .bento-span-7 { grid-column: span 7; }
+    .bento-span-5 { grid-column: span 5; }
+
+    .bento-meta h3 {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      margin-top: 10px;
+      margin-bottom: 6px;
+    }
+
+    .bento-meta p {
+      font-size: 15px;
+      line-height: 1.48;
+      color: var(--ink-secondary);
+    }
+
+    .bento-dark .bento-meta p {
+      color: var(--ink-muted-dark);
+    }
+
+    .schematic-box {
+      background-color: var(--bg-pearl);
+      border: 1px solid var(--hairline-light);
+      border-radius: var(--radius-inner);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bento-dark .schematic-box {
+      background-color: var(--stage-elevated);
+      border-color: var(--hairline-dark);
+    }
+
+    .schematic-box svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Studio Accessories inside Bento Card D */
+    .accessory-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .accessory-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      background-color: var(--bg-pearl);
+      border: 1px solid var(--hairline-light);
+      border-radius: var(--radius-inner);
+    }
+
+    .accessory-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .accessory-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-chip);
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--ink-primary);
+    }
+
+    .accessory-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .accessory-sub {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .accessory-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .accessory-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    /* ==========================================================================
+       8. Atelier Assurance Strip & Footer (#FFFFFF -> #F5F5F7)
+       ========================================================================== */
+    .assurance-section {
+      background-color: var(--bg-canvas);
+      padding-block: 64px;
+    }
+
+    .assurance-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--hairline-card);
+      border-bottom: 1px solid var(--hairline-card);
+    }
+
+    .assurance-cell {
+      padding: 28px 24px 28px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .assurance-cell + .assurance-cell {
+      padding-left: 24px;
+      border-left: 1px solid var(--hairline-card);
+    }
+
+    .assurance-icon {
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .assurance-cell h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.014em;
+    }
+
+    .assurance-cell p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ink-muted);
+    }
+
+    .site-footer {
+      background-color: var(--bg-silver);
+      border-top: 1px solid var(--hairline-light);
+      padding-block: 44px;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       9. Slide-Over Cart Drawer
+       ========================================================================== */
+    .drawer-root {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .drawer-root[data-open="true"] {
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .drawer-backdrop {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(17, 18, 20, 0.48);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity var(--t-med) var(--ease-out);
+    }
+
+    .drawer-root[data-open="true"] .drawer-backdrop {
+      opacity: 1;
+    }
+
+    .drawer-panel {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      bottom: 12px;
+      width: min(440px, calc(100vw - 24px));
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-card);
+      border-radius: var(--radius-container);
+      box-shadow: var(--shadow-drawer);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateX(calc(100% + 24px));
+      transition: transform 240ms var(--ease-out);
+    }
+
+    .drawer-root[data-open="true"] .drawer-panel {
+      transform: translateX(0);
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--hairline-card);
+      background-color: var(--bg-canvas);
+    }
+
+    .drawer-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .drawer-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+
+    .icon-btn-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--bg-silver);
+      border: 1px solid var(--hairline-light);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-primary);
+      transition:
+        background-color var(--t-fast) var(--ease-out),
+        transform var(--t-fast) var(--ease-out);
+    }
+
+    .icon-btn-circle:hover {
+      background-color: #E6E6EA;
+    }
+
+    .icon-btn-circle:active {
+      transform: scale(0.95);
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cart-empty {
+      margin: auto;
+      text-align: center;
+      max-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-block: 32px;
+    }
+
+    .cart-empty-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-inner);
+      background-color: var(--bg-silver);
+      border: 1px solid var(--hairline-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-muted);
+    }
+
+    .cart-empty h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .cart-empty p {
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+      background-color: var(--bg-pearl);
+      border: 1px solid var(--hairline-light);
+      border-radius: var(--radius-inner);
+    }
+
+    .cart-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-chip);
+      background-color: var(--stage-dark);
+      border: 1px solid rgba(29, 29, 31, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .cart-item-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .cart-item-name {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--ink-primary);
+    }
+
+    .cart-item-meta {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    .cart-item-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-primary);
+      white-space: nowrap;
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--bg-canvas);
+      border: 1px solid var(--hairline-card);
+      border-radius: var(--radius-chip);
+      height: 28px;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-primary);
+      border-radius: 5px;
+      transition: background-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-out);
+    }
+
+    .qty-btn:hover:not(:disabled) {
+      background-color: var(--bg-silver);
+    }
+
+    .qty-btn:active:not(:disabled) {
+      transform: scale(0.94);
+    }
+
+    .qty-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .qty-val {
+      min-width: 26px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cart-remove-btn {
+      font-size: 12px;
+      color: var(--ink-muted);
+      padding: 4px 6px;
+      border-radius: var(--radius-chip);
+      transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+    }
+
+    .cart-remove-btn:hover {
+      color: var(--ink-primary);
+      background-color: rgba(29, 29, 31, 0.06);
+    }
+
+    .drawer-upsell {
+      margin-top: 6px;
+      padding: 12px;
+      background-color: var(--bg-canvas);
+      border: 1px dashed var(--hairline-card);
+      border-radius: var(--radius-inner);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .drawer-upsell-text {
+      font-size: 12px;
+      color: var(--ink-secondary);
+    }
+
+    .drawer-upsell-text strong {
+      display: block;
+      font-size: 13px;
+      color: var(--ink-primary);
+    }
+
+    .drawer-foot {
+      padding: 18px 20px 20px;
+      border-top: 1px solid var(--hairline-card);
+      background-color: var(--bg-silver);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--ink-secondary);
+    }
+
+    .summary-total {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--hairline-card);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .summary-total .total-amount {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .checkout-confirm-box {
+      padding: 16px;
+      background-color: var(--bg-pearl);
+      border: 1px solid var(--hairline-card);
+      border-radius: var(--radius-inner);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checkout-confirm-box h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .checkout-confirm-box p {
+      font-size: 13px;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       10. Responsive Breakpoints & Reduced Motion
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hardware-pedestal {
+        min-height: 440px;
+      }
+
+      .specs-asymmetric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bento-span-7,
+      .bento-span-5 {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 734px) {
+      .nav-links {
+        display: none;
+      }
+
+      .section-pad {
+        padding-block: 56px;
+      }
+
+      .hero-stage {
+        padding-block: 36px 52px;
+      }
+
+      .finish-track {
+        grid-template-columns: 1fr;
+      }
+
+      .finish-option {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .pack-track {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-telemetry {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .assurance-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .assurance-cell {
+        padding: 20px 0;
+      }
+
+      .assurance-cell + .assurance-cell {
+        padding-left: 0;
+        border-left: 0;
+        border-top: 1px solid var(--hairline-card);
+      }
+
+      .drawer-panel {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        border-radius: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       Sticky 44px Frosted Glass Navbar
+       ======================================================================== -->
+  <header class="global-nav">
+    <div class="container nav-inner">
+      <a href="#top" class="nav-brand" aria-label="KOVA Audio Model M1 Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="2" width="16" height="20" rx="3" />
+          <circle cx="12" cy="8" r="2.2" />
+          <circle cx="12" cy="15.5" r="4" />
+        </svg>
+        <span>KOVA Audio</span>
+        <span class="nav-brand-sub">Model M1</span>
+      </a>
+
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a class="nav-link" href="#top">Overview</a></li>
+          <li><a class="nav-link" href="#acoustics">Acoustics</a></li>
+          <li><a class="nav-link" href="#architecture">Architecture</a></li>
+          <li><a class="nav-link" href="#assurance">Atelier</a></li>
+        </ul>
+      </nav>
+
+      <button type="button" class="nav-cart-btn" id="nav-cart-trigger" aria-haspopup="dialog" aria-controls="cart-drawer" aria-expanded="false" aria-label="Open Studio Bag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 7h12l1 13H5L6 7z" />
+          <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+        </svg>
+        <span>Bag</span>
+        <span class="cart-count-badge tabular" id="nav-cart-count" data-empty="true">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ======================================================================
+         Dark Acoustic Hero Stage (#111214) + Custom High-Precision SVG Hardware
+         ====================================================================== -->
+    <section class="hero-stage on-dark" aria-labelledby="hero-heading">
+      <div class="container hero-grid">
+
+        <!-- Left: Custom High-Precision SVG Studio Monitor M1 -->
+        <div class="hardware-pedestal">
+          <div class="pedestal-meta-bar">
+            <span class="mono" id="pedestal-sku">SKU: KM1-SLV-01</span>
+            <span class="pedestal-axis-pill">
+              <span class="pedestal-led" aria-hidden="true"></span>
+              <span>0° ON-AXIS · ±0.8 dB</span>
+            </span>
+          </div>
+
+          <div class="monitor-svg-wrap" aria-label="KOVA Model M1 Reference Studio Monitor hardware illustration">
+            <svg id="kova-monitor-svg" viewBox="0 0 420 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-monitor-title">
+              <title id="svg-monitor-title">KOVA Audio Model M1 Studio Monitor in Anodized Silver</title>
+              <defs>
+                <!-- Dynamic Chassis & Baffle Gradients -->
+                <linearGradient id="chassisGrad" x1="56" y1="32" x2="364" y2="462" gradientUnits="userSpaceOnUse">
+                  <stop id="stop-chassis-1" offset="0%" stop-color="#E6E8ED" />
+                  <stop id="stop-chassis-2" offset="48%" stop-color="#C6CAD2" />
+                  <stop id="stop-chassis-3" offset="100%" stop-color="#8B919D" />
+                </linearGradient>
+
+                <linearGradient id="baffleGrad" x1="78" y1="52" x2="342" y2="444" gradientUnits="userSpaceOnUse">
+                  <stop id="stop-baffle-1" offset="0%" stop-color="#D4D8E0" />
+                  <stop id="stop-baffle-2" offset="55%" stop-color="#B9BEC8" />
+                  <stop id="stop-baffle-3" offset="100%" stop-color="#979CA8" />
+                </linearGradient>
+
+                <radialGradient id="waveguideGrad" cx="50%" cy="46%" r="54%">
+                  <stop id="stop-wg-1" offset="0%" stop-color="#1E2025" />
+                  <stop id="stop-wg-2" offset="68%" stop-color="#353841" />
+                  <stop id="stop-wg-3" offset="100%" stop-color="#9CA2AE" />
+                </radialGradient>
+
+                <radialGradient id="tweeterDome" cx="38%" cy="34%" r="65%">
+                  <stop id="stop-dome-1" offset="0%" stop-color="#F1F3F7" />
+                  <stop id="stop-dome-2" offset="55%" stop-color="#8E95A3" />
+                  <stop id="stop-dome-3" offset="100%" stop-color="#272A31" />
+                </radialGradient>
+
+                <radialGradient id="wooferSurround" cx="50%" cy="50%" r="50%">
+                  <stop offset="76%" stop-color="#15171A" />
+                  <stop offset="88%" stop-color="#2B2E35" />
+                  <stop offset="100%" stop-color="#101114" />
+                </radialGradient>
+
+                <radialGradient id="wooferCone" cx="44%" cy="38%" r="62%">
+                  <stop id="stop-cone-1" offset="0%" stop-color="#3B3F48" />
+                  <stop id="stop-cone-2" offset="62%" stop-color="#22252B" />
+                  <stop id="stop-cone-3" offset="100%" stop-color="#14161A" />
+                </radialGradient>
+
+                <radialGradient id="dustCapGrad" cx="40%" cy="36%" r="64%">
+                  <stop id="stop-cap-1" offset="0%" stop-color="#E5E8EE" />
+                  <stop id="stop-cap-2" offset="55%" stop-color="#8E94A0" />
+                  <stop id="stop-cap-3" offset="100%" stop-color="#343840" />
+                </radialGradient>
+
+                <linearGradient id="plinthMetal" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#23262C" />
+                  <stop offset="50%" stop-color="#4A4F5A" />
+                  <stop offset="100%" stop-color="#1B1D22" />
+                </linearGradient>
+              </defs>
+
+              <!-- Acoustic Floor Contact Shadow -->
+              <ellipse cx="210" cy="494" rx="146" ry="12" fill="rgba(0,0,0,0.68)" />
+
+              <!-- Decoupled Isolation Plinth Feet -->
+              <g id="isolation-plinth">
+                <rect x="86" y="458" width="44" height="14" rx="2" fill="url(#plinthMetal)" />
+                <rect x="92" y="472" width="32" height="12" rx="1.5" fill="#181A1E" stroke="#3D414A" stroke-width="1" />
+                <line x1="92" y1="477" x2="124" y2="477" stroke="#5B616E" stroke-width="1" />
+                <path d="M100 484 L108 492 L116 484 Z" fill="#6F7685" />
+
+                <rect x="290" y="458" width="44" height="14" rx="2" fill="url(#plinthMetal)" />
+                <rect x="296" y="472" width="32" height="12" rx="1.5" fill="#181A1E" stroke="#3D414A" stroke-width="1" />
+                <line x1="296" y1="477" x2="328" y2="477" stroke="#5B616E" stroke-width="1" />
+                <path d="M304 484 L312 492 L320 484 Z" fill="#6F7685" />
+              </g>
+
+              <!-- Outer CNC Aluminum Monoblock Chassis -->
+              <rect id="svg-chassis" x="62" y="28" width="296" height="434" rx="20" fill="url(#chassisGrad)" stroke="rgba(255,255,255,0.28)" stroke-width="1.2" />
+              <!-- Chamfered Inner Shadow Seam -->
+              <rect x="70" y="36" width="280" height="418" rx="14" fill="none" stroke="rgba(17,18,20,0.26)" stroke-width="1.5" />
+
+              <!-- Machined Front Acoustic Baffle -->
+              <rect id="svg-baffle" x="76" y="42" width="268" height="406" rx="11" fill="url(#baffleGrad)" stroke="rgba(255,255,255,0.22)" stroke-width="1" />
+
+              <!-- Precision Calibration Corner Ticks -->
+              <g stroke="rgba(17,18,20,0.28)" stroke-width="1">
+                <line x1="88" y1="54" x2="96" y2="54" />
+                <line x1="88" y1="54" x2="88" y2="62" />
+                <line x1="332" y1="54" x2="324" y2="54" />
+                <line x1="332" y1="54" x2="332" y2="62" />
+              </g>
+
+              <!-- Upper Coaxial Waveguide & Tweeter Assembly (Center: 210, 146) -->
+              <g id="tweeter-assembly">
+                <!-- Outer CNC Bezel -->
+                <circle cx="210" cy="146" r="64" fill="none" stroke="rgba(17,18,20,0.32)" stroke-width="1.5" />
+                <circle id="svg-wg-rim" cx="210" cy="146" r="60" fill="url(#waveguideGrad)" stroke="rgba(255,255,255,0.24)" stroke-width="1" />
+                <!-- Concentric Acoustic Waveguide Steps -->
+                <circle cx="210" cy="146" r="48" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1" />
+                <circle cx="210" cy="146" r="36" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="1.2" />
+                <circle cx="210" cy="146" r="26" fill="#17191D" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
+                <!-- Beryllium-Ceramic Dome -->
+                <circle cx="210" cy="146" r="17" fill="url(#tweeterDome)" />
+                <!-- Phase Shield Micro-Bridge -->
+                <path d="M192 146 C198 139, 222 139, 228 146" stroke="rgba(255,255,255,0.36)" stroke-width="1.2" fill="none" />
+                <circle id="svg-tw-ring" cx="210" cy="146" r="22" fill="none" stroke="#0066CC" stroke-width="1.4" stroke-opacity="0.75" />
+
+                <!-- 4 Precision Torx M4 Fasteners -->
+                <g fill="#25282E" stroke="rgba(255,255,255,0.28)" stroke-width="0.8">
+                  <circle cx="171" cy="107" r="3.2" />
+                  <circle cx="249" cy="107" r="3.2" />
+                  <circle cx="171" cy="185" r="3.2" />
+                  <circle cx="249" cy="185" r="3.2" />
+                </g>
+              </g>
+
+              <!-- Lower 7-inch Mid-Bass Woofer Assembly (Center: 210, 314) -->
+              <g id="woofer-assembly">
+                <!-- Machined Trim Flange -->
+                <circle id="svg-woofer-flange" cx="210" cy="314" r="108" fill="#1C1E23" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" />
+                <!-- 6 Perimeter Hex Fasteners -->
+                <g fill="#3A3E47" stroke="rgba(255,255,255,0.22)" stroke-width="0.75">
+                  <circle cx="210" cy="214" r="3.4" />
+                  <circle cx="296.6" cy="264" r="3.4" />
+                  <circle cx="296.6" cy="364" r="3.4" />
+                  <circle cx="210" cy="414" r="3.4" />
+                  <circle cx="123.4" cy="364" r="3.4" />
+                  <circle cx="123.4" cy="264" r="3.4" />
+                </g>
+
+                <!-- Butyl Rubber Acoustic Surround -->
+                <circle cx="210" cy="314" r="95" fill="url(#wooferSurround)" />
+                <!-- Parabolic Woofer Cone -->
+                <circle id="svg-woofer-cone" cx="210" cy="314" r="78" fill="url(#wooferCone)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+
+                <!-- Concentric Stiffness Ribs -->
+                <circle cx="210" cy="314" r="64" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.9" />
+                <circle cx="210" cy="314" r="50" fill="none" stroke="rgba(0,0,0,0.34)" stroke-width="1" />
+                <circle cx="210" cy="314" r="38" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.9" />
+
+                <!-- Voice-Coil Dynamic Accent Trim Ring -->
+                <circle id="svg-accent-ring" cx="210" cy="314" r="29" fill="none" stroke="#0066CC" stroke-width="2" />
+
+                <!-- Machined Phase / Dust Cap -->
+                <circle id="svg-dust-cap" cx="210" cy="314" r="26" fill="url(#dustCapGrad)" stroke="rgba(17,18,20,0.45)" stroke-width="1.2" />
+                <path d="M196 303 A 18 18 0 0 1 224 303" stroke="rgba(255,255,255,0.42)" stroke-width="1.2" fill="none" />
+              </g>
+
+              <!-- Bottom Laminar Bass Reflex Slot & Milled Nameplate -->
+              <rect x="136" y="427" width="148" height="7" rx="3.5" fill="#121316" stroke="rgba(255,255,255,0.12)" stroke-width="0.8" />
+
+              <!-- Milled Brand Plate & Static Telemetry Pinhole -->
+              <g transform="translate(154, 440)">
+                <text x="56" y="5" text-anchor="middle" fill="#1D1D1F" font-family="SF Mono, ui-monospace, monospace" font-size="7.5" font-weight="600" letter-spacing="2.2" id="svg-nameplate-text">KOVA // M1</text>
+                <circle id="svg-pinhole-led" cx="106" cy="2.5" r="2.2" fill="#0066CC" />
+              </g>
+            </svg>
+          </div>
+
+          <div class="pedestal-caption">
+            <span id="pedestal-finish-desc">CNC 6061-T6 Clear Anodized Aluminum</span>
+            <span class="mono">11.4 kg · 350 W Bi-Amp</span>
+          </div>
+        </div>
+
+        <!-- Right: Product Identity, Price & 3-Finish Configurator -->
+        <div class="hero-copy">
+          <span class="tag-pill tag-dark">Active Reference · Studio Edition</span>
+          <h1 class="hero-title" id="hero-heading">Model M1.</h1>
+          <p class="hero-lead">Zero coloration. Machined from solid billet aluminum to reveal every micro-transient, harmonic decay, and stereo depth cue in the room.</p>
+
+          <div class="price-row">
+            <div>
+              <span class="price-figure tabular" id="hero-price">$2,490</span>
+              <span class="price-unit-note" id="hero-unit-label">Single Reference Monitor</span>
+            </div>
+            <span class="tag-pill tag-dark mono" id="hero-finish-badge">Anodized Silver</span>
+          </div>
+
+          <!-- 3-Finish Switcher -->
+          <div class="finish-group">
+            <div class="config-label">
+              <span>Chassis Finish</span>
+              <strong id="finish-selected-label">Anodized Silver</strong>
+            </div>
+            <div class="finish-track" role="radiogroup" aria-label="Select Monitor Finish" id="finish-radiogroup">
+              <button type="button" class="finish-option" role="radio" aria-checked="true" data-finish-choice="silver">
+                <span class="finish-swatch swatch-silver" aria-hidden="true"></span>
+                <span>
+                  <span class="finish-name">Anodized Silver</span>
+                  <span class="finish-delta mono">Included</span>
+                </span>
+              </button>
+              <button type="button" class="finish-option" role="radio" aria-checked="false" data-finish-choice="obsidian">
+                <span class="finish-swatch swatch-obsidian" aria-hidden="true"></span>
+                <span>
+                  <span class="finish-name">Obsidian Matte</span>
+                  <span class="finish-delta mono">+$160</span>
+                </span>
+              </button>
+              <button type="button" class="finish-option" role="radio" aria-checked="false" data-finish-choice="orange">
+                <span class="finish-swatch swatch-orange" aria-hidden="true"></span>
+                <span>
+                  <span class="finish-name">Signal Orange</span>
+                  <span class="finish-delta mono">+$400</span>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Single vs Matched Pair Selector -->
+          <div class="pack-group">
+            <div class="config-label">
+              <span>Acoustic Calibration Format</span>
+              <strong id="pack-selected-label">Single Monitor</strong>
+            </div>
+            <div class="pack-track" role="radiogroup" aria-label="Select Calibration Format" id="pack-radiogroup">
+              <button type="button" class="pack-option" role="radio" aria-checked="true" data-pack-choice="single">
+                <span>Single Monitor</span>
+                <span class="mono">1× Unit</span>
+              </button>
+              <button type="button" class="pack-option" role="radio" aria-checked="false" data-pack-choice="pair">
+                <span>Matched Pair</span>
+                <span class="pack-save">Save $180</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Primary CTA with Zero-Shift Loading Spinner -->
+          <div class="hero-actions">
+            <button type="button" class="btn-pill btn-primary hero-cta-main" id="add-to-bag-btn">
+              <span class="btn-label">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 7h12l1 13H5L6 7z" />
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                </svg>
+                <span id="add-btn-text">Add to Bag — $2,490</span>
+              </span>
+              <svg class="btn-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke-opacity="0.25" />
+                <path d="M12 3a9 9 0 0 1 9 9" />
+              </svg>
+            </button>
+
+            <a href="#acoustics" class="btn-pill btn-ghost-dark">
+              <span class="btn-label">
+                <span>Acoustic Data</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 10l5 5 5-5" />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          <div class="hero-assurance">
+            <span class="hero-assurance-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Ships in 48 hours from Zurich</span>
+            </span>
+            <span class="hero-assurance-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+              <span>30-day studio room trial</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Asymmetric Acoustic Specifications + Interactive Frequency Curve (#FFFFFF)
+         ====================================================================== -->
+    <section class="acoustics-section section-pad" id="acoustics" aria-labelledby="acoustics-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag-pill tag-light section-eyebrow">Anechoic Verification</span>
+          <h2 class="section-title" id="acoustics-heading">Flatness you can trust at 3 a.m.</h2>
+          <p class="section-subtitle">Every Model M1 undergoes a 140-point Klippel near-field scan and individual FIR phase calibration before leaving the bench. Inspect live room-boundary curves below.</p>
+        </div>
+
+        <div class="specs-asymmetric-grid">
+          <!-- Left: Interactive SVG Frequency Response Analyzer -->
+          <div class="chart-panel">
+            <div class="chart-header">
+              <div class="chart-title-block">
+                <h3>Frequency Response (20 Hz – 20 kHz)</h3>
+                <p id="voicing-description">Free-field 0° axis · ±0.8 dB tolerance window (42 Hz – 24 kHz)</p>
+              </div>
+
+              <div class="voicing-track" role="tablist" aria-label="DSP Room Boundary Voicing" id="voicing-tablist">
+                <button type="button" class="voicing-btn" role="tab" aria-selected="true" data-voicing="flat">Flat Reference</button>
+                <button type="button" class="voicing-btn" role="tab" aria-selected="false" data-voicing="desk">Desk Filter</button>
+                <button type="button" class="voicing-btn" role="tab" aria-selected="false" data-voicing="wall">Wall Trim</button>
+              </div>
+            </div>
+
+            <div class="chart-frame">
+              <svg id="freq-chart-svg" class="freq-svg" viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interactive frequency response graph from 20 Hz to 20 kHz. Move pointer or drag horizontally to inspect exact dB SPL.">
+                <!-- Grid Background & Tolerance Corridor -->
+                <rect x="48" y="18" width="632" height="248" fill="#FAFAFC" />
+                <!-- ±1 dB Reference Corridor around 0 dB (y=102; 14px per 3dB => 1dB = 4.67px) -->
+                <rect x="48" y="97.3" width="632" height="9.4" fill="rgba(0, 102, 204, 0.06)" id="tolerance-band" />
+
+                <!-- Horizontal dB Grid Lines (+6, +3, 0, -3, -6, -9, -12 dB) -->
+                <g stroke="rgba(29, 29, 31, 0.08)" stroke-width="1">
+                  <line x1="48" y1="46" x2="680" y2="46" />
+                  <line x1="48" y1="74" x2="680" y2="74" />
+                  <line x1="48" y1="102" x2="680" y2="102" stroke="rgba(29, 29, 31, 0.22)" />
+                  <line x1="48" y1="130" x2="680" y2="130" />
+                  <line x1="48" y1="158" x2="680" y2="158" />
+                  <line x1="48" y1="186" x2="680" y2="186" />
+                  <line x1="48" y1="214" x2="680" y2="214" />
+                  <line x1="48" y1="242" x2="680" y2="242" />
+                </g>
+
+                <!-- Logarithmic Frequency Grid Lines (20, 50, 100, 200, 500, 1k, 2k, 5k, 10k, 20k) -->
+                <g stroke="rgba(29, 29, 31, 0.07)" stroke-width="1">
+                  <line x1="48" y1="18" x2="48" y2="266" />
+                  <line x1="131.8" y1="18" x2="131.8" y2="266" />
+                  <line x1="195.2" y1="18" x2="195.2" y2="266" />
+                  <line x1="258.6" y1="18" x2="258.6" y2="266" />
+                  <line x1="342.4" y1="18" x2="342.4" y2="266" />
+                  <line x1="405.8" y1="18" x2="405.8" y2="266" />
+                  <line x1="469.2" y1="18" x2="469.2" y2="266" />
+                  <line x1="553.0" y1="18" x2="553.0" y2="266" />
+                  <line x1="616.4" y1="18" x2="616.4" y2="266" />
+                  <line x1="680" y1="18" x2="680" y2="266" />
+                </g>
+
+                <!-- Y-Axis Labels -->
+                <g fill="#6E6E73" font-family="SF Mono, ui-monospace, monospace" font-size="10.5" text-anchor="end">
+                  <text x="41" y="50">+6</text>
+                  <text x="41" y="78">+3</text>
+                  <text x="41" y="106">0 dB</text>
+                  <text x="41" y="134">-3</text>
+                  <text x="41" y="162">-6</text>
+                  <text x="41" y="190">-9</text>
+                  <text x="41" y="218">-12</text>
+                  <text x="41" y="246">-15</text>
+                </g>
+
+                <!-- X-Axis Labels -->
+                <g fill="#6E6E73" font-family="SF Mono, ui-monospace, monospace" font-size="10.5" text-anchor="middle">
+                  <text x="48" y="286">20 Hz</text>
+                  <text x="131.8" y="286">50</text>
+                  <text x="195.2" y="286">100</text>
+                  <text x="258.6" y="286">200</text>
+                  <text x="342.4" y="286">500</text>
+                  <text x="405.8" y="286">1 kHz</text>
+                  <text x="469.2" y="286">2k</text>
+                  <text x="553.0" y="286">5k</text>
+                  <text x="616.4" y="286">10k</text>
+                  <text x="674" y="286">20k</text>
+                </g>
+
+                <!-- Secondary 30° Off-Axis Curve -->
+                <path id="curve-offaxis" class="freq-curve-offaxis" fill="none" stroke="#8E8E93" stroke-width="1.6" stroke-dasharray="5 4" stroke-linecap="round" d="" />
+
+                <!-- Primary 0° On-Axis Response Curve (Dynamic Accent) -->
+                <path id="curve-onaxis" class="freq-curve-primary" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="" />
+
+                <!-- Interactive Scrub Crosshair -->
+                <g id="chart-crosshair">
+                  <line id="crosshair-line" x1="405.8" y1="18" x2="405.8" y2="266" stroke="rgba(29,29,31,0.35)" stroke-width="1" stroke-dasharray="3 3" />
+                  <circle id="crosshair-dot-off" cx="405.8" cy="108" r="3.5" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.75" />
+                  <circle id="crosshair-dot-on" cx="405.8" cy="102" r="5" fill="#FFFFFF" stroke="var(--accent)" stroke-width="2.5" />
+                </g>
+
+                <!-- Interactive Hit Plane -->
+                <rect id="chart-hit-area" x="48" y="18" width="632" height="248" fill="transparent" tabindex="0" aria-label="Frequency sweep probe. Use left and right arrow keys or hover to inspect frequencies." />
+              </svg>
+            </div>
+
+            <div class="chart-telemetry" aria-live="polite">
+              <div class="telemetry-cell">
+                <span class="telemetry-k">Probe Frequency</span>
+                <span class="telemetry-v tabular" id="readout-freq">1,000 Hz</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="telemetry-k">0° On-Axis Level</span>
+                <span class="telemetry-v tabular" id="readout-onaxis">+0.0 dB</span>
+              </div>
+              <div class="telemetry-cell">
+                <span class="telemetry-k">30° Off-Axis Level</span>
+                <span class="telemetry-v tabular" id="readout-offaxis">-0.6 dB</span>
+              </div>
+            </div>
+
+            <div class="chart-legend">
+              <div class="legend-items">
+                <span class="legend-item">
+                  <span class="legend-swatch-solid" aria-hidden="true"></span>
+                  <span>0° On-Axis Magnitude</span>
+                </span>
+                <span class="legend-item">
+                  <span class="legend-swatch-dash" aria-hidden="true"></span>
+                  <span>30° Horizontal Off-Axis</span>
+                </span>
+              </div>
+              <span class="mono">Hover or use Arrow keys</span>
+            </div>
+          </div>
+
+          <!-- Right: Dense Hairline Technical Specifications -->
+          <aside class="spec-panel" aria-label="Model M1 Technical Specifications">
+            <div>
+              <div class="spec-panel-head">
+                <h3>Technical Specifications</h3>
+                <span class="mono" style="font-size:12px; color:var(--ink-muted);">REV 2.4</span>
+              </div>
+
+              <ul class="spec-list">
+                <li class="spec-row">
+                  <span class="spec-key">Frequency Response</span>
+                  <span class="spec-val tabular">32 Hz – 28 kHz (±0.8 dB)</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">Low-Frequency Cutoff</span>
+                  <span class="spec-val tabular">29 Hz (-6 dB)</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">Max Peak SPL (Pair @ 1m)</span>
+                  <span class="spec-val tabular">116 dB SPL</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">Amplification</span>
+                  <span class="spec-val tabular">350 W Bi-Amp Hybrid</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">THD + N (100 Hz – 20 kHz)</span>
+                  <span class="spec-val tabular">&lt; 0.025% @ 90 dB</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">Crossover Topology</span>
+                  <span class="spec-val tabular">2.1 kHz Linear-Phase FIR</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">LF Transducer</span>
+                  <span class="spec-val tabular">178 mm Anodized Alloy</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">HF Coaxial Dome</span>
+                  <span class="spec-val tabular">28 mm Beryllium-Ceramic</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">Inputs &amp; Sync</span>
+                  <span class="spec-val">XLR, TRS, AES3 (192 kHz)</span>
+                </li>
+                <li class="spec-row">
+                  <span class="spec-key">Dimensions &amp; Mass</span>
+                  <span class="spec-val tabular">340 × 216 × 268 mm · 11.4 kg</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="spec-footer-note">
+              <span>Paired within ±0.25 dB tolerance</span>
+              <span class="mono" id="spec-active-sku">KM1-SLV-01</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Engineering Architecture Asymmetric Bento (#F5F5F7 Cool Silver)
+         ====================================================================== -->
+    <section class="architecture-section section-pad" id="architecture" aria-labelledby="arch-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag-pill tag-light section-eyebrow">Acoustic Architecture</span>
+          <h2 class="section-title" id="arch-heading">Engineered as a silent vessel.</h2>
+          <p class="section-subtitle">Resonance steals transient speed. Model M1 eliminates cabinet coloration through solid billet milling, internal Helmholtz chambers, and decoupled transducer geometry.</p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Card 1 (Span 7): Monolithic Billet Cutaway -->
+          <article class="bento-card bento-span-7">
+            <div class="bento-meta">
+              <span class="tag-pill tag-light">01 · Enclosure</span>
+              <h3>18 mm CNC 6061-T6 Monoblock</h3>
+              <p>Milled from a 38 kg aerospace aluminum billet with asymmetric internal bracing and a laminar bottom reflex slot that eliminates port chuffing below 45 Hz.</p>
+            </div>
+            <div class="schematic-box">
+              <svg viewBox="0 0 520 156" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cross-section schematic of KOVA Model M1 internal bracing and laminar port">
+                <!-- Outer Cabinet Cutaway -->
+                <rect x="24" y="16" width="210" height="124" rx="8" stroke="#1D1D1F" stroke-width="1.6" fill="#FFFFFF" />
+                <rect x="36" y="28" width="186" height="100" rx="4" stroke="#6E6E73" stroke-width="1" stroke-dasharray="4 3" fill="#F5F5F7" />
+                <!-- Asymmetric Bracing -->
+                <line x1="112" y1="28" x2="112" y2="128" stroke="#1D1D1F" stroke-width="1.5" />
+                <circle cx="112" cy="78" r="18" fill="#F5F5F7" stroke="#1D1D1F" stroke-width="1.2" />
+                <!-- Laminar Reflex Channel -->
+                <path d="M36 112 H188 C202 112, 208 118, 208 128" stroke="var(--accent)" stroke-width="2" />
+                <!-- Dimension Callouts -->
+                <g stroke="#6E6E73" stroke-width="1" fill="#6E6E73" font-family="SF Mono, ui-monospace, monospace" font-size="10">
+                  <line x1="262" y1="30" x2="496" y2="30" stroke-opacity="0.3" />
+                  <text x="262" y="24" stroke="none">WALL THICKNESS: 18.0 MM BILLET</text>
+                  <line x1="262" y1="74" x2="496" y2="74" stroke-opacity="0.3" />
+                  <text x="262" y="68" stroke="none">HELMHOLTZ DAMPING: 142 HZ NOTCH</text>
+                  <line x1="262" y1="118" x2="496" y2="118" stroke-opacity="0.3" />
+                  <text x="262" y="112" stroke="none">LAMINAR PORT VELOCITY: &lt; 4.2 M/S</text>
+                </g>
+              </svg>
+            </div>
+          </article>
+
+          <!-- Card 2 (Span 5, Dark): Waveguide Dispersion -->
+          <article class="bento-card bento-span-5 bento-dark on-dark">
+            <div class="bento-meta">
+              <span class="tag-pill tag-dark">02 · Dispersion</span>
+              <h3>90° × 90° Constant Waveguide</h3>
+              <p>Concentric phase-shield throat preserves stereo phantom imaging across an expansive sweet spot without ceiling bounce fatigue.</p>
+            </div>
+            <div class="schematic-box">
+              <svg viewBox="0 0 340 156" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="90 degree waveguide dispersion wavefront diagram">
+                <line x1="48" y1="78" x2="310" y2="78" stroke="rgba(255,255,255,0.16)" stroke-dasharray="3 3" />
+                <!-- 90-degree Boundary Rays -->
+                <line x1="56" y1="78" x2="290" y2="18" stroke="rgba(255,255,255,0.28)" stroke-width="1" />
+                <line x1="56" y1="78" x2="290" y2="138" stroke="rgba(255,255,255,0.28)" stroke-width="1" />
+                <!-- Wavefront Arcs -->
+                <path d="M98 67 A44 44 0 0 1 98 89" stroke="var(--accent-on-dark)" stroke-width="1.8" />
+                <path d="M138 57 A85 85 0 0 1 138 99" stroke="var(--accent-on-dark)" stroke-width="1.8" stroke-opacity="0.8" />
+                <path d="M180 46 A128 128 0 0 1 180 110" stroke="var(--accent-on-dark)" stroke-width="1.6" stroke-opacity="0.6" />
+                <path d="M224 35 A174 174 0 0 1 224 121" stroke="var(--accent-on-dark)" stroke-width="1.4" stroke-opacity="0.4" />
+                <path d="M268 24 A220 220 0 0 1 268 132" stroke="var(--accent-on-dark)" stroke-width="1.2" stroke-opacity="0.25" />
+                <circle cx="56" cy="78" r="7" fill="var(--accent-on-dark)" />
+                <text x="24" y="22" fill="#A1A1A6" font-family="SF Mono, ui-monospace, monospace" font-size="10">±45° HORIZONTAL</text>
+              </svg>
+            </div>
+          </article>
+
+          <!-- Card 3 (Span 5): Backplate I/O Schematic -->
+          <article class="bento-card bento-span-5">
+            <div class="bento-meta">
+              <span class="tag-pill tag-light">03 · Connectivity</span>
+              <h3>Analog + AES3 Direct Path</h3>
+              <p>Transformer-isolated Neutrik XLR input paired with 192 kHz AES3 digital loop-through and tactile hardware boundary DIP switches.</p>
+            </div>
+            <div class="schematic-box">
+              <svg viewBox="0 0 340 132" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Model M1 rear panel input and DSP boundary control schematic">
+                <rect x="16" y="14" width="308" height="104" rx="6" fill="#181A1D" stroke="#2D3038" stroke-width="1.2" />
+                <!-- XLR Input -->
+                <circle cx="64" cy="66" r="22" fill="#111214" stroke="#6E6E73" stroke-width="1.3" />
+                <circle cx="57" cy="62" r="2.2" fill="#D4D8E0" />
+                <circle cx="71" cy="62" r="2.2" fill="#D4D8E0" />
+                <circle cx="64" cy="73" r="2.2" fill="#D4D8E0" />
+                <text x="64" y="102" text-anchor="middle" fill="#A1A1A6" font-family="SF Mono, monospace" font-size="8.5">BAL XLR</text>
+
+                <!-- AES3 Digital -->
+                <circle cx="136" cy="66" r="22" fill="#111214" stroke="#6E6E73" stroke-width="1.3" />
+                <circle cx="129" cy="62" r="2.2" fill="var(--accent-on-dark)" />
+                <circle cx="143" cy="62" r="2.2" fill="var(--accent-on-dark)" />
+                <circle cx="136" cy="73" r="2.2" fill="var(--accent-on-dark)" />
+                <text x="136" y="102" text-anchor="middle" fill="#A1A1A6" font-family="SF Mono, monospace" font-size="8.5">AES3 IN</text>
+
+                <!-- Trim Dial -->
+                <circle cx="212" cy="66" r="18" fill="#23262C" stroke="#8E94A0" stroke-width="1.2" />
+                <line x1="212" y1="66" x2="222" y2="54" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" />
+                <text x="212" y="102" text-anchor="middle" fill="#A1A1A6" font-family="SF Mono, monospace" font-size="8.5">TRIM dB</text>
+
+                <!-- Room DIP Bank -->
+                <rect x="256" y="46" width="44" height="40" rx="3" fill="#111214" stroke="#424245" stroke-width="1" />
+                <rect x="263" y="53" width="6" height="12" rx="1" fill="var(--accent-on-dark)" />
+                <rect x="275" y="67" width="6" height="12" rx="1" fill="#6E6E73" />
+                <rect x="287" y="53" width="6" height="12" rx="1" fill="var(--accent-on-dark)" />
+                <text x="278" y="102" text-anchor="middle" fill="#A1A1A6" font-family="SF Mono, monospace" font-size="8.5">EQ DIP</text>
+              </svg>
+            </div>
+          </article>
+
+          <!-- Card 4 (Span 7): Studio Accessories Quick-Add -->
+          <article class="bento-card bento-span-7">
+            <div class="bento-meta">
+              <span class="tag-pill tag-light">04 · Studio Ecosystem</span>
+              <h3>Precision Isolation &amp; Interconnects</h3>
+              <p>Complete your monitoring chain with decoupled desk stands and low-capacitance Mogami-spec XLR looms.</p>
+            </div>
+
+            <div class="accessory-list">
+              <div class="accessory-row">
+                <div class="accessory-info">
+                  <div class="accessory-icon-box" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 17h16" />
+                      <path d="M6 17l2-8h8l2 8" />
+                      <path d="M5 9h14" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="accessory-title">KOVA Iso-Stand Pair (0° / 6.5° Tilt)</div>
+                    <div class="accessory-sub">Machined Sorbothane &amp; steel desk decouplers · SKU: KVA-ISO-02</div>
+                  </div>
+                </div>
+                <div class="accessory-actions">
+                  <span class="accessory-price tabular">$340</span>
+                  <button type="button" class="btn-pill btn-outline-light btn-compact add-accessory-btn" data-acc-id="iso-stand">
+                    <span class="btn-label">Add</span>
+                    <svg class="btn-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="9" stroke-opacity="0.25" />
+                      <path d="M12 3a9 9 0 0 1 9 9" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="accessory-row">
+                <div class="accessory-info">
+                  <div class="accessory-icon-box" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 14a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4" />
+                      <circle cx="6" cy="16" r="2" />
+                      <circle cx="18" cy="16" r="2" />
+                      <path d="M8 10V6" />
+                      <path d="M16 10V6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="accessory-title">Reference Balanced XLR Loom (3m Pair)</div>
+                    <div class="accessory-sub">Star-quad OFC copper, Neutrik gold contacts · SKU: KVA-XLR-03</div>
+                  </div>
+                </div>
+                <div class="accessory-actions">
+                  <span class="accessory-price tabular">$180</span>
+                  <button type="button" class="btn-pill btn-outline-light btn-compact add-accessory-btn" data-acc-id="xlr-loom">
+                    <span class="btn-label">Add</span>
+                    <svg class="btn-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="9" stroke-opacity="0.25" />
+                      <path d="M12 3a9 9 0 0 1 9 9" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Atelier Assurance Strip (#FFFFFF)
+         ====================================================================== -->
+    <section class="assurance-section" id="assurance" aria-labelledby="assurance-heading">
+      <div class="container">
+        <h2 class="sr-only" id="assurance-heading">KOVA Atelier Guarantees</h2>
+        <div class="assurance-strip">
+          <div class="assurance-cell">
+            <svg class="assurance-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+            <h3>30-Day Studio Audition</h3>
+            <p>Mix and master in your own room for 30 days. Return with complimentary insured courier pickup if Model M1 does not transform your translation.</p>
+          </div>
+
+          <div class="assurance-cell">
+            <svg class="assurance-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12h3l3-7 4 14 3-7h5" />
+            </svg>
+            <h3>Signed Calibration Plot</h3>
+            <p>Each monitor arrives in a custom foam flight case with its serialized anechoic sweep and phase response signed by our Zurich acoustic laboratory.</p>
+          </div>
+
+          <div class="assurance-cell">
+            <svg class="assurance-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="16" rx="2" />
+              <path d="M7 8h10" />
+              <path d="M7 12h6" />
+              <path d="M7 16h4" />
+            </svg>
+            <h3>5-Year Modular Warranty</h3>
+            <p>Both transducers and the Class-AB/D amplifier sled are modularly field-replaceable, engineered for twenty years of daily studio service.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="mono">KOVA AUDIO ATELIER · ZURICH · TOKYO · PORTLAND</div>
+      <div class="footer-links">
+        <a href="#top">Model M1 Overview</a>
+        <a href="#acoustics">Anechoic Data</a>
+        <a href="#architecture">Engineering</a>
+        <a href="#assurance">Studio Trial</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       Slide-Over Cart Drawer (Accessible Dialog, Escape + Backdrop Close)
+       ======================================================================== -->
+  <div class="drawer-root" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true" data-open="false">
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <aside class="drawer-panel">
+      <div class="drawer-head">
+        <div class="drawer-title-wrap">
+          <h2 class="drawer-title" id="drawer-title">Studio Bag</h2>
+          <span class="tag-pill tag-light tabular" id="drawer-item-badge">0 items</span>
+        </div>
+        <button type="button" class="icon-btn-circle" id="drawer-close-btn" aria-label="Close Studio Bag">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="drawer-body" id="drawer-body">
+        <!-- Populated dynamically by JS -->
+      </div>
+
+      <div class="drawer-foot" id="drawer-foot">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span class="tabular" id="cart-subtotal">$0</span>
+        </div>
+        <div class="summary-row">
+          <span>Insured Flight-Case Courier</span>
+          <span>Complimentary</span>
+        </div>
+        <div class="summary-total">
+          <span>Estimated Total</span>
+          <span class="total-amount tabular" id="cart-total">$0</span>
+        </div>
+        <button type="button" class="btn-pill btn-primary" id="checkout-btn" disabled>
+          <span class="btn-label">Complete Atelier Order</span>
+          <svg class="btn-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke-opacity="0.25" />
+            <path d="M12 3a9 9 0 0 1 9 9" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* --------------------------------------------------------------------
+         1. Catalog & Finish State
+         -------------------------------------------------------------------- */
+      const FINISHES = {
+        silver: {
+          key: "silver",
+          name: "Anodized Silver",
+          sku: "KM1-SLV-01",
+          unitPrice: 2490,
+          desc: "CNC 6061-T6 Clear Anodized Aluminum",
+          svgTitle: "KOVA Audio Model M1 Studio Monitor in Anodized Silver",
+          swatchColor: "#C6CAD2",
+          accentHex: "#0066CC",
+          svgColors: {
+            chassis: ["#E6E8ED", "#C6CAD2", "#8B919D"],
+            baffle: ["#D4D8E0", "#B9BEC8", "#979CA8"],
+            wg: ["#1E2025", "#353841", "#9CA2AE"],
+            dome: ["#F1F3F7", "#8E95A3", "#272A31"],
+            cone: ["#3B3F48", "#22252B", "#14161A"],
+            cap: ["#E5E8EE", "#8E94A0", "#343840"],
+            ring: "#0066CC",
+            nameplate: "#1D1D1F"
+          }
+        },
+        obsidian: {
+          key: "obsidian",
+          name: "Obsidian Matte",
+          sku: "KM1-OBS-02",
+          unitPrice: 2650,
+          desc: "Bead-Blasted Hard-Anodized Obsidian",
+          svgTitle: "KOVA Audio Model M1 Studio Monitor in Obsidian Matte",
+          swatchColor: "#22252A",
+          accentHex: "#829AB1",
+          svgColors: {
+            chassis: ["#30333B", "#212328", "#131417"],
+            baffle: ["#272930", "#1C1E23", "#141518"],
+            wg: ["#111215", "#1E2126", "#454A54"],
+            dome: ["#8E96A4", "#474D57", "#181A1F"],
+            cone: ["#2A2D34", "#1A1C20", "#0E0F12"],
+            cap: ["#525864", "#2B2E35", "#14161A"],
+            ring: "#829AB1",
+            nameplate: "#D0D4DC"
+          }
+        },
+        orange: {
+          key: "orange",
+          name: "Signal Orange",
+          sku: "KM1-ORG-03",
+          unitPrice: 2890,
+          desc: "Satin Titanium Baffle · Signal Orange Anodized Shell",
+          swatchColor: "#C44014",
+          accentHex: "#FF6B3D",
+          svgColors: {
+            chassis: ["#E85A26", "#C44014", "#7D2508"],
+            baffle: ["#2E3138", "#222429", "#17181C"],
+            wg: ["#141518", "#272A30", "#5B606B"],
+            dome: ["#E7EAF0", "#7D8492", "#22252B"],
+            cone: ["#D44B1D", "#8F2D0D", "#3B1305"],
+            cap: ["#3B3F47", "#23262C", "#131518"],
+            ring: "#FF6B3D",
+            nameplate: "#E5E7EC"
+          }
+        }
+      };
+
+      const ACCESSORIES = {
+        "iso-stand": {
+          id: "iso-stand",
+          name: "KOVA Iso-Stand Pair",
+          variant: "0° / 6.5° Machined Decouplers",
+          sku: "KVA-ISO-02",
+          price: 340,
+          swatchColor: "#424245",
+          ringColor: "#0066CC",
+          isMonitor: false
+        },
+        "xlr-loom": {
+          id: "xlr-loom",
+          name: "Reference Balanced XLR Loom",
+          variant: "3m Star-Quad OFC Pair",
+          sku: "KVA-XLR-03",
+          price: 180,
+          swatchColor: "#1D1D1F",
+          ringColor: "#0066CC",
+          isMonitor: false
+        }
+      };
+
+      const state = {
+        finish: "silver",
+        pack: "single", // "single" | "pair"
+        voicing: "flat", // "flat" | "desk" | "wall"
+        probeFreq: 1000,
+        cart: [],
+        drawerOpen: false,
+        orderConfirmed: null,
+        lastFocusEl: null
+      };
+
+      /* --------------------------------------------------------------------
+         2. Helpers & Formatting
+         -------------------------------------------------------------------- */
+      function formatUSD(amount) {
+        return "$" + amount.toLocaleString("en-US");
+      }
+
+      function getCurrentConfigPrice() {
+        const unit = FINISHES[state.finish].unitPrice;
+        return state.pack === "pair" ? unit * 2 - 180 : unit;
+      }
+
+      function getCurrentConfigSku() {
+        const base = FINISHES[state.finish].sku;
+        return state.pack === "pair" ? base + "-PR" : base;
+      }
+
+      /* --------------------------------------------------------------------
+         3. Finish & Pack Switcher + SVG Hardware Live Sync
+         -------------------------------------------------------------------- */
+      const rootEl = document.documentElement;
+      const finishButtons = Array.from(document.querySelectorAll("[data-finish-choice]"));
+      const packButtons = Array.from(document.querySelectorAll("[data-pack-choice]"));
+
+      function updateSvgMonitor(f) {
+        const c = f.svgColors;
+        document.getElementById("svg-monitor-title").textContent = f.svgTitle;
+        document.getElementById("stop-chassis-1").setAttribute("stop-color", c.chassis[0]);
+        document.getElementById("stop-chassis-2").setAttribute("stop-color", c.chassis[1]);
+        document.getElementById("stop-chassis-3").setAttribute("stop-color", c.chassis[2]);
+
+        document.getElementById("stop-baffle-1").setAttribute("stop-color", c.baffle[0]);
+        document.getElementById("stop-baffle-2").setAttribute("stop-color", c.baffle[1]);
+        document.getElementById("stop-baffle-3").setAttribute("stop-color", c.baffle[2]);
+
+        document.getElementById("stop-wg-1").setAttribute("stop-color", c.wg[0]);
+        document.getElementById("stop-wg-2").setAttribute("stop-color", c.wg[1]);
+        document.getElementById("stop-wg-3").setAttribute("stop-color", c.wg[2]);
+
+        document.getElementById("stop-dome-1").setAttribute("stop-color", c.dome[0]);
+        document.getElementById("stop-dome-2").setAttribute("stop-color", c.dome[1]);
+        document.getElementById("stop-dome-3").setAttribute("stop-color", c.dome[2]);
+
+        document.getElementById("stop-cone-1").setAttribute("stop-color", c.cone[0]);
+        document.getElementById("stop-cone-2").setAttribute("stop-color", c.cone[1]);
+        document.getElementById("stop-cone-3").setAttribute("stop-color", c.cone[2]);
+
+        document.getElementById("stop-cap-1").setAttribute("stop-color", c.cap[0]);
+        document.getElementById("stop-cap-2").setAttribute("stop-color", c.cap[1]);
+        document.getElementById("stop-cap-3").setAttribute("stop-color", c.cap[2]);
+
+        document.getElementById("svg-accent-ring").setAttribute("stroke", c.ring);
+        document.getElementById("svg-tw-ring").setAttribute("stroke", c.ring);
+        document.getElementById("svg-pinhole-led").setAttribute("fill", c.ring);
+        document.getElementById("svg-nameplate-text").setAttribute("fill", c.nameplate);
+      }
+
+      function renderConfigurator() {
+        const f = FINISHES[state.finish];
+        const price = getCurrentConfigPrice();
+        const sku = getCurrentConfigSku();
+
+        rootEl.setAttribute("data-finish", f.key);
+
+        finishButtons.forEach((btn) => {
+          btn.setAttribute("aria-checked", String(btn.dataset.finishChoice === state.finish));
+        });
+        packButtons.forEach((btn) => {
+          btn.setAttribute("aria-checked", String(btn.dataset.packChoice === state.pack));
+        });
+
+        document.getElementById("finish-selected-label").textContent = f.name;
+        document.getElementById("hero-finish-badge").textContent = f.name;
+        document.getElementById("pedestal-finish-desc").textContent = f.desc;
+        document.getElementById("pedestal-sku").textContent = "SKU: " + sku;
+        document.getElementById("spec-active-sku").textContent = sku;
+
+        const packText = state.pack === "pair" ? "Matched Stereo Pair (2× Monitors)" : "Single Reference Monitor";
+        document.getElementById("pack-selected-label").textContent = state.pack === "pair" ? "Matched Pair" : "Single Monitor";
+        document.getElementById("hero-unit-label").textContent = packText;
+
+        document.getElementById("hero-price").textContent = formatUSD(price);
+        document.getElementById("add-btn-text").textContent = "Add to Bag — " + formatUSD(price);
+
+        updateSvgMonitor(f);
+      }
+
+      finishButtons.forEach((btn, idx) => {
+        btn.addEventListener("click", () => {
+          state.finish = btn.dataset.finishChoice;
+          renderConfigurator();
+        });
+        btn.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            const next = finishButtons[(idx + 1) % finishButtons.length];
+            next.focus();
+            state.finish = next.dataset.finishChoice;
+            renderConfigurator();
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            const prev = finishButtons[(idx - 1 + finishButtons.length) % finishButtons.length];
+            prev.focus();
+            state.finish = prev.dataset.finishChoice;
+            renderConfigurator();
+          }
+        });
+      });
+
+      packButtons.forEach((btn, idx) => {
+        btn.addEventListener("click", () => {
+          state.pack = btn.dataset.packChoice;
+          renderConfigurator();
+        });
+        btn.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            const next = packButtons[(idx + 1) % packButtons.length];
+            next.focus();
+            state.pack = next.dataset.packChoice;
+            renderConfigurator();
+          }
+        });
+      });
+
+      /* --------------------------------------------------------------------
+         4. Interactive SVG Frequency Response Curve (20 Hz - 20 kHz Log Scale)
+         -------------------------------------------------------------------- */
+      const CHART_X0 = 48;
+      const CHART_X1 = 680;
+      const CHART_Y0 = 102; // 0 dB line
+      const PX_PER_DB = 28 / 3; // 28px per 3 dB step
+
+      function freqToX(freq) {
+        const minL = Math.log10(20);
+        const maxL = Math.log10(20000);
+        return CHART_X0 + ((Math.log10(freq) - minL) / (maxL - minL)) * (CHART_X1 - CHART_X0);
+      }
+
+      function xToFreq(x) {
+        const clamped = Math.max(CHART_X0, Math.min(CHART_X1, x));
+        const ratio = (clamped - CHART_X0) / (CHART_X1 - CHART_X0);
+        const exp = Math.log10(20) + ratio * (Math.log10(20000) - Math.log10(20));
+        return Math.pow(10, exp);
+      }
+
+      function dbToY(db) {
+        return CHART_Y0 - db * PX_PER_DB;
+      }
+
+      function evalOnAxisDb(freq, mode) {
+        // Sub-bass natural 4th-order acoustic roll-off below 34 Hz
+        let db = 0;
+        if (freq < 36) {
+          const octaves = Math.log2(36 / freq);
+          db -= Math.pow(octaves, 1.55) * 10.4;
+        } else if (freq < 55) {
+          db += 0.25 * Math.sin(((freq - 36) / 19) * Math.PI);
+        }
+
+        // Subtle acoustic ripple within ±0.65 dB across reference band
+        const logF = Math.log10(freq);
+        db += 0.24 * Math.sin(logF * 5.2) + 0.14 * Math.cos(logF * 11.4);
+
+        // Gentle ultrasonic roll-off approaching 20 kHz
+        if (freq > 15000) {
+          db -= ((freq - 15000) / 5000) * 0.85;
+        }
+
+        // Apply active DSP boundary filter
+        if (mode === "desk") {
+          // -3.2 dB parametric notch centered around 135 Hz to counter desk bounce
+          const dist = Math.log2(freq / 135);
+          db -= 3.2 * Math.exp(-(dist * dist) / 0.42);
+        } else if (mode === "wall") {
+          // -4.5 dB low-shelf trim below 110 Hz for boundary wall placement
+          const shelf = 1 / (1 + Math.pow(freq / 105, 2.2));
+          db -= 4.5 * shelf;
+        }
+
+        return Math.max(-14.5, Math.min(5.5, db));
+      }
+
+      function evalOffAxisDb(freq, mode) {
+        const on = evalOnAxisDb(freq, mode);
+        // Coaxial waveguide maintains smooth off-axis dispersion until upper HF
+        let loss = 0.25;
+        if (freq > 900) {
+          loss += Math.log2(freq / 900) * 0.68;
+        }
+        return Math.max(-15, on - loss);
+      }
+
+      const VOICING_META = {
+        flat: "Free-field 0° axis · ±0.8 dB tolerance window (32 Hz – 28 kHz)",
+        desk: "Desk Boundary DSP · -3.2 dB parametric dip at 135 Hz",
+        wall: "Wall Boundary DSP · -4.5 dB low-shelf compensation below 105 Hz"
+      };
+
+      function buildCurvePath(evalFn) {
+        const steps = 110;
+        let d = "";
+        for (let i = 0; i <= steps; i++) {
+          const x = CHART_X0 + (i / steps) * (CHART_X1 - CHART_X0);
+          const f = xToFreq(x);
+          const y = dbToY(evalFn(f, state.voicing));
+          d += (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1) + " ";
+        }
+        return d.trim();
+      }
+
+      function formatFreqLabel(f) {
+        if (f >= 1000) {
+          return (f / 1000).toFixed(f >= 10000 ? 1 : 2) + " kHz";
+        }
+        return Math.round(f) + " Hz";
+      }
+
+      function formatDbLabel(db) {
+        const sign = db >= 0 ? "+" : "";
+        return sign + db.toFixed(1) + " dB";
+      }
+
+      function updateCrosshair() {
+        const x = freqToX(state.probeFreq);
+        const onDb = evalOnAxisDb(state.probeFreq, state.voicing);
+        const offDb = evalOffAxisDb(state.probeFreq, state.voicing);
+
+        document.getElementById("crosshair-line").setAttribute("x1", x.toFixed(1));
+        document.getElementById("crosshair-line").setAttribute("x2", x.toFixed(1));
+
+        document.getElementById("crosshair-dot-on").setAttribute("cx", x.toFixed(1));
+        document.getElementById("crosshair-dot-on").setAttribute("cy", dbToY(onDb).toFixed(1));
+
+        document.getElementById("crosshair-dot-off").setAttribute("cx", x.toFixed(1));
+        document.getElementById("crosshair-dot-off").setAttribute("cy", dbToY(offDb).toFixed(1));
+
+        document.getElementById("readout-freq").textContent = formatFreqLabel(state.probeFreq);
+        document.getElementById("readout-onaxis").textContent = formatDbLabel(onDb);
+        document.getElementById("readout-offaxis").textContent = formatDbLabel(offDb);
+      }
+
+      function renderFrequencyChart() {
+        document.getElementById("curve-onaxis").setAttribute("d", buildCurvePath(evalOnAxisDb));
+        document.getElementById("curve-offaxis").setAttribute("d", buildCurvePath(evalOffAxisDb));
+        document.getElementById("voicing-description").textContent = VOICING_META[state.voicing];
+        updateCrosshair();
+      }
+
+      const voicingTabs = Array.from(document.querySelectorAll("[data-voicing]"));
+      voicingTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          state.voicing = tab.dataset.voicing;
+          voicingTabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+          renderFrequencyChart();
+        });
+      });
+
+      const freqSvg = document.getElementById("freq-chart-svg");
+      const hitArea = document.getElementById("chart-hit-area");
+
+      function handleChartPointer(clientX) {
+        const rect = freqSvg.getBoundingClientRect();
+        if (!rect.width) return;
+        const svgX = ((clientX - rect.left) / rect.width) * 700;
+        state.probeFreq = Math.max(20, Math.min(20000, xToFreq(svgX)));
+        updateCrosshair();
+      }
+
+      hitArea.addEventListener("pointermove", (e) => {
+        handleChartPointer(e.clientX);
+      });
+
+      hitArea.addEventListener("pointerdown", (e) => {
+        handleChartPointer(e.clientX);
+      });
+
+      hitArea.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          state.probeFreq = Math.min(20000, state.probeFreq * 1.15);
+          updateCrosshair();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          state.probeFreq = Math.max(20, state.probeFreq / 1.15);
+          updateCrosshair();
+        }
+      });
+
+      /* --------------------------------------------------------------------
+         5. Cart State, Zero-Shift Loading Buttons & Slide-Over Drawer
+         -------------------------------------------------------------------- */
+      const drawerRoot = document.getElementById("cart-drawer");
+      const drawerBody = document.getElementById("drawer-body");
+      const drawerCloseBtn = document.getElementById("drawer-close-btn");
+      const drawerBackdrop = document.getElementById("drawer-backdrop");
+      const navCartTrigger = document.getElementById("nav-cart-trigger");
+      const checkoutBtn = document.getElementById("checkout-btn");
+
+      function getCartCount() {
+        return state.cart.reduce((sum, item) => sum + item.qty, 0);
+      }
+
+      function getCartSubtotal() {
+        return state.cart.reduce((sum, item) => sum + item.unitPrice * item.qty, 0);
+      }
+
+      function addItemToCart(itemPayload) {
+        state.orderConfirmed = null;
+        const existing = state.cart.find((i) => i.id === itemPayload.id);
+        if (existing) {
+          existing.qty = Math.min(10, existing.qty + 1);
+        } else {
+          state.cart.push({ ...itemPayload, qty: 1 });
+        }
+        renderCart();
+      }
+
+      function updateItemQty(id, delta) {
+        const item = state.cart.find((i) => i.id === id);
+        if (!item) return;
+        const nextQty = item.qty + delta;
+        if (nextQty >= 1 && nextQty <= 10) {
+          item.qty = nextQty;
+          renderCart();
+        }
+      }
+
+      function removeCartItem(id) {
+        state.cart = state.cart.filter((i) => i.id !== id);
+        renderCart();
+      }
+
+      function renderCartThumbSvg(item) {
+        if (!item.isMonitor) {
+          return `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E5E7EC" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 17h16" />
+              <path d="M6 17l2-8h8l2 8" />
+              <path d="M5 9h14" />
+            </svg>
+          `;
+        }
+        return `
+          <svg width="26" height="32" viewBox="0 0 26 32" fill="none" aria-hidden="true">
+            <rect x="3" y="2" width="20" height="28" rx="3" fill="${item.swatchColor}" stroke="rgba(255,255,255,0.28)" stroke-width="1" />
+            <circle cx="13" cy="9" r="3" fill="#181A1D" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" />
+            <circle cx="13" cy="20" r="5.5" fill="#14161A" stroke="${item.ringColor}" stroke-width="1.2" />
+          </svg>
+        `;
+      }
+
+      function renderCart() {
+        const count = getCartCount();
+        const subtotal = getCartSubtotal();
+
+        const navBadge = document.getElementById("nav-cart-count");
+        navBadge.textContent = String(count);
+        navBadge.setAttribute("data-empty", String(count === 0));
+
+        document.getElementById("drawer-item-badge").textContent =
+          count === 1 ? "1 item" : count + " items";
+
+        document.getElementById("cart-subtotal").textContent = formatUSD(subtotal);
+        document.getElementById("cart-total").textContent = formatUSD(subtotal);
+
+        checkoutBtn.disabled = count === 0;
+
+        if (state.orderConfirmed) {
+          drawerBody.innerHTML = `
+            <div class="checkout-confirm-box">
+              <span class="tag-pill tag-light mono">Order Reserved · ${state.orderConfirmed.ref}</span>
+              <h4>Calibration Slot Assigned</h4>
+              <p>Your KOVA Model M1 order (${state.orderConfirmed.items} unit${state.orderConfirmed.items > 1 ? "s" : ""}, ${formatUSD(state.orderConfirmed.total)}) has been queued for Zurich acoustic matching. Serialized sweep files will arrive by email before dispatch.</p>
+              <button type="button" class="btn-pill btn-outline-light btn-compact" id="reset-order-btn">
+                <span class="btn-label">Continue Exploring</span>
+              </button>
+            </div>
+          `;
+          document.getElementById("reset-order-btn").addEventListener("click", () => {
+            state.orderConfirmed = null;
+            closeDrawer();
+          });
+          return;
+        }
+
+        if (state.cart.length === 0) {
+          drawerBody.innerHTML = `
+            <div class="cart-empty">
+              <div class="cart-empty-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 7h12l1 13H5L6 7z" />
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                </svg>
+              </div>
+              <h3>Your studio bag is empty</h3>
+              <p>Select a chassis finish on the Model M1 stage to begin configuring your monitoring system.</p>
+              <button type="button" class="btn-pill btn-primary btn-compact" id="empty-add-current-btn">
+                <span class="btn-label">Add ${FINISHES[state.finish].name} M1</span>
+              </button>
+            </div>
+          `;
+          document.getElementById("empty-add-current-btn").addEventListener("click", () => {
+            addConfiguredMonitorToCart();
+          });
+          return;
+        }
+
+        const itemsHtml = state.cart.map((item) => {
+          const lineTotal = item.unitPrice * item.qty;
+          return `
+            <div class="cart-item" data-cart-id="${item.id}">
+              <div class="cart-thumb">${renderCartThumbSvg(item)}</div>
+              <div class="cart-item-main">
+                <div class="cart-item-top">
+                  <div>
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-meta">${item.variant} · <span class="mono">${item.sku}</span></div>
+                  </div>
+                  <div class="cart-item-price tabular">${formatUSD(lineTotal)}</div>
+                </div>
+                <div class="cart-item-controls">
+                  <div class="qty-stepper" role="group" aria-label="Quantity for ${item.name}">
+                    <button type="button" class="qty-btn" data-qty-dec="${item.id}" aria-label="Decrease quantity" ${item.qty <= 1 ? "disabled" : ""}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                    </button>
+                    <span class="qty-val tabular">${item.qty}</span>
+                    <button type="button" class="qty-btn" data-qty-inc="${item.id}" aria-label="Increase quantity" ${item.qty >= 10 ? "disabled" : ""}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                    </button>
+                  </div>
+                  <button type="button" class="cart-remove-btn" data-remove-id="${item.id}">Remove</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        const hasIso = state.cart.some((i) => i.id === "iso-stand");
+        const upsellHtml = !hasIso ? `
+          <div class="drawer-upsell">
+            <div class="drawer-upsell-text">
+              <strong>Add KOVA Iso-Stand Pair</strong>
+              <span>Acoustic desk decoupling · $340</span>
+            </div>
+            <button type="button" class="btn-pill btn-outline-light btn-compact" id="drawer-upsell-btn">
+              <span class="btn-label">+ Add</span>
+            </button>
+          </div>
+        ` : "";
+
+        drawerBody.innerHTML = itemsHtml + upsellHtml;
+
+        drawerBody.querySelectorAll("[data-qty-dec]").forEach((btn) => {
+          btn.addEventListener("click", () => updateItemQty(btn.dataset.qtyDec, -1));
+        });
+        drawerBody.querySelectorAll("[data-qty-inc]").forEach((btn) => {
+          btn.addEventListener("click", () => updateItemQty(btn.dataset.qtyInc, 1));
+        });
+        drawerBody.querySelectorAll("[data-remove-id]").forEach((btn) => {
+          btn.addEventListener("click", () => removeCartItem(btn.dataset.removeId));
+        });
+
+        const upsellBtn = document.getElementById("drawer-upsell-btn");
+        if (upsellBtn) {
+          upsellBtn.addEventListener("click", () => {
+            const acc = ACCESSORIES["iso-stand"];
+            addItemToCart({
+              id: acc.id,
+              name: acc.name,
+              variant: acc.variant,
+              sku: acc.sku,
+              unitPrice: acc.price,
+              swatchColor: acc.swatchColor,
+              ringColor: acc.ringColor,
+              isMonitor: false
+            });
+          });
+        }
+      }
+
+      function openDrawer(triggerEl) {
+        state.lastFocusEl = triggerEl || document.activeElement;
+        state.drawerOpen = true;
+        drawerRoot.setAttribute("data-open", "true");
+        drawerRoot.setAttribute("aria-hidden", "false");
+        navCartTrigger.setAttribute("aria-expanded", "true");
+        setTimeout(() => {
+          drawerCloseBtn.focus();
+        }, 60);
+      }
+
+      function closeDrawer() {
+        state.drawerOpen = false;
+        drawerRoot.setAttribute("data-open", "false");
+        drawerRoot.setAttribute("aria-hidden", "true");
+        navCartTrigger.setAttribute("aria-expanded", "false");
+        if (state.lastFocusEl && typeof state.lastFocusEl.focus === "function") {
+          state.lastFocusEl.focus();
+        }
+      }
+
+      function addConfiguredMonitorToCart() {
+        const f = FINISHES[state.finish];
+        const sku = getCurrentConfigSku();
+        const price = getCurrentConfigPrice();
+        const packLabel = state.pack === "pair" ? "Matched Stereo Pair" : "Single Monitor";
+
+        addItemToCart({
+          id: sku,
+          name: "Model M1 — " + f.name,
+          variant: packLabel,
+          sku: sku,
+          unitPrice: price,
+          swatchColor: f.swatchColor,
+          ringColor: f.accentHex,
+          isMonitor: true
+        });
+      }
+
+      /* Add to Bag with Zero-Shift Loading Spinner */
+      const addToBagBtn = document.getElementById("add-to-bag-btn");
+      addToBagBtn.addEventListener("click", () => {
+        if (addToBagBtn.classList.contains("is-loading")) return;
+        addToBagBtn.classList.add("is-loading");
+        addToBagBtn.setAttribute("aria-busy", "true");
+
+        window.setTimeout(() => {
+          addToBagBtn.classList.remove("is-loading");
+          addToBagBtn.removeAttribute("aria-busy");
+          addConfiguredMonitorToCart();
+          openDrawer(addToBagBtn);
+        }, 360);
+      });
+
+      /* Accessory Quick-Add Buttons with Zero-Shift Spinner */
+      document.querySelectorAll(".add-accessory-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.classList.contains("is-loading")) return;
+          const acc = ACCESSORIES[btn.dataset.accId];
+          if (!acc) return;
+
+          btn.classList.add("is-loading");
+          window.setTimeout(() => {
+            btn.classList.remove("is-loading");
+            addItemToCart({
+              id: acc.id,
+              name: acc.name,
+              variant: acc.variant,
+              sku: acc.sku,
+              unitPrice: acc.price,
+              swatchColor: acc.swatchColor,
+              ringColor: acc.ringColor,
+              isMonitor: false
+            });
+            openDrawer(btn);
+          }, 280);
+        });
+      });
+
+      /* Checkout Button with Zero-Shift Spinner */
+      checkoutBtn.addEventListener("click", () => {
+        if (checkoutBtn.disabled || checkoutBtn.classList.contains("is-loading")) return;
+        checkoutBtn.classList.add("is-loading");
+        window.setTimeout(() => {
+          checkoutBtn.classList.remove("is-loading");
+          const count = getCartCount();
+          const total = getCartSubtotal();
+          state.orderConfirmed = {
+            ref: "KV-" + String(Math.floor(100000 + Math.random() * 900000)),
+            items: count,
+            total: total
+          };
+          state.cart = [];
+          renderCart();
+        }, 480);
+      });
+
+      navCartTrigger.addEventListener("click", () => openDrawer(navCartTrigger));
+      drawerCloseBtn.addEventListener("click", closeDrawer);
+      drawerBackdrop.addEventListener("click", closeDrawer);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && state.drawerOpen) {
+          e.preventDefault();
+          closeDrawer();
+        }
+      });
+
+      /* --------------------------------------------------------------------
+         6. Initial Boot
+         -------------------------------------------------------------------- */
+      renderConfigurator();
+      renderFrequencyChart();
+      renderCart();
+    })();
+  </script>
+</body>
+</html>

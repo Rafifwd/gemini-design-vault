@@ -1,0 +1,206 @@
+{
+  "generated_at": "2026-11-24T15:07:33+07:00",
+  "count": 10,
+  "systems": [
+    {
+      "slug": "apple",
+      "name": "Apple",
+      "domain": "Consumer Hardware & Clinical Minimal",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/apple/DESIGN.md",
+      "local_path": "design-systems/apple.md",
+      "lines": 562,
+      "bytes": 37096,
+      "palette_hex": [
+        "#0066CC",
+        "#0071E3",
+        "#2997FF",
+        "#1D1D1F",
+        "#FFFFFF",
+        "#CCCCCC",
+        "#333333",
+        "#7A7A7A"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "stripe",
+      "name": "Stripe",
+      "domain": "Fintech & B2B Payments",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/stripe/DESIGN.md",
+      "local_path": "design-systems/stripe.md",
+      "lines": 487,
+      "bytes": 24606,
+      "palette_hex": [
+        "#533AFD",
+        "#4434D4",
+        "#2E2B8C",
+        "#665EFD",
+        "#B9B9F9",
+        "#1C1E54",
+        "#0D253D",
+        "#273951"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "linear.app",
+      "name": "Linear.App",
+      "domain": "DevTools & Product Issue Tracker",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/linear.app/DESIGN.md",
+      "local_path": "design-systems/linear.app.md",
+      "lines": 548,
+      "bytes": 24354,
+      "palette_hex": [
+        "#010102",
+        "#F7F8F8",
+        "#5E6AD2",
+        "#0F1011",
+        "#FFFFFF",
+        "#828FFF",
+        "#5E69D1",
+        "#D0D6E0"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "vercel",
+      "name": "Vercel",
+      "domain": "Cloud Infrastructure & Monochrome",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/vercel/DESIGN.md",
+      "local_path": "design-systems/vercel.md",
+      "lines": 736,
+      "bytes": 41405,
+      "palette_hex": [
+        "#171717",
+        "#FFFFFF",
+        "#4D4D4D",
+        "#888888",
+        "#EBEBEB",
+        "#A1A1A1",
+        "#FAFAFA",
+        "#F5F5F5"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "notion",
+      "name": "Notion",
+      "domain": "Workspace & Editorial Knowledge",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/notion/DESIGN.md",
+      "local_path": "design-systems/notion.md",
+      "lines": 821,
+      "bytes": 35176,
+      "palette_hex": [
+        "#5645D4",
+        "#4534B3",
+        "#3A2A99",
+        "#FFFFFF",
+        "#0A1530",
+        "#070F24",
+        "#1A2A52",
+        "#0075DE"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "supabase",
+      "name": "Supabase",
+      "domain": "Database & Developer Platform",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/supabase/DESIGN.md",
+      "local_path": "design-systems/supabase.md",
+      "lines": 462,
+      "bytes": 21315,
+      "palette_hex": [
+        "#3ECF8E",
+        "#24B47E",
+        "#4ADE80",
+        "#171717",
+        "#212121",
+        "#707070",
+        "#9A9A9A",
+        "#B2B2B2"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "domain": "Hospitality & Warm Marketplace",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/airbnb/DESIGN.md",
+      "local_path": "design-systems/airbnb.md",
+      "lines": 545,
+      "bytes": 30517,
+      "palette_hex": [
+        "#FF385C",
+        "#E00B41",
+        "#FFD1DA",
+        "#C13515",
+        "#B32505",
+        "#460479",
+        "#92174D",
+        "#222222"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "spotify",
+      "name": "Design System Inspired by Spotify",
+      "domain": "Consumer Media & Expressive Dark",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/spotify/DESIGN.md",
+      "local_path": "design-systems/spotify.md",
+      "lines": 246,
+      "bytes": 12955,
+      "palette_hex": [
+        "#121212",
+        "#181818",
+        "#1F1F1F",
+        "#1ED760",
+        "#F3727F",
+        "#FFA42B",
+        "#539DF5",
+        "#FFFFFF"
+      ],
+      "summary": "Spotify's web interface is a dark, immersive music player that wraps listeners in a near-black cocoon (`#121212`, `#181818`, `#1f1f1f`) where album art and content become the prima"
+    },
+    {
+      "slug": "figma",
+      "name": "Figma",
+      "domain": "Creative Multiplayer Tooling",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/figma/DESIGN.md",
+      "local_path": "design-systems/figma.md",
+      "lines": 578,
+      "bytes": 32316,
+      "palette_hex": [
+        "#000000",
+        "#FFFFFF",
+        "#E6E6E6",
+        "#F1F1F1",
+        "#F7F7F5",
+        "#DCEEB1",
+        "#C5B0F4",
+        "#F4ECD6"
+      ],
+      "summary": "version: alpha"
+    },
+    {
+      "slug": "claude",
+      "name": "Claude",
+      "domain": "AI Assistant & Warm Editorial",
+      "source_url": "https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/claude/DESIGN.md",
+      "local_path": "design-systems/claude.md",
+      "lines": 589,
+      "bytes": 33586,
+      "palette_hex": [
+        "#CC785C",
+        "#A9583E",
+        "#E6DFD8",
+        "#141413",
+        "#3D3D3A",
+        "#252523",
+        "#6C6A64",
+        "#8E8B82"
+      ],
+      "summary": "version: alpha"
+    }
+  ]
+}

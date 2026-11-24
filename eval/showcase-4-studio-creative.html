@@ -1,0 +1,2907 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MONO // STUDIO — Design Engineering &amp; Brand Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ==========================================================================
+       MONO // STUDIO — Design Tokens
+       Light Mode: Figma-inspired monochrome frame + curated pastel story blocks
+       Dark Mode:  Spotify-inspired near-black (#121212 / #181818) + #1ED760 accent
+       ========================================================================== */
+    :root {
+      --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Light Surface & Ink (Figma Monochrome Frame) */
+      --bg-canvas: #ffffff;
+      --bg-surface: #f7f7f5;
+      --bg-elevated: #ffffff;
+      --bg-inverse: #111111;
+      --text-primary: #111111;
+      --text-secondary: #4a4a48;
+      --text-muted: #666662;
+      --text-inverse: #ffffff;
+      --border-hairline: #e6e6e6;
+      --border-strong: #111111;
+
+      /* Curated Pastel Story Blocks */
+      --block-lime: #dceeb1;
+      --block-lilac: #c5b0f4;
+      --block-cream: #f4ecd6;
+      --block-mint: #c8e6cd;
+      --block-ink: #111111;
+
+      /* Functional Accent (Light: monochrome primary, Semantic green for availability) */
+      --accent-primary: #111111;
+      --accent-on-primary: #ffffff;
+      --accent-live: #15803d;
+      --accent-live-bg: rgba(21, 128, 61, 0.1);
+      --accent-error: #b91c1c;
+      --accent-error-bg: rgba(185, 28, 28, 0.08);
+      --focus-ring: #111111;
+
+      /* Tactile Controls & Elevation */
+      --tactile-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      --tactile-border: 1px solid rgba(17, 17, 17, 0.16);
+      --shadow-soft: 0 4px 16px rgba(17, 17, 17, 0.06);
+      --shadow-dialog: 0 20px 50px rgba(17, 17, 17, 0.18);
+      --scrim-bg: rgba(17, 17, 17, 0.56);
+
+      /* Geometry Rules: Containers 8px-12px, Pills ONLY for single-line buttons/tags/badges */
+      --radius-input: 8px;
+      --radius-card: 12px;
+      --radius-pill: 9999px;
+
+      /* Motion Timing */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-micro: 150ms;
+      --dur-panel: 220ms;
+    }
+
+    html[data-theme="dark"] {
+      /* Studio Dark Mode (Spotify-inspired #121212 / #181818 + #1ED760 accent) */
+      --bg-canvas: #121212;
+      --bg-surface: #181818;
+      --bg-elevated: #1f1f1f;
+      --bg-inverse: #181818;
+      --text-primary: #ffffff;
+      --text-secondary: #cbcbcb;
+      --text-muted: #b3b3b3;
+      --text-inverse: #ffffff;
+      --border-hairline: #2a2a2a;
+      --border-strong: #4d4d4d;
+
+      /* Single Functional Accent: Spotify Green */
+      --accent-primary: #1ed760;
+      --accent-on-primary: #111111;
+      --accent-live: #1ed760;
+      --accent-live-bg: rgba(30, 215, 96, 0.14);
+      --accent-error: #f3727f;
+      --accent-error-bg: rgba(243, 114, 127, 0.12);
+      --focus-ring: #1ed760;
+
+      --tactile-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      --tactile-border: 1px solid rgba(255, 255, 255, 0.12);
+      --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.35);
+      --shadow-dialog: 0 16px 48px rgba(0, 0, 0, 0.65);
+      --scrim-bg: rgba(0, 0, 0, 0.72);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.5;
+      transition: background-color var(--dur-panel) var(--ease-out), color var(--dur-panel) var(--ease-out);
+      overflow-x: hidden;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ==========================================================================
+       Global Focus & Tactile Interactive States
+       ========================================================================== */
+    :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    button:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none !important;
+    }
+
+    /* ==========================================================================
+       Layout Container
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    /* ==========================================================================
+       Top Navigation (Sticky 56px, Monochrome Chrome)
+       ========================================================================== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: 56px;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-hairline);
+      transition: background-color var(--dur-panel) var(--ease-out), border-color var(--dur-panel) var(--ease-out);
+    }
+
+    html[data-theme="dark"] .top-nav {
+      background-color: rgba(18, 18, 18, 0.9);
+    }
+
+    .top-nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 2px;
+      transition: color var(--dur-micro) var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       Pill Buttons, Icon Buttons & Tags (Single-Line ONLY)
+       ========================================================================== */
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      text-decoration: none;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .btn-pill:active {
+      transform: scale(0.98);
+    }
+
+    .btn-pill--sm {
+      height: 36px;
+      padding: 0 16px;
+      font-size: 13px;
+    }
+
+    .btn-pill--lg {
+      height: 44px;
+      padding: 0 24px;
+      font-size: 15px;
+    }
+
+    .btn-pill--primary {
+      background-color: var(--accent-primary);
+      color: var(--accent-on-primary);
+      border: 1px solid transparent;
+      box-shadow: var(--tactile-highlight);
+    }
+
+    .btn-pill--primary:hover {
+      background-color: #292929;
+    }
+
+    html[data-theme="dark"] .btn-pill--primary:hover {
+      background-color: #3be477;
+    }
+
+    .btn-pill--secondary {
+      background-color: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-hairline);
+    }
+
+    .btn-pill--secondary:hover {
+      background-color: var(--bg-surface);
+      border-color: var(--border-strong);
+    }
+
+    .btn-pill--ghost {
+      background-color: transparent;
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+    }
+
+    .btn-pill--ghost:hover {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-pill);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      flex-shrink: 0;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .icon-btn:hover {
+      border-color: var(--border-strong);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.98);
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: var(--radius-pill);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-strong);
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.98);
+    }
+
+    /* Fixed-width loading spinner inside submit button */
+    .btn-spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      display: none;
+      animation: spin 650ms linear infinite;
+    }
+
+    .is-loading .btn-spinner {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ==========================================================================
+       Marquee Strip (36px Monochrome Ticker)
+       ========================================================================== */
+    .marquee-strip {
+      height: 36px;
+      background-color: var(--bg-inverse);
+      color: var(--text-inverse);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      white-space: nowrap;
+      padding-left: 32px;
+      animation: marquee-scroll 34s linear infinite;
+    }
+
+    .marquee-strip:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .marquee-sep {
+      opacity: 0.35;
+    }
+
+    /* ==========================================================================
+       Hero Editorial Section
+       ========================================================================== */
+    .hero-section {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
+      gap: 40px;
+      align-items: end;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 30px;
+      padding: 0 12px;
+      border-radius: var(--radius-pill);
+      background-color: var(--accent-live-bg);
+      color: var(--accent-live);
+      border: 1px solid transparent;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--accent-live);
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      margin: 0 0 24px 0;
+      font-size: clamp(44px, 6.2vw, 80px);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+    }
+
+    .hero-lead {
+      margin: 0 0 32px 0;
+      max-width: 58ch;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.48;
+      letter-spacing: -0.01em;
+      color: var(--text-secondary);
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Asymmetric Studio Telemetry Panel (Radius 12px) */
+    .hero-telemetry {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .telemetry-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .telemetry-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .metric-cell {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-input);
+      padding: 14px 16px;
+    }
+
+    .metric-val {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .telemetry-disciplines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: var(--radius-pill);
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       Case-Study Index Section
+       ========================================================================== */
+    .work-section {
+      padding-top: 32px;
+      padding-bottom: 88px;
+    }
+
+    .section-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      margin: 6px 0 0 0;
+      font-size: clamp(28px, 3.2vw, 40px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      color: var(--text-primary);
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: var(--radius-pill);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .filter-pill:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .filter-pill:active {
+      transform: scale(0.98);
+    }
+
+    .filter-pill[aria-pressed="true"] {
+      background-color: var(--accent-primary);
+      color: var(--accent-on-primary);
+      border-color: transparent;
+    }
+
+    .filter-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      opacity: 0.72;
+    }
+
+    /* Asymmetric Case Study Grid (Radius 12px on all cards) */
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .case-card {
+      grid-column: span 6;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: var(--radius-card);
+      border: 1px solid rgba(17, 17, 17, 0.1);
+      padding: 28px;
+      text-align: left;
+      color: var(--block-ink);
+      min-height: 380px;
+      overflow: hidden;
+      transition:
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out),
+        background-color var(--dur-panel) var(--ease-out);
+    }
+
+    /* Asymmetric spans on desktop */
+    .case-card[data-span="7"] {
+      grid-column: span 7;
+    }
+    .case-card[data-span="5"] {
+      grid-column: span 5;
+    }
+    .case-card[data-span="8"] {
+      grid-column: span 8;
+    }
+    .case-card[data-span="4"] {
+      grid-column: span 4;
+    }
+
+    /* Curated Pastel Story Blocks in Light Mode */
+    .case-card[data-pastel="lime"] {
+      background-color: var(--block-lime);
+    }
+    .case-card[data-pastel="lilac"] {
+      background-color: var(--block-lilac);
+    }
+    .case-card[data-pastel="cream"] {
+      background-color: var(--block-cream);
+    }
+    .case-card[data-pastel="mint"] {
+      background-color: var(--block-mint);
+    }
+
+    /* Studio Dark Mode: #181818 card surface + colorful pastel specimen inside */
+    html[data-theme="dark"] .case-card {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-color: var(--border-hairline);
+    }
+
+    .case-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .case-card:active {
+      transform: scale(0.985);
+    }
+
+    .case-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .case-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .case-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 11px;
+      border-radius: var(--radius-pill);
+      background-color: rgba(17, 17, 17, 0.08);
+      color: var(--block-ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    html[data-theme="dark"] .case-badge {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+    }
+
+    .case-year {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      opacity: 0.72;
+    }
+
+    .case-arrow {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-pill);
+      background-color: rgba(255, 255, 255, 0.65);
+      color: #111111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    html[data-theme="dark"] .case-arrow {
+      background-color: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-hairline);
+    }
+
+    .case-card:hover .case-arrow {
+      background-color: var(--accent-primary);
+      color: var(--accent-on-primary);
+      transform: translate(2px, -2px);
+    }
+
+    /* Specimen artwork window inside card (Radius 8px) */
+    .case-specimen {
+      border-radius: var(--radius-input);
+      background-color: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(17, 17, 17, 0.09);
+      padding: 16px;
+      margin-bottom: 22px;
+      overflow: hidden;
+      transition: transform var(--dur-micro) var(--ease-out);
+    }
+
+    html[data-theme="dark"] .case-card[data-pastel="lime"] .case-specimen {
+      background-color: var(--block-lime);
+      border-color: transparent;
+    }
+    html[data-theme="dark"] .case-card[data-pastel="lilac"] .case-specimen {
+      background-color: var(--block-lilac);
+      border-color: transparent;
+    }
+    html[data-theme="dark"] .case-card[data-pastel="cream"] .case-specimen {
+      background-color: var(--block-cream);
+      border-color: transparent;
+    }
+    html[data-theme="dark"] .case-card[data-pastel="mint"] .case-specimen {
+      background-color: var(--block-mint);
+      border-color: transparent;
+    }
+
+    .case-card:hover .case-specimen {
+      transform: translateY(-2px);
+    }
+
+    .case-specimen svg {
+      display: block;
+      width: 100%;
+      height: 128px;
+    }
+
+    .case-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .case-client {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    .case-title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.22;
+    }
+
+    .case-summary {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.48;
+      opacity: 0.86;
+      max-width: 54ch;
+    }
+
+    .case-footer-hover {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(17, 17, 17, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    html[data-theme="dark"] .case-footer-hover {
+      border-top-color: var(--border-hairline);
+      color: var(--text-muted);
+    }
+
+    .case-hover-hint {
+      opacity: 0.72;
+      transition: opacity var(--dur-micro) var(--ease-out);
+    }
+
+    .case-card:hover .case-hover-hint {
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       Capabilities / Process Story Block (Warm Cream Pastel Block)
+       ========================================================================== */
+    .process-section {
+      padding-bottom: 88px;
+    }
+
+    .story-block {
+      background-color: var(--block-cream);
+      color: var(--block-ink);
+      border: 1px solid rgba(17, 17, 17, 0.1);
+      border-radius: var(--radius-card);
+      padding: 44px;
+    }
+
+    html[data-theme="dark"] .story-block {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-color: var(--border-hairline);
+    }
+
+    .story-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .story-headline {
+      margin: 8px 0 0 0;
+      max-width: 18ch;
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+    }
+
+    .story-sub {
+      margin: 0;
+      max-width: 44ch;
+      font-size: 16px;
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .process-step {
+      background-color: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(17, 17, 17, 0.1);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    html[data-theme="dark"] .process-step {
+      background-color: var(--bg-elevated);
+      border-color: var(--border-hairline);
+    }
+
+    .process-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.65;
+    }
+
+    .process-title {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .process-desc {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      opacity: 0.84;
+    }
+
+    /* ==========================================================================
+       Footer
+       ========================================================================== */
+    .site-footer {
+      border-top: 1px solid var(--border-hairline);
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .kbd-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 22px;
+      padding: 0 7px;
+      border-radius: 6px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       Modals & Drawers (Case Study Modal + Inquiry Drawer)
+       All panels strictly 12px radius
+       ========================================================================== */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background-color: var(--scrim-bg);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-panel) var(--ease-out);
+    }
+
+    .backdrop[data-open="true"] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .case-modal {
+      width: 100%;
+      max-width: 820px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      background-color: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-dialog);
+      padding: 32px;
+      transform: scale(0.98);
+      transition: transform var(--dur-panel) var(--ease-out);
+    }
+
+    .backdrop[data-open="true"] .case-modal {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .modal-title {
+      margin: 8px 0 0 0;
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .modal-banner {
+      border-radius: var(--radius-input);
+      padding: 20px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(17, 17, 17, 0.1);
+      color: #111111;
+    }
+
+    .modal-banner svg {
+      width: 100%;
+      height: 140px;
+      display: block;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .modal-box {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-input);
+      padding: 18px;
+    }
+
+    .modal-box-title {
+      margin: 0 0 12px 0;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .deliverable-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .deliverable-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .deliverable-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--accent-live);
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .swatch-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius-input);
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      text-align: left;
+      transition:
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .swatch-btn:hover {
+      border-color: var(--border-strong);
+    }
+
+    .swatch-btn:active {
+      transform: scale(0.98);
+    }
+
+    .swatch-chip {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1px solid rgba(17, 17, 17, 0.16);
+      flex-shrink: 0;
+    }
+
+    .swatch-info {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .swatch-role {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .type-specimen-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .type-sample {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .type-spec-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .modal-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    /* ==========================================================================
+       Inquiry Drawer (Inset Slide-Over Panel, Radius 12px)
+       ========================================================================== */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background-color: var(--scrim-bg);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-panel) var(--ease-out);
+    }
+
+    .drawer-backdrop[data-open="true"] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .inquiry-drawer {
+      width: 100%;
+      max-width: 520px;
+      height: 100%;
+      overflow-y: auto;
+      background-color: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-dialog);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(24px);
+      transition: transform var(--dur-panel) var(--ease-out);
+    }
+
+    .drawer-backdrop[data-open="true"] .inquiry-drawer {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .drawer-title {
+      margin: 6px 0 0 0;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .inquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pill-selector-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .choice-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: var(--radius-pill);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition:
+        background-color var(--dur-micro) var(--ease-out),
+        color var(--dur-micro) var(--ease-out),
+        border-color var(--dur-micro) var(--ease-out),
+        transform var(--dur-micro) var(--ease-out);
+    }
+
+    .choice-pill:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .choice-pill:active {
+      transform: scale(0.98);
+    }
+
+    .choice-pill[aria-pressed="true"] {
+      background-color: var(--accent-primary);
+      color: var(--accent-on-primary);
+      border-color: transparent;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-primary);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-input);
+      padding: 10px 14px;
+      transition:
+        border-color var(--dur-micro) var(--ease-out),
+        box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .form-input {
+      height: 42px;
+    }
+
+    .form-textarea {
+      min-height: 104px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-input:focus-visible,
+    .form-textarea:focus-visible {
+      outline: none;
+      border-color: var(--focus-ring);
+      box-shadow: 0 0 0 2px var(--accent-live-bg);
+    }
+
+    .form-input[aria-invalid="true"],
+    .form-textarea[aria-invalid="true"] {
+      border-color: var(--accent-error);
+      background-color: var(--accent-error-bg);
+    }
+
+    .field-error {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-error);
+      min-height: 18px;
+      display: none;
+    }
+
+    .field-error[data-visible="true"] {
+      display: block;
+    }
+
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .consent-checkbox {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0 0;
+      accent-color: var(--accent-primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .drawer-submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .success-panel {
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-card);
+      padding: 24px;
+    }
+
+    .success-panel[data-visible="true"] {
+      display: flex;
+    }
+
+    .success-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-pill);
+      background-color: var(--accent-live-bg);
+      color: var(--accent-live);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       Sonner-style Toast Notification (Radius 8px)
+       ========================================================================== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: var(--radius-input);
+      background-color: var(--bg-inverse);
+      color: var(--text-inverse);
+      border: 1px solid var(--border-hairline);
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+    }
+
+    html[data-theme="dark"] .toast {
+      background-color: var(--bg-elevated);
+      border-color: var(--border-strong);
+    }
+
+    .toast[data-visible="true"] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       Responsive Breakpoints (1440 / 768 / 360)
+       ========================================================================== */
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .case-card[data-span="7"],
+      .case-card[data-span="5"],
+      .case-card[data-span="8"],
+      .case-card[data-span="4"] {
+        grid-column: span 6;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .container {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-section {
+        padding-top: 40px;
+        padding-bottom: 44px;
+      }
+
+      .case-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-card,
+      .case-card[data-span="7"],
+      .case-card[data-span="5"],
+      .case-card[data-span="8"],
+      .case-card[data-span="4"] {
+        grid-column: span 1;
+        padding: 22px;
+        min-height: 320px;
+      }
+
+      .story-block {
+        padding: 24px;
+      }
+
+      .backdrop {
+        padding: 12px;
+      }
+
+      .case-modal {
+        padding: 22px;
+        max-height: calc(100vh - 24px);
+      }
+
+      .drawer-backdrop {
+        padding: 8px;
+      }
+
+      .inquiry-drawer {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .theme-toggle-text {
+        display: none;
+      }
+
+      .telemetry-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .swatch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       Reduced Motion Compliance
+       ========================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .marquee-track {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Sticky Navigation -->
+  <header class="top-nav">
+    <div class="container top-nav-inner">
+      <a href="#top" class="brand-mark" aria-label="MONO STUDIO Beranda">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="7" height="16" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+          <rect x="11" y="2" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+          <path d="M11 13H18M11 17H15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+        </svg>
+        <span>MONO // STUDIO</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigasi Utama">
+        <a href="#work" class="nav-link">Indeks Karya</a>
+        <a href="#process" class="nav-link">Disiplin &amp; Proses</a>
+        <a href="#footer" class="nav-link">Koordinat</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button
+          type="button"
+          class="theme-toggle"
+          id="themeToggleBtn"
+          aria-pressed="false"
+          aria-label="Ganti ke Studio Dark Mode"
+        >
+          <svg id="themeIconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.75" />
+            <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+          </svg>
+          <svg id="themeIconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="theme-toggle-text" id="themeToggleLabel">Studio Dark</span>
+        </button>
+
+        <button type="button" class="btn-pill btn-pill--primary btn-pill--sm" id="navInquiryBtn">
+          <span>Ajukan Proyek</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Monochrome Marquee Strip -->
+  <div class="marquee-strip" aria-label="Kapabilitas dan Rekanan Studio">
+    <div class="marquee-track">
+      <span class="marquee-item">BRAND SYSTEMS <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">DESIGN ENGINEERING <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">PRODUCTION DESIGN TOKENS <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">KINETIC MOTION SPECS <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">KINETIK AUDIO · ATELIER NUSA · ORBITAL PAY · PULSA <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">BRAND SYSTEMS <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">DESIGN ENGINEERING <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">PRODUCTION DESIGN TOKENS <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">KINETIC MOTION SPECS <span class="marquee-sep">/</span></span>
+      <span class="marquee-item">KINETIK AUDIO · ATELIER NUSA · ORBITAL PAY · PULSA <span class="marquee-sep">/</span></span>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- Hero Editorial Section -->
+    <section class="hero-section container" aria-labelledby="hero-heading">
+      <div class="hero-grid">
+        <div>
+          <div class="status-pill" id="availabilityBadge">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="tabular-nums">Q2 2026 — 2 SLOT PROYEK TERSEDIA</span>
+          </div>
+
+          <h1 class="hero-title" id="hero-heading">
+            Sistem merek &amp; rekayasa antarmuka yang tahan produksi.
+          </h1>
+
+          <p class="hero-lead">
+            MONO // STUDIO merancang arsitektur brand, token tipografi, aplikasi web berpresisi tinggi, dan bahasa gerak untuk tim produk yang menolak templat seragam.
+          </p>
+
+          <div class="hero-cta-group">
+            <button type="button" class="btn-pill btn-pill--primary btn-pill--lg" id="heroInquiryBtn">
+              <span>Mulai Diskusi Proyek</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <a href="#work" class="btn-pill btn-pill--secondary btn-pill--lg">
+              <span>Telusuri Studi Kasus</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-telemetry" aria-label="Ringkasan Kapasitas Studio">
+          <div class="telemetry-header">
+            <span class="eyebrow">TELEMETRI STUDIO</span>
+            <span class="eyebrow tabular-nums" id="studioClock">JKT // 15:30 WIB</span>
+          </div>
+
+          <div class="telemetry-metrics">
+            <div class="metric-cell">
+              <div class="metric-val tabular-nums">28</div>
+              <div class="metric-label">Sistem rilis ke produksi</div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-val tabular-nums">100%</div>
+              <div class="metric-label">Code-verified handoff</div>
+            </div>
+          </div>
+
+          <div class="telemetry-disciplines" aria-label="Fokus Disiplin">
+            <span class="tag-pill">Brand Systems</span>
+            <span class="tag-pill">Design Tokens</span>
+            <span class="tag-pill">Web App UI</span>
+            <span class="tag-pill">Motion Spec</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Interactive Case-Study Index -->
+    <section class="work-section container" id="work" aria-labelledby="work-heading">
+      <div class="section-toolbar">
+        <div>
+          <span class="eyebrow">ARSIP TERKURASI · <span class="tabular-nums" id="resultCountLabel">6 STUDI KASUS</span></span>
+          <h2 class="section-title" id="work-heading">Indeks Studi Kasus</h2>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filter kategori studi kasus">
+          <button type="button" class="filter-pill" data-filter="Semua" aria-pressed="true">
+            <span>Semua</span>
+            <span class="filter-count tabular-nums">6</span>
+          </button>
+          <button type="button" class="filter-pill" data-filter="Brand System" aria-pressed="false">
+            <span>Brand System</span>
+            <span class="filter-count tabular-nums">2</span>
+          </button>
+          <button type="button" class="filter-pill" data-filter="Web App" aria-pressed="false">
+            <span>Web App</span>
+            <span class="filter-count tabular-nums">2</span>
+          </button>
+          <button type="button" class="filter-pill" data-filter="Motion" aria-pressed="false">
+            <span>Motion</span>
+            <span class="filter-count tabular-nums">2</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="case-grid" id="caseGrid">
+        <!-- Populated dynamically via JS from curated case study data -->
+      </div>
+    </section>
+
+    <!-- Process Story Block -->
+    <section class="process-section container" id="process" aria-labelledby="process-heading">
+      <div class="story-block">
+        <div class="story-header">
+          <div>
+            <span class="eyebrow">METODOLOGI KERJA</span>
+            <h2 class="story-headline" id="process-heading">
+              Dari spesifikasi tipografi hingga kode produksi.
+            </h2>
+          </div>
+          <p class="story-sub">
+            Kami tidak menyerahkan file statis yang terputus dari kenyataan browser. Setiap sistem diuji langsung di DOM nyata, diperiksa kontrasnya, dan dikemas dengan token yang siap diadopsi tim engineer.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-step">
+            <span class="process-num tabular-nums">01 // ARSITEKTUR MEREK</span>
+            <h3 class="process-title">Identitas &amp; Tata Bahasa Visual</h3>
+            <p class="process-desc">
+              Pemetaan posisi produk, sistem warna terkalibrasi, skala tipografi presisi, dan aturan komposisi tanpa hiasan generik.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span class="process-num tabular-nums">02 // REKAYASA ANTARMUKA</span>
+            <h3 class="process-title">Komponen &amp; Token Produksi</h3>
+            <p class="process-desc">
+              Membangun primitif UI aksesibel dengan state lengkap, angka tabular presisi, kontrol taktil, dan tema terang/gelap yang konsisten.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span class="process-num tabular-nums">03 // KINETIK &amp; VERIFIKASI</span>
+            <h3 class="process-title">Motion Spec &amp; Audit Browser</h3>
+            <p class="process-desc">
+              Kurva timing 120–180ms untuk interaksi mikro, kepatuhan prefers-reduced-motion, dan verifikasi lintas viewport 360px–1440px.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Monochrome Footer -->
+  <footer class="site-footer container" id="footer">
+    <div class="footer-inner">
+      <div class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="7" height="16" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+          <rect x="11" y="2" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.75" />
+          <path d="M11 13H18M11 17H15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+        </svg>
+        <span>MONO // STUDIO</span>
+      </div>
+
+      <div class="footer-meta">
+        <span>JAKARTA · UTC+7 · GLOBAL REMOTE</span>
+        <span>hello@monostudio.design</span>
+        <span>Pintasan: <kbd class="kbd-chip">D</kbd> Mode Gelap · <kbd class="kbd-chip">Esc</kbd> Tutup Panel</span>
+      </div>
+
+      <button type="button" class="btn-pill btn-pill--secondary btn-pill--sm" id="footerInquiryBtn">
+        <span>Buka Brief Proyek</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Case Study Detail Modal -->
+  <div class="backdrop" id="caseModalBackdrop" aria-hidden="true">
+    <div
+      class="case-modal"
+      id="caseModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalCaseTitle"
+      tabindex="-1"
+    >
+      <div class="modal-header">
+        <div>
+          <div class="case-meta-left">
+            <span class="tag-pill" id="modalCaseCategory">Web App</span>
+            <span class="eyebrow tabular-nums" id="modalCaseYear">2026</span>
+          </div>
+          <h2 class="modal-title" id="modalCaseTitle">Judul Studi Kasus</h2>
+        </div>
+
+        <button type="button" class="icon-btn" id="closeCaseModalBtn" aria-label="Tutup detail studi kasus">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-banner" id="modalCaseBanner" aria-hidden="true"></div>
+
+      <p id="modalCaseDesc" style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.55; color: var(--text-secondary);"></p>
+
+      <div class="modal-grid">
+        <div class="modal-box">
+          <h3 class="modal-box-title">Deliverables Terkirim</h3>
+          <ul class="deliverable-list" id="modalDeliverables"></ul>
+        </div>
+
+        <div class="modal-box">
+          <h3 class="modal-box-title">Token Tipografi Proyek</h3>
+          <div class="type-specimen-row">
+            <div class="type-sample" id="modalTypeSample">Aa Bb Cc 0123456789</div>
+            <div class="type-spec-meta" id="modalTypeMeta"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-box" style="margin-bottom: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px;">
+          <h3 class="modal-box-title" style="margin: 0;">Swatch Warna Proyek</h3>
+          <span class="eyebrow">Klik swatch untuk salin HEX</span>
+        </div>
+        <div class="swatch-grid" id="modalSwatches"></div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="eyebrow tabular-nums" id="modalOutcomeMetric">DAMPAK // +42% KECEPATAN RELEASE</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="btn-pill btn-pill--secondary btn-pill--sm" id="modalSecondaryCloseBtn">
+            Tutup
+          </button>
+          <button type="button" class="btn-pill btn-pill--primary btn-pill--sm" id="modalInquireSimilarBtn">
+            <span>Diskusikan Proyek Serupa</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Project Inquiry Drawer -->
+  <div class="drawer-backdrop" id="inquiryBackdrop" aria-hidden="true">
+    <aside
+      class="inquiry-drawer"
+      id="inquiryDrawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="drawerHeading"
+      tabindex="-1"
+    >
+      <div class="drawer-header">
+        <div>
+          <span class="eyebrow">KONSULTASI PROYEK · Q2 2026</span>
+          <h2 class="drawer-title" id="drawerHeading">Ajukan Brief Proyek</h2>
+        </div>
+
+        <button type="button" class="icon-btn" id="closeDrawerBtn" aria-label="Tutup panel inquiry">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <form class="inquiry-form" id="inquiryForm" novalidate>
+        <!-- Scope Pills -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <span class="form-label">Disiplin Utama</span>
+            <span class="form-hint">Pilih minimal 1</span>
+          </div>
+          <div class="pill-selector-grid" id="scopeSelector" role="group" aria-label="Pilih disiplin proyek">
+            <button type="button" class="choice-pill" data-value="Brand System" aria-pressed="true">Brand System</button>
+            <button type="button" class="choice-pill" data-value="Web App" aria-pressed="false">Web App</button>
+            <button type="button" class="choice-pill" data-value="Motion" aria-pressed="false">Motion Spec</button>
+            <button type="button" class="choice-pill" data-value="Design Audit" aria-pressed="false">Design Audit</button>
+          </div>
+          <span class="field-error" id="errScope">Pilih minimal satu disiplin proyek.</span>
+        </div>
+
+        <!-- Budget Pill Selector -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <span class="form-label">Estimasi Anggaran</span>
+            <span class="form-hint">Wajib pilih</span>
+          </div>
+          <div class="pill-selector-grid" id="budgetSelector" role="radiogroup" aria-label="Pilih estimasi anggaran">
+            <button type="button" class="choice-pill" data-value="$15k – $30k" aria-pressed="false">$15k – $30k</button>
+            <button type="button" class="choice-pill" data-value="$30k – $60k" aria-pressed="true">$30k – $60k</button>
+            <button type="button" class="choice-pill" data-value="$60k – $100k" aria-pressed="false">$60k – $100k</button>
+            <button type="button" class="choice-pill" data-value="$100k+" aria-pressed="false">$100k+</button>
+          </div>
+          <span class="field-error" id="errBudget">Pilih rentang anggaran proyek.</span>
+        </div>
+
+        <!-- Timeline Pill Selector -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <span class="form-label">Target Timeline</span>
+            <span class="form-hint">Wajib pilih</span>
+          </div>
+          <div class="pill-selector-grid" id="timelineSelector" role="radiogroup" aria-label="Pilih target timeline">
+            <button type="button" class="choice-pill" data-value="4–6 Minggu" aria-pressed="false">4–6 Minggu</button>
+            <button type="button" class="choice-pill" data-value="8–12 Minggu" aria-pressed="true">8–12 Minggu</button>
+            <button type="button" class="choice-pill" data-value="Kuartal (3+ Bln)" aria-pressed="false">Kuartal (3+ Bln)</button>
+            <button type="button" class="choice-pill" data-value="Fleksibel" aria-pressed="false">Fleksibel</button>
+          </div>
+          <span class="field-error" id="errTimeline">Pilih target timeline.</span>
+        </div>
+
+        <!-- Name & Email -->
+        <div class="form-group">
+          <label class="form-label" for="inputName">Nama Lengkap</label>
+          <input
+            type="text"
+            id="inputName"
+            name="name"
+            class="form-input"
+            placeholder="Misal: Nadia Kusuma"
+            autocomplete="name"
+            required
+          />
+          <span class="field-error" id="errName">Masukkan nama lengkap Anda (minimal 2 karakter).</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputEmail">Email Kerja</label>
+          <input
+            type="email"
+            id="inputEmail"
+            name="email"
+            class="form-input"
+            placeholder="nadia@perusahaan.com"
+            autocomplete="email"
+            required
+          />
+          <span class="field-error" id="errEmail">Masukkan alamat email kerja yang valid.</span>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" for="inputBrief">Konteks &amp; Sasaran Produk</label>
+            <span class="form-hint tabular-nums" id="briefCharCounter">0 / 20 min</span>
+          </div>
+          <textarea
+            id="inputBrief"
+            name="brief"
+            class="form-textarea"
+            placeholder="Ceritakan produk Anda, tantangan sistem desain atau engineering saat ini, serta target rilis..."
+            required
+          ></textarea>
+          <span class="field-error" id="errBrief">Tuliskan ringkasan brief minimal 20 karakter.</span>
+        </div>
+
+        <label class="consent-row">
+          <input type="checkbox" class="consent-checkbox" id="inputConsent" />
+          <span>Saya menyetujui brief ini ditinjau secara rahasia oleh tim MONO // STUDIO (NDA tersedia).</span>
+        </label>
+        <span class="field-error" id="errConsent" style="margin-top: -12px;">Centang persetujuan kerahasiaan untuk melanjutkan.</span>
+
+        <div class="drawer-submit-row">
+          <button type="button" class="btn-pill btn-pill--ghost btn-pill--sm" id="resetDrawerBtn">Reset Form</button>
+          <button type="submit" class="btn-pill btn-pill--primary" id="submitInquiryBtn">
+            <span class="btn-spinner" aria-hidden="true"></span>
+            <span id="submitBtnLabel">Kirim Brief Proyek</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Submitted Confirmation State -->
+      <div class="success-panel" id="inquirySuccessPanel" data-visible="false" aria-live="polite">
+        <div class="success-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div>
+          <span class="eyebrow tabular-nums" id="ticketRefId">TIKET // MN-2026-041</span>
+          <h3 style="margin: 6px 0 8px 0; font-size: 22px; letter-spacing: -0.02em;">Brief proyek telah diterima.</h3>
+          <p id="successSummaryText" style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--text-secondary);"></p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" class="btn-pill btn-pill--primary btn-pill--sm" id="newInquiryBtn">Buat Brief Lain</button>
+          <button type="button" class="btn-pill btn-pill--secondary btn-pill--sm" id="doneDrawerBtn">Kembali ke Portofolio</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toast Feedback -->
+  <div class="toast" id="toastEl" role="status" aria-live="polite" data-visible="false">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20 6L9 17L4 12" stroke="#1ED760" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span id="toastText">Disalin ke papan klip</span>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ======================================================================
+         Curated Case Study Data (Verified studio palette)
+         ====================================================================== */
+      const CASE_STUDIES = [
+        {
+          id: "kinetik-audio",
+          client: "KINETIK LABS",
+          title: "Kinetik Audio — Modular Web Workstation",
+          category: "Web App",
+          year: "2026",
+          pastel: "lime",
+          bgHex: "#DCEEB1",
+          span: "7",
+          summary:
+            "Antarmuka sintesis audio berbasis WebAudio dengan latensi rendah, grid patch modular, dan kontrol parameter tabular presisi.",
+          fullDesc:
+            "Kami merancang ulang workstation audio kolaboratif Kinetik agar produser dapat merutekan modul osilator dan efek langsung di browser tanpa gangguan visual. Fokusnya adalah kontras tinggi pada kenop, feedback state instan (120ms), dan hierarki angka monospasi yang tetap terbaca saat pemutaran real-time.",
+          deliverables: [
+            "Arsitektur UI Studio & Sistem Kenop Taktil",
+            "180+ Komponen Web Audio & Token Kontras",
+            "Keyboard-First Transport & Patch Routing",
+            "Mode Gelap Studio & Optimasi Canvas 60fps"
+          ],
+          typography: {
+            sample: "128.0 BPM · -4.2 dBFS",
+            family: "Plus Jakarta Sans + JetBrains Mono",
+            scale: "1.25x Modular · -0.03em",
+            features: "tabular-nums, tnum"
+          },
+          swatches: [
+            { hex: "#141614", role: "Obsidian Rack" },
+            { hex: "#DCEEB1", role: "Volt Lime Signal" },
+            { hex: "#344E41", role: "Deep Moss Panel" },
+            { hex: "#F7F7F5", role: "Paper Meter" }
+          ],
+          outcome: "DAMPAK // 38% LEBIH CEPAT PATCHING SESI LIVE",
+          svgMarkup: `
+            <svg viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="10" width="136" height="120" rx="8" fill="#111111"/>
+              <circle cx="42" cy="48" r="14" stroke="#DCEEB1" stroke-width="2"/>
+              <path d="M42 48L50 38" stroke="#DCEEB1" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="96" cy="48" r="14" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="2"/>
+              <path d="M96 48L104 54" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+              <rect x="24" y="84" width="96" height="26" rx="6" fill="#1E241E" stroke="#DCEEB1" stroke-opacity="0.4"/>
+              <path d="M32 97H56L62 90L68 104L74 94L80 97H110" stroke="#DCEEB1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M144 48C176 48 176 92 208 92" stroke="#111111" stroke-width="2" stroke-dasharray="4 4"/>
+              <rect x="208" y="18" width="260" height="104" rx="8" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+              <rect x="224" y="34" width="12" height="58" rx="3" fill="#111111"/>
+              <rect x="244" y="52" width="12" height="40" rx="3" fill="#111111"/>
+              <rect x="264" y="28" width="12" height="64" rx="3" fill="#111111"/>
+              <rect x="284" y="44" width="12" height="48" rx="3" fill="#344E41"/>
+              <rect x="304" y="60" width="12" height="32" rx="3" fill="#111111"/>
+              <rect x="324" y="38" width="12" height="54" rx="3" fill="#111111"/>
+              <rect x="344" y="48" width="12" height="44" rx="3" fill="#344E41"/>
+              <rect x="376" y="34" width="76" height="22" rx="11" fill="#111111"/>
+              <rect x="376" y="68" width="76" height="24" rx="6" stroke="#111111" stroke-width="1.5"/>
+              <path d="M224 106H452" stroke="#111111" stroke-opacity="0.2" stroke-width="1.5"/>
+            </svg>`
+        },
+        {
+          id: "atelier-nusa",
+          client: "ATELIER NUSA",
+          title: "Atelier Nusa — Multi-Brand Design System",
+          category: "Brand System",
+          year: "2026",
+          pastel: "lilac",
+          bgHex: "#C5B0F4",
+          span: "5",
+          summary:
+            "Bahasa visual editorial, skala tipografi presisi, dan kitab token CSS lintas 4 kanal pameran & penerbitan.",
+          fullDesc:
+            "Atelier Nusa membutuhkan sistem identitas yang tegas secara arsitektural namun tetap memberi ruang pada kurasi seni kontemporer. Kami menyusun grid tipografi 8px yang kaku namun luwes, lengkap dengan paket token Figma-to-CSS yang dapat berganti tema secara otomatis per pameran.",
+          deliverables: [
+            "Pedoman Identitas & Arsitektur Tipografi",
+            "Multi-Theme Design Tokens (JSON & CSS)",
+            "Templat Katalog Digital & Poster Grid",
+            "Komponen Editorial & Aksesibilitas AA"
+          ],
+          typography: {
+            sample: "Edisi 04 — Ruang & Bentuk",
+            family: "Plus Jakarta Sans + JetBrains Mono",
+            scale: "Display 72px / Body 16px",
+            features: "kern, ss01"
+          },
+          swatches: [
+            { hex: "#16141C", role: "Archival Ink" },
+            { hex: "#C5B0F4", role: "Curatorial Lilac" },
+            { hex: "#B84A39", role: "Terracotta Stamp" },
+            { hex: "#F7F6FA", role: "Gallery Paper" }
+          ],
+          outcome: "DAMPAK // 4 KANAL TERPADU DALAM 1 KODEBASIS TOKEN",
+          svgMarkup: `
+            <svg viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="12" width="144" height="116" rx="8" fill="#16141C"/>
+              <rect x="26" y="26" width="56" height="6" rx="3" fill="#C5B0F4"/>
+              <rect x="26" y="42" width="112" height="14" rx="4" fill="#FFFFFF"/>
+              <rect x="26" y="64" width="84" height="14" rx="4" fill="#FFFFFF" fill-opacity="0.7"/>
+              <rect x="26" y="96" width="44" height="18" rx="9" fill="#B84A39"/>
+              <rect x="172" y="12" width="176" height="52" rx="8" fill="#FFFFFF" stroke="#16141C" stroke-width="1.5"/>
+              <line x1="190" y1="28" x2="290" y2="28" stroke="#16141C" stroke-width="2" stroke-linecap="round"/>
+              <line x1="190" y1="44" x2="250" y2="44" stroke="#16141C" stroke-opacity="0.45" stroke-width="2" stroke-linecap="round"/>
+              <rect x="172" y="76" width="82" height="52" rx="8" fill="#FFFFFF" stroke="#16141C" stroke-width="1.5"/>
+              <circle cx="213" cy="102" r="14" stroke="#16141C" stroke-width="1.75"/>
+              <rect x="266" y="76" width="82" height="52" rx="8" fill="#B84A39"/>
+              <path d="M292 102H322M307 87V117" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            </svg>`
+        },
+        {
+          id: "orbital-pay",
+          client: "ORBITAL TREASURY",
+          title: "Orbital Pay — Real-Time Settlement Console",
+          category: "Web App",
+          year: "2025",
+          pastel: "cream",
+          bgHex: "#F4ECD6",
+          span: "5",
+          summary:
+            "Konsol operasional B2B untuk rekonsiliasi lintas mata uang dengan kepadatan data tinggi tanpa card bersarang.",
+          fullDesc:
+            "Tim keuangan korporat membutuhkan kejelasan seketika atas likuiditas multi-mata uang tanpa terganggu bayangan kartu yang berat. Kami menyederhanakan tabel transaksi menjadi strip metrik datar bersekat hairline 1px, filter keyboard cepat, dan indikator status semantik kontras tinggi.",
+          deliverables: [
+            "Sistem Tabel Ledger & Strip KPI Datar",
+            "Alur Konfirmasi Transfer Multi-Persetujuan",
+            "Format Numerik Ketat (tabular-nums)",
+            "Audit Kontras & Keyboard Navigation"
+          ],
+          typography: {
+            sample: "IDR 4.280.500.000",
+            family: "Plus Jakarta Sans + JetBrains Mono",
+            scale: "24px Metric / 13px Table",
+            features: "tabular-nums, zero"
+          },
+          swatches: [
+            { hex: "#0D253D", role: "Deep Navy Ink" },
+            { hex: "#F4ECD6", role: "Warm Vellum" },
+            { hex: "#0F766E", role: "Settlement Pine" },
+            { hex: "#F6F9FC", role: "Ice Ledger" }
+          ],
+          outcome: "DAMPAK // -51% WAKTU VERIFIKASI REKONSILIASI",
+          svgMarkup: `
+            <svg viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="12" width="336" height="116" rx="8" fill="#FFFFFF" stroke="#0D253D" stroke-width="1.5"/>
+              <rect x="26" y="24" width="94" height="32" rx="6" fill="#F6F9FC" stroke="#0D253D" stroke-opacity="0.2"/>
+              <rect x="132" y="24" width="94" height="32" rx="6" fill="#F6F9FC" stroke="#0D253D" stroke-opacity="0.2"/>
+              <rect x="238" y="24" width="96" height="32" rx="6" fill="#0F766E"/>
+              <line x1="26" y1="74" x2="334" y2="74" stroke="#0D253D" stroke-opacity="0.16" stroke-width="1"/>
+              <rect x="26" y="84" width="120" height="8" rx="4" fill="#0D253D"/>
+              <rect x="254" y="84" width="80" height="8" rx="4" fill="#0F766E"/>
+              <line x1="26" y1="102" x2="334" y2="102" stroke="#0D253D" stroke-opacity="0.16" stroke-width="1"/>
+              <rect x="26" y="110" width="96" height="8" rx="4" fill="#0D253D" fill-opacity="0.65"/>
+              <rect x="274" y="110" width="60" height="8" rx="4" fill="#0D253D" fill-opacity="0.4"/>
+            </svg>`
+        },
+        {
+          id: "pulsa-kinetic",
+          client: "PULSA ACOUSTICS",
+          title: "Pulsa Kinetic — Hardware Motion Language",
+          category: "Motion",
+          year: "2026",
+          pastel: "mint",
+          bgHex: "#C8E6CD",
+          span: "7",
+          summary:
+            "Spesifikasi kurva spring, koreografi transisi OLED perangkat keras, dan film peluncuran produk audio.",
+          fullDesc:
+            "Pulsa meluncurkan pemutar audio portabel dengan layar OLED monokrom. Kami menyusun standar gerak fisik yang menjaga kejelasan mata manusia: satu titik fokus berpindah per ketukan, durasi taktil 150ms, serta dukungan mode hemat gerak bagi pengguna sensitif.",
+          deliverables: [
+            "Matriks Kurva Bezier & Spring Tokens",
+            "Storyboard & Film Peluncuran 45 Detik",
+            "Spesifikasi Transisi Layar OLED 120Hz",
+            "Dokumentasi Pacing & Reduced Motion"
+          ],
+          typography: {
+            sample: "150ms · cubic-bezier(0.16, 1, 0.3, 1)",
+            family: "Plus Jakarta Sans + JetBrains Mono",
+            scale: "48px Story / 12px Keyframe",
+            features: "tabular-nums, kern"
+          },
+          swatches: [
+            { hex: "#111111", role: "Anodized Shell" },
+            { hex: "#C8E6CD", role: "Mint Spec" },
+            { hex: "#1ED760", role: "Active Pulse" },
+            { hex: "#ECECE8", role: "Brushed Metal" }
+          ],
+          outcome: "DAMPAK // 120FPS KONSISTEN DI HARDWARE & WEB",
+          svgMarkup: `
+            <svg viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="12" width="460" height="116" rx="8" fill="#111111"/>
+              <line x1="34" y1="100" x2="446" y2="100" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/>
+              <line x1="34" y1="40" x2="446" y2="40" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="4 4"/>
+              <path d="M40 100C110 100 120 40 210 40C285 40 310 88 370 52C398 35 424 40 440 40" stroke="#1ED760" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="40" cy="100" r="5" fill="#C8E6CD"/>
+              <circle cx="210" cy="40" r="6" fill="#1ED760" stroke="#111111" stroke-width="2"/>
+              <circle cx="370" cy="52" r="5" fill="#C8E6CD"/>
+              <circle cx="440" cy="40" r="5" fill="#1ED760"/>
+              <line x1="210" y1="22" x2="210" y2="112" stroke="#C8E6CD" stroke-opacity="0.4" stroke-width="1"/>
+              <rect x="24" y="18" width="90" height="16" rx="8" fill="#1F1F1F"/>
+              <rect x="34" y="24" width="46" height="4" rx="2" fill="#C8E6CD"/>
+            </svg>`
+        },
+        {
+          id: "verdant-labs",
+          client: "VERDANT BIO",
+          title: "Verdant Labs — Technical Packaging & Docs",
+          category: "Brand System",
+          year: "2025",
+          pastel: "lime",
+          bgHex: "#DCEEB1",
+          span: "8",
+          summary:
+            "Sistem pelabelan teknis, dokumentasi riset bioteknologi, dan paket grafis monokrom-lime untuk produk agrikultur.",
+          fullDesc:
+            "Verdant membutuhkan identitas yang menjauh dari klise organik lembut dan tampil sebagai laboratorium sains presisi. Kami merancang label batch bernomor seri tabular, tabel spesimen riset yang sangat mudah dipindai, dan sistem dokumentasi digital ringan.",
+          deliverables: [
+            "Identitas Laboratorium & Grid Kemasan",
+            "Sistem Dokumentasi Teknis & Tabel Data",
+            "Ikonografi Vektor Stroke 1.5px",
+            "Spesifikasi Cetak & Aset Digital"
+          ],
+          typography: {
+            sample: "BATCH NO. VRD-2025-884",
+            family: "Plus Jakarta Sans + JetBrains Mono",
+            scale: "36px Specimen / 14px Spec",
+            features: "tabular-nums, case"
+          },
+          swatches: [
+            { hex: "#182218", role: "Botanical Ink" },
+            { hex: "#DCEEB1", role: "Chlorophyll Lime" },
+            { hex: "#2D6A4F", role: "Field Emerald" },
+            { hex: "#FAFAF8", role: "Lab Stock" }
+          ],
+          outcome: "DAMPAK // ADOPSI 14 SKU KEMASAN GLOBAL",
+          svgMarkup: `
+            <svg viewBox="0 0 520 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="12" width="220" height="116" rx="8" fill="#FFFFFF" stroke="#182218" stroke-width="1.5"/>
+              <rect x="26" y="26" width="68" height="20" rx="10" fill="#182218"/>
+              <rect x="26" y="60" width="160" height="12" rx="4" fill="#182218"/>
+              <rect x="26" y="80" width="120" height="8" rx="4" fill="#182218" fill-opacity="0.4"/>
+              <rect x="26" y="100" width="188" height="14" rx="4" fill="#2D6A4F" fill-opacity="0.22"/>
+              <rect x="246" y="12" width="264" height="116" rx="8" fill="#182218"/>
+              <rect x="266" y="28" width="44" height="44" rx="6" stroke="#DCEEB1" stroke-width="1.75"/>
+              <path d="M276 50H300M288 38V62" stroke="#DCEEB1" stroke-width="1.75" stroke-linecap="round"/>
+              <rect x="326" y="28" width="160" height="10" rx="4" fill="#FFFFFF"/>
+              <rect x="326" y="46" width="110" height="8" rx="4" fill="#DCEEB1"/>
+              <rect x="266" y="92" width="220" height="20" rx="6" fill="#2D6A4F"/>
+            </svg>`
+        },
+        {
+          id: "trace-studio",
+          client: "TRACE CANVAS",
+          title: "Trace Studio — Vector Choreography Engine",
+          category: "Motion",
+          year: "2026",
+          pastel: "lilac",
+          bgHex: "#C5B0F4",
+          span: "4",
+          summary:
+            "Koreografi kursor kolaboratif dan animasi transisi panel dalam kanvas vektor multi-pengguna.",
+          fullDesc:
+            "Pada kanvas real-time Trace, puluhan kursor bergerak bersamaan sering membuat pengguna kelelahan visual. Kami mendesain sistem peredam gerak (motion damping), indikator seleksi tajam, dan transisi panel yang patuh pada anggaran frame 16.6ms.",
+          deliverables: [
+            "Model Fisika Kursor & Damping Motion",
+            "Transisi Shared-Element Card-to-Inspector",
+            "Prototipe Interaktif & Uji Frame Budget",
+            "Panduan Aksesibilitas Gerak"
+          ],
+          typography: {
+            sample: "16.6ms Frame Budget",
+            family: "Plus Jakarta Sans + JetBrains Mono",
+            scale: "28px Header / 12px Telemetry",
+            features: "tabular-nums"
+          },
+          swatches: [
+            { hex: "#171717", role: "Graphite Base" },
+            { hex: "#C5B0F4", role: "Canvas Lilac" },
+            { hex: "#E07A5F", role: "Cursor Coral" },
+            { hex: "#FFFFFF", role: "Artboard White" }
+          ],
+          outcome: "DAMPAK // ZERO DROPPED FRAMES PADA 30 KURSOR AKTIF",
+          svgMarkup: `
+            <svg viewBox="0 0 300 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="12" width="280" height="116" rx="8" fill="#FFFFFF" stroke="#171717" stroke-width="1.5"/>
+              <path d="M44 96C80 34 150 106 236 44" stroke="#171717" stroke-width="2" stroke-dasharray="5 5"/>
+              <rect x="34" y="86" width="20" height="20" rx="5" fill="#C5B0F4" stroke="#171717" stroke-width="1.5"/>
+              <rect x="136" y="64" width="24" height="24" rx="6" fill="#E07A5F"/>
+              <path d="M236 44L254 50L244 64L236 44Z" fill="#171717"/>
+              <rect x="184" y="88" width="84" height="22" rx="11" fill="#171717"/>
+            </svg>`
+        }
+      ];
+
+      /* ======================================================================
+         DOM References
+         ====================================================================== */
+      const htmlEl = document.documentElement;
+      const bodyEl = document.body;
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      const themeToggleLabel = document.getElementById("themeToggleLabel");
+      const themeIconSun = document.getElementById("themeIconSun");
+      const themeIconMoon = document.getElementById("themeIconMoon");
+
+      const caseGrid = document.getElementById("caseGrid");
+      const filterButtons = Array.from(document.querySelectorAll(".filter-pill"));
+      const resultCountLabel = document.getElementById("resultCountLabel");
+
+      // Case Study Modal Refs
+      const caseModalBackdrop = document.getElementById("caseModalBackdrop");
+      const caseModal = document.getElementById("caseModal");
+      const closeCaseModalBtn = document.getElementById("closeCaseModalBtn");
+      const modalSecondaryCloseBtn = document.getElementById("modalSecondaryCloseBtn");
+      const modalInquireSimilarBtn = document.getElementById("modalInquireSimilarBtn");
+      const modalCaseCategory = document.getElementById("modalCaseCategory");
+      const modalCaseYear = document.getElementById("modalCaseYear");
+      const modalCaseTitle = document.getElementById("modalCaseTitle");
+      const modalCaseBanner = document.getElementById("modalCaseBanner");
+      const modalCaseDesc = document.getElementById("modalCaseDesc");
+      const modalDeliverables = document.getElementById("modalDeliverables");
+      const modalTypeSample = document.getElementById("modalTypeSample");
+      const modalTypeMeta = document.getElementById("modalTypeMeta");
+      const modalSwatches = document.getElementById("modalSwatches");
+      const modalOutcomeMetric = document.getElementById("modalOutcomeMetric");
+
+      // Inquiry Drawer Refs
+      const inquiryBackdrop = document.getElementById("inquiryBackdrop");
+      const inquiryDrawer = document.getElementById("inquiryDrawer");
+      const closeDrawerBtn = document.getElementById("closeDrawerBtn");
+      const navInquiryBtn = document.getElementById("navInquiryBtn");
+      const heroInquiryBtn = document.getElementById("heroInquiryBtn");
+      const footerInquiryBtn = document.getElementById("footerInquiryBtn");
+
+      const inquiryForm = document.getElementById("inquiryForm");
+      const scopeSelector = document.getElementById("scopeSelector");
+      const budgetSelector = document.getElementById("budgetSelector");
+      const timelineSelector = document.getElementById("timelineSelector");
+      const inputName = document.getElementById("inputName");
+      const inputEmail = document.getElementById("inputEmail");
+      const inputBrief = document.getElementById("inputBrief");
+      const inputConsent = document.getElementById("inputConsent");
+      const briefCharCounter = document.getElementById("briefCharCounter");
+      const submitInquiryBtn = document.getElementById("submitInquiryBtn");
+      const submitBtnLabel = document.getElementById("submitBtnLabel");
+      const resetDrawerBtn = document.getElementById("resetDrawerBtn");
+      const inquirySuccessPanel = document.getElementById("inquirySuccessPanel");
+      const ticketRefId = document.getElementById("ticketRefId");
+      const successSummaryText = document.getElementById("successSummaryText");
+      const newInquiryBtn = document.getElementById("newInquiryBtn");
+      const doneDrawerBtn = document.getElementById("doneDrawerBtn");
+
+      const errScope = document.getElementById("errScope");
+      const errBudget = document.getElementById("errBudget");
+      const errTimeline = document.getElementById("errTimeline");
+      const errName = document.getElementById("errName");
+      const errEmail = document.getElementById("errEmail");
+      const errBrief = document.getElementById("errBrief");
+      const errConsent = document.getElementById("errConsent");
+
+      const toastEl = document.getElementById("toastEl");
+      const toastText = document.getElementById("toastText");
+      const studioClock = document.getElementById("studioClock");
+
+      /* ======================================================================
+         State
+         ====================================================================== */
+      let activeFilter = "Semua";
+      let activeCaseStudy = null;
+      let lastFocusedEl = null;
+      let toastTimer = null;
+
+      /* ======================================================================
+         Studio Jakarta Clock (Live static-safe update)
+         ====================================================================== */
+      function updateStudioClock() {
+        try {
+          const now = new Date();
+          const formatter = new Intl.DateTimeFormat("id-ID", {
+            timeZone: "Asia/Jakarta",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          });
+          studioClock.textContent = "JKT // " + formatter.format(now) + " WIB";
+        } catch (e) {
+          studioClock.textContent = "JKT // UTC+7";
+        }
+      }
+      updateStudioClock();
+      setInterval(updateStudioClock, 30000);
+
+      /* ======================================================================
+         Toast Feedback Helper
+         ====================================================================== */
+      function showToast(message) {
+        toastText.textContent = message;
+        toastEl.setAttribute("data-visible", "true");
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toastEl.setAttribute("data-visible", "false");
+        }, 2400);
+      }
+
+      /* ======================================================================
+         Theme Toggle (Light Monochrome+Pastel <-> Studio Dark Mode ala Spotify)
+         ====================================================================== */
+      function setTheme(nextTheme) {
+        htmlEl.setAttribute("data-theme", nextTheme);
+        const isDark = nextTheme === "dark";
+        themeToggleBtn.setAttribute("aria-pressed", String(isDark));
+        themeToggleBtn.setAttribute(
+          "aria-label",
+          isDark ? "Kembali ke Studio Light Mode" : "Ganti ke Studio Dark Mode"
+        );
+        themeToggleLabel.textContent = isDark ? "Light Frame" : "Studio Dark";
+        themeIconSun.style.display = isDark ? "none" : "block";
+        themeIconMoon.style.display = isDark ? "block" : "none";
+      }
+
+      themeToggleBtn.addEventListener("click", function () {
+        const current = htmlEl.getAttribute("data-theme");
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+
+      /* ======================================================================
+         Render Case Study Cards with Asymmetric Spans
+         ====================================================================== */
+      function renderCaseStudies() {
+        const filtered =
+          activeFilter === "Semua"
+            ? CASE_STUDIES
+            : CASE_STUDIES.filter(function (item) {
+                return item.category === activeFilter;
+              });
+
+        resultCountLabel.textContent = filtered.length + " STUDI KASUS";
+        caseGrid.innerHTML = "";
+
+        filtered.forEach(function (item, idx) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "case-card";
+          btn.setAttribute("data-pastel", item.pastel);
+          // Adapt asymmetric spans gracefully when filtered to 2 items
+          const computedSpan =
+            filtered.length === 2 ? (idx === 0 ? "7" : "5") : item.span;
+          btn.setAttribute("data-span", computedSpan);
+          btn.setAttribute("aria-label", "Buka studi kasus " + item.title);
+
+          btn.innerHTML =
+            '<div class="case-card-top">' +
+              '<div class="case-meta-left">' +
+                '<span class="case-badge">' + item.category + '</span>' +
+                '<span class="case-year tabular-nums">' + item.year + '</span>' +
+              '</div>' +
+              '<span class="case-arrow" aria-hidden="true">' +
+                '<svg width="15" height="15" viewBox="0 0 24 24" fill="none">' +
+                  '<path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />' +
+                '</svg>' +
+              '</span>' +
+            '</div>' +
+            '<div class="case-specimen" aria-hidden="true">' + item.svgMarkup + '</div>' +
+            '<div class="case-body">' +
+              '<span class="case-client">' + item.client + '</span>' +
+              '<h3 class="case-title">' + item.title + '</h3>' +
+              '<p class="case-summary">' + item.summary + '</p>' +
+            '</div>' +
+            '<div class="case-footer-hover">' +
+              '<span class="tabular-nums">' + item.outcome + '</span>' +
+              '<span class="case-hover-hint">Lihat Spesifikasi</span>' +
+            '</div>';
+
+          btn.addEventListener("click", function () {
+            openCaseModal(item);
+          });
+
+          caseGrid.appendChild(btn);
+        });
+      }
+
+      filterButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const chosen = btn.getAttribute("data-filter");
+          if (chosen === activeFilter) return;
+          activeFilter = chosen;
+          filterButtons.forEach(function (other) {
+            other.setAttribute("aria-pressed", String(other === btn));
+          });
+          renderCaseStudies();
+        });
+      });
+
+      renderCaseStudies();
+
+      /* ======================================================================
+         Case Study Modal Open / Close / Copy Swatch
+         ====================================================================== */
+      function openCaseModal(study) {
+        activeCaseStudy = study;
+        lastFocusedEl = document.activeElement;
+
+        modalCaseCategory.textContent = study.category;
+        modalCaseYear.textContent = study.client + " · " + study.year;
+        modalCaseTitle.textContent = study.title;
+        modalCaseDesc.textContent = study.fullDesc;
+        modalOutcomeMetric.textContent = study.outcome;
+
+        modalCaseBanner.style.backgroundColor = study.bgHex;
+        modalCaseBanner.innerHTML = study.svgMarkup;
+
+        // Deliverables
+        modalDeliverables.innerHTML = "";
+        study.deliverables.forEach(function (deliv) {
+          const li = document.createElement("li");
+          li.className = "deliverable-item";
+          li.innerHTML =
+            '<svg class="deliverable-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+              '<path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />' +
+            '</svg>' +
+            '<span>' + deliv + '</span>';
+          modalDeliverables.appendChild(li);
+        });
+
+        // Typography Tokens
+        modalTypeSample.textContent = study.typography.sample;
+        modalTypeMeta.innerHTML =
+          '<span class="tag-pill">' + study.typography.family + '</span>' +
+          '<span class="tag-pill">' + study.typography.scale + '</span>' +
+          '<span class="tag-pill">' + study.typography.features + '</span>';
+
+        // Color Swatches
+        modalSwatches.innerHTML = "";
+        study.swatches.forEach(function (sw) {
+          const swBtn = document.createElement("button");
+          swBtn.type = "button";
+          swBtn.className = "swatch-btn";
+          swBtn.setAttribute("aria-label", "Salin warna " + sw.hex + " (" + sw.role + ")");
+          swBtn.innerHTML =
+            '<span class="swatch-chip" style="background-color:' + sw.hex + ';"></span>' +
+            '<span class="swatch-info">' +
+              '<span class="swatch-hex">' + sw.hex + '</span>' +
+              '<span class="swatch-role">' + sw.role + '</span>' +
+            '</span>';
+
+          swBtn.addEventListener("click", function () {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(sw.hex).catch(function () {});
+            }
+            showToast("Kode warna " + sw.hex + " disalin");
+          });
+          modalSwatches.appendChild(swBtn);
+        });
+
+        caseModalBackdrop.setAttribute("data-open", "true");
+        caseModalBackdrop.setAttribute("aria-hidden", "false");
+        bodyEl.classList.add("modal-open");
+        caseModal.focus();
+      }
+
+      function closeCaseModal(restoreFocus) {
+        if (caseModalBackdrop.getAttribute("data-open") !== "true") return;
+        caseModalBackdrop.setAttribute("data-open", "false");
+        caseModalBackdrop.setAttribute("aria-hidden", "true");
+        if (inquiryBackdrop.getAttribute("data-open") !== "true") {
+          bodyEl.classList.remove("modal-open");
+        }
+        if (restoreFocus !== false && lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+          lastFocusedEl.focus();
+        }
+      }
+
+      closeCaseModalBtn.addEventListener("click", function () {
+        closeCaseModal(true);
+      });
+      modalSecondaryCloseBtn.addEventListener("click", function () {
+        closeCaseModal(true);
+      });
+      caseModalBackdrop.addEventListener("click", function (e) {
+        if (e.target === caseModalBackdrop) closeCaseModal(true);
+      });
+
+      modalInquireSimilarBtn.addEventListener("click", function () {
+        const refStudy = activeCaseStudy;
+        closeCaseModal(false);
+        openInquiryDrawer(refStudy);
+      });
+
+      /* ======================================================================
+         Inquiry Drawer Open / Close / Pill Selectors / Validation
+         ====================================================================== */
+      function openInquiryDrawer(prefillStudy) {
+        if (caseModalBackdrop.getAttribute("data-open") !== "true") {
+          lastFocusedEl = document.activeElement;
+        }
+
+        if (prefillStudy) {
+          // Match discipline pill to the case study category
+          const scopeButtons = Array.from(scopeSelector.querySelectorAll(".choice-pill"));
+          scopeButtons.forEach(function (pill) {
+            const val = pill.getAttribute("data-value");
+            pill.setAttribute("aria-pressed", String(val === prefillStudy.category));
+          });
+          if (!inputBrief.value.trim()) {
+            inputBrief.value =
+              "Tertarik membangun proyek dengan pendekatan serupa seperti studi kasus " +
+              prefillStudy.title +
+              ". Fokus kami saat ini adalah ";
+            updateBriefCounter();
+          }
+        }
+
+        inquiryBackdrop.setAttribute("data-open", "true");
+        inquiryBackdrop.setAttribute("aria-hidden", "false");
+        bodyEl.classList.add("modal-open");
+        inquiryDrawer.focus();
+      }
+
+      function closeInquiryDrawer() {
+        if (inquiryBackdrop.getAttribute("data-open") !== "true") return;
+        inquiryBackdrop.setAttribute("data-open", "false");
+        inquiryBackdrop.setAttribute("aria-hidden", "true");
+        bodyEl.classList.remove("modal-open");
+        if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+          lastFocusedEl.focus();
+        }
+      }
+
+      [navInquiryBtn, heroInquiryBtn, footerInquiryBtn].forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+          openInquiryDrawer(null);
+        });
+      });
+
+      closeDrawerBtn.addEventListener("click", closeInquiryDrawer);
+      doneDrawerBtn.addEventListener("click", closeInquiryDrawer);
+      inquiryBackdrop.addEventListener("click", function (e) {
+        if (e.target === inquiryBackdrop) closeInquiryDrawer();
+      });
+
+      // Multi-select Discipline Pills
+      scopeSelector.addEventListener("click", function (e) {
+        const pill = e.target.closest(".choice-pill");
+        if (!pill) return;
+        const pressed = pill.getAttribute("aria-pressed") === "true";
+        pill.setAttribute("aria-pressed", String(!pressed));
+        errScope.setAttribute("data-visible", "false");
+      });
+
+      // Single-select Radio Pill Groups (Budget & Timeline)
+      function wireSingleSelectGroup(container, errorEl) {
+        container.addEventListener("click", function (e) {
+          const pill = e.target.closest(".choice-pill");
+          if (!pill) return;
+          Array.from(container.querySelectorAll(".choice-pill")).forEach(function (p) {
+            p.setAttribute("aria-pressed", String(p === pill));
+          });
+          errorEl.setAttribute("data-visible", "false");
+        });
+      }
+      wireSingleSelectGroup(budgetSelector, errBudget);
+      wireSingleSelectGroup(timelineSelector, errTimeline);
+
+      // Live character counter
+      function updateBriefCounter() {
+        const len = inputBrief.value.trim().length;
+        briefCharCounter.textContent = len + " / 20 min";
+      }
+
+      inputBrief.addEventListener("input", function () {
+        updateBriefCounter();
+        if (inputBrief.value.trim().length >= 20) {
+          inputBrief.removeAttribute("aria-invalid");
+          errBrief.setAttribute("data-visible", "false");
+        }
+      });
+
+      inputName.addEventListener("input", function () {
+        if (inputName.value.trim().length >= 2) {
+          inputName.removeAttribute("aria-invalid");
+          errName.setAttribute("data-visible", "false");
+        }
+      });
+
+      inputEmail.addEventListener("input", function () {
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputEmail.value.trim())) {
+          inputEmail.removeAttribute("aria-invalid");
+          errEmail.setAttribute("data-visible", "false");
+        }
+      });
+
+      inputConsent.addEventListener("change", function () {
+        if (inputConsent.checked) {
+          errConsent.setAttribute("data-visible", "false");
+        }
+      });
+
+      function getSelectedValues(container) {
+        return Array.from(container.querySelectorAll('.choice-pill[aria-pressed="true"]')).map(function (el) {
+          return el.getAttribute("data-value");
+        });
+      }
+
+      function resetInquiryFormState() {
+        inquiryForm.reset();
+        updateBriefCounter();
+        [inputName, inputEmail, inputBrief].forEach(function (el) {
+          el.removeAttribute("aria-invalid");
+        });
+        [errScope, errBudget, errTimeline, errName, errEmail, errBrief, errConsent].forEach(function (el) {
+          el.setAttribute("data-visible", "false");
+        });
+        inquiryForm.style.display = "flex";
+        inquirySuccessPanel.setAttribute("data-visible", "false");
+      }
+
+      resetDrawerBtn.addEventListener("click", function () {
+        resetInquiryFormState();
+        showToast("Form brief direset");
+      });
+
+      newInquiryBtn.addEventListener("click", function () {
+        resetInquiryFormState();
+        inputName.focus();
+      });
+
+      inquiryForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let valid = true;
+
+        const scopes = getSelectedValues(scopeSelector);
+        if (scopes.length === 0) {
+          errScope.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        const budgets = getSelectedValues(budgetSelector);
+        if (budgets.length === 0) {
+          errBudget.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        const timelines = getSelectedValues(timelineSelector);
+        if (timelines.length === 0) {
+          errTimeline.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        if (inputName.value.trim().length < 2) {
+          inputName.setAttribute("aria-invalid", "true");
+          errName.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        const emailVal = inputEmail.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+          inputEmail.setAttribute("aria-invalid", "true");
+          errEmail.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        if (inputBrief.value.trim().length < 20) {
+          inputBrief.setAttribute("aria-invalid", "true");
+          errBrief.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        if (!inputConsent.checked) {
+          errConsent.setAttribute("data-visible", "true");
+          valid = false;
+        }
+
+        if (!valid) {
+          const firstInvalid = inquiryForm.querySelector('[aria-invalid="true"]');
+          if (firstInvalid) firstInvalid.focus();
+          showToast("Periksa kembali kolom yang bertanda merah");
+          return;
+        }
+
+        // Loading state without layout shift
+        submitInquiryBtn.disabled = true;
+        submitInquiryBtn.classList.add("is-loading");
+        submitBtnLabel.textContent = "Mengirim Brief...";
+
+        setTimeout(function () {
+          submitInquiryBtn.disabled = false;
+          submitInquiryBtn.classList.remove("is-loading");
+          submitBtnLabel.textContent = "Kirim Brief Proyek";
+
+          const randomNum = Math.floor(100 + Math.random() * 899);
+          ticketRefId.textContent = "TIKET // MN-2026-" + randomNum;
+          successSummaryText.textContent =
+            "Terima kasih, " +
+            inputName.value.trim() +
+            ". Ringkasan untuk disiplin " +
+            scopes.join(", ") +
+            " (anggaran " +
+            budgets[0] +
+            ", target " +
+            timelines[0] +
+            ") telah dikirim ke partner kami. Balasan awal dikirim ke " +
+            emailVal +
+            " dalam 1 hari kerja.";
+
+          inquiryForm.style.display = "none";
+          inquirySuccessPanel.setAttribute("data-visible", "true");
+          showToast("Brief proyek berhasil dikirim");
+        }, 550);
+      });
+
+      /* ======================================================================
+         Global Keyboard Shortcuts (Escape to close modals, 'D' for Dark Mode)
+         ====================================================================== */
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (inquiryBackdrop.getAttribute("data-open") === "true") {
+            closeInquiryDrawer();
+            return;
+          }
+          if (caseModalBackdrop.getAttribute("data-open") === "true") {
+            closeCaseModal(true);
+            return;
+          }
+        }
+
+        // 'd' shortcut outside inputs to toggle Studio Dark Mode
+        const tag = document.activeElement ? document.activeElement.tagName : "";
+        if (
+          (e.key === "d" || e.key === "D") &&
+          !e.metaKey &&
+          !e.ctrlKey &&
+          !e.altKey &&
+          tag !== "INPUT" &&
+          tag !== "TEXTAREA"
+        ) {
+          const current = htmlEl.getAttribute("data-theme");
+          setTheme(current === "dark" ? "light" : "dark");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Agent & workflow temp
+.agent-output/
+.git-workflow-tmp/
+
+# OS & logs
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,153 @@
+{
+  "slug": "vercel",
+  "url": "https://vercel.com",
+  "captured_at": "2026-11-24T07:23:22.166Z",
+  "screenshot": "references/assets/rea-vercel.png",
+  "screenshot_bytes": 267416,
+  "title": "Agentic Infrastructure - Vercel",
+  "finalUrl": "https://vercel.com/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "backgroundColor": "rgb(0, 0, 0)",
+    "color": "rgb(237, 237, 237)",
+    "fontFamily": "GeistSans, \"GeistSans Fallback\"",
+    "fontSize": "16px",
+    "lineHeight": "24px"
+  },
+  "header": {
+    "tag": "header",
+    "height": "64px",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backdropFilter": "none",
+    "borderBottom": "0px solid rgb(31, 31, 31)",
+    "linkCount": 88
+  },
+  "h1": {
+    "text": "Agentic Infrastructure",
+    "fontFamily": "GeistSans, \"GeistSans Fallback\"",
+    "fontSize": "64px",
+    "fontWeight": "400",
+    "letterSpacing": "-3.84px",
+    "lineHeight": "64px",
+    "color": "rgb(237, 237, 237)"
+  },
+  "h2": {
+    "text": "Build agents on infrastructure that thinks like them",
+    "fontFamily": "GeistSans, \"GeistSans Fallback\"",
+    "fontSize": "56px",
+    "fontWeight": "450",
+    "letterSpacing": "-3.36px",
+    "lineHeight": "56px",
+    "color": "rgb(237, 237, 237)"
+  },
+  "buttons": [
+    {
+      "text": "Get a Demo",
+      "tag": "a",
+      "height": "32px",
+      "width": "101px",
+      "padding": "0px 6px",
+      "borderRadius": "6px",
+      "backgroundColor": "rgb(10, 10, 10)",
+      "color": "rgb(237, 237, 237)",
+      "border": "0px solid rgb(31, 31, 31)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(46, 46, 46) 0px 0px 0px 1px",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.15s"
+    },
+    {
+      "text": "Log In",
+      "tag": "a",
+      "height": "32px",
+      "width": "64px",
+      "padding": "0px 6px",
+      "borderRadius": "6px",
+      "backgroundColor": "rgb(10, 10, 10)",
+      "color": "rgb(237, 237, 237)",
+      "border": "0px solid rgb(31, 31, 31)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(46, 46, 46) 0px 0px 0px 1px",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.15s"
+    },
+    {
+      "text": "Sign Up",
+      "tag": "a",
+      "height": "32px",
+      "width": "75px",
+      "padding": "0px 6px",
+      "borderRadius": "6px",
+      "backgroundColor": "rgb(237, 237, 237)",
+      "color": "rgb(10, 10, 10)",
+      "border": "0px solid rgb(31, 31, 31)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.15s"
+    },
+    {
+      "text": "Deploy now",
+      "tag": "a",
+      "height": "40px",
+      "width": "124px",
+      "padding": "0px 12px",
+      "borderRadius": "3.35544e+07px",
+      "backgroundColor": "rgb(237, 237, 237)",
+      "color": "rgb(10, 10, 10)",
+      "border": "0px solid rgb(31, 31, 31)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "transitionDuration": "0.15s"
+    },
+    {
+      "text": "Talk to sales",
+      "tag": "a",
+      "height": "40px",
+      "width": "130px",
+      "padding": "0px 12px",
+      "borderRadius": "3.35544e+07px",
+      "backgroundColor": "rgb(10, 10, 10)",
+      "color": "rgb(237, 237, 237)",
+      "border": "0px solid rgb(31, 31, 31)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(46, 46, 46) 0px 0px 0px 1px",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "transitionDuration": "0.15s"
+    }
+  ],
+  "top_fonts": [
+    {
+      "value": "GeistSans",
+      "count": 68
+    }
+  ],
+  "top_backgrounds": [
+    {
+      "value": "rgb(0, 0, 0)",
+      "count": 4
+    },
+    {
+      "value": "rgb(10, 10, 10)",
+      "count": 4
+    },
+    {
+      "value": "rgb(237, 237, 237)",
+      "count": 3
+    }
+  ],
+  "top_radii": [
+    {
+      "value": "6px",
+      "count": 6
+    },
+    {
+      "value": "3.35544e+07px",
+      "count": 4
+    }
+  ]
+}

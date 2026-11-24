@@ -1,0 +1,301 @@
+{
+  "generated_at": "2026-11-24T14:25:38+07:00",
+  "count": 16,
+  "templates": [
+    {
+      "id": "shadcn-button",
+      "name": "button.tsx",
+      "category": "buttons",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/button.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/button.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/buttons/shadcn-button.tsx",
+      "lines": 63,
+      "bytes": 2382,
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "radix-ui",
+        "react"
+      ],
+      "use_case": "Production CVA button hierarchy (default/destructive/outline/secondary/ghost/link)"
+    },
+    {
+      "id": "magicui-shimmer-button",
+      "name": "shimmer-button.tsx",
+      "category": "buttons",
+      "repo": "magicuidesign/magicui",
+      "license": "MIT",
+      "source_url": "https://github.com/magicuidesign/magicui/blob/HEAD/apps/www/registry/magicui/shimmer-button.tsx",
+      "raw_url": "https://raw.githubusercontent.com/magicuidesign/magicui/HEAD/apps/www/registry/magicui/shimmer-button.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/buttons/magicui-shimmer-button.tsx",
+      "lines": 96,
+      "bytes": 2846,
+      "dependencies": [
+        "react"
+      ],
+      "use_case": "Focal hero CTA button with subtle CSS conic shimmer"
+    },
+    {
+      "id": "magicui-shiny-button",
+      "name": "shiny-button.tsx",
+      "category": "buttons",
+      "repo": "magicuidesign/magicui",
+      "license": "MIT",
+      "source_url": "https://github.com/magicuidesign/magicui/blob/HEAD/apps/www/registry/magicui/shiny-button.tsx",
+      "raw_url": "https://raw.githubusercontent.com/magicuidesign/magicui/HEAD/apps/www/registry/magicui/shiny-button.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/buttons/magicui-shiny-button.tsx",
+      "lines": 74,
+      "bytes": 2285,
+      "dependencies": [
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Tactile glossy mask-sweep button"
+    },
+    {
+      "id": "mp-magnetic",
+      "name": "magnetic.tsx",
+      "category": "buttons",
+      "repo": "ibelick/motion-primitives",
+      "license": "MIT",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/HEAD/components/core/magnetic.tsx",
+      "raw_url": "https://raw.githubusercontent.com/ibelick/motion-primitives/HEAD/components/core/magnetic.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/buttons/motion-primitives-magnetic.tsx",
+      "lines": 112,
+      "bytes": 2937,
+      "dependencies": [
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Spring-physics tactile magnetic cursor attraction wrapper"
+    },
+    {
+      "id": "mp-animated-background",
+      "name": "animated-background.tsx",
+      "category": "navigation",
+      "repo": "ibelick/motion-primitives",
+      "license": "MIT",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/HEAD/components/core/animated-background.tsx",
+      "raw_url": "https://raw.githubusercontent.com/ibelick/motion-primitives/HEAD/components/core/animated-background.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/navigation/motion-primitives-animated-background.tsx",
+      "lines": 90,
+      "bytes": 2190,
+      "dependencies": [
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Shared-layout sliding pill/tab background indicator"
+    },
+    {
+      "id": "shadcn-tabs",
+      "name": "tabs.tsx",
+      "category": "navigation",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/tabs.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/tabs.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/navigation/shadcn-tabs.tsx",
+      "lines": 90,
+      "bytes": 3772,
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "radix-ui",
+        "react"
+      ],
+      "use_case": "Accessible Radix tabs primitive"
+    },
+    {
+      "id": "shadcn-command",
+      "name": "command.tsx",
+      "category": "navigation",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/command.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/command.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/navigation/shadcn-command.tsx",
+      "lines": 184,
+      "bytes": 4819,
+      "dependencies": [
+        "cmdk",
+        "cn",
+        "lucide-react",
+        "react"
+      ],
+      "use_case": "Cmd+K command palette primitive (Raycast/Linear pattern)"
+    },
+    {
+      "id": "magicui-bento-grid",
+      "name": "bento-grid.tsx",
+      "category": "cards",
+      "repo": "magicuidesign/magicui",
+      "license": "MIT",
+      "source_url": "https://github.com/magicuidesign/magicui/blob/HEAD/apps/www/registry/magicui/bento-grid.tsx",
+      "raw_url": "https://raw.githubusercontent.com/magicuidesign/magicui/HEAD/apps/www/registry/magicui/bento-grid.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/cards/magicui-bento-grid.tsx",
+      "lines": 109,
+      "bytes": 3206,
+      "dependencies": [
+        "@radix-ui/react-icons",
+        "react"
+      ],
+      "use_case": "Asymmetric 3-column bento showcase grid with hover reveal CTA"
+    },
+    {
+      "id": "magicui-border-beam",
+      "name": "border-beam.tsx",
+      "category": "cards",
+      "repo": "magicuidesign/magicui",
+      "license": "MIT",
+      "source_url": "https://github.com/magicuidesign/magicui/blob/HEAD/apps/www/registry/magicui/border-beam.tsx",
+      "raw_url": "https://raw.githubusercontent.com/magicuidesign/magicui/HEAD/apps/www/registry/magicui/border-beam.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/cards/magicui-border-beam.tsx",
+      "lines": 107,
+      "bytes": 2462,
+      "dependencies": [
+        "motion/react"
+      ],
+      "use_case": "Subtle animated perimeter highlight for a single focal showcase card"
+    },
+    {
+      "id": "shadcn-card",
+      "name": "card.tsx",
+      "category": "cards",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/card.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/card.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/cards/shadcn-card.tsx",
+      "lines": 91,
+      "bytes": 1977,
+      "dependencies": [
+        "cn",
+        "react"
+      ],
+      "use_case": "Clean composable Card/Header/Content/Footer primitive"
+    },
+    {
+      "id": "shadcn-badge",
+      "name": "badge.tsx",
+      "category": "cards",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/badge.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/badge.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/cards/shadcn-badge.tsx",
+      "lines": 47,
+      "bytes": 1766,
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "radix-ui",
+        "react"
+      ],
+      "use_case": "Semantic badge variants"
+    },
+    {
+      "id": "mp-morphing-dialog",
+      "name": "morphing-dialog.tsx",
+      "category": "motion",
+      "repo": "ibelick/motion-primitives",
+      "license": "MIT",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/HEAD/components/core/morphing-dialog.tsx",
+      "raw_url": "https://raw.githubusercontent.com/ibelick/motion-primitives/HEAD/components/core/morphing-dialog.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/motion/motion-primitives-morphing-dialog.tsx",
+      "lines": 422,
+      "bytes": 9858,
+      "dependencies": [
+        "lucide-react",
+        "motion/react",
+        "react",
+        "react-dom"
+      ],
+      "use_case": "Shared-element layoutId morphing card-to-dialog transition"
+    },
+    {
+      "id": "mp-disclosure",
+      "name": "disclosure.tsx",
+      "category": "motion",
+      "repo": "ibelick/motion-primitives",
+      "license": "MIT",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/HEAD/components/core/disclosure.tsx",
+      "raw_url": "https://raw.githubusercontent.com/ibelick/motion-primitives/HEAD/components/core/disclosure.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/motion/motion-primitives-disclosure.tsx",
+      "lines": 191,
+      "bytes": 4270,
+      "dependencies": [
+        "motion/react",
+        "react"
+      ],
+      "use_case": "Smooth height/opacity disclosure accordion"
+    },
+    {
+      "id": "sonner-styles",
+      "name": "styles.css",
+      "category": "motion",
+      "repo": "emilkowalski/sonner",
+      "license": "MIT",
+      "source_url": "https://github.com/emilkowalski/sonner/blob/HEAD/src/styles.css",
+      "raw_url": "https://raw.githubusercontent.com/emilkowalski/sonner/HEAD/src/styles.css",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/motion/sonner-styles.css",
+      "lines": 729,
+      "bytes": 17681,
+      "dependencies": [],
+      "use_case": "Emil Kowalski production toast CSS (easing, stacking transforms, shadows)"
+    },
+    {
+      "id": "shadcn-input",
+      "name": "input.tsx",
+      "category": "forms",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/input.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/input.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/forms/shadcn-input.tsx",
+      "lines": 20,
+      "bytes": 952,
+      "dependencies": [
+        "cn",
+        "react"
+      ],
+      "use_case": "Accessible form input with focus-visible ring tokens"
+    },
+    {
+      "id": "shadcn-dialog",
+      "name": "dialog.tsx",
+      "category": "forms",
+      "repo": "shadcn-ui/ui",
+      "license": "MIT",
+      "source_url": "https://github.com/shadcn-ui/ui/blob/HEAD/apps/v4/registry/new-york-v4/ui/dialog.tsx",
+      "raw_url": "https://raw.githubusercontent.com/shadcn-ui/ui/HEAD/apps/v4/registry/new-york-v4/ui/dialog.tsx",
+      "fetched_at": "2026-11-24T14:25:38+07:00",
+      "local_path": "templates/forms/shadcn-dialog.tsx",
+      "lines": 158,
+      "bytes": 4304,
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "radix-ui",
+        "react"
+      ],
+      "use_case": "Accessible Radix modal dialog primitive"
+    }
+  ]
+}

@@ -1,0 +1,3795 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valence Treasury — B2B Liquidity &amp; Instant Payouts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Stripe + Vercel Operate Fintech Palette */
+      --canvas-soft: #F6F9FC;
+      --canvas: #FFFFFF;
+      --canvas-inset: #F1F5F9;
+      --ink: #0D253D;
+      --ink-secondary: #273951;
+      --ink-mute: #64748D;
+      --hairline: #E3E8EE;
+      --hairline-strong: #CBD5E1;
+      --hairline-input: #A8C3DE;
+
+      /* Single Primary Accent: Stripe Indigo */
+      --primary: #533AFD;
+      --primary-deep: #4434D4;
+      --primary-press: #2E2B8C;
+      --primary-soft: #665EFD;
+      --primary-tint: rgba(83, 58, 253, 0.08);
+      --primary-ring: rgba(83, 58, 253, 0.24);
+
+      /* Semantic Status (Low-opacity tinted bg + high-contrast ink) */
+      --success-bg: rgba(14, 159, 110, 0.10);
+      --success-text: #065F46;
+      --success-dot: #0E9F6E;
+
+      --warning-bg: rgba(155, 104, 41, 0.11);
+      --warning-text: #855318;
+      --warning-dot: #C47F17;
+
+      --danger-bg: rgba(234, 34, 97, 0.10);
+      --danger-text: #B41246;
+      --danger-dot: #EA2261;
+
+      /* Geometry (Strict concentric rules: buttons 4px, panels 8px, no pill containers) */
+      --radius-btn: 4px;
+      --radius-input: 4px;
+      --radius-panel: 8px;
+      --radius-inner: 6px;
+      --radius-badge: 4px;
+
+      /* Elevation (Stripe + Vercel subtle hairline + micro shadow) */
+      --shadow-panel: 0 1px 2px rgba(13, 37, 61, 0.04), 0 0 0 1px var(--hairline);
+      --shadow-float: 0 8px 24px rgba(13, 37, 61, 0.09), 0 2px 6px rgba(13, 37, 61, 0.04);
+      --shadow-drawer: -12px 0 32px rgba(13, 37, 61, 0.10);
+
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --sidebar-width: 232px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background-color: var(--canvas-soft);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.45;
+      font-feature-settings: "ss01" 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .tnum {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1, "ss01" 1;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+    }
+
+    /* App Shell Layout */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* Left Sidebar (232px) */
+    .sidebar {
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      background: var(--canvas);
+      border-right: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 30;
+    }
+
+    .sidebar-header {
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-btn);
+      background: var(--ink);
+      color: var(--canvas);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .brand-env {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-tint);
+      padding: 2px 6px;
+      border-radius: var(--radius-badge);
+    }
+
+    .entity-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 7px 10px;
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-btn);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 140ms ease-out, border-color 140ms ease-out, transform 120ms ease-out;
+      text-align: left;
+    }
+
+    .entity-box:hover {
+      background: var(--canvas-inset);
+      border-color: var(--hairline-strong);
+    }
+
+    .entity-box:active {
+      transform: scale(0.98);
+    }
+
+    .entity-box:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .entity-meta {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .entity-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .entity-sub {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-mute);
+    }
+
+    .sidebar-nav {
+      padding: 12px 10px;
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nav-group-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-mute);
+      padding: 0 8px 6px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      padding: 7px 10px;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-btn);
+      color: var(--ink-secondary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 140ms ease-out, color 140ms ease-out, transform 120ms ease-out;
+    }
+
+    .nav-item:hover {
+      background: var(--canvas-soft);
+      color: var(--ink);
+    }
+
+    .nav-item:active {
+      transform: scale(0.98);
+    }
+
+    .nav-item:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .nav-item.is-active {
+      background: var(--primary-tint);
+      color: var(--primary);
+    }
+
+    .nav-item.is-active::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 2.5px;
+      border-radius: 2px;
+      background: var(--primary);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .nav-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      padding: 1px 5px;
+      border-radius: var(--radius-badge);
+    }
+
+    .nav-item.is-active .nav-count {
+      color: var(--primary);
+      background: var(--canvas);
+      border-color: rgba(83, 58, 253, 0.22);
+    }
+
+    .sidebar-footer {
+      padding: 12px 14px;
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rail-status-card {
+      padding: 9px 10px;
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-inner);
+    }
+
+    .rail-status-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .status-dot-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--success-text);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success-dot);
+      flex-shrink: 0;
+    }
+
+    .rail-status-meta {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-mute);
+      line-height: 1.4;
+    }
+
+    /* Main Workspace */
+    .workspace {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 56px;
+      background: rgba(246, 249, 252, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--hairline);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-btn);
+      background: var(--canvas);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .page-title-group {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .page-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--ink-mute);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Buttons (Stripe sharp 4px radius, optical padding, tactile cues, zero-shift loading) */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      white-space: nowrap;
+      user-select: none;
+      transition: background-color 140ms ease-out, border-color 140ms ease-out, color 140ms ease-out, transform 120ms ease-out, box-shadow 140ms ease-out;
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      border: 1px solid var(--primary-deep);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 1px 2px rgba(13, 37, 61, 0.08);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-deep);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      background: var(--primary-press);
+    }
+
+    .btn-secondary {
+      background: var(--canvas);
+      color: var(--ink);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: 0 1px 2px rgba(13, 37, 61, 0.03);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--canvas-soft);
+      border-color: var(--ink-mute);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-secondary);
+      border: 1px solid transparent;
+      height: 30px;
+      padding: 0 10px;
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--canvas-inset);
+      color: var(--ink);
+    }
+
+    .btn-lg {
+      height: 40px;
+      padding: 0 18px;
+      font-size: 13.5px;
+    }
+
+    .btn-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: opacity 120ms ease-out;
+    }
+
+    .btn-spinner {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .btn.is-loading .btn-label {
+      opacity: 0;
+    }
+
+    .btn.is-loading .btn-spinner {
+      display: flex;
+    }
+
+    .spinner-svg {
+      animation: spin 700ms linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Main Content Container */
+    .workspace-content {
+      padding: 20px 24px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1480px;
+      width: 100%;
+    }
+
+    /* Flat Hairline KPI Strip (Single Panel divided by 1px hairlines - anti 3-card-slop) */
+    .kpi-strip {
+      background: var(--canvas);
+      border-radius: var(--radius-panel);
+      box-shadow: var(--shadow-panel);
+      display: grid;
+      grid-template-columns: 1.55fr 1fr 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .kpi-cell {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .kpi-cell + .kpi-cell {
+      border-left: 1px solid var(--hairline);
+    }
+
+    .kpi-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-mute);
+      letter-spacing: -0.01em;
+    }
+
+    .kpi-tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-mute);
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      padding: 1px 6px;
+      border-radius: var(--radius-badge);
+    }
+
+    .kpi-value-hero {
+      font-size: 34px;
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .kpi-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+
+    .kpi-delta-pos {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--success-text);
+      background: var(--success-bg);
+      padding: 1px 6px;
+      border-radius: var(--radius-badge);
+    }
+
+    .kpi-delta-neutral {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-secondary);
+    }
+
+    /* Asymmetric Main Grid (7fr / 5fr) */
+    .main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.42fr) minmax(340px, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--canvas);
+      border-radius: var(--radius-panel);
+      box-shadow: var(--shadow-panel);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .panel-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 14.5px;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .panel-subtitle {
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+
+    .panel-body {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Segmented Range Switcher */
+    .segmented {
+      display: inline-flex;
+      align-items: center;
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-btn);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .seg-btn {
+      border: none;
+      background: transparent;
+      color: var(--ink-mute);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 140ms ease-out, color 140ms ease-out, box-shadow 140ms ease-out, transform 120ms ease-out;
+    }
+
+    .seg-btn:hover:not(.is-active) {
+      color: var(--ink);
+    }
+
+    .seg-btn:active {
+      transform: scale(0.98);
+    }
+
+    .seg-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .seg-btn.is-active {
+      background: var(--canvas);
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(13, 37, 61, 0.08), 0 0 0 1px var(--hairline);
+    }
+
+    /* Chart Panel Internals */
+    .chart-summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .chart-metrics {
+      display: flex;
+      align-items: baseline;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .chart-metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .chart-metric-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--ink-mute);
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 2.5px;
+      border-radius: 1px;
+      display: inline-block;
+    }
+
+    .chart-metric-val {
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 256px;
+      border-radius: var(--radius-inner);
+      outline: none;
+    }
+
+    .chart-wrap:focus-visible {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 268px;
+      display: block;
+      overflow: visible;
+    }
+
+    .chart-tooltip {
+      position: absolute;
+      top: 8px;
+      left: 0;
+      z-index: 10;
+      min-width: 214px;
+      padding: 10px 12px;
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-inner);
+      box-shadow: var(--shadow-float);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(2px);
+      transition: opacity 120ms ease-out, transform 120ms ease-out;
+    }
+
+    .chart-tooltip.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tooltip-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-mute);
+      margin-bottom: 6px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .tooltip-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 12px;
+      padding: 2px 0;
+    }
+
+    .tooltip-key {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink-secondary);
+    }
+
+    .tooltip-val {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* Instant Payout Simulator */
+    .sim-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+    }
+
+    .field-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+    }
+
+    .input-combo {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid var(--hairline-input);
+      border-radius: var(--radius-input);
+      background: var(--canvas);
+      transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+      overflow: hidden;
+    }
+
+    .input-combo:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-ring);
+    }
+
+    .input-combo.is-invalid {
+      border-color: var(--danger-dot);
+      box-shadow: 0 0 0 3px rgba(234, 34, 97, 0.14);
+    }
+
+    .currency-select {
+      border: none;
+      border-right: 1px solid var(--hairline);
+      background: var(--canvas-soft);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 0 10px;
+      min-width: 78px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .currency-select:focus-visible {
+      background: var(--primary-tint);
+      color: var(--primary);
+    }
+
+    .amount-input {
+      flex: 1;
+      min-width: 0;
+      height: 40px;
+      border: none;
+      padding: 0 12px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink);
+      background: transparent;
+      outline: none;
+      text-align: right;
+    }
+
+    .amount-input::placeholder {
+      color: #94A3B8;
+    }
+
+    .select-control, .text-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 11px;
+      border: 1px solid var(--hairline-input);
+      border-radius: var(--radius-input);
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+    }
+
+    .select-control:focus-visible, .text-input:focus-visible {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-ring);
+    }
+
+    .fx-bridge-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .swap-btn {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-btn);
+      background: var(--canvas-soft);
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: background-color 140ms ease-out, color 140ms ease-out, transform 120ms ease-out;
+    }
+
+    .swap-btn:hover {
+      background: var(--canvas-inset);
+      color: var(--ink);
+    }
+
+    .swap-btn:active {
+      transform: scale(0.96);
+    }
+
+    .swap-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .preset-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .preset-chip {
+      border: 1px solid var(--hairline);
+      background: var(--canvas-soft);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      transition: background-color 120ms ease-out, border-color 120ms ease-out, color 120ms ease-out, transform 100ms ease-out;
+    }
+
+    .preset-chip:hover {
+      background: var(--primary-tint);
+      border-color: rgba(83, 58, 253, 0.25);
+      color: var(--primary);
+    }
+
+    .preset-chip:active {
+      transform: scale(0.98);
+    }
+
+    .preset-chip:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .quote-breakdown {
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-inner);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .quote-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--ink-secondary);
+    }
+
+    .quote-divider {
+      height: 1px;
+      background: var(--hairline);
+      margin: 2px 0;
+    }
+
+    .quote-total-label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .quote-total-val {
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .field-error-slot {
+      min-height: 16px;
+      font-size: 11.5px;
+      color: var(--danger-text);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Transaction Ledger Panel */
+    .ledger-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--hairline);
+      background: var(--canvas);
+    }
+
+    .search-box {
+      position: relative;
+      width: 310px;
+      max-width: 100%;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-mute);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 34px;
+      padding: 0 42px 0 32px;
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-input);
+      background: var(--canvas-soft);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      outline: none;
+      transition: background-color 140ms ease-out, border-color 140ms ease-out, box-shadow 140ms ease-out;
+    }
+
+    .search-input:focus-visible {
+      background: var(--canvas);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-ring);
+    }
+
+    .kbd-hint {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-mute);
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: 3px;
+      padding: 1px 5px;
+      pointer-events: none;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .filter-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 30px;
+      padding: 0 10px;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-btn);
+      background: var(--canvas);
+      color: var(--ink-secondary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 140ms ease-out, border-color 140ms ease-out, color 140ms ease-out, transform 120ms ease-out;
+    }
+
+    .filter-tab:hover:not(.is-active) {
+      background: var(--canvas-soft);
+      border-color: var(--hairline-strong);
+      color: var(--ink);
+    }
+
+    .filter-tab:active {
+      transform: scale(0.98);
+    }
+
+    .filter-tab:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .filter-tab.is-active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #FFFFFF;
+    }
+
+    .filter-tab .tab-cnt {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      opacity: 0.78;
+    }
+
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+
+    .ledger-table thead th {
+      background: var(--canvas-soft);
+      border-bottom: 1px solid var(--hairline);
+      padding: 10px 16px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      white-space: nowrap;
+    }
+
+    .ledger-table thead th.is-right {
+      text-align: right;
+    }
+
+    .ledger-row {
+      cursor: pointer;
+      transition: background-color 120ms ease-out;
+    }
+
+    .ledger-row td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--hairline);
+      vertical-align: middle;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .ledger-row:last-child td {
+      border-bottom: none;
+    }
+
+    .ledger-row:hover {
+      background: var(--canvas-soft);
+    }
+
+    .ledger-row.is-selected {
+      background: var(--primary-tint);
+    }
+
+    .ledger-row:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: -2px;
+    }
+
+    .tx-id-cell {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .tx-sub {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    .cp-name {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .cp-rail {
+      display: block;
+      font-size: 11.5px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    /* Status Badges (Tinted low-opacity background + high contrast text) */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: var(--radius-badge);
+      font-size: 11.5px;
+      font-weight: 500;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .badge-settled {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+    .badge-settled .badge-dot { background: var(--success-dot); }
+
+    .badge-processing {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+    }
+    .badge-processing .badge-dot { background: var(--warning-dot); }
+
+    .badge-flagged {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+    .badge-flagged .badge-dot { background: var(--danger-dot); }
+
+    .amount-cell {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .amount-main {
+      font-weight: 500;
+      font-size: 13.5px;
+      color: var(--ink);
+    }
+
+    .amount-main.is-inflow {
+      color: var(--success-text);
+    }
+
+    .amount-eq {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    .empty-state {
+      padding: 40px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink-mute);
+    }
+
+    .empty-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* Slide-over Receipt Inspector */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(13, 37, 61, 0.28);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms var(--ease-out);
+    }
+
+    .drawer-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .receipt-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 448px;
+      max-width: 100vw;
+      z-index: 70;
+      background: var(--canvas);
+      border-left: 1px solid var(--hairline);
+      box-shadow: var(--shadow-drawer);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 240ms var(--ease-out);
+    }
+
+    .receipt-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .drawer-title-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .drawer-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-mute);
+    }
+
+    .drawer-tx-title {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .receipt-hero {
+      padding: 16px;
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-panel);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .receipt-amount {
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .receipt-sub-eq {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+
+    .hash-box {
+      padding: 12px 14px;
+      background: var(--canvas-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-inner);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hash-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hash-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-mute);
+    }
+
+    .hash-value {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      word-break: break-all;
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-btn);
+      padding: 8px 10px;
+    }
+
+    .meta-list {
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-inner);
+      overflow: hidden;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .meta-row:last-child {
+      border-bottom: none;
+    }
+
+    .meta-key {
+      color: var(--ink-mute);
+      flex-shrink: 0;
+    }
+
+    .meta-val {
+      color: var(--ink);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    /* Audit Trail Timeline */
+    .audit-section-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-mute);
+      margin-bottom: 12px;
+    }
+
+    .audit-timeline {
+      display: flex;
+      flex-direction: column;
+      padding-left: 4px;
+    }
+
+    .audit-step {
+      position: relative;
+      display: flex;
+      gap: 12px;
+      padding-bottom: 16px;
+    }
+
+    .audit-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .audit-step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 18px;
+      bottom: 2px;
+      width: 1px;
+      background: var(--hairline-strong);
+    }
+
+    .audit-node {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: var(--canvas);
+      border: 1.5px solid var(--hairline-strong);
+    }
+
+    .audit-node.is-done {
+      border-color: var(--success-dot);
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .audit-node.is-active {
+      border-color: var(--primary);
+      background: var(--primary-tint);
+      color: var(--primary);
+    }
+
+    .audit-node.is-warn {
+      border-color: var(--danger-dot);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+
+    .audit-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .audit-step-title {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .audit-step-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+    }
+
+    .drawer-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--hairline);
+      background: var(--canvas-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Sonner-Inspired Production Toast Stack (adapted from templates/motion/sonner-styles.css) */
+    .sonner-toaster {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 100;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .sonner-toast {
+      pointer-events: auto;
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-panel);
+      box-shadow: 0 4px 14px rgba(13, 37, 61, 0.10), 0 1px 3px rgba(13, 37, 61, 0.05);
+      padding: 13px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--ink);
+      opacity: 0;
+      transform: translateY(14px);
+      transition: transform 320ms var(--ease-out), opacity 260ms ease-out;
+    }
+
+    .sonner-toast.is-entered {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sonner-toast.is-leaving {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .sonner-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--success-dot);
+    }
+
+    .sonner-icon.is-info {
+      color: var(--primary);
+    }
+
+    .sonner-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sonner-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .sonner-desc {
+      font-size: 12px;
+      color: var(--ink-mute);
+      line-height: 1.4;
+    }
+
+    .sonner-action {
+      border: 1px solid var(--hairline-strong);
+      background: var(--canvas-soft);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 5px 9px;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      flex-shrink: 0;
+      align-self: center;
+      transition: background-color 120ms ease-out, transform 120ms ease-out;
+    }
+
+    .sonner-action:hover {
+      background: var(--canvas-inset);
+    }
+
+    .sonner-action:active {
+      transform: scale(0.98);
+    }
+
+    .sonner-action:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* Sidebar mobile backdrop */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      background: rgba(13, 37, 61, 0.28);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1180px) {
+      .kpi-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .kpi-cell:nth-child(3) {
+        border-left: none;
+        border-top: 1px solid var(--hairline);
+      }
+      .kpi-cell:nth-child(4) {
+        border-top: 1px solid var(--hairline);
+      }
+      .main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        transition: transform 220ms var(--ease-out);
+      }
+      .sidebar.is-open {
+        transform: translateX(0);
+      }
+      .sidebar-backdrop.is-open {
+        display: block;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      .topbar {
+        padding: 0 16px;
+      }
+      .workspace-content {
+        padding: 16px;
+      }
+      .page-breadcrumb {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-strip {
+        grid-template-columns: 1fr;
+      }
+      .kpi-cell + .kpi-cell {
+        border-left: none;
+        border-top: 1px solid var(--hairline);
+      }
+      .kpi-value-hero {
+        font-size: 28px;
+      }
+      .fx-bridge-row {
+        grid-template-columns: 1fr;
+      }
+      .swap-btn {
+        width: 100%;
+      }
+      .search-box {
+        width: 100%;
+      }
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <!-- Left Sidebar (232px) -->
+    <aside id="sidebar" class="sidebar" aria-label="Navigasi Treasury">
+      <div class="sidebar-header">
+        <div class="brand-row">
+          <a href="#top" class="brand-lockup">
+            <span class="brand-mark" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 4.5L8 12.5L13.5 4.5" />
+                <path d="M5.5 4.5H10.5" />
+              </svg>
+            </span>
+            <span class="brand-name">Valence</span>
+          </a>
+          <span class="brand-env">Treasury</span>
+        </div>
+
+        <button type="button" id="entitySwitcher" class="entity-box" title="Ganti entitas operasi">
+          <span class="entity-meta">
+            <span id="entityName" class="entity-title">PT Valence Nusantara Tbk</span>
+            <span id="entityCode" class="entity-sub">ID-CORP • Operating</span>
+          </span>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 6l3-3 3 3M5 10l3 3 3-3" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div>
+          <div class="nav-group-label">Operasi</div>
+          <div class="nav-list">
+            <button type="button" class="nav-item is-active" data-nav="overview">
+              <span class="nav-item-left">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="5" height="5" rx="1" />
+                  <rect x="9" y="2" width="5" height="5" rx="1" />
+                  <rect x="2" y="9" width="5" height="5" rx="1" />
+                  <rect x="9" y="9" width="5" height="5" rx="1" />
+                </svg>
+                <span>Ringkasan Kas</span>
+              </span>
+            </button>
+            <button type="button" class="nav-item" data-nav="cashflow">
+              <span class="nav-item-left">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 12.5L6 8.5L9 10.5L14 4.5" />
+                  <path d="M11 4.5H14V7.5" />
+                </svg>
+                <span>Arus Kas SVG</span>
+              </span>
+            </button>
+            <button type="button" class="nav-item" data-nav="payout">
+              <span class="nav-item-left">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2.5 8H13.5" />
+                  <path d="M9.5 4L13.5 8L9.5 12" />
+                </svg>
+                <span>Instant Payout</span>
+              </span>
+              <span class="nav-count">FX</span>
+            </button>
+            <button type="button" class="nav-item" data-nav="ledger">
+              <span class="nav-item-left">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 4H13M3 8H13M3 12H9" />
+                </svg>
+                <span>Buku Besar</span>
+              </span>
+              <span id="sidebarLedgerCount" class="nav-count tnum">10</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="nav-group-label">Filter Cepat</div>
+          <div class="nav-list">
+            <button type="button" class="nav-item" data-status-jump="Processing">
+              <span class="nav-item-left">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="8" cy="8" r="6" />
+                  <path d="M8 4.8V8.2L10.3 9.5" />
+                </svg>
+                <span>Antrean Kliring</span>
+              </span>
+              <span id="sidebarProcessingCount" class="nav-count tnum">2</span>
+            </button>
+            <button type="button" class="nav-item" data-status-jump="Flagged">
+              <span class="nav-item-left">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 2.2L14 13H2L8 2.2Z" />
+                  <path d="M8 6.5V9.5M8 11.4H8.01" />
+                </svg>
+                <span>Perlu Audit</span>
+              </span>
+              <span id="sidebarFlaggedCount" class="nav-count tnum">1</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="rail-status-card">
+          <div class="rail-status-head">
+            <span>Rail Kliring</span>
+            <span class="status-dot-inline">
+              <span class="status-dot" aria-hidden="true"></span>
+              Online
+            </span>
+          </div>
+          <div class="rail-status-meta">
+            BI-FAST &bull; FAST SG &bull; FedNow<br />
+            FX Spot Feed: 14:45 WIB
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div id="top" class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka navigasi samping" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <path d="M2.5 4.5H13.5M2.5 8H13.5M2.5 11.5H13.5" />
+            </svg>
+          </button>
+          <div class="page-title-group">
+            <h1 class="page-title">Likuiditas &amp; Instant Payout</h1>
+            <span class="page-breadcrumb">treasury / id-corp / settlement-ops</span>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button type="button" id="exportCsvBtn" class="btn btn-secondary">
+            <span class="btn-label">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 2.5V10.5M4.8 7.5L8 10.7L11.2 7.5M3 13.5H13" />
+              </svg>
+              <span>Ekspor CSV</span>
+            </span>
+          </button>
+          <button type="button" id="focusSimulatorBtn" class="btn btn-primary">
+            <span class="btn-label">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                <path d="M8 3V13M3 8H13" />
+              </svg>
+              <span>Payout Baru</span>
+            </span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace-content">
+        <!-- Flat Hairline KPI Strip -->
+        <section class="kpi-strip" aria-label="Ringkasan Saldo Treasury">
+          <div class="kpi-cell">
+            <div class="kpi-head">
+              <span class="kpi-label">Total Likuiditas Konsolidasi (IDR Eq.)</span>
+              <span class="kpi-tag">3 Rekening</span>
+            </div>
+            <div id="kpiTotalIdr" class="kpi-value-hero tnum">Rp 48.294.144.150</div>
+            <div class="kpi-foot">
+              <span>Kurs spot BI &amp; Reuters interbank</span>
+              <span class="kpi-delta-pos tnum">+3,42% vs 30h</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell">
+            <div class="kpi-head">
+              <span class="kpi-label">Rekening Operasional IDR</span>
+              <span class="kpi-tag">BI-FAST</span>
+            </div>
+            <div id="kpiBalIdr" class="kpi-value tnum">Rp 31.420.500.000</div>
+            <div class="kpi-foot">
+              <span class="mono">•••• 4092</span>
+              <span class="kpi-delta-neutral tnum">65,1% alokasi</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell">
+            <div class="kpi-head">
+              <span class="kpi-label">Cadangan Valas USD &amp; SGD</span>
+              <span class="kpi-tag">FX Pool</span>
+            </div>
+            <div id="kpiBalFx" class="kpi-value tnum">$684.250 &bull; S$511.885</div>
+            <div class="kpi-foot">
+              <span id="kpiFxIdrEq" class="mono tnum">≈ Rp 16.873.644.150</span>
+              <span class="kpi-delta-neutral tnum">34,9%</span>
+            </div>
+          </div>
+
+          <div class="kpi-cell">
+            <div class="kpi-head">
+              <span class="kpi-label">Volume Payout 24 Jam</span>
+              <span class="kpi-tag">Real-time</span>
+            </div>
+            <div id="kpiVolume24h" class="kpi-value tnum">Rp 4.185.740.000</div>
+            <div class="kpi-foot">
+              <span id="kpiCount24h" class="tnum">7 instruksi selesai</span>
+              <span class="kpi-delta-neutral tnum">SLA 1,8 dtk</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Asymmetric Split: Cashflow SVG Chart (7fr) + Instant Payout Simulator (5fr) -->
+        <section class="main-split">
+          <!-- Cashflow Chart Panel -->
+          <article id="cashflowPanel" class="panel" aria-labelledby="cashflowTitle">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <h2 id="cashflowTitle" class="panel-title">Arus Kas Treasury</h2>
+                <span class="panel-subtitle">Perbandingan arus masuk penyelesaian &amp; keluar payout (IDR)</span>
+              </div>
+
+              <div class="segmented" role="tablist" aria-label="Rentang waktu arus kas">
+                <button type="button" class="seg-btn" role="tab" aria-selected="false" data-range="7d">7 Hari</button>
+                <button type="button" class="seg-btn is-active" role="tab" aria-selected="true" data-range="30d">30 Hari</button>
+                <button type="button" class="seg-btn" role="tab" aria-selected="false" data-range="90d">90 Hari</button>
+              </div>
+            </div>
+
+            <div class="panel-body">
+              <div class="chart-summary-row">
+                <div class="chart-metrics">
+                  <div class="chart-metric-item">
+                    <span class="chart-metric-label">
+                      <span class="legend-swatch" style="background: #533AFD;"></span>
+                      Total Arus Masuk
+                    </span>
+                    <span id="chartTotalInflow" class="chart-metric-val tnum">Rp 38.420.000.000</span>
+                  </div>
+                  <div class="chart-metric-item">
+                    <span class="chart-metric-label">
+                      <span class="legend-swatch" style="background: #0D253D;"></span>
+                      Total Arus Keluar
+                    </span>
+                    <span id="chartTotalOutflow" class="chart-metric-val tnum">Rp 27.145.000.000</span>
+                  </div>
+                  <div class="chart-metric-item">
+                    <span class="chart-metric-label">Arus Bersih Periode</span>
+                    <span id="chartNetFlow" class="chart-metric-val tnum" style="color: var(--success-text);">+Rp 11.275.000.000</span>
+                  </div>
+                </div>
+                <span id="chartRangeCaption" class="mono" style="font-size: 11px; color: var(--ink-mute);">26 Okt – 24 Nov 2026</span>
+              </div>
+
+              <div id="chartWrap" class="chart-wrap" tabindex="0" aria-label="Grafik garis arus kas interaktif. Arahkan kursor atau gunakan tombol panah kiri dan kanan untuk melihat nominal per tanggal.">
+                <svg id="cashflowSvg" class="chart-svg" viewBox="0 0 720 268" preserveAspectRatio="none" role="img" aria-label="Grafik arus kas"></svg>
+                <div id="chartTooltip" class="chart-tooltip" role="status" aria-live="polite">
+                  <div id="tooltipDate" class="tooltip-date">—</div>
+                  <div class="tooltip-row">
+                    <span class="tooltip-key">
+                      <span class="legend-swatch" style="background: #533AFD;"></span>
+                      Masuk
+                    </span>
+                    <span id="tooltipInflow" class="tooltip-val tnum">—</span>
+                  </div>
+                  <div class="tooltip-row">
+                    <span class="tooltip-key">
+                      <span class="legend-swatch" style="background: #0D253D;"></span>
+                      Keluar
+                    </span>
+                    <span id="tooltipOutflow" class="tooltip-val tnum">—</span>
+                  </div>
+                  <div class="tooltip-row" style="margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--hairline);">
+                    <span class="tooltip-key">Bersih</span>
+                    <span id="tooltipNet" class="tooltip-val tnum">—</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Instant Payout Simulator Panel -->
+          <article id="simulatorPanel" class="panel" aria-labelledby="simulatorTitle">
+            <div class="panel-header">
+              <div class="panel-title-wrap">
+                <h2 id="simulatorTitle" class="panel-title">Simulator Instant Payout</h2>
+                <span class="panel-subtitle">Konversi FX langsung &amp; kirim ke rail penerima</span>
+              </div>
+              <span id="liveRateBadge" class="kpi-tag mono tnum">1 USD = Rp 15.840</span>
+            </div>
+
+            <div class="panel-body">
+              <form id="payoutForm" class="sim-form" novalidate>
+                <div class="field-group">
+                  <div class="field-label-row">
+                    <label for="sourceAmount" class="field-label">Nominal Sumber</label>
+                    <span id="availBalHint" class="field-hint tnum">Tersedia: Rp 31.420.500.000</span>
+                  </div>
+                  <div id="amountCombo" class="input-combo">
+                    <select id="fromCurrency" class="currency-select" aria-label="Mata uang sumber">
+                      <option value="IDR" selected>IDR</option>
+                      <option value="USD">USD</option>
+                      <option value="SGD">SGD</option>
+                    </select>
+                    <input
+                      id="sourceAmount"
+                      type="text"
+                      inputmode="decimal"
+                      class="amount-input tnum"
+                      value="150000000"
+                      placeholder="0"
+                      autocomplete="off"
+                    />
+                  </div>
+                  <div class="preset-row" id="presetRow">
+                    <button type="button" class="preset-chip tnum" data-preset="25000000">25 Jt</button>
+                    <button type="button" class="preset-chip tnum" data-preset="150000000">150 Jt</button>
+                    <button type="button" class="preset-chip tnum" data-preset="500000000">500 Jt</button>
+                    <button type="button" class="preset-chip tnum" data-preset="1250000000">1,25 M</button>
+                  </div>
+                </div>
+
+                <div class="fx-bridge-row">
+                  <div class="field-group">
+                    <label for="toCurrency" class="field-label">Mata Uang Tujuan</label>
+                    <select id="toCurrency" class="select-control mono">
+                      <option value="USD" selected>USD &mdash; US Dollar</option>
+                      <option value="SGD">SGD &mdash; Singapore Dollar</option>
+                      <option value="IDR">IDR &mdash; Rupiah</option>
+                    </select>
+                  </div>
+
+                  <button type="button" id="swapCurrencyBtn" class="swap-btn" title="Tukar mata uang sumber &amp; tujuan" aria-label="Tukar mata uang sumber dan tujuan">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 5.5H13M10 2.5L13 5.5L10 8.5" />
+                      <path d="M13 10.5H3M6 7.5L3 10.5L6 13.5" />
+                    </svg>
+                  </button>
+
+                  <div class="field-group">
+                    <label for="beneficiarySelect" class="field-label">Penerima &amp; Rail</label>
+                    <select id="beneficiarySelect" class="select-control">
+                      <option value="Stripe Treasury US|FedNow USD">Stripe Treasury US (FedNow)</option>
+                      <option value="Cloudflare SG Pte Ltd|FAST SGD">Cloudflare SG (FAST SGD)</option>
+                      <option value="PT Mitra Logistik|BI-FAST">PT Mitra Logistik (BI-FAST)</option>
+                      <option value="AWS APAC Services|SWIFT GPI">AWS APAC (SWIFT GPI)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="quote-breakdown" aria-live="polite">
+                  <div class="quote-row">
+                    <span>Kurs Transaksi</span>
+                    <span id="quoteRate" class="mono tnum">1 USD = Rp 15.840</span>
+                  </div>
+                  <div class="quote-row">
+                    <span id="quoteFeeLabel">Biaya Rail + Spread FX (0,15%)</span>
+                    <span id="quoteFee" class="mono tnum">Rp 260.000</span>
+                  </div>
+                  <div class="quote-row">
+                    <span>Total Debit Rekening</span>
+                    <span id="quoteTotalDebit" class="mono tnum">Rp 150.260.000</span>
+                  </div>
+                  <div class="quote-divider"></div>
+                  <div class="quote-row">
+                    <span class="quote-total-label">Diterima Penerima</span>
+                    <span id="quoteReceive" class="quote-total-val tnum">$9,469.70</span>
+                  </div>
+                </div>
+
+                <div id="simErrorSlot" class="field-error-slot" role="alert"></div>
+
+                <button type="submit" id="submitPayoutBtn" class="btn btn-primary btn-lg" style="width: 100%;">
+                  <span class="btn-label">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M2.5 8H13.5M9.5 4L13.5 8L9.5 12" />
+                    </svg>
+                    <span>Kirim Instant Payout</span>
+                  </span>
+                  <span class="btn-spinner" aria-hidden="true">
+                    <svg class="spinner-svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="6" stroke="rgba(255,255,255,0.28)" stroke-width="2" />
+                      <path d="M14 8a6 6 0 0 0-6-6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                </button>
+              </form>
+            </div>
+          </article>
+        </section>
+
+        <!-- Transaction Ledger Table Panel -->
+        <section id="ledgerPanel" class="panel" aria-labelledby="ledgerTitle">
+          <div class="panel-header">
+            <div class="panel-title-wrap">
+              <h2 id="ledgerTitle" class="panel-title">Buku Besar Transaksi (Ledger)</h2>
+              <span class="panel-subtitle">Klik baris mana saja untuk membuka Receipt Inspector &amp; jejak audit kriptografis</span>
+            </div>
+            <span id="ledgerResultMeta" class="mono" style="font-size: 11.5px; color: var(--ink-mute);">Menampilkan 10 dari 10 entri</span>
+          </div>
+
+          <div class="ledger-toolbar">
+            <div class="search-box">
+              <svg class="search-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <circle cx="7" cy="7" r="4.5" />
+                <path d="M10.5 10.5L13.5 13.5" />
+              </svg>
+              <input
+                id="ledgerSearch"
+                type="search"
+                class="search-input"
+                placeholder="Cari ID transaksi, counterparty, rail, atau hash..."
+                aria-label="Cari transaksi di buku besar"
+              />
+              <span class="kbd-hint" aria-hidden="true">/</span>
+            </div>
+
+            <div class="filter-row">
+              <div class="filter-pill-group" role="group" aria-label="Filter status transaksi">
+                <button type="button" class="filter-tab is-active" data-status="ALL">
+                  Semua <span id="cntAll" class="tab-cnt tnum">10</span>
+                </button>
+                <button type="button" class="filter-tab" data-status="Settled">
+                  Settled <span id="cntSettled" class="tab-cnt tnum">7</span>
+                </button>
+                <button type="button" class="filter-tab" data-status="Processing">
+                  Processing <span id="cntProcessing" class="tab-cnt tnum">2</span>
+                </button>
+                <button type="button" class="filter-tab" data-status="Flagged">
+                  Flagged <span id="cntFlagged" class="tab-cnt tnum">1</span>
+                </button>
+              </div>
+
+              <select id="currencyFilter" class="select-control mono" style="width: auto; height: 30px; font-size: 12px;" aria-label="Filter mata uang">
+                <option value="ALL">Semua CCY</option>
+                <option value="IDR">IDR</option>
+                <option value="USD">USD</option>
+                <option value="SGD">SGD</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-scroll">
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th>ID &amp; Tipe</th>
+                  <th>Counterparty &amp; Rail</th>
+                  <th>Waktu</th>
+                  <th>Status</th>
+                  <th class="is-right">Nominal &amp; Ekuivalen</th>
+                  <th class="is-right">Inspeksi</th>
+                </tr>
+              </thead>
+              <tbody id="ledgerBody"></tbody>
+            </table>
+          </div>
+
+          <div id="ledgerEmpty" class="empty-state" style="display: none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+            <div class="empty-title">Tidak ada transaksi yang cocok</div>
+            <div style="font-size: 12.5px;">Ubah kata kunci pencarian atau reset filter status dan mata uang.</div>
+            <button type="button" id="resetLedgerBtn" class="btn btn-secondary" style="margin-top: 4px;">Reset Filter</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Slide-over Receipt Inspector -->
+  <div id="drawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="receiptDrawer" class="receipt-drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-title-stack">
+        <span class="drawer-eyebrow">Receipt Inspector</span>
+        <h3 id="drawerTitle" class="drawer-tx-title tnum">VLT-2026-8841</h3>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span id="drawerStatusBadge" class="badge badge-settled">
+          <span class="badge-dot" aria-hidden="true"></span>
+          <span>Settled</span>
+        </span>
+        <button type="button" id="closeDrawerBtn" class="btn btn-ghost" aria-label="Tutup Receipt Inspector" style="width: 30px; padding: 0;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <path d="M4 4L12 12M12 4L4 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="drawer-body">
+      <div class="receipt-hero">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+          <span id="drawerTypeLabel" class="mono" style="font-size: 11px; color: var(--ink-mute);">INSTANT PAYOUT &bull; KELUAR</span>
+          <span id="drawerTime" class="mono tnum" style="font-size: 11px; color: var(--ink-mute);">24 Nov 2026, 14:42 WIB</span>
+        </div>
+        <div id="drawerAmount" class="receipt-amount tnum">-Rp 428.500.000</div>
+        <div id="drawerSubEq" class="receipt-sub-eq tnum">Biaya rail Rp 2.500 &bull; Kurs 1:1 (Domestik)</div>
+      </div>
+
+      <div class="hash-box">
+        <div class="hash-top">
+          <span class="hash-label">Hash Kriptografis Ledger</span>
+          <button type="button" id="copyIdBtn" class="btn btn-secondary" style="height: 26px; padding: 0 9px; font-size: 11.5px;">
+            <span class="btn-label">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="5" width="9" height="9" rx="1.5" />
+                <path d="M3 11H2.5A1.5 1.5 0 0 1 1 9.5V2.5A1.5 1.5 0 0 1 2.5 1H9.5A1.5 1.5 0 0 1 11 2.5V3" />
+              </svg>
+              <span id="copyIdBtnText">Salin ID</span>
+            </span>
+          </button>
+        </div>
+        <div id="drawerHash" class="hash-value">0x9f4c82d1a0b7e65491c3480b9a22e1f8c4d97a63e21b58c0a4d7e319f820e82a</div>
+      </div>
+
+      <div class="meta-list">
+        <div class="meta-row">
+          <span class="meta-key">Rekening Sumber</span>
+          <span id="drawerSender" class="meta-val mono">Valence IDR &bull;&bull;&bull;&bull; 4092</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Penerima</span>
+          <span id="drawerReceiver" class="meta-val">PT Astra Digital Infrastruktur</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Rekening Tujuan</span>
+          <span id="drawerReceiverAcct" class="meta-val mono">BCA Corp &bull;&bull;&bull;&bull; 8814</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Rail Kliring</span>
+          <span id="drawerRail" class="meta-val mono">BI-FAST</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Kurs &amp; Biaya</span>
+          <span id="drawerFxFee" class="meta-val mono tnum">1:1 &bull; Rp 2.500</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="audit-section-title">Jejak Audit (Audit Trail)</div>
+        <div id="drawerAuditTrail" class="audit-timeline"></div>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <button type="button" id="copyHashBtn" class="btn btn-secondary">
+        <span class="btn-label">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="5" width="9" height="9" rx="1.5" />
+            <path d="M3 11H2.5A1.5 1.5 0 0 1 1 9.5V2.5A1.5 1.5 0 0 1 2.5 1H9.5A1.5 1.5 0 0 1 11 2.5V3" />
+          </svg>
+          <span>Salin Hash</span>
+        </span>
+      </button>
+      <button type="button" id="drawerDoneBtn" class="btn btn-primary">
+        <span class="btn-label">Tutup</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Sonner Toast Container -->
+  <div id="sonnerToaster" class="sonner-toaster" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // --- State & Domain Data ---
+      const FX_TO_IDR = {
+        IDR: 1,
+        USD: 15840,
+        SGD: 11790
+      };
+
+      const RAIL_FEE = {
+        IDR: 2500,
+        USD: 4.00,
+        SGD: 1.50
+      };
+
+      const PRESETS = {
+        IDR: [
+          { label: '25 Jt', value: 25000000 },
+          { label: '150 Jt', value: 150000000 },
+          { label: '500 Jt', value: 500000000 },
+          { label: '1,25 M', value: 1250000000 }
+        ],
+        USD: [
+          { label: '$2,500', value: 2500 },
+          { label: '$10,000', value: 10000 },
+          { label: '$25,000', value: 25000 },
+          { label: '$50,000', value: 50000 }
+        ],
+        SGD: [
+          { label: 'S$5,000', value: 5000 },
+          { label: 'S$15,000', value: 15000 },
+          { label: 'S$40,000', value: 40000 },
+          { label: 'S$80,000', value: 80000 }
+        ]
+      };
+
+      const ENTITIES = [
+        { name: 'PT Valence Nusantara Tbk', code: 'ID-CORP • Operating' },
+        { name: 'Valence Treasury Pte. Ltd.', code: 'SG-HUB • Regional FX' }
+      ];
+
+      let entityIndex = 0;
+
+      const balances = {
+        IDR: 31420500000,
+        USD: 684250,
+        SGD: 511885
+      };
+
+      let volume24hIdr = 4185740000;
+      let count24h = 7;
+
+      const CASHFLOW_DATA = {
+        '7d': {
+          caption: '18 Nov – 24 Nov 2026',
+          points: [
+            { date: '18 Nov 2026', short: '18 Nov', inflow: 1420000000, outflow: 980500000 },
+            { date: '19 Nov 2026', short: '19 Nov', inflow: 1685400000, outflow: 1120000000 },
+            { date: '20 Nov 2026', short: '20 Nov', inflow: 1310000000, outflow: 1045250000 },
+            { date: '21 Nov 2026', short: '21 Nov', inflow: 2418750000, outflow: 1490000000 },
+            { date: '22 Nov 2026', short: '22 Nov', inflow: 1945000000, outflow: 1230400000 },
+            { date: '23 Nov 2026', short: '23 Nov', inflow: 2150600000, outflow: 1612350000 },
+            { date: '24 Nov 2026', short: '24 Nov', inflow: 2640200000, outflow: 1418900000 }
+          ]
+        },
+        '30d': {
+          caption: '26 Okt – 24 Nov 2026',
+          points: [
+            { date: '26 Okt 2026', short: '26 Okt', inflow: 1850000000, outflow: 1320000000 },
+            { date: '28 Okt 2026', short: '28 Okt', inflow: 2140500000, outflow: 1680000000 },
+            { date: '30 Okt 2026', short: '30 Okt', inflow: 1920000000, outflow: 1745000000 },
+            { date: '01 Nov 2026', short: '01 Nov', inflow: 2680400000, outflow: 1510000000 },
+            { date: '03 Nov 2026', short: '03 Nov', inflow: 2310000000, outflow: 1890500000 },
+            { date: '05 Nov 2026', short: '05 Nov', inflow: 2890250000, outflow: 2040000000 },
+            { date: '07 Nov 2026', short: '07 Nov', inflow: 2120000000, outflow: 1620400000 },
+            { date: '09 Nov 2026', short: '09 Nov', inflow: 2495000000, outflow: 1790000000 },
+            { date: '11 Nov 2026', short: '11 Nov', inflow: 3120800000, outflow: 2185000000 },
+            { date: '13 Nov 2026', short: '13 Nov', inflow: 2740000000, outflow: 1950600000 },
+            { date: '15 Nov 2026', short: '15 Nov', inflow: 2460000000, outflow: 1710000000 },
+            { date: '17 Nov 2026', short: '17 Nov', inflow: 2980450000, outflow: 2110000000 },
+            { date: '19 Nov 2026', short: '19 Nov', inflow: 2610000000, outflow: 1840200000 },
+            { date: '21 Nov 2026', short: '21 Nov', inflow: 3340750000, outflow: 1995000000 },
+            { date: '24 Nov 2026', short: '24 Nov', inflow: 2761850000, outflow: 1768300000 }
+          ]
+        },
+        '90d': {
+          caption: '27 Agu – 24 Nov 2026',
+          points: [
+            { date: '27 Agu 2026', short: '27 Agu', inflow: 5420000000, outflow: 4180000000 },
+            { date: '03 Sep 2026', short: '03 Sep', inflow: 6180500000, outflow: 4620000000 },
+            { date: '10 Sep 2026', short: '10 Sep', inflow: 5890000000, outflow: 4950400000 },
+            { date: '17 Sep 2026', short: '17 Sep', inflow: 6740200000, outflow: 4820000000 },
+            { date: '24 Sep 2026', short: '24 Sep', inflow: 7120000000, outflow: 5340500000 },
+            { date: '01 Okt 2026', short: '01 Okt', inflow: 6490800000, outflow: 5110000000 },
+            { date: '08 Okt 2026', short: '08 Okt', inflow: 7580000000, outflow: 5490250000 },
+            { date: '15 Okt 2026', short: '15 Okt', inflow: 8140600000, outflow: 5980000000 },
+            { date: '22 Okt 2026', short: '22 Okt', inflow: 7820000000, outflow: 5640000000 },
+            { date: '29 Okt 2026', short: '29 Okt', inflow: 8460300000, outflow: 6120400000 },
+            { date: '05 Nov 2026', short: '05 Nov', inflow: 8910000000, outflow: 6390000000 },
+            { date: '12 Nov 2026', short: '12 Nov', inflow: 9240500000, outflow: 6510800000 },
+            { date: '19 Nov 2026', short: '19 Nov', inflow: 8870200000, outflow: 6180000000 },
+            { date: '24 Nov 2026', short: '24 Nov', inflow: 9640800000, outflow: 6420900000 }
+          ]
+        }
+      };
+
+      const transactions = [
+        {
+          id: 'VLT-2026-8841',
+          type: 'Payout',
+          direction: 'out',
+          counterparty: 'PT Astra Digital Infrastruktur',
+          rail: 'BI-FAST',
+          timestamp: '24 Nov 2026, 14:42 WIB',
+          status: 'Settled',
+          currency: 'IDR',
+          amount: -428500000,
+          idrEquivalent: 428500000,
+          feeText: 'Rp 2.500',
+          fxRate: '1:1 (Domestik)',
+          senderAccount: 'Valence IDR •••• 4092',
+          receiverAccount: 'BCA Corp •••• 8814',
+          hash: '0x9f4c82d1a0b7e65491c3480b9a22e1f8c4d97a63e21b58c0a4d7e319f820e82a',
+          auditTrail: [
+            { step: 'Instruksi payout dibuat via API Treasury', actor: 'ops-scheduler@valence.id', time: '14:42:04 WIB', state: 'done' },
+            { step: 'Verifikasi limit & skoring AML lolos', actor: 'policy-engine-v4', time: '14:42:05 WIB', state: 'done' },
+            { step: 'Eksekusi kliring BI-FAST terkonfirmasi', actor: 'bi-fast-gateway-02', time: '14:42:06 WIB', state: 'done' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8840',
+          type: 'FX Payout',
+          direction: 'out',
+          counterparty: 'Cloudflare Singapore Pte Ltd',
+          rail: 'FAST SGD',
+          timestamp: '24 Nov 2026, 14:19 WIB',
+          status: 'Processing',
+          currency: 'SGD',
+          amount: -18400,
+          idrEquivalent: 216936000,
+          feeText: 'S$ 1.50 + 0,15% FX',
+          fxRate: '1 SGD = Rp 11.790',
+          senderAccount: 'Valence SGD •••• 9104',
+          receiverAccount: 'DBS SG •••• 3309',
+          hash: '0x4b12e90a77c1d882f3a0e4419d2b7a5e8f1c90a3b7d42e61c80f9a23d411c719',
+          auditTrail: [
+            { step: 'Konversi spot SGD dikunci pada Rp 11.790', actor: 'fx-desk-engine', time: '14:19:11 WIB', state: 'done' },
+            { step: 'Otorisasi dual-approval disetujui', actor: 'cfo-approver@valence.id', time: '14:19:28 WIB', state: 'done' },
+            { step: 'Menunggu konfirmasi settlement FAST SG', actor: 'dbs-clearing-node', time: 'Sedang berjalan', state: 'active' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8839',
+          type: 'Settlement',
+          direction: 'in',
+          counterparty: 'Settlement Merchant Marketplace Q4',
+          rail: 'RTGS',
+          timestamp: '24 Nov 2026, 13:05 WIB',
+          status: 'Settled',
+          currency: 'IDR',
+          amount: 1840000000,
+          idrEquivalent: 1840000000,
+          feeText: 'Rp 0 (Inbound)',
+          fxRate: '1:1 (Domestik)',
+          senderAccount: 'Mandiri Escrow •••• 1120',
+          receiverAccount: 'Valence IDR •••• 4092',
+          hash: '0x71de3a9804c2f6110e89a5c7b204d91a3f66e804c9b11a72d50f82c1e604b933',
+          auditTrail: [
+            { step: 'Batch settlement masuk terdeteksi', actor: 'mandiri-rtgs-feed', time: '13:04:40 WIB', state: 'done' },
+            { step: 'Rekonsiliasi otomatis dengan 142 invoice', actor: 'ledger-reconciler', time: '13:05:02 WIB', state: 'done' },
+            { step: 'Saldo operasional dikreditkan penuh', actor: 'valence-core-ledger', time: '13:05:03 WIB', state: 'done' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8838',
+          type: 'FX Payout',
+          direction: 'out',
+          counterparty: 'Amazon Web Services APAC',
+          rail: 'SWIFT GPI',
+          timestamp: '24 Nov 2026, 11:38 WIB',
+          status: 'Settled',
+          currency: 'USD',
+          amount: -42500,
+          idrEquivalent: 673200000,
+          feeText: '$4.00',
+          fxRate: '1 USD = Rp 15.840',
+          senderAccount: 'Valence USD •••• 7731',
+          receiverAccount: 'JPMorgan NY •••• 5098',
+          hash: '0x2c8a1f7730e4d912b5a8c604f1e29d7a3c8b4e1092a5d7f30c81b6e4a290f114',
+          auditTrail: [
+            { step: 'Invoice AWS #APAC-9921 terverifikasi', actor: 'ap-automation@valence.id', time: '11:37:12 WIB', state: 'done' },
+            { step: 'Pesan MT103 dikirim melalui SWIFT GPI', actor: 'swift-gpi-router', time: '11:37:44 WIB', state: 'done' },
+            { step: 'Dana diterima bank koresponden JPMorgan', actor: 'gpi-tracker-node', time: '11:38:19 WIB', state: 'done' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8837',
+          type: 'Payout',
+          direction: 'out',
+          counterparty: 'PT Solusi Vendor Semesta',
+          rail: 'BI-FAST',
+          timestamp: '24 Nov 2026, 10:14 WIB',
+          status: 'Flagged',
+          currency: 'IDR',
+          amount: -915000000,
+          idrEquivalent: 915000000,
+          feeText: 'Rp 2.500',
+          fxRate: '1:1 (Domestik)',
+          senderAccount: 'Valence IDR •••• 4092',
+          receiverAccount: 'BNI Giro •••• 6401',
+          hash: '0xe19a774c20f8b314d62a509c8e1b74d20f93a16e4c80b27d91a5e30f4c82b608',
+          auditTrail: [
+            { step: 'Permintaan payout diinisiasi oleh Finance Ops', actor: 'rina.putri@valence.id', time: '10:13:50 WIB', state: 'done' },
+            { step: 'Aturan deviasi threshold >Rp 750 Jt terpicu', actor: 'risk-guard-v2', time: '10:14:01 WIB', state: 'warn' },
+            { step: 'Menunggu tanda tangan ke-2 Komite Treasury', actor: 'compliance-queue', time: 'Ditahan', state: 'active' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8836',
+          type: 'Payout',
+          direction: 'out',
+          counterparty: 'PT Logistik Nusantara Express',
+          rail: 'BI-FAST',
+          timestamp: '24 Nov 2026, 09:22 WIB',
+          status: 'Settled',
+          currency: 'IDR',
+          amount: -184250000,
+          idrEquivalent: 184250000,
+          feeText: 'Rp 2.500',
+          fxRate: '1:1 (Domestik)',
+          senderAccount: 'Valence IDR •••• 4092',
+          receiverAccount: 'BRI Cash •••• 2290',
+          hash: '0x6a0f3b19c4d8e7201b5a94c3d8e0f1247a6b90c3e5d1f82a4c70b9e1d3f5a802',
+          auditTrail: [
+            { step: 'Batch vendor logistik tervalidasi', actor: 'erp-sync-job', time: '09:21:48 WIB', state: 'done' },
+            { step: 'Settlement BI-FAST selesai dalam 1,4 dtk', actor: 'bi-fast-gateway-01', time: '09:22:01 WIB', state: 'done' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8835',
+          type: 'FX Sweep',
+          direction: 'in',
+          counterparty: 'Stripe Treasury US Settlement',
+          rail: 'FedNow USD',
+          timestamp: '23 Nov 2026, 21:48 WIB',
+          status: 'Settled',
+          currency: 'USD',
+          amount: 64000,
+          idrEquivalent: 1013760000,
+          feeText: '$0.00',
+          fxRate: '1 USD = Rp 15.840',
+          senderAccount: 'Stripe Clearing •••• 0194',
+          receiverAccount: 'Valence USD •••• 7731',
+          hash: '0x8d3e41a7b0c9f2516e8a40d2c7b19e3f5a60d8c2e1b47f93a0c5d8e2b1f4a761',
+          auditTrail: [
+            { step: 'Sweep otomatis saldo merchant US diterima', actor: 'fednow-inbound', time: '21:48:10 WIB', state: 'done' },
+            { step: 'Kredit rekening USD tercatat di buku besar', actor: 'valence-core-ledger', time: '21:48:11 WIB', state: 'done' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8834',
+          type: 'Payout',
+          direction: 'out',
+          counterparty: 'Datadog APAC Pte Ltd',
+          rail: 'FAST SGD',
+          timestamp: '23 Nov 2026, 17:15 WIB',
+          status: 'Settled',
+          currency: 'SGD',
+          amount: -9250,
+          idrEquivalent: 109057500,
+          feeText: 'S$ 1.50',
+          fxRate: '1 SGD = Rp 11.790',
+          senderAccount: 'Valence SGD •••• 9104',
+          receiverAccount: 'OCBC SG •••• 7142',
+          hash: '0x5c91f208a3b4e6712d0f89c3a1e4b7502d6c89f1a3e5b704c2d8f19a3e6b4075',
+          auditTrail: [
+            { step: 'Tagihan lisensi bulanan disetujui', actor: 'infra-budget-owner', time: '17:14:40 WIB', state: 'done' },
+            { step: 'Transfer FAST SGD terkonfirmasi', actor: 'ocbc-fast-bridge', time: '17:15:02 WIB', state: 'done' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8833',
+          type: 'Payout',
+          direction: 'out',
+          counterparty: 'PT Jaringan Data Primacom',
+          rail: 'BI-FAST',
+          timestamp: '23 Nov 2026, 15:04 WIB',
+          status: 'Processing',
+          currency: 'IDR',
+          amount: -312000000,
+          idrEquivalent: 312000000,
+          feeText: 'Rp 2.500',
+          fxRate: '1:1 (Domestik)',
+          senderAccount: 'Valence IDR •••• 4092',
+          receiverAccount: 'CIMB Niaga •••• 4418',
+          hash: '0x3a7c5e10b9d2f4816c0a3e5b7d91f2408a6c4e0b2d91f357a8c0e2b4d6f81039',
+          auditTrail: [
+            { step: 'Instruksi payout dibuat via portal', actor: 'budi.santoso@valence.id', time: '15:03:55 WIB', state: 'done' },
+            { step: 'Menunggu respons kliring bank penerima', actor: 'bi-fast-gateway-02', time: 'Dalam antrean', state: 'active' }
+          ]
+        },
+        {
+          id: 'VLT-2026-8832',
+          type: 'Settlement',
+          direction: 'in',
+          counterparty: 'Pelunasan Enterprise Invoice #812',
+          rail: 'RTGS',
+          timestamp: '23 Nov 2026, 11:20 WIB',
+          status: 'Settled',
+          currency: 'IDR',
+          amount: 1250000000,
+          idrEquivalent: 1250000000,
+          feeText: 'Rp 0 (Inbound)',
+          fxRate: '1:1 (Domestik)',
+          senderAccount: 'BCA Virtual •••• 9901',
+          receiverAccount: 'Valence IDR •••• 4092',
+          hash: '0x1f8b4d20c6e9a3715b0d2f4e8a6c91307b5d2f4e8a1c6309b7d5f2e4a8c01942',
+          auditTrail: [
+            { step: 'Dana masuk RTGS terdeteksi', actor: 'bca-va-listener', time: '11:19:48 WIB', state: 'done' },
+            { step: 'Faktur #812 ditandai lunas', actor: 'valence-core-ledger', time: '11:20:03 WIB', state: 'done' }
+          ]
+        }
+      ];
+
+      // --- Formatters ---
+      function formatIdr(value, withSign) {
+        const abs = Math.round(Math.abs(value));
+        const formatted = abs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        const prefix = value < 0 ? '-Rp ' : (withSign && value > 0 ? '+Rp ' : 'Rp ');
+        return prefix + formatted;
+      }
+
+      function formatCompactIdr(value) {
+        const abs = Math.abs(value);
+        if (abs >= 1e9) {
+          return 'Rp ' + (value / 1e9).toFixed(1).replace('.', ',') + ' M';
+        }
+        if (abs >= 1e6) {
+          return 'Rp ' + Math.round(value / 1e6) + ' Jt';
+        }
+        return formatIdr(value, false);
+      }
+
+      function formatCurrency(value, currency, withSign) {
+        if (currency === 'IDR') return formatIdr(value, withSign);
+        const abs = Math.abs(value);
+        const fixed = abs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const sym = currency === 'USD' ? '$' : 'S$';
+        const sign = value < 0 ? '-' : (withSign && value > 0 ? '+' : '');
+        return sign + sym + fixed;
+      }
+
+      function formatShortCurrency(value, currency) {
+        if (currency === 'IDR') return formatIdr(value, false);
+        const abs = Math.abs(value);
+        const fixed = abs.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        const sym = currency === 'USD' ? '$' : 'S$';
+        return (value < 0 ? '-' : '') + sym + fixed;
+      }
+
+      // --- DOM Elements ---
+      const kpiTotalIdr = document.getElementById('kpiTotalIdr');
+      const kpiBalIdr = document.getElementById('kpiBalIdr');
+      const kpiBalFx = document.getElementById('kpiBalFx');
+      const kpiFxIdrEq = document.getElementById('kpiFxIdrEq');
+      const kpiVolume24h = document.getElementById('kpiVolume24h');
+      const kpiCount24h = document.getElementById('kpiCount24h');
+
+      const cashflowSvg = document.getElementById('cashflowSvg');
+      const chartWrap = document.getElementById('chartWrap');
+      const chartTooltip = document.getElementById('chartTooltip');
+      const tooltipDate = document.getElementById('tooltipDate');
+      const tooltipInflow = document.getElementById('tooltipInflow');
+      const tooltipOutflow = document.getElementById('tooltipOutflow');
+      const tooltipNet = document.getElementById('tooltipNet');
+      const chartTotalInflow = document.getElementById('chartTotalInflow');
+      const chartTotalOutflow = document.getElementById('chartTotalOutflow');
+      const chartNetFlow = document.getElementById('chartNetFlow');
+      const chartRangeCaption = document.getElementById('chartRangeCaption');
+
+      const fromCurrencyEl = document.getElementById('fromCurrency');
+      const toCurrencyEl = document.getElementById('toCurrency');
+      const sourceAmountEl = document.getElementById('sourceAmount');
+      const amountComboEl = document.getElementById('amountCombo');
+      const availBalHintEl = document.getElementById('availBalHint');
+      const presetRowEl = document.getElementById('presetRow');
+      const swapCurrencyBtn = document.getElementById('swapCurrencyBtn');
+      const beneficiarySelect = document.getElementById('beneficiarySelect');
+      const liveRateBadge = document.getElementById('liveRateBadge');
+      const quoteRate = document.getElementById('quoteRate');
+      const quoteFeeLabel = document.getElementById('quoteFeeLabel');
+      const quoteFee = document.getElementById('quoteFee');
+      const quoteTotalDebit = document.getElementById('quoteTotalDebit');
+      const quoteReceive = document.getElementById('quoteReceive');
+      const simErrorSlot = document.getElementById('simErrorSlot');
+      const submitPayoutBtn = document.getElementById('submitPayoutBtn');
+      const payoutForm = document.getElementById('payoutForm');
+
+      const ledgerSearch = document.getElementById('ledgerSearch');
+      const currencyFilter = document.getElementById('currencyFilter');
+      const ledgerBody = document.getElementById('ledgerBody');
+      const ledgerEmpty = document.getElementById('ledgerEmpty');
+      const ledgerResultMeta = document.getElementById('ledgerResultMeta');
+      const resetLedgerBtn = document.getElementById('resetLedgerBtn');
+
+      const drawerBackdrop = document.getElementById('drawerBackdrop');
+      const receiptDrawer = document.getElementById('receiptDrawer');
+      const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+      const drawerDoneBtn = document.getElementById('drawerDoneBtn');
+      const copyIdBtn = document.getElementById('copyIdBtn');
+      const copyIdBtnText = document.getElementById('copyIdBtnText');
+      const copyHashBtn = document.getElementById('copyHashBtn');
+
+      const sonnerToaster = document.getElementById('sonnerToaster');
+
+      // --- KPI Renderer ---
+      function renderKpis() {
+        const fxEq = Math.round(balances.USD * FX_TO_IDR.USD + balances.SGD * FX_TO_IDR.SGD);
+        const totalIdr = Math.round(balances.IDR + fxEq);
+
+        kpiTotalIdr.textContent = formatIdr(totalIdr, false);
+        kpiBalIdr.textContent = formatIdr(balances.IDR, false);
+        kpiBalFx.textContent = formatShortCurrency(balances.USD, 'USD') + ' \u2022 ' + formatShortCurrency(balances.SGD, 'SGD');
+        kpiFxIdrEq.textContent = '\u2248 ' + formatIdr(fxEq, false);
+        kpiVolume24h.textContent = formatIdr(volume24hIdr, false);
+        kpiCount24h.textContent = count24h + ' instruksi selesai';
+      }
+
+      // --- Interactive SVG Cashflow Chart ---
+      let activeRange = '30d';
+      let currentPoints = [];
+      let currentGeometry = [];
+      let hoveredIdx = -1;
+
+      function svgEl(tag, attrs) {
+        const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        for (const k in attrs) {
+          el.setAttribute(k, String(attrs[k]));
+        }
+        return el;
+      }
+
+      function renderChart(range) {
+        activeRange = range;
+        const dataset = CASHFLOW_DATA[range];
+        currentPoints = dataset.points;
+        chartRangeCaption.textContent = dataset.caption;
+
+        let sumIn = 0;
+        let sumOut = 0;
+        for (let i = 0; i < currentPoints.length; i++) {
+          sumIn += currentPoints[i].inflow;
+          sumOut += currentPoints[i].outflow;
+        }
+        const net = sumIn - sumOut;
+        chartTotalInflow.textContent = formatIdr(sumIn, false);
+        chartTotalOutflow.textContent = formatIdr(sumOut, false);
+        chartNetFlow.textContent = formatIdr(net, true);
+        chartNetFlow.style.color = net >= 0 ? 'var(--success-text)' : 'var(--danger-text)';
+
+        const W = 720;
+        const H = 268;
+        const pad = { top: 16, right: 16, bottom: 30, left: 66 };
+        const plotW = W - pad.left - pad.right;
+        const plotH = H - pad.top - pad.bottom;
+
+        let maxVal = 0;
+        for (let i = 0; i < currentPoints.length; i++) {
+          if (currentPoints[i].inflow > maxVal) maxVal = currentPoints[i].inflow;
+          if (currentPoints[i].outflow > maxVal) maxVal = currentPoints[i].outflow;
+        }
+        const yMax = Math.ceil((maxVal * 1.12) / 500000000) * 500000000 || 1000000000;
+
+        cashflowSvg.innerHTML = '';
+
+        // Defs for Indigo area gradient
+        const defs = svgEl('defs', {});
+        const grad = svgEl('linearGradient', { id: 'inflowAreaGrad', x1: '0', y1: '0', x2: '0', y2: '1' });
+        grad.appendChild(svgEl('stop', { offset: '0%', 'stop-color': '#533AFD', 'stop-opacity': '0.16' }));
+        grad.appendChild(svgEl('stop', { offset: '100%', 'stop-color': '#533AFD', 'stop-opacity': '0.0' }));
+        defs.appendChild(grad);
+        cashflowSvg.appendChild(defs);
+
+        // Horizontal Y-Axis gridlines (4 steps)
+        const ticks = 4;
+        for (let t = 0; t <= ticks; t++) {
+          const ratio = t / ticks;
+          const val = yMax * (1 - ratio);
+          const y = pad.top + plotH * ratio;
+
+          cashflowSvg.appendChild(svgEl('line', {
+            x1: pad.left,
+            y1: y.toFixed(1),
+            x2: W - pad.right,
+            y2: y.toFixed(1),
+            stroke: t === ticks ? '#CBD5E1' : '#E3E8EE',
+            'stroke-width': '1'
+          }));
+
+          const label = svgEl('text', {
+            x: pad.left - 10,
+            y: (y + 4).toFixed(1),
+            'text-anchor': 'end',
+            fill: '#64748D',
+            'font-family': 'JetBrains Mono, monospace',
+            'font-size': '10.5'
+          });
+          label.textContent = formatCompactIdr(val);
+          cashflowSvg.appendChild(label);
+        }
+
+        // Compute XY coordinates
+        currentGeometry = currentPoints.map((pt, idx) => {
+          const x = currentPoints.length === 1
+            ? pad.left + plotW / 2
+            : pad.left + (idx / (currentPoints.length - 1)) * plotW;
+          const yIn = pad.top + (1 - pt.inflow / yMax) * plotH;
+          const yOut = pad.top + (1 - pt.outflow / yMax) * plotH;
+          return { x, yIn, yOut, pt };
+        });
+
+        // X-axis labels (max 6 evenly distributed)
+        const step = Math.max(1, Math.ceil((currentGeometry.length - 1) / 5));
+        for (let i = 0; i < currentGeometry.length; i++) {
+          if (i % step === 0 || i === currentGeometry.length - 1) {
+            const g = currentGeometry[i];
+            const anchor = i === 0 ? 'start' : (i === currentGeometry.length - 1 ? 'end' : 'middle');
+            const xLabel = svgEl('text', {
+              x: g.x.toFixed(1),
+              y: H - 8,
+              'text-anchor': anchor,
+              fill: '#64748D',
+              'font-family': 'JetBrains Mono, monospace',
+              'font-size': '10.5'
+            });
+            xLabel.textContent = g.pt.short;
+            cashflowSvg.appendChild(xLabel);
+          }
+        }
+
+        // Inflow area path
+        const lineInD = currentGeometry.map((g, i) => (i === 0 ? 'M' : 'L') + g.x.toFixed(1) + ',' + g.yIn.toFixed(1)).join(' ');
+        const areaD = lineInD +
+          ' L' + currentGeometry[currentGeometry.length - 1].x.toFixed(1) + ',' + (pad.top + plotH).toFixed(1) +
+          ' L' + currentGeometry[0].x.toFixed(1) + ',' + (pad.top + plotH).toFixed(1) + ' Z';
+        cashflowSvg.appendChild(svgEl('path', { d: areaD, fill: 'url(#inflowAreaGrad)' }));
+
+        // Outflow line (Deep Navy dashed/solid muted)
+        const lineOutD = currentGeometry.map((g, i) => (i === 0 ? 'M' : 'L') + g.x.toFixed(1) + ',' + g.yOut.toFixed(1)).join(' ');
+        cashflowSvg.appendChild(svgEl('path', {
+          d: lineOutD,
+          fill: 'none',
+          stroke: '#0D253D',
+          'stroke-width': '1.6',
+          'stroke-dasharray': '4 3',
+          'stroke-opacity': '0.72'
+        }));
+
+        // Inflow line (Stripe Indigo)
+        cashflowSvg.appendChild(svgEl('path', {
+          d: lineInD,
+          fill: 'none',
+          stroke: '#533AFD',
+          'stroke-width': '2.2',
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round'
+        }));
+
+        // Interactive cursor guide + active dots
+        const guideLine = svgEl('line', {
+          id: 'chartGuideLine',
+          x1: 0,
+          y1: pad.top,
+          x2: 0,
+          y2: pad.top + plotH,
+          stroke: '#A8C3DE',
+          'stroke-width': '1',
+          visibility: 'hidden'
+        });
+        const dotOut = svgEl('circle', {
+          id: 'chartDotOut',
+          r: '4',
+          fill: '#0D253D',
+          stroke: '#FFFFFF',
+          'stroke-width': '2',
+          visibility: 'hidden'
+        });
+        const dotIn = svgEl('circle', {
+          id: 'chartDotIn',
+          r: '4.5',
+          fill: '#533AFD',
+          stroke: '#FFFFFF',
+          'stroke-width': '2',
+          visibility: 'hidden'
+        });
+
+        cashflowSvg.appendChild(guideLine);
+        cashflowSvg.appendChild(dotOut);
+        cashflowSvg.appendChild(dotIn);
+        hideTooltip();
+      }
+
+      function showTooltipAt(idx) {
+        if (idx < 0 || idx >= currentGeometry.length) return;
+        hoveredIdx = idx;
+        const g = currentGeometry[idx];
+        const guideLine = document.getElementById('chartGuideLine');
+        const dotIn = document.getElementById('chartDotIn');
+        const dotOut = document.getElementById('chartDotOut');
+
+        if (guideLine && dotIn && dotOut) {
+          guideLine.setAttribute('x1', g.x.toFixed(1));
+          guideLine.setAttribute('x2', g.x.toFixed(1));
+          guideLine.setAttribute('visibility', 'visible');
+
+          dotIn.setAttribute('cx', g.x.toFixed(1));
+          dotIn.setAttribute('cy', g.yIn.toFixed(1));
+          dotIn.setAttribute('visibility', 'visible');
+
+          dotOut.setAttribute('cx', g.x.toFixed(1));
+          dotOut.setAttribute('cy', g.yOut.toFixed(1));
+          dotOut.setAttribute('visibility', 'visible');
+        }
+
+        const net = g.pt.inflow - g.pt.outflow;
+        tooltipDate.textContent = g.pt.date;
+        tooltipInflow.textContent = formatIdr(g.pt.inflow, false);
+        tooltipOutflow.textContent = formatIdr(g.pt.outflow, false);
+        tooltipNet.textContent = formatIdr(net, true);
+        tooltipNet.style.color = net >= 0 ? 'var(--success-text)' : 'var(--danger-text)';
+
+        const wrapRect = chartWrap.getBoundingClientRect();
+        const pxX = (g.x / 720) * wrapRect.width;
+        const tipW = chartTooltip.offsetWidth || 214;
+        let left = pxX + 14;
+        if (left + tipW > wrapRect.width - 8) {
+          left = Math.max(8, pxX - tipW - 14);
+        }
+        chartTooltip.style.left = left.toFixed(0) + 'px';
+        chartTooltip.classList.add('is-visible');
+      }
+
+      function hideTooltip() {
+        hoveredIdx = -1;
+        const guideLine = document.getElementById('chartGuideLine');
+        const dotIn = document.getElementById('chartDotIn');
+        const dotOut = document.getElementById('chartDotOut');
+        if (guideLine) guideLine.setAttribute('visibility', 'hidden');
+        if (dotIn) dotIn.setAttribute('visibility', 'hidden');
+        if (dotOut) dotOut.setAttribute('visibility', 'hidden');
+        chartTooltip.classList.remove('is-visible');
+      }
+
+      chartWrap.addEventListener('pointermove', function (e) {
+        if (!currentGeometry.length) return;
+        const rect = cashflowSvg.getBoundingClientRect();
+        const svgX = ((e.clientX - rect.left) / rect.width) * 720;
+        let closestIdx = 0;
+        let bestDist = Infinity;
+        for (let i = 0; i < currentGeometry.length; i++) {
+          const d = Math.abs(currentGeometry[i].x - svgX);
+          if (d < bestDist) {
+            bestDist = d;
+            closestIdx = i;
+          }
+        }
+        showTooltipAt(closestIdx);
+      });
+
+      chartWrap.addEventListener('pointerleave', hideTooltip);
+
+      chartWrap.addEventListener('keydown', function (e) {
+        if (!currentGeometry.length) return;
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const next = hoveredIdx < 0 ? 0 : Math.min(currentGeometry.length - 1, hoveredIdx + 1);
+          showTooltipAt(next);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const prev = hoveredIdx < 0 ? currentGeometry.length - 1 : Math.max(0, hoveredIdx - 1);
+          showTooltipAt(prev);
+        } else if (e.key === 'Escape') {
+          hideTooltip();
+        }
+      });
+
+      document.querySelectorAll('[data-range]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('[data-range]').forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+          renderChart(btn.getAttribute('data-range'));
+        });
+      });
+
+      // --- Instant Payout Simulator ---
+      function renderPresets(currency) {
+        const list = PRESETS[currency] || PRESETS.IDR;
+        presetRowEl.innerHTML = '';
+        list.forEach(function (p) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'preset-chip tnum';
+          b.textContent = p.label;
+          b.addEventListener('click', function () {
+            sourceAmountEl.value = String(p.value);
+            updateSimulatorQuote();
+          });
+          presetRowEl.appendChild(b);
+        });
+      }
+
+      function parseNumericInput(str) {
+        const cleaned = String(str).replace(/[^0-9.]/g, '');
+        const val = parseFloat(cleaned);
+        return isNaN(val) ? 0 : val;
+      }
+
+      function getFxQuote() {
+        const from = fromCurrencyEl.value;
+        const to = toCurrencyEl.value;
+        const amount = parseNumericInput(sourceAmountEl.value);
+        const railFee = RAIL_FEE[from] || 0;
+        const isCross = from !== to;
+        const fxSpread = isCross ? amount * 0.0015 : 0;
+        const totalFee = railFee + fxSpread;
+        const totalDebit = amount + totalFee;
+
+        // Conversion rate: 1 unit of `from` -> `to`
+        const rateFromTo = FX_TO_IDR[from] / FX_TO_IDR[to];
+        const receivedAmount = amount * rateFromTo;
+
+        return {
+          from,
+          to,
+          amount,
+          railFee,
+          fxSpread,
+          totalFee,
+          totalDebit,
+          rateFromTo,
+          receivedAmount,
+          isCross
+        };
+      }
+
+      function formatRateText(from, to) {
+        if (from === to) return '1:1 (Domestik)';
+        if (from === 'IDR') {
+          return '1 ' + to + ' = ' + formatIdr(FX_TO_IDR[to], false);
+        }
+        if (to === 'IDR') {
+          return '1 ' + from + ' = ' + formatIdr(FX_TO_IDR[from], false);
+        }
+        const cross = FX_TO_IDR[from] / FX_TO_IDR[to];
+        return '1 ' + from + ' = ' + cross.toFixed(4) + ' ' + to;
+      }
+
+      function updateSimulatorQuote() {
+        const q = getFxQuote();
+        const avail = balances[q.from];
+        availBalHintEl.textContent = 'Tersedia: ' + formatCurrency(avail, q.from, false);
+
+        const rateText = formatRateText(q.from, q.to);
+        liveRateBadge.textContent = q.from === q.to ? '1:1 Domestik' : rateText;
+        quoteRate.textContent = rateText;
+
+        quoteFeeLabel.textContent = q.isCross
+          ? 'Biaya Rail + Spread FX (0,15%)'
+          : 'Biaya Rail Instan';
+
+        quoteFee.textContent = formatCurrency(q.totalFee, q.from, false);
+        quoteTotalDebit.textContent = formatCurrency(q.totalDebit, q.from, false);
+        quoteReceive.textContent = formatCurrency(q.receivedAmount, q.to, false);
+
+        // Validation without layout shift
+        let err = '';
+        if (q.amount <= 0) {
+          err = 'Masukkan nominal payout lebih dari nol.';
+        } else if (q.totalDebit > avail) {
+          err = 'Total debit melebihi saldo rekening ' + q.from + ' tersedia.';
+        }
+
+        if (err) {
+          amountComboEl.classList.add('is-invalid');
+          simErrorSlot.textContent = err;
+          submitPayoutBtn.disabled = true;
+        } else {
+          amountComboEl.classList.remove('is-invalid');
+          simErrorSlot.textContent = '';
+          submitPayoutBtn.disabled = false;
+        }
+      }
+
+      fromCurrencyEl.addEventListener('change', function () {
+        const ccy = fromCurrencyEl.value;
+        renderPresets(ccy);
+        sourceAmountEl.value = ccy === 'IDR' ? '150000000' : (ccy === 'USD' ? '10000' : '15000');
+        updateSimulatorQuote();
+      });
+
+      toCurrencyEl.addEventListener('change', function () {
+        const to = toCurrencyEl.value;
+        if (to === 'USD') beneficiarySelect.selectedIndex = 0;
+        else if (to === 'SGD') beneficiarySelect.selectedIndex = 1;
+        else beneficiarySelect.selectedIndex = 2;
+        updateSimulatorQuote();
+      });
+
+      sourceAmountEl.addEventListener('input', updateSimulatorQuote);
+
+      swapCurrencyBtn.addEventListener('click', function () {
+        const prevFrom = fromCurrencyEl.value;
+        const prevTo = toCurrencyEl.value;
+        fromCurrencyEl.value = prevTo;
+        toCurrencyEl.value = prevFrom;
+        renderPresets(prevTo);
+        sourceAmountEl.value = prevTo === 'IDR' ? '150000000' : (prevTo === 'USD' ? '10000' : '15000');
+        updateSimulatorQuote();
+      });
+
+      function generateHashHex() {
+        const chars = '0123456789abcdef';
+        let out = '0x';
+        for (let i = 0; i < 64; i++) {
+          out += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return out;
+      }
+
+      payoutForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const q = getFxQuote();
+        if (q.amount <= 0 || q.totalDebit > balances[q.from]) {
+          updateSimulatorQuote();
+          return;
+        }
+
+        // Zero-shift loading state
+        submitPayoutBtn.classList.add('is-loading');
+        submitPayoutBtn.disabled = true;
+
+        window.setTimeout(function () {
+          submitPayoutBtn.classList.remove('is-loading');
+
+          // Deduct balance & increment 24h volume
+          balances[q.from] = Math.max(0, balances[q.from] - q.totalDebit);
+          const idrEq = Math.round(q.amount * FX_TO_IDR[q.from]);
+          volume24hIdr += idrEq;
+          count24h += 1;
+
+          const benParts = beneficiarySelect.value.split('|');
+          const counterparty = benParts[0] || 'Counterparty Baru';
+          const rail = benParts[1] || 'BI-FAST';
+          const nextNum = 8842 + transactions.length - 10;
+          const newId = 'VLT-2026-' + nextNum;
+          const now = new Date();
+          const hh = String(now.getHours()).padStart(2, '0');
+          const mm = String(now.getMinutes()).padStart(2, '0');
+          const ss = String(now.getSeconds()).padStart(2, '0');
+          const timeStr = '24 Nov 2026, ' + hh + ':' + mm + ' WIB';
+          const status = q.isCross ? 'Processing' : 'Settled';
+
+          const newTx = {
+            id: newId,
+            type: q.isCross ? 'FX Payout' : 'Payout',
+            direction: 'out',
+            counterparty: counterparty,
+            rail: rail,
+            timestamp: timeStr,
+            status: status,
+            currency: q.from,
+            amount: -q.amount,
+            idrEquivalent: idrEq,
+            feeText: formatCurrency(q.totalFee, q.from, false),
+            fxRate: formatRateText(q.from, q.to),
+            senderAccount: 'Valence ' + q.from + ' •••• ' + (q.from === 'IDR' ? '4092' : q.from === 'USD' ? '7731' : '9104'),
+            receiverAccount: counterparty + ' •••• 3920',
+            hash: generateHashHex(),
+            auditTrail: [
+              { step: 'Instruksi payout dibuat dari Simulator Treasury', actor: 'treasury-desk@valence.id', time: hh + ':' + mm + ':' + ss + ' WIB', state: 'done' },
+              { step: 'Validasi saldo & konversi (' + formatCurrency(q.receivedAmount, q.to, false) + ')', actor: 'fx-quote-engine', time: hh + ':' + mm + ':' + ss + ' WIB', state: 'done' },
+              {
+                step: status === 'Settled' ? 'Settlement ' + rail + ' terkonfirmasi' : 'Routing melalui ' + rail + ' sedang diproses',
+                actor: rail.toLowerCase().replace(/\s+/g, '-') + '-node',
+                time: status === 'Settled' ? hh + ':' + mm + ':' + ss + ' WIB' : 'Sedang berjalan',
+                state: status === 'Settled' ? 'done' : 'active'
+              }
+            ]
+          };
+
+          transactions.unshift(newTx);
+          renderKpis();
+          updateSimulatorQuote();
+          renderLedger();
+
+          showToast({
+            title: 'Payout ' + newId + ' dikirim',
+            description: formatCurrency(q.amount, q.from, false) + ' \u2192 ' + formatCurrency(q.receivedAmount, q.to, false) + ' ke ' + counterparty,
+            actionLabel: 'Lihat Bukti',
+            onAction: function () {
+              openDrawer(newId);
+            }
+          });
+        }, 620);
+      });
+
+      // --- Ledger Search, Filter & Render ---
+      let filterStatus = 'ALL';
+      let selectedTxId = null;
+
+      function updateStatusCounts() {
+        const counts = { ALL: transactions.length, Settled: 0, Processing: 0, Flagged: 0 };
+        for (let i = 0; i < transactions.length; i++) {
+          const st = transactions[i].status;
+          if (counts[st] !== undefined) counts[st]++;
+        }
+        document.getElementById('cntAll').textContent = counts.ALL;
+        document.getElementById('cntSettled').textContent = counts.Settled;
+        document.getElementById('cntProcessing').textContent = counts.Processing;
+        document.getElementById('cntFlagged').textContent = counts.Flagged;
+        document.getElementById('sidebarLedgerCount').textContent = counts.ALL;
+        document.getElementById('sidebarProcessingCount').textContent = counts.Processing;
+        document.getElementById('sidebarFlaggedCount').textContent = counts.Flagged;
+      }
+
+      function getFilteredTransactions() {
+        const q = ledgerSearch.value.trim().toLowerCase();
+        const ccy = currencyFilter.value;
+
+        return transactions.filter(function (tx) {
+          if (filterStatus !== 'ALL' && tx.status !== filterStatus) return false;
+          if (ccy !== 'ALL' && tx.currency !== ccy) return false;
+          if (!q) return true;
+          const hay = (tx.id + ' ' + tx.counterparty + ' ' + tx.rail + ' ' + tx.type + ' ' + tx.hash + ' ' + tx.currency).toLowerCase();
+          return hay.indexOf(q) !== -1;
+        });
+      }
+
+      function badgeClass(status) {
+        if (status === 'Settled') return 'badge badge-settled';
+        if (status === 'Processing') return 'badge badge-processing';
+        return 'badge badge-flagged';
+      }
+
+      function renderLedger() {
+        updateStatusCounts();
+        const list = getFilteredTransactions();
+        ledgerResultMeta.textContent = 'Menampilkan ' + list.length + ' dari ' + transactions.length + ' entri';
+
+        ledgerBody.innerHTML = '';
+        if (list.length === 0) {
+          ledgerEmpty.style.display = 'flex';
+          return;
+        }
+        ledgerEmpty.style.display = 'none';
+
+        list.forEach(function (tx) {
+          const tr = document.createElement('tr');
+          tr.className = 'ledger-row' + (selectedTxId === tx.id ? ' is-selected' : '');
+          tr.setAttribute('tabindex', '0');
+          tr.setAttribute('role', 'button');
+          tr.setAttribute('aria-label', 'Buka detail transaksi ' + tx.id);
+
+          // Col 1: ID & Type
+          const tdId = document.createElement('td');
+          tdId.className = 'tx-id-cell tnum';
+          tdId.textContent = tx.id;
+          const subType = document.createElement('span');
+          subType.className = 'tx-sub';
+          subType.textContent = tx.type + ' \u2022 ' + (tx.direction === 'in' ? 'Masuk' : 'Keluar');
+          tdId.appendChild(subType);
+
+          // Col 2: Counterparty & Rail
+          const tdCp = document.createElement('td');
+          const cpName = document.createElement('span');
+          cpName.className = 'cp-name';
+          cpName.textContent = tx.counterparty;
+          const cpRail = document.createElement('span');
+          cpRail.className = 'cp-rail mono';
+          cpRail.textContent = tx.rail + ' \u2022 ' + tx.receiverAccount;
+          tdCp.appendChild(cpName);
+          tdCp.appendChild(cpRail);
+
+          // Col 3: Time
+          const tdTime = document.createElement('td');
+          tdTime.className = 'mono tnum';
+          tdTime.style.fontSize = '12px';
+          tdTime.style.color = 'var(--ink-secondary)';
+          tdTime.style.whiteSpace = 'nowrap';
+          tdTime.textContent = tx.timestamp;
+
+          // Col 4: Status
+          const tdStatus = document.createElement('td');
+          const badge = document.createElement('span');
+          badge.className = badgeClass(tx.status);
+          const dot = document.createElement('span');
+          dot.className = 'badge-dot';
+          dot.setAttribute('aria-hidden', 'true');
+          const stText = document.createElement('span');
+          stText.textContent = tx.status;
+          badge.appendChild(dot);
+          badge.appendChild(stText);
+          tdStatus.appendChild(badge);
+
+          // Col 5: Amount & Equivalent
+          const tdAmt = document.createElement('td');
+          tdAmt.className = 'amount-cell';
+          const amtMain = document.createElement('span');
+          amtMain.className = 'amount-main tnum' + (tx.direction === 'in' ? ' is-inflow' : '');
+          amtMain.textContent = formatCurrency(tx.amount, tx.currency, true);
+          tdAmt.appendChild(amtMain);
+          if (tx.currency !== 'IDR') {
+            const amtEq = document.createElement('span');
+            amtEq.className = 'amount-eq tnum';
+            amtEq.textContent = '\u2248 ' + formatIdr(tx.idrEquivalent, false);
+            tdAmt.appendChild(amtEq);
+          }
+
+          // Col 6: Action hint
+          const tdAct = document.createElement('td');
+          tdAct.className = 'amount-cell';
+          const actBtn = document.createElement('span');
+          actBtn.className = 'mono';
+          actBtn.style.fontSize = '11.5px';
+          actBtn.style.color = 'var(--primary)';
+          actBtn.textContent = 'Detail \u2192';
+          tdAct.appendChild(actBtn);
+
+          tr.appendChild(tdId);
+          tr.appendChild(tdCp);
+          tr.appendChild(tdTime);
+          tr.appendChild(tdStatus);
+          tr.appendChild(tdAmt);
+          tr.appendChild(tdAct);
+
+          tr.addEventListener('click', function () {
+            openDrawer(tx.id);
+          });
+          tr.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openDrawer(tx.id);
+            }
+          });
+
+          ledgerBody.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll('[data-status]').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          setStatusFilter(tab.getAttribute('data-status'));
+        });
+      });
+
+      function setStatusFilter(status) {
+        filterStatus = status;
+        document.querySelectorAll('[data-status]').forEach(function (t) {
+          t.classList.toggle('is-active', t.getAttribute('data-status') === status);
+        });
+        renderLedger();
+      }
+
+      ledgerSearch.addEventListener('input', renderLedger);
+      currencyFilter.addEventListener('change', renderLedger);
+      resetLedgerBtn.addEventListener('click', function () {
+        ledgerSearch.value = '';
+        currencyFilter.value = 'ALL';
+        setStatusFilter('ALL');
+      });
+
+      // --- Slide-over Receipt Inspector ---
+      let activeDrawerTx = null;
+
+      function openDrawer(txId) {
+        const tx = transactions.find(function (t) { return t.id === txId; });
+        if (!tx) return;
+        activeDrawerTx = tx;
+        selectedTxId = tx.id;
+        renderLedger();
+
+        document.getElementById('drawerTitle').textContent = tx.id;
+        const badgeEl = document.getElementById('drawerStatusBadge');
+        badgeEl.className = badgeClass(tx.status);
+        badgeEl.innerHTML = '<span class="badge-dot" aria-hidden="true"></span><span>' + tx.status + '</span>';
+
+        document.getElementById('drawerTypeLabel').textContent =
+          tx.type.toUpperCase() + ' \u2022 ' + (tx.direction === 'in' ? 'MASUK' : 'KELUAR');
+        document.getElementById('drawerTime').textContent = tx.timestamp;
+
+        const amtEl = document.getElementById('drawerAmount');
+        amtEl.textContent = formatCurrency(tx.amount, tx.currency, true);
+        amtEl.style.color = tx.direction === 'in' ? 'var(--success-text)' : 'var(--ink)';
+
+        document.getElementById('drawerSubEq').textContent =
+          (tx.currency !== 'IDR' ? 'Ekuivalen ' + formatIdr(tx.idrEquivalent, false) + ' \u2022 ' : '') +
+          'Biaya ' + tx.feeText;
+
+        document.getElementById('drawerHash').textContent = tx.hash;
+        document.getElementById('drawerSender').textContent = tx.senderAccount;
+        document.getElementById('drawerReceiver').textContent = tx.counterparty;
+        document.getElementById('drawerReceiverAcct').textContent = tx.receiverAccount;
+        document.getElementById('drawerRail').textContent = tx.rail;
+        document.getElementById('drawerFxFee').textContent = tx.fxRate + ' \u2022 ' + tx.feeText;
+        copyIdBtnText.textContent = 'Salin ID';
+
+        const trailEl = document.getElementById('drawerAuditTrail');
+        trailEl.innerHTML = '';
+        tx.auditTrail.forEach(function (ev) {
+          const step = document.createElement('div');
+          step.className = 'audit-step';
+
+          const node = document.createElement('span');
+          node.className = 'audit-node ' + (ev.state === 'done' ? 'is-done' : ev.state === 'warn' ? 'is-warn' : 'is-active');
+          node.setAttribute('aria-hidden', 'true');
+          if (ev.state === 'done') {
+            node.innerHTML = '<svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg>';
+          } else if (ev.state === 'warn') {
+            node.innerHTML = '<svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3.5V6.5M6 8.5H6.01"/></svg>';
+          } else {
+            node.innerHTML = '<svg width="7" height="7" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="2.5"/></svg>';
+          }
+
+          const content = document.createElement('div');
+          content.className = 'audit-content';
+          const title = document.createElement('div');
+          title.className = 'audit-step-title';
+          title.textContent = ev.step;
+          const meta = document.createElement('div');
+          meta.className = 'audit-step-meta';
+          meta.textContent = ev.actor + ' \u2022 ' + ev.time;
+
+          content.appendChild(title);
+          content.appendChild(meta);
+          step.appendChild(node);
+          step.appendChild(content);
+          trailEl.appendChild(step);
+        });
+
+        drawerBackdrop.classList.add('is-open');
+        receiptDrawer.classList.add('is-open');
+        drawerBackdrop.setAttribute('aria-hidden', 'false');
+        receiptDrawer.setAttribute('aria-hidden', 'false');
+        closeDrawerBtn.focus();
+      }
+
+      function closeDrawer() {
+        drawerBackdrop.classList.remove('is-open');
+        receiptDrawer.classList.remove('is-open');
+        drawerBackdrop.setAttribute('aria-hidden', 'true');
+        receiptDrawer.setAttribute('aria-hidden', 'true');
+        selectedTxId = null;
+        renderLedger();
+      }
+
+      closeDrawerBtn.addEventListener('click', closeDrawer);
+      drawerDoneBtn.addEventListener('click', closeDrawer);
+      drawerBackdrop.addEventListener('click', closeDrawer);
+
+      function copyToClipboard(text, label, onCopied) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            onCopied();
+          }).catch(function () {
+            fallbackCopy(text, onCopied);
+          });
+        } else {
+          fallbackCopy(text, onCopied);
+        }
+      }
+
+      function fallbackCopy(text, onCopied) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-10000px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (err) { /* noop */ }
+        document.body.removeChild(ta);
+        onCopied();
+      }
+
+      copyIdBtn.addEventListener('click', function () {
+        if (!activeDrawerTx) return;
+        const txId = activeDrawerTx.id;
+        copyToClipboard(txId, 'ID Transaksi', function () {
+          copyIdBtnText.textContent = 'Tersalin';
+          showToast({
+            title: 'ID Transaksi disalin',
+            description: txId + ' siap ditempel ke tiket audit.',
+            type: 'info'
+          });
+          window.setTimeout(function () {
+            copyIdBtnText.textContent = 'Salin ID';
+          }, 1800);
+        });
+      });
+
+      copyHashBtn.addEventListener('click', function () {
+        if (!activeDrawerTx) return;
+        const h = activeDrawerTx.hash;
+        copyToClipboard(h, 'Hash', function () {
+          showToast({
+            title: 'Hash kriptografis disalin',
+            description: h.slice(0, 18) + '...' + h.slice(-8),
+            type: 'info'
+          });
+        });
+      });
+
+      // --- Sonner Toast Stack ---
+      function showToast(opts) {
+        const toast = document.createElement('div');
+        toast.className = 'sonner-toast';
+
+        const iconWrap = document.createElement('span');
+        iconWrap.className = 'sonner-icon' + (opts.type === 'info' ? ' is-info' : '');
+        iconWrap.setAttribute('aria-hidden', 'true');
+        iconWrap.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7.2"/><path d="M6 9.3L8.1 11.4L12.2 6.8"/></svg>';
+
+        const content = document.createElement('div');
+        content.className = 'sonner-content';
+        const title = document.createElement('div');
+        title.className = 'sonner-title';
+        title.textContent = opts.title || 'Notifikasi';
+        const desc = document.createElement('div');
+        desc.className = 'sonner-desc tnum';
+        desc.textContent = opts.description || '';
+        content.appendChild(title);
+        if (opts.description) content.appendChild(desc);
+
+        toast.appendChild(iconWrap);
+        toast.appendChild(content);
+
+        if (opts.actionLabel && typeof opts.onAction === 'function') {
+          const act = document.createElement('button');
+          act.type = 'button';
+          act.className = 'sonner-action';
+          act.textContent = opts.actionLabel;
+          act.addEventListener('click', function () {
+            opts.onAction();
+            dismissToast(toast);
+          });
+          toast.appendChild(act);
+        }
+
+        sonnerToaster.appendChild(toast);
+        while (sonnerToaster.children.length > 3) {
+          sonnerToaster.removeChild(sonnerToaster.firstChild);
+        }
+
+        window.requestAnimationFrame(function () {
+          toast.classList.add('is-entered');
+        });
+
+        window.setTimeout(function () {
+          dismissToast(toast);
+        }, 4500);
+      }
+
+      function dismissToast(toast) {
+        if (!toast || !toast.parentNode) return;
+        toast.classList.remove('is-entered');
+        toast.classList.add('is-leaving');
+        window.setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 280);
+      }
+
+      // --- Navigation, Entity Switch, CSV Export, Keyboard Shortcuts ---
+      const sidebar = document.getElementById('sidebar');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+      function closeMobileSidebar() {
+        sidebar.classList.remove('is-open');
+        sidebarBackdrop.classList.remove('is-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      mobileMenuBtn.addEventListener('click', function () {
+        const open = !sidebar.classList.contains('is-open');
+        sidebar.classList.toggle('is-open', open);
+        sidebarBackdrop.classList.toggle('is-open', open);
+        mobileMenuBtn.setAttribute('aria-expanded', String(open));
+      });
+      sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+
+      document.querySelectorAll('[data-nav]').forEach(function (item) {
+        item.addEventListener('click', function () {
+          document.querySelectorAll('.nav-item').forEach(function (n) { n.classList.remove('is-active'); });
+          item.classList.add('is-active');
+          const target = item.getAttribute('data-nav');
+          closeMobileSidebar();
+
+          if (target === 'cashflow') {
+            document.getElementById('cashflowPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else if (target === 'payout') {
+            document.getElementById('simulatorPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            sourceAmountEl.focus();
+          } else if (target === 'ledger') {
+            setStatusFilter('ALL');
+            document.getElementById('ledgerPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            setStatusFilter('ALL');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-status-jump]').forEach(function (item) {
+        item.addEventListener('click', function () {
+          document.querySelectorAll('.nav-item').forEach(function (n) { n.classList.remove('is-active'); });
+          item.classList.add('is-active');
+          const st = item.getAttribute('data-status-jump');
+          setStatusFilter(st);
+          closeMobileSidebar();
+          document.getElementById('ledgerPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      document.getElementById('entitySwitcher').addEventListener('click', function () {
+        entityIndex = (entityIndex + 1) % ENTITIES.length;
+        const ent = ENTITIES[entityIndex];
+        document.getElementById('entityName').textContent = ent.name;
+        document.getElementById('entityCode').textContent = ent.code;
+        showToast({
+          title: 'Entitas aktif diubah',
+          description: ent.name + ' (' + ent.code + ')',
+          type: 'info'
+        });
+      });
+
+      document.getElementById('focusSimulatorBtn').addEventListener('click', function () {
+        document.getElementById('simulatorPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        sourceAmountEl.focus();
+        sourceAmountEl.select();
+      });
+
+      document.getElementById('exportCsvBtn').addEventListener('click', function () {
+        const list = getFilteredTransactions();
+        const header = ['ID', 'Tipe', 'Counterparty', 'Rail', 'Waktu', 'Status', 'MataUang', 'Nominal', 'EkuivalenIDR', 'Hash'];
+        const rows = list.map(function (tx) {
+          return [tx.id, tx.type, tx.counterparty, tx.rail, tx.timestamp, tx.status, tx.currency, tx.amount, tx.idrEquivalent, tx.hash]
+            .map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; })
+            .join(',');
+        });
+        const csv = [header.join(',')].concat(rows).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'valence-treasury-ledger.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast({
+          title: 'CSV Ledger diekspor',
+          description: list.length + ' baris transaksi diunduh ke valence-treasury-ledger.csv',
+          type: 'info'
+        });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (receiptDrawer.classList.contains('is-open')) {
+            closeDrawer();
+          } else if (sidebar.classList.contains('is-open')) {
+            closeMobileSidebar();
+          }
+        } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
+          e.preventDefault();
+          ledgerSearch.focus();
+        }
+      });
+
+      // --- Initial Boot ---
+      renderKpis();
+      renderChart('30d');
+      renderPresets('IDR');
+      updateSimulatorQuote();
+      renderLedger();
+    })();
+  </script>
+</body>
+</html>

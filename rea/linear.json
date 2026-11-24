@@ -1,0 +1,140 @@
+{
+  "slug": "linear",
+  "url": "https://linear.app",
+  "captured_at": "2026-11-24T07:23:19.125Z",
+  "screenshot": "references/assets/rea-linear.png",
+  "screenshot_bytes": 156068,
+  "title": "Linear – The system for product development",
+  "finalUrl": "https://linear.app/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "backgroundColor": "rgb(8, 9, 10)",
+    "color": "rgb(247, 248, 248)",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "16px",
+    "lineHeight": "24px"
+  },
+  "header": {
+    "tag": "header",
+    "height": "73px",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backdropFilter": "blur(20px)",
+    "borderBottom": "1px solid rgba(255, 255, 255, 0.08)",
+    "linkCount": 12
+  },
+  "h1": {
+    "text": "The product development system for teams and agents The product development syst",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "64px",
+    "fontWeight": "510",
+    "letterSpacing": "-1.408px",
+    "lineHeight": "64px",
+    "color": "rgb(247, 248, 248)"
+  },
+  "h2": {
+    "text": "A new species of product tool. Purpose-built for modern teams with AI workflows ",
+    "fontFamily": "\"Inter Variable\", \"SF Pro Display\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+    "fontSize": "48px",
+    "fontWeight": "510",
+    "letterSpacing": "-1.056px",
+    "lineHeight": "48px",
+    "color": "rgb(138, 143, 152)"
+  },
+  "buttons": [
+    {
+      "text": "Sign up",
+      "tag": "a",
+      "height": "32px",
+      "width": "73px",
+      "padding": "0px 12px",
+      "borderRadius": "9999px",
+      "backgroundColor": "rgb(229, 229, 230)",
+      "color": "rgb(8, 9, 10)",
+      "border": "1px solid rgb(229, 229, 230)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+      "fontSize": "13px",
+      "fontWeight": "510",
+      "transitionDuration": "0.16s"
+    },
+    {
+      "text": "Faster app launch",
+      "tag": "button",
+      "height": "28px",
+      "width": "208px",
+      "padding": "0px 7px",
+      "borderRadius": "8px",
+      "backgroundColor": "rgba(255, 255, 255, 0.04)",
+      "color": "rgb(208, 214, 224)",
+      "border": "0px none rgb(208, 214, 224)",
+      "boxShadow": "none",
+      "fontSize": "13px",
+      "fontWeight": "510",
+      "transitionDuration": "0s"
+    }
+  ],
+  "top_fonts": [
+    {
+      "value": "Inter Variable",
+      "count": 135
+    },
+    {
+      "value": "Berkeley Mono",
+      "count": 1
+    }
+  ],
+  "top_backgrounds": [
+    {
+      "value": "rgba(255, 255, 255, 0.02)",
+      "count": 4
+    },
+    {
+      "value": "rgb(15, 16, 17)",
+      "count": 4
+    },
+    {
+      "value": "rgb(8, 9, 10)",
+      "count": 1
+    },
+    {
+      "value": "rgb(229, 229, 230)",
+      "count": 1
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.04)",
+      "count": 1
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.05)",
+      "count": 1
+    }
+  ],
+  "top_radii": [
+    {
+      "value": "8px",
+      "count": 20
+    },
+    {
+      "value": "9999px",
+      "count": 18
+    },
+    {
+      "value": "4px",
+      "count": 16
+    },
+    {
+      "value": "16px",
+      "count": 2
+    },
+    {
+      "value": "6px",
+      "count": 1
+    },
+    {
+      "value": "50%",
+      "count": 1
+    }
+  ]
+}

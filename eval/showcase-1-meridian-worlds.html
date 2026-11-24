@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="id" data-world="obsidian">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian — Precision Interface System (4 Live DESIGN.md Worlds)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       4 REAL DESIGN.MD WORLDS (Zero Mode Collapse)
+       ========================================================================== */
+    :root,
+    html[data-world="obsidian"] {
+      --canvas: #08090A;
+      --surface: #0F1011;
+      --elevated: #16181C;
+      --subtle: rgba(255, 255, 255, 0.04);
+      --frosted: rgba(8, 9, 10, 0.78);
+      --ink: #F7F8F8;
+      --muted: #8A8F98;
+      --hairline: rgba(255, 255, 255, 0.08);
+      --hairline-strong: rgba(255, 255, 255, 0.16);
+      --accent: #5E6AD2;
+      --accent-hover: #6E79DE;
+      --accent-ink: #FFFFFF;
+      --accent-tint: rgba(94, 106, 210, 0.16);
+      --radius-btn: 8px;
+      --radius-inner: 8px;
+      --radius-card: 12px;
+      --h1-weight: 550;
+      --font-display: 'Space Grotesk', 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --btn-primary-bg: #E5E5E6;
+      --btn-primary-ink: #141517;
+      --btn-primary-border: rgba(255, 255, 255, 0.25);
+      --btn-primary-shadow: 0 0 0 2px rgba(0,0,0,0.45), 0 0 14px rgba(255,255,255,0.14), inset 0 -1px 0.4px rgba(0,0,0,0.22), inset 0 1px 0.4px rgba(255,255,255,0.95);
+      --tile-a-bg: var(--surface);
+      --tile-b-bg: var(--surface);
+      --tile-c-bg: var(--surface);
+      --tile-d-bg: var(--surface);
+      --ok-bg: rgba(52, 211, 153, 0.12);
+      --ok-ink: #6EE7B7;
+      --warn-bg: rgba(251, 191, 36, 0.12);
+      --warn-ink: #FCD34D;
+      --danger-bg: rgba(248, 113, 113, 0.14);
+      --danger-ink: #FCA5A5;
+      --danger-solid: #DC2626;
+      --shadow-overlay: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    html[data-world="apple"] {
+      --canvas: #FFFFFF;
+      --surface: #F5F5F7;
+      --elevated: #FFFFFF;
+      --subtle: rgba(29, 29, 31, 0.045);
+      --frosted: rgba(245, 245, 247, 0.80);
+      --ink: #1D1D1F;
+      --muted: #6E6E73;
+      --hairline: rgba(29, 29, 31, 0.10);
+      --hairline-strong: rgba(29, 29, 31, 0.18);
+      --accent: #0066CC;
+      --accent-hover: #0071E3;
+      --accent-ink: #FFFFFF;
+      --accent-tint: rgba(0, 102, 204, 0.10);
+      --radius-btn: 980px;
+      --radius-inner: 10px;
+      --radius-card: 16px;
+      --h1-weight: 600;
+      --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --btn-primary-bg: #0071E3;
+      --btn-primary-ink: #FFFFFF;
+      --btn-primary-border: #0066CC;
+      --btn-primary-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 1px 2px rgba(0, 102, 204, 0.22);
+      --tile-a-bg: #F5F5F7;
+      --tile-b-bg: #F5F5F7;
+      --tile-c-bg: #F5F5F7;
+      --tile-d-bg: #F5F5F7;
+      --ok-bg: rgba(4, 120, 87, 0.09);
+      --ok-ink: #065F46;
+      --warn-bg: rgba(180, 83, 9, 0.10);
+      --warn-ink: #92400E;
+      --danger-bg: rgba(190, 18, 60, 0.09);
+      --danger-ink: #9F1239;
+      --danger-solid: #B91C1C;
+      --shadow-overlay: 0 20px 50px rgba(29, 29, 31, 0.16);
+    }
+
+    html[data-world="stripe"] {
+      --canvas: #F6F9FC;
+      --surface: #FFFFFF;
+      --elevated: #FFFFFF;
+      --subtle: #EFF3F8;
+      --frosted: rgba(246, 249, 252, 0.84);
+      --ink: #0D253D;
+      --muted: #64748D;
+      --hairline: #E3E8EE;
+      --hairline-strong: #C2CEDB;
+      --accent: #533AFD;
+      --accent-hover: #4434D4;
+      --accent-ink: #FFFFFF;
+      --accent-tint: rgba(83, 58, 253, 0.09);
+      --radius-btn: 4px;
+      --radius-inner: 6px;
+      --radius-card: 8px;
+      --h1-weight: 300;
+      --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --btn-primary-bg: #533AFD;
+      --btn-primary-ink: #FFFFFF;
+      --btn-primary-border: #4434D4;
+      --btn-primary-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 1px 3px rgba(13, 37, 61, 0.14);
+      --tile-a-bg: #FFFFFF;
+      --tile-b-bg: #FFFFFF;
+      --tile-c-bg: #FFFFFF;
+      --tile-d-bg: #FFFFFF;
+      --ok-bg: rgba(4, 120, 87, 0.09);
+      --ok-ink: #065F46;
+      --warn-bg: rgba(180, 83, 9, 0.10);
+      --warn-ink: #92400E;
+      --danger-bg: rgba(234, 34, 97, 0.10);
+      --danger-ink: #B91C4A;
+      --danger-solid: #BE123C;
+      --shadow-overlay: 0 20px 48px rgba(13, 37, 61, 0.14);
+    }
+
+    html[data-world="figma"] {
+      --canvas: #FFFFFF;
+      --surface: #F7F7F5;
+      --elevated: #FFFFFF;
+      --subtle: #EFEFED;
+      --frosted: rgba(255, 255, 255, 0.86);
+      --ink: #111111;
+      --muted: #555555;
+      --hairline: #E6E6E6;
+      --hairline-strong: #C8C8C8;
+      --accent: #111111;
+      --accent-hover: #2A2A2A;
+      --accent-ink: #FFFFFF;
+      --accent-tint: rgba(17, 17, 17, 0.08);
+      --radius-btn: 9999px;
+      --radius-inner: 10px;
+      --radius-card: 12px;
+      --h1-weight: 600;
+      --font-display: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+      --btn-primary-bg: #111111;
+      --btn-primary-ink: #FFFFFF;
+      --btn-primary-border: #111111;
+      --btn-primary-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+      --tile-a-bg: #F7F7F5;
+      --tile-b-bg: #DCEEB1;
+      --tile-c-bg: #C5B0F4;
+      --tile-d-bg: #F4ECD6;
+      --ok-bg: rgba(30, 166, 74, 0.12);
+      --ok-ink: #14532D;
+      --warn-bg: rgba(180, 83, 9, 0.12);
+      --warn-ink: #78350F;
+      --danger-bg: rgba(190, 18, 60, 0.10);
+      --danger-ink: #9F1239;
+      --danger-solid: #B91C1C;
+      --shadow-overlay: 0 20px 48px rgba(17, 17, 17, 0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 220ms ease-out, color 220ms ease-out;
+    }
+
+    .tabular { font-variant-numeric: tabular-nums; }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+    /* ==========================================================================
+       FROSTED TOP NAVIGATION + SHARED-LAYOUT WORLD SWITCHER
+       ========================================================================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: 60px;
+      background: var(--frosted);
+      backdrop-filter: saturate(1.8) blur(20px);
+      -webkit-backdrop-filter: saturate(1.8) blur(20px);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14.5px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: var(--accent);
+    }
+
+    /* 1 Focal Interactive Primitive in Header: Shared-Layout World Switcher */
+    .world-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px;
+      background: var(--subtle);
+      border: 1px solid var(--hairline);
+      border-radius: 9999px;
+      gap: 2px;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .world-pill {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      height: calc(100% - 6px);
+      border-radius: 9999px;
+      background: var(--elevated);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
+      transition: transform 200ms cubic-bezier(0.2, 0, 0, 1), width 200ms cubic-bezier(0.2, 0, 0, 1);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .world-btn {
+      position: relative;
+      z-index: 1;
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 140ms ease-out, transform 120ms ease-out;
+    }
+
+    .world-btn:hover { color: var(--ink); }
+    .world-btn:active { transform: scale(0.98); }
+    .world-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .world-btn[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
+
+    /* ==========================================================================
+       TACTILE BUTTON SYSTEM (Complete States + Zero-Shift Loading)
+       ========================================================================== */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      line-height: 1.2;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      white-space: nowrap;
+      user-select: none;
+      transition:
+        background-color 140ms ease-out,
+        border-color 140ms ease-out,
+        color 140ms ease-out,
+        box-shadow 140ms ease-out,
+        transform 120ms ease-out,
+        opacity 140ms ease-out;
+    }
+
+    .btn-primary {
+      padding: 10px 20px;
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-ink);
+      border: 1px solid var(--btn-primary-border);
+      box-shadow: var(--btn-primary-shadow);
+    }
+    .btn-primary:hover:not(:disabled):not(.is-loading) { filter: brightness(1.06); }
+
+    .btn-secondary {
+      padding: 10px 18px;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .btn-secondary:hover:not(:disabled):not(.is-loading) { background: var(--subtle); }
+
+    .btn-ghost {
+      padding: 6px 12px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+    .btn-ghost:hover:not(:disabled):not(.is-loading) { background: var(--subtle); color: var(--ink); }
+
+    .btn-danger {
+      padding: 6px 12px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--hairline);
+    }
+    .btn-danger:hover:not(:disabled):not(.is-loading) {
+      background: var(--danger-bg);
+      color: var(--danger-ink);
+      border-color: var(--danger-ink);
+    }
+    .btn-danger.is-confirm {
+      background: var(--danger-solid);
+      color: #FFFFFF;
+      border-color: var(--danger-solid);
+    }
+
+    .btn:active:not(:disabled):not(.is-loading) { transform: scale(0.98); }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn:disabled { opacity: 0.42; cursor: not-allowed; }
+
+    .btn .btn-label { display: inline-flex; align-items: center; gap: 7px; transition: opacity 140ms ease-out; }
+    .btn .btn-spinner {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 15px;
+      height: 15px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .btn.is-loading { cursor: wait; }
+    .btn.is-loading .btn-label { opacity: 0; }
+    .btn.is-loading .btn-spinner { opacity: 1; animation: spin 650ms linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .kbd {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: var(--subtle);
+      border: 1px solid var(--hairline-strong);
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       PAGE LAYOUT & HERO COMPOSITION
+       ========================================================================== */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+      max-width: 820px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 11px;
+      border-radius: 9999px;
+      background: var(--accent-tint);
+      color: var(--accent);
+      border: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+    html[data-world="obsidian"] .eyebrow { color: #B4BCFF; }
+
+    .hero h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(38px, 5.2vw, 64px);
+      font-weight: var(--h1-weight);
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 54ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      padding-top: 6px;
+    }
+
+    .mag-wrap {
+      display: inline-block;
+      padding: 10px;
+      margin: -10px;
+    }
+
+    .mag-target { will-change: transform; }
+
+    /* Flat Asymmetric Metrics Strip */
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr 1fr;
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .metric-cell {
+      padding: 16px 20px;
+      border-left: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .metric-cell:first-child { border-left: none; }
+    .metric-k { font-size: 11.5px; color: var(--muted); font-weight: 500; }
+    .metric-v { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+    .metric-s { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+    /* ==========================================================================
+       2-ROW ASYMMETRIC BENTO GRID
+       ========================================================================== */
+    .bento-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bento-row-a {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 16px;
+    }
+
+    .bento-row-b {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr;
+      gap: 16px;
+    }
+
+    /* Single Focal Card Border Beam (1 per viewport) */
+    .beam-shell {
+      position: relative;
+      border-radius: calc(var(--radius-card) + 1.5px);
+      padding: 1.5px;
+      background: var(--hairline);
+      overflow: hidden;
+    }
+    .beam-rotor {
+      position: absolute;
+      inset: -140%;
+      background: conic-gradient(from 0deg, transparent 0 300deg, var(--accent) 336deg, transparent 360deg);
+      animation: spin 4.2s linear infinite;
+      pointer-events: none;
+    }
+
+    .tile {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--hairline);
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: background-color 220ms ease-out, border-color 160ms ease-out;
+    }
+    .beam-shell .tile { border: none; background: var(--tile-a-bg); }
+    .tile-b { background: var(--tile-b-bg); }
+    .tile-c { background: var(--tile-c-bg); cursor: pointer; }
+    .tile-d { background: var(--tile-d-bg); }
+
+    .tile-c:hover { border-color: var(--hairline-strong); }
+
+    .tile-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .tile-title { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.015em; }
+    .tile-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--subtle);
+      color: var(--ink);
+      border: 1px solid var(--hairline);
+      white-space: nowrap;
+    }
+
+    /* Interactive Telemetry Bars */
+    .chart-bars {
+      display: grid;
+      grid-template-columns: repeat(14, minmax(0, 1fr));
+      align-items: end;
+      gap: 6px;
+      height: 132px;
+      padding: 12px 14px;
+      border-radius: var(--radius-inner);
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+    }
+
+    .bar-btn {
+      appearance: none;
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      background: transparent;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+    .bar-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    .bar-fill {
+      width: 100%;
+      border-radius: 4px 4px 2px 2px;
+      background: var(--hairline-strong);
+      transition: background-color 140ms ease-out, transform 140ms ease-out;
+    }
+    .bar-btn:hover .bar-fill,
+    .bar-btn[data-active="true"] .bar-fill {
+      background: var(--accent);
+      transform: scaleY(1.04);
+      transform-origin: bottom;
+    }
+
+    /* Shared-Layout 2x2 Matrix */
+    .matrix-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 6px;
+      border-radius: var(--radius-inner);
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+    }
+    .matrix-hl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: calc(var(--radius-inner) - 2px);
+      background: var(--accent-tint);
+      border: 1px solid var(--accent);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 200ms cubic-bezier(0.2, 0, 0, 1), width 200ms cubic-bezier(0.2, 0, 0, 1), height 200ms cubic-bezier(0.2, 0, 0, 1), opacity 140ms ease-out;
+    }
+    .matrix-item {
+      position: relative;
+      z-index: 1;
+      appearance: none;
+      border: none;
+      background: transparent;
+      text-align: left;
+      padding: 12px 13px;
+      border-radius: calc(var(--radius-inner) - 2px);
+      color: var(--ink);
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .matrix-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+    /* Control Deck */
+    .deck-box {
+      padding: 16px;
+      border-radius: var(--radius-inner);
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ==========================================================================
+       MODAL DIALOGS (FLIP Morphing Inspector + Cmd+K Command Palette)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(8, 9, 10, 0.56);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.is-open { display: flex; }
+
+    .modal-panel {
+      width: min(540px, 100%);
+      background: var(--elevated);
+      color: var(--ink);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-overlay);
+      overflow: hidden;
+      transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), opacity 180ms ease-out;
+    }
+
+    .cmd-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .cmd-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 14.5px;
+      outline: none;
+    }
+    .cmd-list {
+      padding: 8px;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cmd-grp {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      padding: 8px 10px 4px;
+    }
+    .cmd-item {
+      appearance: none;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: 6px;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .cmd-item[data-active="true"],
+    .cmd-item:hover { background: var(--accent-tint); color: var(--accent); }
+    html[data-world="obsidian"] .cmd-item[data-active="true"],
+    html[data-world="obsidian"] .cmd-item:hover { color: #B4BCFF; }
+
+    /* ==========================================================================
+       SONNER TOAST STACK (Bottom-Right, Hover-to-Fan-Out)
+       ========================================================================== */
+    .sonner-viewport {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 90;
+      width: min(360px, calc(100vw - 32px));
+      height: 180px;
+      pointer-events: none;
+    }
+    .sonner-toast {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      pointer-events: auto;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--elevated);
+      color: var(--ink);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: var(--shadow-overlay);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease-out;
+    }
+    .t-pill {
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .t-ok { background: var(--ok-bg); color: var(--ok-ink); }
+    .t-warn { background: var(--warn-bg); color: var(--warn-ink); }
+    .t-err { background: var(--danger-bg); color: var(--danger-ink); }
+    .t-info { background: var(--accent-tint); color: var(--accent); }
+    html[data-world="obsidian"] .t-info { color: #B4BCFF; }
+
+    @media (max-width: 880px) {
+      .metrics-strip, .bento-row-a, .bento-row-b { grid-template-columns: 1fr; }
+      .metric-cell { border-left: none; border-top: 1px solid var(--hairline); }
+      .metric-cell:first-child { border-top: none; }
+      .topbar { height: auto; padding: 10px 0; }
+      .topbar-inner { flex-wrap: wrap; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Meridian System</span>
+        <span class="badge mono" id="hdr-world-badge">Linear Obsidian</span>
+      </div>
+
+      <nav class="world-switch" role="group" aria-label="Pilih DESIGN.md World" id="world-nav">
+        <div class="world-pill" id="world-pill" aria-hidden="true"></div>
+        <button type="button" class="world-btn" data-set-world="obsidian" aria-pressed="true">Linear Obsidian</button>
+        <button type="button" class="world-btn" data-set-world="apple" aria-pressed="false">Apple Gallery</button>
+        <button type="button" class="world-btn" data-set-world="stripe" aria-pressed="false">Stripe Fintech</button>
+        <button type="button" class="world-btn" data-set-world="figma" aria-pressed="false">Figma Editorial</button>
+      </nav>
+
+      <button type="button" class="btn btn-ghost" id="btn-hdr-cmd">
+        <span class="btn-label">Command <span class="kbd">⌘K</span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow mono" id="hero-eyebrow">v3.0 · Real DESIGN.md + Lego Primitives</span>
+      <h1>Antarmuka presisi yang mewarisi selera produksi nyata, bukan template AI.</h1>
+      <p>Ganti sistem desain di atas secara live — seluruh suhu kanvas, radius, bobot tipografi, dan umpan balik taktil berubah mengikuti <span class="mono">DESIGN.md</span> asli tanpa menyalin warna krem secara membabi buta.</p>
+      <div class="hero-actions">
+        <div class="mag-wrap" id="mag-wrap">
+          <button type="button" class="btn btn-primary mag-target" id="btn-hero-deploy">
+            <span class="btn-label">
+              <span>Deploy Token Aktif</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8h9M9 4.5L12.5 8 9 11.5"/></svg>
+            </span>
+            <svg class="btn-spinner" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke-opacity="0.28"/><path d="M14 8a6 6 0 0 0-6-6" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <button type="button" class="btn btn-secondary" id="btn-hero-cmd">
+          <span class="btn-label">Buka Command Palette <span class="kbd">⌘K</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="metrics-strip" aria-label="Token aktif sistem desain">
+      <div class="metric-cell">
+        <span class="metric-k">Art Direction Aktif</span>
+        <span class="metric-v" id="m-world-name">Linear + Raycast</span>
+        <span class="metric-s" id="m-world-ref">design-systems/linear.app.md</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-k">Canvas / Surface</span>
+        <span class="metric-v mono" id="m-canvas">#08090A</span>
+        <span class="metric-s" id="m-surface">surface #0F1011</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-k">Ink &amp; Aksen Disiplin</span>
+        <span class="metric-v mono" id="m-accent">#5E6AD2</span>
+        <span class="metric-s" id="m-ink">ink #F7F8F8</span>
+      </div>
+      <div class="metric-cell">
+        <span class="metric-k">Radius &amp; H1 Weight</span>
+        <span class="metric-v mono" id="m-radius">8px · w550</span>
+        <span class="metric-s" id="m-cta-style">Raycast 4-layer bevel</span>
+      </div>
+    </section>
+
+    <section class="bento-stack">
+      <div class="bento-row-a">
+        <!-- Tile 1: Focal Border Beam Telemetry Chart -->
+        <div class="beam-shell">
+          <div class="beam-rotor" aria-hidden="true"></div>
+          <div class="tile">
+            <div class="tile-head">
+              <div>
+                <h2 class="tile-title">Telemetri Interaksi &amp; Latency p95</h2>
+                <div class="tile-desc">Arahkan kursor atau fokuskan batang grafik untuk inspeksi presisi.</div>
+              </div>
+              <span class="badge mono" id="chart-badge">14.2 ms</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+              <span class="tabular" style="font-size:32px;font-weight:700;letter-spacing:-0.03em;" id="chart-val">14.2 ms</span>
+              <span class="mono" style="font-size:12px;color:var(--muted);" id="chart-ts">14:40 WIB · 99.98% SLA</span>
+            </div>
+            <div class="chart-bars" id="chart-bars" role="group" aria-label="Grafik latensi 14 titik"></div>
+          </div>
+        </div>
+
+        <!-- Tile 2: Shared-Layout 2x2 Interactive Matrix -->
+        <div class="tile tile-b">
+          <div class="tile-head">
+            <div>
+              <h2 class="tile-title">Primitives Shared-Layout</h2>
+              <div class="tile-desc">Sorot sel untuk merasakan transisi bidang aktif.</div>
+            </div>
+            <span class="badge">Motion</span>
+          </div>
+          <div class="matrix-grid" id="matrix-grid">
+            <div class="matrix-hl" id="matrix-hl" aria-hidden="true"></div>
+            <button type="button" class="matrix-item" data-mx="Spring Magnetic"><strong style="font-size:13.5px;display:block;">Spring Magnetic</strong><span class="mono" style="font-size:11px;color:var(--muted);">Hero CTA attraction</span></button>
+            <button type="button" class="matrix-item" data-mx="Zero-Shift Spin"><strong style="font-size:13.5px;display:block;">Zero-Shift Spin</strong><span class="mono" style="font-size:11px;color:var(--muted);">Stable button width</span></button>
+            <button type="button" class="matrix-item" data-mx="Domain Grammar"><strong style="font-size:13.5px;display:block;">Domain Grammar</strong><span class="mono" style="font-size:11px;color:var(--muted);">4 real DESIGN.md</span></button>
+            <button type="button" class="matrix-item" data-mx="Sonner Stack"><strong style="font-size:13.5px;display:block;">Sonner Stack</strong><span class="mono" style="font-size:11px;color:var(--muted);">Depth &amp; fan-out</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-row-b">
+        <!-- Tile 3: FLIP Morphing Inspector Card -->
+        <div class="tile tile-c" id="morph-card" tabindex="0" role="button" aria-label="Buka Design Token Inspector">
+          <div class="tile-head">
+            <div>
+              <h2 class="tile-title">Design Token Inspector</h2>
+              <div class="tile-desc">Klik kartu ini untuk melihat transisi FLIP Morph ke modal penuh.</div>
+            </div>
+            <span class="badge">Klik Morph</span>
+          </div>
+          <div class="deck-box" style="margin-top:auto;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="mono" style="font-size:12px;">--canvas</span>
+              <span class="mono" style="font-size:12px;color:var(--muted);" id="morph-preview-hex">#08090A</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="mono" style="font-size:12px;">--accent</span>
+              <span class="mono" style="font-size:12px;color:var(--muted);" id="morph-preview-acc">#5E6AD2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tile 4: Tactile Control Deck + Sonner Toast Triggers -->
+        <div class="tile tile-d">
+          <div class="tile-head">
+            <div>
+              <h2 class="tile-title">Tactile Control Deck &amp; Sonner Stack</h2>
+              <div class="tile-desc">Uji tombol multi-hierarki, konfirmasi destruktif 2-langkah, dan tumpukan toast.</div>
+            </div>
+            <span class="badge">Live States</span>
+          </div>
+          <div class="deck-box" style="margin-top:auto;">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              <button type="button" class="btn btn-primary" style="padding:7px 15px;font-size:13px;" id="deck-save">
+                <span class="btn-label">Simpan Perubahan</span>
+                <svg class="btn-spinner" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke-opacity="0.28"/><path d="M14 8a6 6 0 0 0-6-6" stroke-linecap="round"/></svg>
+              </button>
+              <button type="button" class="btn btn-secondary" style="padding:7px 14px;font-size:13px;" id="deck-copy">
+                <span class="btn-label">Salin CSS Tokens</span>
+              </button>
+              <button type="button" class="btn btn-ghost" id="deck-warn">
+                <span class="btn-label">Uji Peringatan</span>
+              </button>
+              <button type="button" class="btn btn-danger" id="deck-del">
+                <span class="btn-label">Hapus Cache</span>
+              </button>
+            </div>
+            <div class="mono" style="font-size:11.5px;color:var(--muted);" id="deck-note">
+              Hover tumpukan toast di pojok kanan bawah untuk expand · Klik Hapus Cache untuk konfirmasi inline
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Morphing Token Inspector Modal -->
+  <div class="modal-backdrop" id="morph-modal" role="dialog" aria-modal="true" aria-labelledby="morph-title">
+    <div class="modal-panel" id="morph-panel" style="padding:22px 24px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <div>
+          <span class="badge mono" id="morph-badge">DESIGN.md</span>
+          <h2 id="morph-title" style="margin:6px 0 0;font-size:18px;letter-spacing:-0.02em;">Token Sistem Aktif</h2>
+        </div>
+        <button type="button" class="btn btn-ghost" id="morph-close"><span class="btn-label">Tutup <span class="kbd">Esc</span></span></button>
+      </div>
+      <pre class="mono" id="morph-code" style="margin:0;padding:14px;border-radius:8px;background:var(--canvas);border:1px solid var(--hairline);font-size:12px;line-height:1.6;overflow-x:auto;"></pre>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button type="button" class="btn btn-primary" style="padding:8px 16px;" id="morph-copy"><span class="btn-label">Salin CSS Variables</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cmd+K Command Palette Modal -->
+  <div class="modal-backdrop" id="cmd-modal" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="modal-panel">
+      <div class="cmd-head">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14" stroke-linecap="round"/></svg>
+        <input type="text" class="cmd-input" id="cmd-input" placeholder="Ganti DESIGN.md world, salin token, atau jalankan aksi..." />
+        <span class="kbd">ESC</span>
+      </div>
+      <div class="cmd-list" id="cmd-list"></div>
+    </div>
+  </div>
+
+  <!-- Sonner Toast Stack Viewport -->
+  <div class="sonner-viewport" id="sonner-vp" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const WORLDS = {
+        obsidian: {
+          label: 'Linear Obsidian',
+          ref: 'design-systems/linear.app.md',
+          canvas: '#08090A',
+          surface: '#0F1011',
+          ink: '#F7F8F8',
+          accent: '#5E6AD2',
+          radius: '8px · w550',
+          cta: 'Raycast 4-layer bevel',
+        },
+        apple: {
+          label: 'Apple Gallery',
+          ref: 'design-systems/apple.md',
+          canvas: '#FFFFFF',
+          surface: '#F5F5F7',
+          ink: '#1D1D1F',
+          accent: '#0066CC',
+          radius: '980px · w600',
+          cta: '980px pill + frosted nav',
+        },
+        stripe: {
+          label: 'Stripe Fintech',
+          ref: 'design-systems/stripe.md',
+          canvas: '#F6F9FC',
+          surface: '#FFFFFF',
+          ink: '#0D253D',
+          accent: '#533AFD',
+          radius: '4px · w300',
+          cta: '4px sharp + light display',
+        },
+        figma: {
+          label: 'Figma Editorial',
+          ref: 'design-systems/figma.md',
+          canvas: '#FFFFFF',
+          surface: '#F7F7F5',
+          ink: '#111111',
+          accent: '#111111',
+          radius: 'pill · w600',
+          cta: 'Pastel story blocks',
+        },
+      };
+
+      const state = {
+        world: 'obsidian',
+        toasts: [],
+        toastsExpanded: false,
+        cmdIdx: 0,
+        delArmed: false,
+      };
+
+      const el = (id) => document.getElementById(id);
+
+      function activeCssBlock() {
+        const w = WORLDS[state.world];
+        return `:root[data-world="${state.world}"] {\n  /* Source: ${w.ref} */\n  --canvas: ${w.canvas};\n  --surface: ${w.surface};\n  --ink: ${w.ink};\n  --accent: ${w.accent};\n  --radius: ${w.radius.split(' ')[0]};\n}`;
+      }
+
+      /* 1. World Switcher + Shared-Layout Pill */
+      function syncWorldPill() {
+        const nav = el('world-nav');
+        const pill = el('world-pill');
+        const active = nav.querySelector('[aria-pressed="true"]');
+        if (!active || !pill) return;
+        const nr = nav.getBoundingClientRect();
+        const ar = active.getBoundingClientRect();
+        pill.style.width = ar.width + 'px';
+        pill.style.transform = 'translateX(' + (ar.left - nr.left - 3 + nav.scrollLeft) + 'px)';
+      }
+
+      function setWorld(worldKey, silent) {
+        if (!WORLDS[worldKey]) return;
+        state.world = worldKey;
+        document.documentElement.setAttribute('data-world', worldKey);
+        const w = WORLDS[worldKey];
+        document.querySelectorAll('[data-set-world]').forEach((b) => {
+          b.setAttribute('aria-pressed', String(b.dataset.setWorld === worldKey));
+        });
+        el('hdr-world-badge').textContent = w.label;
+        el('m-world-name').textContent = w.label;
+        el('m-world-ref').textContent = w.ref;
+        el('m-canvas').textContent = w.canvas;
+        el('m-surface').textContent = 'surface ' + w.surface;
+        el('m-accent').textContent = w.accent;
+        el('m-ink').textContent = 'ink ' + w.ink;
+        el('m-radius').textContent = w.radius;
+        el('m-cta-style').textContent = w.cta;
+        el('morph-preview-hex').textContent = w.canvas;
+        el('morph-preview-acc').textContent = w.accent;
+        el('morph-badge').textContent = w.ref;
+        el('morph-code').textContent = activeCssBlock();
+        syncWorldPill();
+        if (!silent) pushToast('info', 'World', 'Beralih ke ' + w.label);
+      }
+
+      document.querySelectorAll('[data-set-world]').forEach((btn) => {
+        btn.onclick = () => setWorld(btn.dataset.setWorld, false);
+      });
+
+      /* 2. Sonner Toast Stack */
+      function renderToasts() {
+        const vp = el('sonner-vp');
+        vp.innerHTML = '';
+        state.toasts.forEach((t, i) => {
+          const depth = state.toasts.length - 1 - i;
+          const card = document.createElement('div');
+          card.className = 'sonner-toast';
+          const ty = state.toastsExpanded ? -(depth * 56) : -(depth * 11);
+          const sc = state.toastsExpanded ? 1 : 1 - depth * 0.05;
+          card.style.transform = 'translateY(' + ty + 'px) scale(' + sc + ')';
+          card.style.zIndex = String(20 - depth);
+          card.style.opacity = depth > 2 ? '0' : '1';
+          const cls = t.kind === 'ok' ? 't-ok' : t.kind === 'warn' ? 't-warn' : t.kind === 'err' ? 't-err' : 't-info';
+          card.innerHTML =
+            '<div style="display:flex;align-items:center;gap:8px;min-width:0;">' +
+              '<span class="t-pill ' + cls + '"></span>' +
+              '<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>' +
+            '</div>' +
+            '<button type="button" class="btn btn-ghost" style="padding:2px 7px;font-size:11.5px;">Tutup</button>';
+          card.querySelector('.t-pill').textContent = t.tag;
+          card.querySelector('span:nth-child(2)').textContent = t.msg;
+          card.querySelector('button').onclick = () => {
+            state.toasts = state.toasts.filter((x) => x.id !== t.id);
+            renderToasts();
+          };
+          vp.appendChild(card);
+        });
+      }
+
+      function pushToast(kind, tag, msg) {
+        const id = Date.now() + Math.random();
+        state.toasts.push({ id, kind, tag, msg });
+        if (state.toasts.length > 3) state.toasts.shift();
+        renderToasts();
+        return id;
+      }
+
+      el('sonner-vp').onmouseenter = () => { state.toastsExpanded = true; renderToasts(); };
+      el('sonner-vp').onmouseleave = () => { state.toastsExpanded = false; renderToasts(); };
+
+      /* 3. Magnetic Hero CTA + Zero-Shift Loading */
+      (function initMagnetic() {
+        const wrap = el('mag-wrap');
+        const btn = el('btn-hero-deploy');
+        let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+        function loop() {
+          cx += (tx - cx) * 0.2;
+          cy += (ty - cy) * 0.2;
+          btn.style.transform = 'translate3d(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px,0)';
+          if (Math.abs(tx - cx) > 0.08 || Math.abs(ty - cy) > 0.08) raf = requestAnimationFrame(loop);
+          else raf = 0;
+        }
+        wrap.onmousemove = (e) => {
+          const r = btn.getBoundingClientRect();
+          tx = Math.max(-16, Math.min(16, (e.clientX - (r.left + r.width / 2)) * 0.25));
+          ty = Math.max(-10, Math.min(10, (e.clientY - (r.top + r.height / 2)) * 0.25));
+          if (!raf) raf = requestAnimationFrame(loop);
+        };
+        wrap.onmouseleave = () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); };
+        btn.onclick = () => {
+          if (btn.classList.contains('is-loading')) return;
+          btn.classList.add('is-loading');
+          const tid = pushToast('warn', 'Sync', 'Mengirim token ' + WORLDS[state.world].label + '...');
+          setTimeout(() => {
+            btn.classList.remove('is-loading');
+            state.toasts = state.toasts.map((x) => (x.id === tid ? { id: tid, kind: 'ok', tag: 'Deployed', msg: WORLDS[state.world].label + ' aktif di produksi' } : x));
+            renderToasts();
+          }, 850);
+        };
+      })();
+
+      /* 4. Interactive 14-Bar Telemetry Chart */
+      (function initChart() {
+        const pts = [
+          { ms: 18.4, ts: '14:14 WIB' }, { ms: 16.9, ts: '14:16 WIB' }, { ms: 21.2, ts: '14:18 WIB' },
+          { ms: 15.6, ts: '14:20 WIB' }, { ms: 14.8, ts: '14:22 WIB' }, { ms: 19.3, ts: '14:24 WIB' },
+          { ms: 13.7, ts: '14:26 WIB' }, { ms: 15.1, ts: '14:28 WIB' }, { ms: 17.5, ts: '14:30 WIB' },
+          { ms: 12.9, ts: '14:32 WIB' }, { ms: 13.4, ts: '14:34 WIB' }, { ms: 16.1, ts: '14:36 WIB' },
+          { ms: 14.9, ts: '14:38 WIB' }, { ms: 14.2, ts: '14:40 WIB' },
+        ];
+        const container = el('chart-bars');
+        pts.forEach((p, i) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'bar-btn';
+          btn.dataset.active = String(i === pts.length - 1);
+          btn.setAttribute('aria-label', p.ts + ': ' + p.ms + ' ms');
+          const fill = document.createElement('span');
+          fill.className = 'bar-fill';
+          fill.style.height = Math.round((p.ms / 24) * 100) + '%';
+          btn.appendChild(fill);
+          const pick = () => {
+            container.querySelectorAll('.bar-btn').forEach((b) => (b.dataset.active = String(b === btn)));
+            el('chart-val').textContent = p.ms.toFixed(1) + ' ms';
+            el('chart-badge').textContent = p.ms.toFixed(1) + ' ms';
+            el('chart-ts').textContent = p.ts + ' · 99.98% SLA';
+          };
+          btn.onmouseenter = pick;
+          btn.onfocus = pick;
+          container.appendChild(btn);
+        });
+      })();
+
+      /* 5. Shared-Layout 2x2 Matrix */
+      (function initMatrix() {
+        const grid = el('matrix-grid');
+        const hl = el('matrix-hl');
+        grid.querySelectorAll('.matrix-item').forEach((item) => {
+          const move = () => {
+            const gr = grid.getBoundingClientRect();
+            const ir = item.getBoundingClientRect();
+            hl.style.opacity = '1';
+            hl.style.width = ir.width + 'px';
+            hl.style.height = ir.height + 'px';
+            hl.style.transform = 'translate(' + (ir.left - gr.left) + 'px,' + (ir.top - gr.top) + 'px)';
+          };
+          item.onmouseenter = move;
+          item.onfocus = move;
+          item.onclick = () => pushToast('info', 'Primitive', item.dataset.mx + ' dipilih');
+        });
+        grid.onmouseleave = () => { hl.style.opacity = '0'; };
+      })();
+
+      /* 6. FLIP Morphing Inspector Modal */
+      function openMorphModal() {
+        const card = el('morph-card');
+        const modal = el('morph-modal');
+        const panel = el('morph-panel');
+        const sr = card.getBoundingClientRect();
+        el('morph-code').textContent = activeCssBlock();
+        modal.classList.add('is-open');
+        const pr = panel.getBoundingClientRect();
+        const dx = sr.left + sr.width / 2 - (pr.left + pr.width / 2);
+        const dy = sr.top + sr.height / 2 - (pr.top + pr.height / 2);
+        panel.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + (sr.width / pr.width).toFixed(2) + ')';
+        panel.style.opacity = '0.5';
+        requestAnimationFrame(() => {
+          panel.style.transform = 'translate(0,0) scale(1)';
+          panel.style.opacity = '1';
+        });
+      }
+      function closeMorphModal() { el('morph-modal').classList.remove('is-open'); }
+      el('morph-card').onclick = openMorphModal;
+      el('morph-card').onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMorphModal(); } };
+      el('morph-close').onclick = closeMorphModal;
+      el('morph-modal').onclick = (e) => { if (e.target === el('morph-modal')) closeMorphModal(); };
+
+      async function copyCss() {
+        const txt = activeCssBlock();
+        try { await navigator.clipboard.writeText(txt); } catch (_) {}
+        pushToast('ok', 'Disalin', 'Variabel CSS ' + WORLDS[state.world].label + ' disalin');
+      }
+      el('morph-copy').onclick = copyCss;
+      el('deck-copy').onclick = copyCss;
+
+      /* 7. Control Deck Interactions */
+      el('deck-save').onclick = () => {
+        const b = el('deck-save');
+        if (b.classList.contains('is-loading')) return;
+        b.classList.add('is-loading');
+        setTimeout(() => {
+          b.classList.remove('is-loading');
+          pushToast('ok', 'Tersimpan', 'Konfigurasi deck disimpan tanpa layout shift');
+        }, 700);
+      };
+      el('deck-warn').onclick = () => pushToast('warn', 'Peringatan', 'Kuota snapshot mendekati batas harian');
+      el('deck-del').onclick = () => {
+        const b = el('deck-del');
+        if (!state.delArmed) {
+          state.delArmed = true;
+          b.classList.add('is-confirm');
+          b.querySelector('.btn-label').textContent = 'Konfirmasi Hapus?';
+          setTimeout(() => {
+            if (state.delArmed) {
+              state.delArmed = false;
+              b.classList.remove('is-confirm');
+              b.querySelector('.btn-label').textContent = 'Hapus Cache';
+            }
+          }, 2600);
+        } else {
+          state.delArmed = false;
+          b.classList.remove('is-confirm');
+          b.querySelector('.btn-label').textContent = 'Hapus Cache';
+          pushToast('err', 'Dihapus', 'Cache lokal dibersihkan');
+        }
+      };
+
+      /* 8. Cmd+K Command Palette */
+      const CMD_GROUPS = [
+        {
+          g: 'Ganti DESIGN.md World',
+          items: [
+            { label: 'Aktifkan Linear Obsidian', sc: '1', fn: () => setWorld('obsidian', false) },
+            { label: 'Aktifkan Apple Gallery', sc: '2', fn: () => setWorld('apple', false) },
+            { label: 'Aktifkan Stripe Fintech', sc: '3', fn: () => setWorld('stripe', false) },
+            { label: 'Aktifkan Figma Editorial', sc: '4', fn: () => setWorld('figma', false) },
+          ],
+        },
+        {
+          g: 'Aksi Sistem',
+          items: [
+            { label: 'Buka Token Inspector (FLIP Morph)', sc: 'I', fn: openMorphModal },
+            { label: 'Salin CSS Variables World Aktif', sc: 'C', fn: copyCss },
+            { label: 'Uji Notifikasi Sonner Stack', sc: 'T', fn: () => pushToast('ok', 'Sonner', 'Toast stack aktif di kanan bawah') },
+          ],
+        },
+      ];
+
+      function renderCmdList() {
+        const q = el('cmd-input').value.trim().toLowerCase();
+        const list = el('cmd-list');
+        const flat = [];
+        let html = '';
+        CMD_GROUPS.forEach((grp) => {
+          const matches = grp.items.filter((x) => x.label.toLowerCase().includes(q));
+          if (!matches.length) return;
+          html += '<div class="cmd-grp">' + grp.g + '</div>';
+          matches.forEach((m) => {
+            const idx = flat.length;
+            flat.push(m);
+            html += '<button type="button" class="cmd-item" data-cidx="' + idx + '" data-active="' + (idx === state.cmdIdx) + '"><span>' + m.label + '</span><span class="kbd">' + m.sc + '</span></button>';
+          });
+        });
+        list.innerHTML = html || '<div style="padding:14px;color:var(--muted);font-size:13px;">Tidak ada perintah yang cocok.</div>';
+        list.querySelectorAll('.cmd-item').forEach((b) => {
+          b.onclick = () => {
+            const item = flat[Number(b.dataset.cidx)];
+            closeCmd();
+            if (item) item.fn();
+          };
+        });
+      }
+
+      function openCmd() {
+        state.cmdIdx = 0;
+        el('cmd-input').value = '';
+        renderCmdList();
+        el('cmd-modal').classList.add('is-open');
+        setTimeout(() => el('cmd-input').focus(), 20);
+      }
+      function closeCmd() { el('cmd-modal').classList.remove('is-open'); }
+
+      el('btn-hdr-cmd').onclick = openCmd;
+      el('btn-hero-cmd').onclick = openCmd;
+      el('cmd-modal').onclick = (e) => { if (e.target === el('cmd-modal')) closeCmd(); };
+      el('cmd-input').oninput = () => { state.cmdIdx = 0; renderCmdList(); };
+      el('cmd-input').onkeydown = (e) => {
+        const items = el('cmd-list').querySelectorAll('.cmd-item');
+        if (!items.length) return;
+        if (e.key === 'ArrowDown') { e.preventDefault(); state.cmdIdx = (state.cmdIdx + 1) % items.length; renderCmdList(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); state.cmdIdx = (state.cmdIdx - 1 + items.length) % items.length; renderCmdList(); }
+        else if (e.key === 'Enter') { e.preventDefault(); items[state.cmdIdx].click(); }
+      };
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          if (el('cmd-modal').classList.contains('is-open')) closeCmd();
+          else openCmd();
+        } else if (e.key === 'Escape') {
+          closeCmd();
+          closeMorphModal();
+        }
+      });
+
+      window.addEventListener('resize', syncWorldPill);
+      setWorld('obsidian', true);
+      pushToast('info', 'Meridian v3', 'Coba ganti 4 DESIGN.md world di atas atau tekan Cmd+K');
+    })();
+  </script>
+</body>
+</html>

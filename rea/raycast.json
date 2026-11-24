@@ -1,0 +1,133 @@
+{
+  "slug": "raycast",
+  "url": "https://www.raycast.com",
+  "captured_at": "2026-11-24T07:23:38.196Z",
+  "screenshot": "references/assets/rea-raycast.png",
+  "screenshot_bytes": 666484,
+  "title": "Raycast - Your shortcut to everything",
+  "finalUrl": "https://www.raycast.com/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "body": {
+    "backgroundColor": "rgb(7, 8, 10)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "Inter, \"Inter Fallback\", sans-serif",
+    "fontSize": "16px",
+    "lineHeight": "18.4px"
+  },
+  "header": null,
+  "h1": {
+    "text": "Your shortcut to everything.",
+    "fontFamily": "Inter, \"Inter Fallback\", sans-serif",
+    "fontSize": "64px",
+    "fontWeight": "600",
+    "letterSpacing": "normal",
+    "lineHeight": "70.4px",
+    "color": "rgb(255, 255, 255)"
+  },
+  "h2": {
+    "text": "Take shortcuts, not detours.",
+    "fontFamily": "Inter, \"Inter Fallback\", sans-serif",
+    "fontSize": "20px",
+    "fontWeight": "500",
+    "letterSpacing": "0.2px",
+    "lineHeight": "normal",
+    "color": "rgb(255, 255, 255)"
+  },
+  "buttons": [
+    {
+      "text": "Download",
+      "tag": "a",
+      "height": "36px",
+      "width": "117px",
+      "padding": "8px 12px",
+      "borderRadius": "8px",
+      "backgroundColor": "rgb(230, 230, 230)",
+      "color": "rgb(47, 48, 49)",
+      "border": "0px none rgb(47, 48, 49)",
+      "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "text": "Download for Mac",
+      "tag": "a",
+      "height": "36px",
+      "width": "173px",
+      "padding": "8px 12px",
+      "borderRadius": "8px",
+      "backgroundColor": "rgb(230, 230, 230)",
+      "color": "rgb(47, 48, 49)",
+      "border": "0px none rgb(47, 48, 49)",
+      "boxShadow": "rgba(0, 0, 0, 0.5) 0px 0px 0px 2px, rgba(255, 255, 255, 0.19) 0px 0px 14px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0.4px 0px inset, rgb(255, 255, 255) 0px 1px 0.4px 0px inset",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "transitionDuration": "0.2s, 0.2s, 0.2s, 0.1s"
+    }
+  ],
+  "top_fonts": [
+    {
+      "value": "Inter",
+      "count": 144
+    },
+    {
+      "value": "GeistMono",
+      "count": 4
+    }
+  ],
+  "top_backgrounds": [
+    {
+      "value": "rgb(67, 67, 69)",
+      "count": 18
+    },
+    {
+      "value": "rgb(230, 230, 230)",
+      "count": 4
+    },
+    {
+      "value": "rgb(7, 8, 10)",
+      "count": 1
+    },
+    {
+      "value": "rgb(19, 13, 14)",
+      "count": 1
+    },
+    {
+      "value": "rgb(17, 18, 20)",
+      "count": 1
+    },
+    {
+      "value": "rgba(255, 255, 255, 0.1)",
+      "count": 1
+    }
+  ],
+  "top_radii": [
+    {
+      "value": "12px",
+      "count": 20
+    },
+    {
+      "value": "20px",
+      "count": 17
+    },
+    {
+      "value": "6px",
+      "count": 11
+    },
+    {
+      "value": "10px",
+      "count": 8
+    },
+    {
+      "value": "8px",
+      "count": 3
+    },
+    {
+      "value": "4px",
+      "count": 3
+    }
+  ]
+}
