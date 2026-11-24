@@ -620,6 +620,16 @@ def check_sync(vault_root: Path) -> dict[str, Any]:
             if vh != gh:
                 diffs.append({"file": f"references/{rel}", "state": "modified"})
 
+    for extra_rel in ("scripts/query_vault.py", "design-systems/INDEX.json"):
+        vault_extra = vault_root / extra_rel
+        global_extra = global_skill / extra_rel
+        if not vault_extra.is_file():
+            continue
+        if not global_extra.is_file():
+            diffs.append({"file": extra_rel, "state": "missing_in_global"})
+        elif hashlib.sha256(vault_extra.read_bytes()).hexdigest() != hashlib.sha256(global_extra.read_bytes()).hexdigest():
+            diffs.append({"file": extra_rel, "state": "modified"})
+
     backups = sorted([p.name for p in backup_root.iterdir()]) if backup_root.is_dir() else []
     shadowing_warnings = sorted([p.name for p in skills_root.iterdir() if ".bak" in p.name])
 

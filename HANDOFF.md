@@ -9,29 +9,30 @@
 ### A. Workspace Ini (`/home/rafif/Projects/gemini-design-vault/`)
 - `HANDOFF.md` — Dokumen brief, backlog, dan status terkini (file ini).
 - `AGENTS.md` — Aturan kerja agent di workspace ini, termasuk skema wajib entri referensi dan aturan sinkronisasi ke skill global.
-- `skill/SKILL.md` — Versi kerja skill `gemini-design` (sudah di-upgrade dengan Reference Router, Jalur C De-Slop, dan Anti-Slop Audit Checklist; ter-sync ke global).
+- `skill/SKILL.md` — Versi kerja skill `gemini-design` **v5** (Stack & Intent Discovery → Riset Tema → *Theme Proposal Gate* 2–3 arah → Modular Lego Assembly stack-agnostic; Jalur C De-Slop dan Anti-Slop Audit Checklist 6 grup tetap ada; ter-sync ke global).
 - `source/youtube-604T-74s3KE-claude-design-fix-ai-slop.md` — Transkrip lengkap video Nate Parrott (*"Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes"*) sebagai sumber prinsip utama.
 - `dashboard/` — Dashboard katalog & monitoring lokal skill `gemini-design` (`serve.py` untuk live server + `index.html` Split-Pane Studio Workbench + browser 195 komponen `goodui.dev` + `lego-previews.js` dengan live preview interaktif **28** template Lego & **6** specimen REA + fallback snapshot statis `vault-snapshot.js`).
 - `rea/` — Dossier computed DOM JSON hasil *live capture* 1440×900 dari 6 situs produksi nyata (`apple.json`, `linear.json`, `vercel.json`, `stripe.json`, `raycast.json`, `goodui.json`).
 - `design-systems/` — **24** sistem `DESIGN.md` brand nyata dari `VoltAgent/awesome-design-md` (`apple`, `stripe`, `linear.app`, `vercel`, `notion`, `supabase`, `airbnb`, `spotify`, `figma`, `claude`, `wise`, `miro`, `mistral.ai`, `theverge`, `wired`, `ferrari`, `lamborghini`, `raycast`, `framer`, `webflow`, `posthog`, `zapier`, `revolut`, `nike`) + `INDEX.json`.
 - `templates/` — Database **28** template unggulan di `templates/INDEX.json` (`shadcn-ui/ui`, `magicuidesign/magicui`, `ibelick/motion-primitives`, `emilkowalski/sonner`, + 12 blok unggulan `goodui.dev`) PLUS seluruh **195** komponen & Web Audio sounds publik gratis dari `https://goodui.dev/r/registry.json` di `templates/goodui/INDEX.json`.
-- `scripts/` — Skrip akuisisi (`rea_capture.mjs`, `fetch_templates.py`, `fetch_design_systems.py`, `fetch_goodui.py`).
+- `scripts/` — Skrip akuisisi (`rea_capture.mjs`, `fetch_templates.py`, `fetch_design_systems.py` [+ `--rebuild-index` offline], `fetch_goodui.py`) dan **`query_vault.py`** (CLI pencari hemat token: `themes`, `lego`, `rea`, `stats`; stdlib murni, path relatif terhadap lokasi skrip sehingga ikut ter-sync ke skill global).
 - `eval/` — **7** Galeri Live Preview Showcase lintas-domain (`showcase-1-meridian-worlds.html`, `showcase-2-atelier-commerce.html`, `showcase-3-ledger-fintech.html`, `showcase-4-studio-creative.html`, `showcase-5-prism-festival.html`, `showcase-6-monolith-motorsport.html`, `showcase-7-style-packs-studio.html`, `RESULTS.md`).
 - `references/` — Database referensi desain terstruktur:
   - `references/INDEX.md` — Router cepat kategori → file referensi + Lego templates + Design Systems + GoodUI Registry + corpus eksternal.
   - `references/TASTE-PROFILE.md` — Profil selera pribadi (`ready`: prinsip craft + Ban List anti mode-collapse krem+teal).
   - `references/DESIGN-GRAMMAR.md` — Matriks 24 Brand → Suhu Warna & Art Direction + **10 Expressive & Vivid Color Worlds** + komposisi 60-30-10 (`ready`).
   - `references/STYLE-PACKS.md` — Katalog **8 Style Packs** (`Clean`, `Brutal`, `Glass`, `Retro 98`, `8-bit`, `Soft`, `Swiss`, `Luxe`) × **8 Accent Presets** × **4 Material Surfaces** hasil REA `goodui.dev` (`ready`).
+  - `references/LEGO-ADAPTATION.md` — Aturan perakitan stack-agnostic: Mode A *Blueprint Translation* (default, zero forced dependency) vs Mode B *Direct Drop-in*, peta translasi `motion`/`radix`/Tailwind/`lucide`, catatan React 19 `goodui.dev` (`ready`).
   - `references/components/` — Referensi level komponen:
-    - `buttons.md` (`ready`: 8 pola tombol termasuk `Hold-to-Confirm`, `Liquid Glass`, `Stateful`, `Rainbow`, & `Web Audio Micro-Sounds`), `color-and-interactions.md` (`ready`), `navigation.md` (`ready`), `cards-lists.md` (`seeded`), `forms-inputs.md` (`seeded`), dan `data-viz.md` (`template`).
-  - `references/pages/` — Referensi level halaman & format (`landing-page.md` `ready` dari 6 REA live; `app-dashboard.md` & `motion-slides.md` masih `template`).
+    - `buttons.md` (`ready`: 8 pola tombol termasuk `Hold-to-Confirm`, `Liquid Glass`, `Stateful`, `Rainbow`, & `Web Audio Micro-Sounds`), `color-and-interactions.md` (`ready`), `navigation.md` (`ready`), `data-viz.md` (`ready`: KPI strip, chart + legend aksesibel, tabel live `CellFlash`), `cards-lists.md` (`seeded`), dan `forms-inputs.md` (`seeded`).
+  - `references/pages/` — Referensi level halaman & format (`landing-page.md` `ready` dari 6 REA live; `app-dashboard.md` `ready` dengan 3 pola shell Operate; `motion-slides.md` masih `template`).
   - `references/assets/` — **6** screenshot REA live 1440×900 (`rea-apple.png`, `rea-linear.png`, `rea-vercel.png`, `rea-stripe.png`, `rea-raycast.png`, `rea-goodui.png`).
 
 ### B. Path Global & Resource Eksternal yang Sudah Ada di Mesin Ini
 > **Catatan:** Jangan menduplikasi isi `better-ui` atau `ui-ux-pro-max` ke workspace ini — cukup panggil sebagai layer referensi kedua.
 
 - **Skill global aktif `gemini-design`:** `/home/rafif/.agents/skills/gemini-design/SKILL.md` (beserta salinan `references/`, `rea/`, `templates/`, dan `design-systems/`)
-- **Backup skill global:** `/home/rafif/.agents/skill-backups/gemini-design.bak-20261124-4` (dan `.bak-20261124-3`, `.bak-20261124-2`, `.bak-20261124`)
+- **Backup skill global:** `/home/rafif/.agents/skill-backups/gemini-design.bak-20261124-5` (dan `.bak-20261124-4`, `.bak-20261124-3`, `.bak-20261124-2`, `.bak-20261124`)
 - **Corpus referensi full-site (`better-ui`, 59 dossier situs):** `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md`
 - **Generator aturan & token (`ui-ux-pro-max`):** `/home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py`
 - **Gate produksi UI web (`ui-craft`, WCAG AA, `MASTER.md`, verifikasi browser nyata):** `/home/rafif/.agents/skills/ui-craft/SKILL.md`
@@ -75,16 +76,24 @@ Aturan operasional sync:
   - `references/components/color-and-interactions.md` (disiplin warna/surface + mikro-interaksi).
   - `references/STYLE-PACKS.md` (8 Style Packs × 8 Aksen × 4 Material hasil REA `goodui.dev`).
 - **Sudah `seeded`:** `references/components/cards-lists.md`, `references/components/forms-inputs.md` (+ template `Card`, `Badge`, `BentoGrid`, `BorderBeam`, `Input`, `Dialog`, `Disclosure`, `Sonner CSS`).
-- **Masih `template`:** `references/components/data-viz.md`, `references/pages/app-dashboard.md`, `references/pages/motion-slides.md`.
-- **Status sync:** Disinkronkan (`SKILL.md`, `references/`, `rea/`, `templates/`, dan `design-systems/`) ke `/home/rafif/.agents/skills/gemini-design/` pada **2026-11-24** (`SYNC_V4_OK`) dengan backup di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261124-4`.
+- **Sudah `ready` (v5):** `references/components/data-viz.md`, `references/pages/app-dashboard.md`, `references/LEGO-ADAPTATION.md`.
+- **Masih `template`:** `references/pages/motion-slides.md`.
+- **Status sync:** Disinkronkan (`SKILL.md` v5, `references/`, `rea/`, `templates/`, `design-systems/`, dan `scripts/query_vault.py`) ke `/home/rafif/.agents/skills/gemini-design/` pada **2026-11-24** (`SYNC_V5_OK`) dengan backup di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261124-5`.
 
 ### Tahap 3 — Upgrade & Sync `skill/SKILL.md` — `[SELESAI & TER-SYNC]`
-- Di-upgrade pada **2026-11-24** (v4, **Creative Mix-and-Match A la Carte**): mewajibkan agent meramu 4 sumbu secara independen (*Color World*, *Style Pack/Material*, *2–4 Selective Tactile Components*, *Layout Rhythm*) dari 24 `DESIGN.md`, 8 Style Packs, 195 blok `goodui.dev`, 28 template Lego unggulan, dan 6 REA dossiers — dilarang keras copy-paste 1 template paketan utuh.
-- Disinkronkan ke `/home/rafif/.agents/skills/gemini-design/` lewat metode **copy** dengan backup terbaru di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261124-4`.
+- **v5 (2026-11-24):** alur konsultatif (Discovery → Riset Tema → Theme Proposal Gate → Lego Assembly stack-agnostic); detail di Tahap 5. Sebelumnya v4 (Creative Mix-and-Match A la Carte): agent meramu 4 sumbu secara independen (*Color World*, *Style Pack/Material*, *2–4 Selective Tactile Components*, *Layout Rhythm*) dari 24 `DESIGN.md`, 8 Style Packs, 195 blok `goodui.dev`, 28 template Lego unggulan, dan 6 REA dossiers — dilarang copy-paste 1 template paketan utuh.
+- Disinkronkan ke `/home/rafif/.agents/skills/gemini-design/` lewat metode **copy** dengan backup terbaru di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261124-5`.
 
 ### Tahap 4 — Galeri 7 Live Preview Showcase Lintas-Domain & Ekspansi GoodUI — `[SELESAI]`
 - Lihat ringkasan di [`eval/RESULTS.md`](./eval/RESULTS.md).
 - Vault diperkaya dengan **6 REA live** (termasuk `goodui.dev`), **24 brand `DESIGN.md`** (termasuk palet hidup/ekspresif `wise`, `miro`, `mistral.ai`, `theverge`, `ferrari`, `lamborghini`), **195 item public registry `goodui.dev`**, **8 Style Packs (`STYLE-PACKS.md`)**, **28 demo interaktif Lego**, serta 3 showcase tambahan (`S5 PRISM Chromatic Worlds`, `S6 VELOCE Motorsport Atelier`, dan `S7 Style Packs Studio`).
+
+### Tahap 5 — Upgrade v5: Konsultatif, Stack-Agnostic, Zero Forced Dependencies — `[SELESAI & TER-SYNC]`
+- **Alur baru `skill/SKILL.md`:** Stack & Intent Discovery (auto-detect repo + 2–4 pertanyaan, kebijakan dependency) → Riset Tema (`query_vault.py themes`, `DESIGN-GRAMMAR.md`, `STYLE-PACKS.md`, Layer 2) → **Theme Proposal Gate** (2–3 arah: alasan domain, Color World, Style Pack + tipografi, 2–4 Lego, layout rhythm) → user mengunci tema → Modular Lego Assembly (Mode A Blueprint Translation default, Mode B Direct Drop-in hanya bila stack cocok).
+- **Resource baru:** `scripts/query_vault.py` (themes/lego/rea/stats, tier `css-token-only` / `light-behavior` / `blueprint-translate`), `references/LEGO-ADAPTATION.md`, `references/components/data-viz.md` dan `references/pages/app-dashboard.md` kini `ready`.
+- **Perbaikan data:** 19 link relatif `DESIGN-GRAMMAR.md` (`../../design-systems/` → `../design-systems/`); `design-systems/INDEX.json` memakai `summary` deskripsi nyata untuk 24/24 brand (`fetch_design_systems.py --rebuild-index`); aturan aksen checklist diperjelas (1 aksen Operate/Read, maks 2 Persuade/Experience); grup checklist baru `Stack & Modularitas`.
+- **Dashboard:** `check_sync()` di `dashboard/serve.py` kini juga memantau `scripts/query_vault.py` dan `design-systems/INDEX.json`.
+- **Sisa backlog:** `references/pages/motion-slides.md` masih `template`; `cards-lists.md` dan `forms-inputs.md` masih `seeded`.
 
 ---
 
@@ -100,3 +109,6 @@ Buka sesi baru di direktori `/home/rafif/Projects/gemini-design-vault` (atau wor
 
 **Opsi 3 — Revisi skill dari temuan visual eval / pemakaian nyata:**
 > Baca `HANDOFF.md` dan `eval/RESULTS.md`. Setelah kucek di browser, ada catatan perbaikan pada `[E1/E2/E3 atau pemakaian nyata]`: [tulis catatan visual]. Tolong perbarui `skill/SKILL.md` atau file `references/` terkait, lalu konfirmasi sebelum sync ulang ke skill global (backup ke `~/.agents/skill-backups/`).
+
+**Opsi 4 — Bangun app/website baru dengan alur v5 (Discovery → Theme Proposal → Lego):**
+> Gunakan skill `gemini-design`. Project: `[deskripsi app/website + stack]`. Deteksi stack dari repo, tanya 2–4 hal krusial, riset tema lewat `scripts/query_vault.py`, ajukan 2–3 arah tema, tunggu pilihanku, baru rakit UI dari Lego tanpa menambah dependency baru.
