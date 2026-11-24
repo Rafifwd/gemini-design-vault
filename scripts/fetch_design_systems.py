@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import urllib.request
 from datetime import datetime
 from pathlib import Path
@@ -78,16 +79,108 @@ def extract_hexes(text: str, limit: int = 8) -> list[str]:
     return out
 
 
+SUMMARY_MAX = 220
+BLOCK_SCALAR_MARKERS = {"|", ">", "|-", ">-", "|+", ">+"}
+
+
+def _finish_summary(raw: str) -> str:
+    s = re.sub(r"\s+", " ", raw).strip()
+    if len(s) >= 2 and s[0] == s[-1] and s[0] in "\"'":
+        s = s[1:-1].strip()
+    s = s.replace('\\"', '"')
+    if len(s) > SUMMARY_MAX:
+        s = s[: SUMMARY_MAX - 1].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+    return s
+
+
 def extract_summary(text: str) -> str:
-    for line in text.splitlines():
+    """Return a clean human-readable description.
+
+    Handles YAML frontmatter (`description: ...` single-line or block scalar `|` / `>`)
+    and plain Markdown files without frontmatter (first body paragraph).
+    """
+    lines = text.splitlines()
+    body_start = 0
+    if lines and lines[0].strip() == "---":
+        end = next((i for i in range(1, len(lines)) if lines[i].strip() == "---"), None)
+        if end is not None:
+            fm = lines[1:end]
+            body_start = end + 1
+            for i, line in enumerate(fm):
+                m = re.match(r"^description:\s*(.*)$", line)
+                if not m:
+                    continue
+                val = m.group(1).strip()
+                if val in BLOCK_SCALAR_MARKERS or val == "":
+                    collected: list[str] = []
+                    for nxt in fm[i + 1 :]:
+                        if not nxt.strip():
+                            continue
+                        if nxt.startswith((" ", "\t")):
+                            collected.append(nxt.strip())
+                        else:
+                            break
+                    val = " ".join(collected)
+                if val:
+                    return _finish_summary(val)
+    para: list[str] = []
+    for line in lines[body_start:]:
         s = line.strip()
-        if not s or s.startswith("#") or s.startswith(">") or s.startswith("---") or s.startswith("|") or s.startswith("```"):
+        if not s:
+            if para:
+                break
             continue
-        return s[:180]
-    return ""
+        if s.startswith(("#", ">", "---", "|", "```")):
+            if para:
+                break
+            continue
+        para.append(s)
+    return _finish_summary(" ".join(para))
+
+
+def rebuild_index() -> int:
+    """Rebuild design-systems/INDEX.json offline from local design-systems/*.md files."""
+    idx_path = DESIGN_DIR / "INDEX.json"
+    existing: dict[str, dict] = {}
+    if idx_path.is_file():
+        for entry in json.loads(idx_path.read_text(encoding="utf-8")).get("systems", []):
+            existing[entry["slug"]] = entry
+    domains = dict(PREFERRED_BRANDS)
+    now_iso = datetime.now().astimezone().isoformat(timespec="seconds")
+    entries = []
+    for slug in list(existing) + [s for s, _ in PREFERRED_BRANDS if s not in existing]:
+        path = DESIGN_DIR / f"{slug}.md"
+        if not path.is_file():
+            print(f"SKIP {slug}: missing {path.name}")
+            continue
+        content = path.read_text(encoding="utf-8")
+        old = existing.get(slug, {})
+        title_match = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
+        entries.append(
+            {
+                "slug": slug,
+                "name": old.get("name") or (title_match.group(1).strip() if title_match else slug.title()),
+                "domain": old.get("domain") or domains.get(slug, "Production Brand System"),
+                "source_url": old.get("source_url")
+                or f"https://github.com/VoltAgent/awesome-design-md/blob/HEAD/design-md/{slug}/DESIGN.md",
+                "local_path": f"design-systems/{slug}.md",
+                "lines": len(content.splitlines()),
+                "bytes": len(content.encode("utf-8")),
+                "palette_hex": extract_hexes(content, 8),
+                "summary": extract_summary(content),
+            }
+        )
+        print(f"OK {slug}: {entries[-1]['summary'][:80]}")
+    idx_path.write_text(
+        json.dumps({"generated_at": now_iso, "count": len(entries), "systems": entries}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return 0
 
 
 def main() -> int:
+    if "--rebuild-index" in sys.argv[1:]:
+        return rebuild_index()
     DESIGN_DIR.mkdir(parents=True, exist_ok=True)
     SOURCE_DIR.mkdir(parents=True, exist_ok=True)
     IMPECCABLE_DIR.mkdir(parents=True, exist_ok=True)

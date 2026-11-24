@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T21:31:41+07:00",
+  "generated_at": "2026-11-24T22:36:56+07:00",
   "count": 24,
   "systems": [
     {
@@ -20,7 +20,7 @@
         "#333333",
         "#7A7A7A"
       ],
-      "summary": "version: alpha"
+      "summary": "A photography-first interface that turns marketing into a museum gallery. Edge-to-edge product tiles alternate light and dark canvases, framed by SF Pro Display headlines with negative letter-spacing and a single…"
     },
     {
       "slug": "stripe",
@@ -40,7 +40,7 @@
         "#0D253D",
         "#273951"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Stripi's design language — a financial-infrastructure brand built on a deep navy ink, an electric indigo primary, and a recurring atmospheric gradient mesh that occupies the upper third of…"
     },
     {
       "slug": "linear.app",
@@ -60,7 +60,7 @@
         "#5E69D1",
         "#D0D6E0"
       ],
-      "summary": "version: alpha"
+      "summary": "A near-black product-focused marketing canvas built around #010102 (the deepest dark surface of any tool in this collection), light gray text (#f7f8f8), and the signature Linear lavender-blue (#5e6ad2) used as the…"
     },
     {
       "slug": "vercel",
@@ -80,7 +80,7 @@
         "#FAFAFA",
         "#F5F5F5"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Vercel's design language — a developer-platform brand whose surface is a stark black-and-ink duet on near-white canvas, broken at hero scale by a multi-color mesh gradient (cyan / blue /…"
     },
     {
       "slug": "notion",
@@ -100,7 +100,7 @@
         "#1A2A52",
         "#0075DE"
       ],
-      "summary": "version: alpha"
+      "summary": "Notion presents itself as the all-in-one workspace through a confident, illustration-rich brand voice — anchored by a deep navy hero band ({colors.brand-navy}) decorated with brand-colored sticky-note dots and mesh…"
     },
     {
       "slug": "supabase",
@@ -120,7 +120,7 @@
         "#9A9A9A",
         "#B2B2B2"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Supabaze's design language — an open-source database platform built on a clean white-and-near-black system with a single signature emerald-green CTA, a custom humanist sans display tier…"
     },
     {
       "slug": "airbnb",
@@ -140,7 +140,7 @@
         "#92174D",
         "#222222"
       ],
-      "summary": "version: alpha"
+      "summary": "A warm, generous consumer marketplace anchored on a clean white canvas and Airbnb Rausch (#ff385c), the single brand voltage that carries every primary CTA, search-button orb, and rating dot. Type runs Airbnb Cereal VF…"
     },
     {
       "slug": "spotify",
@@ -160,7 +160,7 @@
         "#539DF5",
         "#FFFFFF"
       ],
-      "summary": "Spotify's web interface is a dark, immersive music player that wraps listeners in a near-black cocoon (`#121212`, `#181818`, `#1f1f1f`) where album art and content become the prima"
+      "summary": "Spotify's web interface is a dark, immersive music player that wraps listeners in a near-black cocoon (`#121212`, `#181818`, `#1f1f1f`) where album art and content become the primary source of color. The design…"
     },
     {
       "slug": "figma",
@@ -180,7 +180,7 @@
         "#C5B0F4",
         "#F4ECD6"
       ],
-      "summary": "version: alpha"
+      "summary": "A confident black-and-white editorial frame interrupted by oversized, hand-cut pastel color blocks. The marketing canvas is rigorously monochrome — figmaSans variable type, pure white surfaces, pure black ink…"
     },
     {
       "slug": "claude",
@@ -200,7 +200,7 @@
         "#6C6A64",
         "#8E8B82"
       ],
-      "summary": "version: alpha"
+      "summary": "A warm-canvas editorial interface for Anthropic's Claude product. The system anchors on a tinted cream canvas with serif display headlines, warm coral CTAs, and dark navy product surfaces (code editor mockups, model…"
     },
     {
       "slug": "wise",
@@ -220,7 +220,7 @@
         "#454745",
         "#868685"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Wise's design language — a global money-transfer brand whose surface combines an unusually heavy near-black display sans (weight 900 at 64–126 px) with a vivid lime-green brand accent…"
     },
     {
       "slug": "miro",
@@ -240,7 +240,7 @@
         "#4262FF",
         "#5B76FE"
       ],
-      "summary": "version: alpha"
+      "summary": "Miro presents itself as the AI-powered visual workspace through a confident, almost playful brand voice — anchored by its signature canary yellow ({colors.brand-yellow}) wordmark over white canvas, broken open by…"
     },
     {
       "slug": "mistral.ai",
@@ -260,7 +260,7 @@
         "#FF8105",
         "#FF8A00"
       ],
-      "summary": "version: alpha"
+      "summary": "Mistral AI brands itself with a singular signature — atmospheric sunset gradients (mustard, orange, deep red) layered over photography of mountains, plus a horizontal \"sunset stripe\" bar that closes every page. The…"
     },
     {
       "slug": "theverge",
@@ -280,7 +280,7 @@
         "#3860BE",
         "#1EAEDB"
       ],
-      "summary": "The Verge's 2024 redesign feels like somebody wired a Condé Nast magazine to a chiptune soundboard. The canvas is almost-black (`#131313`), the headlines are built from a brutally "
+      "summary": "The Verge's 2024 redesign feels like somebody wired a Condé Nast magazine to a chiptune soundboard. The canvas is almost-black (`#131313`), the headlines are built from a brutally heavy display face (Manuka) that runs…"
     },
     {
       "slug": "wired",
@@ -299,7 +299,7 @@
         "#F5F5F5",
         "#057DBC"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Wired's design language — a flagship technology-magazine brand whose surface is a strict editorial duet of stark black wordmark on white canvas, anchored by a tall narrow custom display…"
     },
     {
       "slug": "ferrari",
@@ -319,7 +319,7 @@
         "#666666",
         "#8F8F8F"
       ],
-      "summary": "version: alpha"
+      "summary": "A luxury-automotive brand whose marketing surfaces read as cinematic editorial. The base canvas is **near-black** (`#181818`) holding pure white display type; white-canvas bands appear only inside specific editorial…"
     },
     {
       "slug": "lamborghini",
@@ -339,7 +339,7 @@
         "#3860BE",
         "#202020"
       ],
-      "summary": "Lamborghini's website is a cathedral of darkness — a digital stage where jet-black surfaces stretch infinitely and every element emerges from the void like a machine under a spotli"
+      "summary": "Lamborghini's website is a cathedral of darkness — a digital stage where jet-black surfaces stretch infinitely and every element emerges from the void like a machine under a spotlight. The page is almost entirely…"
     },
     {
       "slug": "raycast",
@@ -359,7 +359,7 @@
         "#000000",
         "#F4F4F6"
       ],
-      "summary": "version: alpha"
+      "summary": "Raycast's marketing system reads like an extended product screenshot. The chrome IS the in-product chrome at marketing scale: pure-near-black canvas, hairline 1px borders, command-palette-style cards, Inter typography…"
     },
     {
       "slug": "framer",
@@ -379,7 +379,7 @@
         "#1C1C1C",
         "#262626"
       ],
-      "summary": "version: alpha"
+      "summary": "A confident dark-canvas builder marketing site that treats the page like a working artboard — pure black surfaces, white display type set in GT Walsheim Medium with aggressive negative tracking, and a single confident…"
     },
     {
       "slug": "webflow",
@@ -399,7 +399,7 @@
         "#ABABAB",
         "#D8D8D8"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Webflow's design language — a visual web development platform whose surface contrasts a deep near-black `#080808` primary against a generous white canvas, broken by a five-stop chromatic…"
     },
     {
       "slug": "posthog",
@@ -419,7 +419,7 @@
         "#6C6E63",
         "#9B9C92"
       ],
-      "summary": "version: alpha"
+      "summary": "A playful developer-tools system rendered on a warm cream canvas with hand-drawn hedgehog mascots dotted across every page like marginalia in a sketchbook. The chrome reads like a friendly engineering blog: olive-gray…"
     },
     {
       "slug": "zapier",
@@ -439,7 +439,7 @@
         "#605D52",
         "#939084"
       ],
-      "summary": "version: alpha"
+      "summary": "An inspired interpretation of Zapier's design language — a workflow-automation platform whose surface combines warm-cream neutrals (`#fffefb` canvas, `#f8f4f0` soft cream) with deep coffee ink (`#201515`) and a single…"
     },
     {
       "slug": "revolut",
@@ -459,7 +459,7 @@
         "#3A3D40",
         "#505A63"
       ],
-      "summary": "version: alpha"
+      "summary": "Revolut's marketing surfaces pair a stark black canvas with the brand's cobalt-violet (`#494fdf`) and a wide accent palette of deep, fully-saturated product colours — teal, light-blue, deep pink, light-green, warning…"
     },
     {
       "slug": "nike",
@@ -479,7 +479,7 @@
         "#9E9EA0",
         "#CACACB"
       ],
-      "summary": "version: alpha"
+      "summary": "A photography-first commerce system built on extreme typographic contrast — towering uppercase Futura display lockups burned into editorial campaign imagery, sitting above a dense, neutral, near-monochrome retail…"
     }
   ]
 }
