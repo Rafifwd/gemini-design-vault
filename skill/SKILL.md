@@ -5,7 +5,7 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-# Gemini Design (v5.1)
+# Gemini Design (v5.2)
 
 Protokol, arahan, dan penyedia resource agar AI membuat UI/UX yang tidak terasa AI slop: bertanya dulu, meriset tema yang cocok dengan konteks project, merekomendasikan, lalu merakit dari bahan modular vault.
 
@@ -96,6 +96,8 @@ Rakit dari **4 sumbu independen** yang sudah disepakati di Fase 1:
 - Skin ulang setiap Lego dengan token tema yang dikunci; buang warna demo bawaan.
 - **Sudut pandang copy (*Business-to-User Voice*):** Tulis copy dari suara pemilik bisnis/produk ke pengguna akhir (fasilitas, lokasi, manfaat nyata), bukan nada developer menjual software (*"dalam hitungan detik"*, *"real-time"*, *"tanpa antre"*).
 - **Smoothness & perceived performance:** Pakai transisi spesifik (`transition-colors`, `transform`, `opacity`), bukan `transition-all` pada grid/list banyak item; hindari `backdrop-blur` berat di sticky header pada halaman panjang; sediakan skeleton loading pada navigasi SSR dan cache/SWR + `AbortController` pada switcher data.
+- **Ikon brand & kompleks:** Inline SVG manual hanya untuk primitif geometris sederhana (panah, centang, plus, silang). Logo brand (WhatsApp, Google, dll.) wajib memakai **raw canonical SVG** (Simple Icons / brand kit); ikon UI kompleks (gear/settings, dll.) ambil dari library proyek atau raw SVG Lucide/Tabler — jangan digambar dari ingatan LLM.
+- **Ketahanan lintas-perangkat & filter instan:** Cegah *horizontal overflow* mobile dengan `min-w-0` pada `<main>` flex/grid + `overflow-x-clip` pada shell; pecah tabel `>3` kolom ke *mobile card view* (`md:hidden`) dan tumpuk sel multi-aksi di `< sm`. Untuk tabel/dashboard berdataset kecil–menengah (`≤500` baris), lakukan filter/tab/sort instan di client (`useMemo` + `history.replaceState`), bukan round-trip SSR per klik.
 - Kategori `blocks` hanya inspirasi struktur; rakit ulang dari komponen kecil.
 - Dilarang menyalin utuh satu `eval/showcase-*.html`, satu brand utuh tanpa adaptasi, atau satu blok `templates/goodui/blocks/*`.
 - **Eksplorasi lebar:** bila user meminta eksplorasi konsep/mockup, atau belum yakin arah visual, hasilkan 3–5 opsi yang benar-benar berbeda (font, palet, struktur) berdampingan dan jangan menimpa opsi lama; saat user menyukai potongan beberapa opsi, buat 3–5 variasi rekombinasi. Bila tema sudah dikunci di Fase 1, bangun langsung implementasi terarah.
@@ -152,8 +154,10 @@ Gerbang sebelum menyerahkan hasil dan alat audit Jalur C (`Ya` = lolos):
   - Bebas divider di setiap baris list saat *spacing* sudah cukup memisahkan? (Ya/Tidak)
   - Ada satu titik fokus utama yang jelas per viewport? (Ya/Tidak)
   - Bebas pill/kapsul eyebrow ber-dot di atas heading dan bebas floating slogan overlay di atas foto nyata? (Ya/Tidak)
+  - Bebas *horizontal overflow* di mobile (`360–390px`) berkat `min-w-0` + `overflow-x-clip`, tabel lebar dipecah ke *mobile card view*, dan sel multi-aksi ditumpuk rapi di `< sm`? (Ya/Tidak)
 - **Ikon, Brand & Tipografi:**
   - Bebas emoji sebagai pengganti ikon UI dan bebas monogram/logo karangan? (Ya/Tidak)
+  - Logo brand (WhatsApp, Google, dll.) dan ikon UI kompleks memakai aset canonical resmi (Simple Icons / library proyek / Lucide), bukan SVG digambar manual dari ingatan LLM? (Ya/Tidak)
   - Menggunakan ≤2 keluarga font, angka memakai `tabular-nums`, serta bebas teks tumpang tindih atau terpotong? (Ya/Tidak)
   - Copywriting memakai sudut pandang pemilik bisnis/produk ke pengguna akhir (bukan nada jualan software/SaaS pitch)? (Ya/Tidak)
 - **Stack & Modularitas:**
@@ -175,4 +179,4 @@ Gerbang sebelum menyerahkan hasil dan alat audit Jalur C (`Ya` = lolos):
 
 ## Sinergi dengan `ui-craft`
 
-Gunakan `gemini-design` untuk eksplorasi kreatif, riset tema, perakitan Lego, iterasi cepat, de-slop, slide, dashboard, dan motion. Untuk **UI web produksi** yang memerlukan audit kontras WCAG AA, persistensi token `MASTER.md`, dan verifikasi browser nyata (`360`/`390`/`768`/`1440` px), lanjutkan dengan skill `ui-craft`.
+Gunakan `gemini-design` untuk eksplorasi kreatif, riset tema, perakitan Lego, iterasi cepat, de-slop, slide, dashboard, dan motion. Untuk **UI web produksi** yang memerlukan audit kontras WCAG AA, persistensi token `MASTER.md`, dan verifikasi browser nyata (`360`/`390`/`768`/`1440` px) pada **seluruh rute publik maupun admin/terautentikasi**, lanjutkan dengan skill `ui-craft`.

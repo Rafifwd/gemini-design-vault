@@ -9,7 +9,7 @@
 ### A. Workspace Ini (`/home/rafif/Projects/gemini-design-vault/`)
 - `HANDOFF.md` — Dokumen brief, backlog, dan status terkini (file ini).
 - `AGENTS.md` — Aturan kerja agent di workspace ini, termasuk skema wajib entri referensi dan aturan sinkronisasi ke skill global.
-- `skill/SKILL.md` — Versi kerja skill `gemini-design` **v5.1** (Stack & Intent Discovery → Riset Tema → *Theme Proposal Gate* 2–3 arah → Modular Lego Assembly stack-agnostic + distilasi temuan lapangan `v5.1`; Jalur C De-Slop dan Anti-Slop Audit Checklist 6 grup; ter-sync ke global).
+- `skill/SKILL.md` — Versi kerja skill `gemini-design` **v5.2** (Stack & Intent Discovery → Riset Tema → *Theme Proposal Gate* 2–3 arah → Modular Lego Assembly stack-agnostic + distilasi temuan lapangan `v5.1` & `v5.2`; Jalur C De-Slop dan Anti-Slop Audit Checklist 6 grup; ter-sync ke global).
 - `source/youtube-604T-74s3KE-claude-design-fix-ai-slop.md` — Transkrip lengkap video Nate Parrott (*"Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes"*) sebagai sumber prinsip utama.
 - `dashboard/` — Dashboard katalog & monitoring lokal skill `gemini-design` (`serve.py` untuk live server + `index.html` Split-Pane Studio Workbench + browser 195 komponen `goodui.dev` + `lego-previews.js` dengan live preview interaktif **28** template Lego & **6** specimen REA + fallback snapshot statis `vault-snapshot.js`).
 - `rea/` — Dossier computed DOM JSON hasil *live capture* 1440×900 dari 6 situs produksi nyata (`apple.json`, `linear.json`, `vercel.json`, `stripe.json`, `raycast.json`, `goodui.json`).
@@ -32,7 +32,7 @@
 > **Catatan:** Jangan menduplikasi isi `better-ui` atau `ui-ux-pro-max` ke workspace ini — cukup panggil sebagai layer referensi kedua.
 
 - **Skill global aktif `gemini-design`:** `/home/rafif/.agents/skills/gemini-design/SKILL.md` (beserta salinan `references/`, `rea/`, `templates/`, dan `design-systems/`)
-- **Backup skill global:** `/home/rafif/.agents/skill-backups/gemini-design.bak-20261125-1` (dan `.bak-20261124-5`, `.bak-20261124-4`, `.bak-20261124-3`, `.bak-20261124-2`, `.bak-20261124`)
+- **Backup skill global:** `/home/rafif/.agents/skill-backups/gemini-design.bak-20261126-1` (dan `.bak-20261125-1`, `.bak-20261124-5`, `.bak-20261124-4`, `.bak-20261124-3`, `.bak-20261124-2`, `.bak-20261124`)
 - **Corpus referensi full-site (`better-ui`, 59 dossier situs):** `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md`
 - **Generator aturan & token (`ui-ux-pro-max`):** `/home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py`
 - **Gate produksi UI web (`ui-craft`, WCAG AA, `MASTER.md`, verifikasi browser nyata):** `/home/rafif/.agents/skills/ui-craft/SKILL.md`
@@ -78,11 +78,11 @@ Aturan operasional sync:
 - **Sudah `seeded`:** `references/components/cards-lists.md` (+ template `Card`, `Badge`, `BentoGrid`, `BorderBeam`, `Disclosure`, `Sonner CSS`).
 - **Sudah `ready` (v5 & v5.1):** `references/components/data-viz.md`, `references/components/forms-inputs.md`, `references/pages/app-dashboard.md`, `references/LEGO-ADAPTATION.md`.
 - **Masih `template`:** `references/pages/motion-slides.md`.
-- **Status sync:** Disinkronkan (`SKILL.md` v5.1, `references/`, `rea/`, `templates/`, `design-systems/`, dan `scripts/query_vault.py`) ke `/home/rafif/.agents/skills/gemini-design/` pada **2026-11-25** (`SYNC_V5_1_OK`) dengan backup di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261125-1`.
+- **Status sync:** Disinkronkan (`SKILL.md` v5.2, `references/`, `rea/`, `templates/`, `design-systems/`, dan `scripts/query_vault.py`) ke `/home/rafif/.agents/skills/gemini-design/` pada **2026-11-26** (`SYNC_V5_2_OK`) dengan backup di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261126-1`.
 
 ### Tahap 3 — Upgrade & Sync `skill/SKILL.md` — `[SELESAI & TER-SYNC]`
-- **v5 / v5.1 (2026-11-24 – 2026-11-25):** alur konsultatif (Discovery → Riset Tema → Theme Proposal Gate → Lego Assembly stack-agnostic) + distilasi temuan *battle-test* `tennis-with-better-ui`; detail di Tahap 5. Sebelumnya v4 (Creative Mix-and-Match A la Carte): agent meramu 4 sumbu secara independen (*Color World*, *Style Pack/Material*, *2–4 Selective Tactile Components*, *Layout Rhythm*) dari 24 `DESIGN.md`, 8 Style Packs, 195 blok `goodui.dev`, 28 template Lego unggulan, dan 6 REA dossiers — dilarang copy-paste 1 template paketan utuh.
-- Disinkronkan ke `/home/rafif/.agents/skills/gemini-design/` lewat metode **copy** dengan backup terbaru di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261125-1`.
+- **v5 – v5.2 (2026-11-24 – 2026-11-26):** alur konsultatif (Discovery → Riset Tema → Theme Proposal Gate → Lego Assembly stack-agnostic) + distilasi temuan *battle-test* `tennis-with-better-ui` (`v5.1`) & `tennis-booking-fresh` (`v5.2`); detail di Tahap 5. Sebelumnya v4 (Creative Mix-and-Match A la Carte): agent meramu 4 sumbu secara independen (*Color World*, *Style Pack/Material*, *2–4 Selective Tactile Components*, *Layout Rhythm*) dari 24 `DESIGN.md`, 8 Style Packs, 195 blok `goodui.dev`, 28 template Lego unggulan, dan 6 REA dossiers — dilarang copy-paste 1 template paketan utuh.
+- Disinkronkan ke `/home/rafif/.agents/skills/gemini-design/` lewat metode **copy** dengan backup terbaru di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261126-1`.
 
 ### Tahap 4 — Galeri 7 Live Preview Showcase Lintas-Domain & Ekspansi GoodUI — `[SELESAI]`
 - Lihat ringkasan di [`eval/RESULTS.md`](./eval/RESULTS.md).
@@ -94,6 +94,7 @@ Aturan operasional sync:
 - **Perbaikan data:** 19 link relatif `DESIGN-GRAMMAR.md` (`../../design-systems/` → `../design-systems/`); `design-systems/INDEX.json` memakai `summary` deskripsi nyata untuk 24/24 brand (`fetch_design_systems.py --rebuild-index`); aturan aksen checklist diperjelas (1 aksen Operate/Read, maks 2 Persuade/Experience); grup checklist baru `Stack & Modularitas`.
 - **Dashboard:** `check_sync()` di `dashboard/serve.py` kini juga memantau `scripts/query_vault.py` dan `design-systems/INDEX.json`.
 - **Distilasi v5.1 (2026-11-25, dari *battle-test* `tennis-with-better-ui`):** tambah larangan eyebrow pill ber-dot, floating slogan di atas foto, *Business-to-User Voice* anti-SaaS-pitch, `noValidate` + single focus ring + clean auth form (`forms-inputs.md` menjadi `ready`), vertical alignment tombol multi-baris (`buttons.md`), catatan performa `backdrop-blur`/`transition-all`/cache/skeleton (`navigation.md` & `SKILL.md`), aturan *Sibling Sweep* di Fase 3, dan ekspansi `DOMAIN_SYNONYMS` di `scripts/query_vault.py`.
+- **Distilasi v5.2 (2026-11-26, dari *battle-test* `tennis-booking-fresh`):** tambah aturan *Cross-Device Mobile Containment* (`min-w-0`, `overflow-x-clip`, mobile card view untuk tabel `>3` kolom, stack sel multi-aksi `< sm`, audit browser `360/390/768/1440px` wajib mencakup rute publik & admin), larangan menggambar manual logo brand / ikon kompleks dari ingatan LLM (wajib raw canonical SVG Simple Icons / Lucide), serta filter/tab instan client-side (`useMemo` + `history.replaceState`) untuk dataset operasional `≤500` baris.
 - **Sisa backlog:** `references/pages/motion-slides.md` masih `template`; `cards-lists.md` masih `seeded`.
 
 ---

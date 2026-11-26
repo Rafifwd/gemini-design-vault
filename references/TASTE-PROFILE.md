@@ -49,3 +49,5 @@ Daftar pola AI slop yang **HARUS DIHINDARI** secara default:
 - [x] Floating slogan / trust-badge overlay yang ditempel di atas foto produk/venue (biarkan fotografi tampil bersih di bingkainya)
 - [x] Copywriting bernada jualan software/SaaS pitch (*"dalam hitungan detik"*, *"real-time"*, *"tanpa antre"*) pada produk bisnis nyata — tulis dari sudut pandang pemilik bisnis/produk ke pengguna akhir
 - [x] Popup validasi bawaan browser (`"Please fill out this field."`), *double focus ring* bertumpuk, dan placeholder contoh fiktif pada form login/password
+- [x] Menggambar manual logo brand (WhatsApp, Google, Instagram, GitHub, dll.) atau ikon UI kompleks (gear/settings, globe, dll.) dari ingatan LLM — selalu ambil raw canonical SVG resmi (Simple Icons / brand kit / Lucide) atau gunakan icon library proyek
+- [x] Memaksa tabel lebar (`>3` kolom) atau sel multi-aksi horizontal di layar mobile (`360–390px`) tanpa tampilan kartu khusus mobile (`md:hidden`) / stacking vertikal, serta shell flex/grid tanpa pengaman `min-w-0` dan `overflow-x-clip`

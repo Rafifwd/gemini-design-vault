@@ -37,10 +37,17 @@ Tier dari `query_vault.py lego`: `css-token-only` (ambil nilainya langsung), `li
 | `motion/react` (`spring`, `layoutId`, `AnimatePresence`) | CSS `transition` + `cubic-bezier` atau `linear()`; Web Animations API; View Transitions API untuk shared-layout; `<Transition>` (Vue), `svelte/transition` (Svelte) |
 | `radix-ui` (`Dialog`, `Tabs`, `Popover`, `Slot`) | `<dialog>`, `<details>`, atribut `popover`, roving tabindex manual; atau headless library yang sudah ada di repo |
 | `cmdk` (command palette) | Input + `role="listbox"` + `aria-activedescendant`, filter fuzzy kecil buatan sendiri |
-| `lucide-react` | Icon set yang sudah dipakai repo, atau inline SVG (`stroke-width` 1.5–1.75) |
+| `lucide-react` | Icon set yang sudah dipakai repo; inline SVG hanya untuk primitif geometris sederhana (lihat aturan ikon di bawah) |
 | Kelas Tailwind (`bg-primary`, `rounded-lg`) | Custom property + CSS Modules / SCSS / UnoCSS / styling project; pertahankan nilai angkanya |
 | `class-variance-authority` | Atribut `data-variant` / `data-size` + selector CSS |
 | `cn()` helper | Gabung class manual atau utilitas bawaan framework |
+
+## Aturan Ikon Brand & Ikon Kompleks (Mode A)
+
+Zero forced dependency **bukan** izin untuk menggambar logo brand atau ikon rumit dari ingatan LLM:
+- **Primitif geometris sederhana** (panah, chevron, plus, silang, centang, cari, menu, kalender): boleh ditulis sebagai inline SVG bersih (`viewBox="0 0 24 24"`, `stroke-width` `1.5–1.75`).
+- **Logo brand** (WhatsApp, Google, Instagram, GitHub, X, TikTok, logo pembayaran): **DILARANG** digambar manual dari ingatan dan **DILARANG** menyalin path hasil ringkasan web search. Selalu ambil **raw canonical SVG** langsung dari [Simple Icons](https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/) (`cdn.jsdelivr.net/npm/simple-icons@latest/icons/<slug>.svg`) atau brand kit resmi (`fill="currentColor"`, `stroke="none"`).
+- **Ikon UI kompleks** (roda gigi/settings, globe, piala, dll.): pakai icon library yang sudah ada di proyek, ambil raw canonical SVG dari `lucide-static` / Tabler / Heroicons, atau minta izin user memasang `lucide-react` bila layar membutuhkan `>10` ikon UI.
 
 ## Catatan Khusus Registry `goodui.dev`
 

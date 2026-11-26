@@ -7,6 +7,8 @@
 - Untuk dashboard, berani hadirkan pemotongan data yang eksploratif dan dapat diaudit sumbernya.
 - Mode *Operate*: presisi, keterbacaan cepat, `tabular-nums`, kontrol tenang; satu titik fokus per viewport dan satu lapis surface (tanpa card bersarang).
 - Rancang dari kedalaman rendah ke tinggi: layout (grid, kolom) dulu, lalu surface (3–4 langkah luminance), baru aksen.
+- **Ketahanan lintas-perangkat & mobile (`360–390px`):** Pastikan `<main>` di dalam container flex/grid memiliki `min-w-0` dan shell terluar memakai `overflow-x-clip` agar tidak memicu *horizontal scroll* / gutter kosong di iOS Safari. Pecah tabel `>3` kolom menjadi tampilan kartu khusus mobile (`md:hidden`) + tabel desktop (`hidden md:block overflow-x-auto`); tumpuk vertikal sel multi-aksi di `< sm`; ubah grid rapat (`grid-cols-6` → `grid-cols-4 sm:grid-cols-6`); gunakan `w-full sm:flex-1` di dalam `flex-col` dan `min-w-0 break-all` + `flex-wrap` untuk string panjang tanpa spasi (IP/token).
+- **Filter & tab instan (*zero-lag operate*):** Untuk dataset operasional kecil–menengah yang sudah terhidrasi (`≤500` baris), jalankan filter status, pencarian, sort, dan paginasi secara instan di client (`useMemo`) dengan sinkronisasi URL senyap (`window.history.replaceState`) alih-alih memicu round-trip SSR `router.push` di setiap klik; panggil `router.refresh()` hanya setelah aksi mutasi.
 
 ## Sumber & Lego yang Dipakai
 - Sistem brand: [`linear.app.md`](../../design-systems/linear.app.md), [`stripe.md`](../../design-systems/stripe.md), [`vercel.md`](../../design-systems/vercel.md) (komponen `ex-app-shell-row`, `ex-data-table-cell`), [`notion.md`](../../design-systems/notion.md).
