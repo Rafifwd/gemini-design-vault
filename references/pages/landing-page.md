@@ -3,7 +3,7 @@
 > **Status:** `ready` — 6 dossier REA langsung (*live* 1440×900 capture + computed DOM CSS) dari Apple, Linear, Vercel, Stripe, Raycast, dan GoodUI (`goodui.dev`).
 
 ## Catatan Koneksi Eksternal
-Untuk inspirasi struktur situs lengkap tambahan (59 analisis situs nyata), lihat `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` (bucket *SaaS*, *Editorial*, *Commerce*, atau *Agency*).
+Untuk inspirasi struktur situs lengkap tambahan (59 analisis situs nyata), lihat `~/.agents/skills/better-ui/REFERENCE-INDEX.md` jika skill pendamping tersebut terpasang (bucket *SaaS*, *Editorial*, *Commerce*, atau *Agency*).
 
 ---
 

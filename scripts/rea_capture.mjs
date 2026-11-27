@@ -9,7 +9,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VAULT_ROOT = path.resolve(__dirname, '..');
 const REA_DIR = path.join(VAULT_ROOT, 'rea');
 const ASSETS_DIR = path.join(VAULT_ROOT, 'references', 'assets');
-const CHROME_BIN = '/home/rafif/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
+const CHROME_BIN =
+  process.env.CHROME_BIN ||
+  ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find((p) =>
+    fs.existsSync(p)
+  ) ||
+  'google-chrome';
 
 const TARGETS = [
   { slug: 'apple', url: 'https://www.apple.com' },

@@ -7,10 +7,11 @@ Direktori ini adalah *Personal Design Reference Vault* dan tempat pengembangan s
 ## 2. Struktur Direktori
 
 ```text
+SKILL.md                        # File utama skill gemini-design (Agent Skills standard)
+README.md                       # Dokumentasi instalasi & pemakaian untuk GitHub
+LICENSE                         # Lisensi MIT
 HANDOFF.md                      # Brief project, status, backlog, starter prompt
 AGENTS.md                       # Aturan kerja & skema entri referensi (file ini)
-skill/
-└── SKILL.md                    # Draft / versi kerja skill gemini-design
 source/
 └── *.md                        # Transkrip atau catatan sumber prinsip desain
 references/
@@ -46,5 +47,5 @@ Jika informasi spesifik (misalnya hex warna atau angka pixel pasti) belum tersed
 
 1. **Selalu update `references/INDEX.md`** setiap kali file baru dibuat atau entri penting ditambahkan agar agent di sesi lain tidak perlu membaca semua file secara membabi buta.
 2. **Simpan aset visual di `references/assets/`** dengan nama file deskriptif kebab-case (misalnya `btn-linear-tactile-dark.png`) dan tautkan dari file `.md` terkait.
-3. **Jangan duplikasi corpus eksternal:** Untuk rujukan full-site di luar koleksi pribadi, arahkan ke `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `/home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py`.
-4. **Konfirmasi sebelum overwrite skill global:** Perubahan pada `skill/SKILL.md` dan `references/` hanya boleh disalin/disinkronkan ke `/home/rafif/.agents/skills/gemini-design/` setelah user menyetujuinya.
+3. **Jangan duplikasi corpus eksternal:** Untuk rujukan full-site di luar koleksi pribadi, arahkan secara opsional ke `~/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `~/.agents/skills/ui-ux-pro-max/scripts/search.py`.
+4. **Konfirmasi sebelum overwrite skill global:** Perubahan pada `SKILL.md` dan `references/` hanya boleh disalin/disinkronkan ke `~/.agents/skills/gemini-design/` setelah user menyetujuinya.

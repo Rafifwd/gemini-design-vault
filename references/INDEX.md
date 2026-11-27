@@ -50,14 +50,14 @@ Tier hasil `lego`: `css-token-only`, `light-behavior`, `blueprint-translate` (li
 
 ---
 
-## Layer 2 — Corpus Eksternal di Mesin Ini (Read-Only)
+## Layer 2 — Corpus Eksternal Opsional (Read-Only, Bila Terpasang)
 
 Gunakan saat butuh inspirasi struktur *full-site* atau token sistem warna/tipografi tambahan di luar koleksi pribadi:
 
-- **59 Analisis Situs Lengkap (`better-ui`):** `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md`
+- **59 Analisis Situs Lengkap (`better-ui`):** `~/.agents/skills/better-ui/REFERENCE-INDEX.md`
   - Bucket tersedia: *Commerce & product retail*, *Agency, studio & portfolio*, *SaaS, fintech & tech product*, *Editorial, media & brand campaign*, *Hospitality, food & lifestyle*, *Experimental & WebGL*, *Institutional & professional services*.
 - **Generator Aturan & Token (`ui-ux-pro-max`):**
   ```bash
-  python3 /home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"
+  python3 ~/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"
   ```
-- **Gate Produksi UI Web (`ui-craft`):** `/home/rafif/.agents/skills/ui-craft/SKILL.md`
+- **Gate Produksi UI Web (`ui-craft`):** `~/.agents/skills/ui-craft/SKILL.md`

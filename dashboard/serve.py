@@ -47,9 +47,9 @@ def _slugify(title: str) -> str:
 
 
 def parse_skill(vault_root: Path) -> dict[str, Any]:
-    skill_path = vault_root / "skill" / "SKILL.md"
+    skill_path = vault_root / "SKILL.md"
     if not skill_path.exists():
-        return {"exists": False, "path": "skill/SKILL.md", "sections": [], "checklist": []}
+        return {"exists": False, "path": "SKILL.md", "sections": [], "checklist": []}
 
     meta = _file_meta(skill_path)
     text = meta["text"]
@@ -121,8 +121,8 @@ def parse_skill(vault_root: Path) -> dict[str, Any]:
 
     return {
         "exists": True,
-        "path": "skill/SKILL.md",
-        "url_path": "/skill/SKILL.md",
+        "path": "SKILL.md",
+        "url_path": "/SKILL.md",
         "lines": meta["lines"],
         "bytes": meta["bytes"],
         "sha256": meta["sha256"],
@@ -343,19 +343,19 @@ def parse_references(vault_root: Path) -> tuple[list[dict[str, Any]], dict[str, 
         {
             "name": "better-ui",
             "role": "59 dossier analisis situs lengkap (Commerce, Agency, SaaS, Editorial, Experimental)",
-            "path": "/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md",
+            "path": "~/.agents/skills/better-ui/REFERENCE-INDEX.md",
             "command": None,
         },
         {
             "name": "ui-ux-pro-max",
             "role": "Generator aturan & token design system terkalibrasi",
-            "path": "/home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py",
-            "command": 'python3 /home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"',
+            "path": "~/.agents/skills/ui-ux-pro-max/scripts/search.py",
+            "command": 'python3 ~/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"',
         },
         {
             "name": "ui-craft",
             "role": "Gate produksi UI web (WCAG AA, persistensi MASTER.md, verifikasi browser multi-viewport)",
-            "path": "/home/rafif/.agents/skills/ui-craft/SKILL.md",
+            "path": "~/.agents/skills/ui-craft/SKILL.md",
             "command": None,
         },
     ]
@@ -581,7 +581,7 @@ def check_sync(vault_root: Path) -> dict[str, Any]:
         }
 
     diffs: list[dict[str, str]] = []
-    vault_skill = vault_root / "skill" / "SKILL.md"
+    vault_skill = vault_root / "SKILL.md"
     global_skill_md = global_skill / "SKILL.md"
 
     if not global_skill_md.exists():

@@ -1459,7 +1459,7 @@
       }
 
       function renderOps(d) {
-        const root = d.vault_root || '/home/rafif/Projects/gemini-design-vault';
+        const root = d.vault_root || '.';
         const commands = [
           {
             title: 'Jalankan Dashboard Katalog Lokal (Live + Auto Buka Browser)',
@@ -1474,7 +1474,7 @@
           {
             title: 'Backup Aman + Sync Vault ke Skill Global (Sesuai Aturan AGENTS.md)',
             desc: 'Backup selalu ditaruh di ~/.agents/skill-backups/ (di luar ~/.agents/skills/ agar tidak terjadi shadowing).',
-            cmd: 'mkdir -p ~/.agents/skill-backups && cp -a ~/.agents/skills/gemini-design ~/.agents/skill-backups/gemini-design.bak-$(date +%Y%m%d-%H%M) && cp ' + root + '/skill/SKILL.md ~/.agents/skills/gemini-design/SKILL.md && cp -r ' + root + '/references/. ~/.agents/skills/gemini-design/references/ && diff -r ' + root + '/references ~/.agents/skills/gemini-design/references && diff ' + root + '/skill/SKILL.md ~/.agents/skills/gemini-design/SKILL.md',
+            cmd: 'mkdir -p ~/.agents/skill-backups && cp -a ~/.agents/skills/gemini-design ~/.agents/skill-backups/gemini-design.bak-$(date +%Y%m%d-%H%M) && cp ' + root + '/SKILL.md ~/.agents/skills/gemini-design/SKILL.md && cp -r ' + root + '/references/. ~/.agents/skills/gemini-design/references/ && diff -r ' + root + '/references ~/.agents/skills/gemini-design/references && diff ' + root + '/SKILL.md ~/.agents/skills/gemini-design/SKILL.md',
           },
         ];
 

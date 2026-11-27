@@ -9,7 +9,8 @@
 ### A. Workspace Ini (`/home/rafif/Projects/gemini-design-vault/`)
 - `HANDOFF.md` — Dokumen brief, backlog, dan status terkini (file ini).
 - `AGENTS.md` — Aturan kerja agent di workspace ini, termasuk skema wajib entri referensi dan aturan sinkronisasi ke skill global.
-- `skill/SKILL.md` — Versi kerja skill `gemini-design` **v5.2** (Stack & Intent Discovery → Riset Tema → *Theme Proposal Gate* 2–3 arah → Modular Lego Assembly stack-agnostic + distilasi temuan lapangan `v5.1` & `v5.2`; Jalur C De-Slop dan Anti-Slop Audit Checklist 6 grup; ter-sync ke global).
+- `SKILL.md` — File utama skill `gemini-design` **v5.2** di root repo (standar `npx skills add` & clone langsung; Stack & Intent Discovery → Riset Tema → *Theme Proposal Gate* 2–3 arah → Modular Lego Assembly stack-agnostic + distilasi `v5.1` & `v5.2`; Jalur C De-Slop dan Anti-Slop Audit Checklist 6 grup; ter-sync ke global).
+- `README.md` & `LICENSE` — Dokumentasi standar GitHub untuk instalasi publik (`npx skills add` / `git clone`) dan lisensi MIT.
 - `source/youtube-604T-74s3KE-claude-design-fix-ai-slop.md` — Transkrip lengkap video Nate Parrott (*"Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes"*) sebagai sumber prinsip utama.
 - `dashboard/` — Dashboard katalog & monitoring lokal skill `gemini-design` (`serve.py` untuk live server + `index.html` Split-Pane Studio Workbench + browser 195 komponen `goodui.dev` + `lego-previews.js` dengan live preview interaktif **28** template Lego & **6** specimen REA + fallback snapshot statis `vault-snapshot.js`).
 - `rea/` — Dossier computed DOM JSON hasil *live capture* 1440×900 dari 6 situs produksi nyata (`apple.json`, `linear.json`, `vercel.json`, `stripe.json`, `raycast.json`, `goodui.json`).
@@ -48,7 +49,7 @@ Aturan operasional sync:
 1. Pastikan `references/INDEX.md` dan semua file di `references/` rapi.
 2. Minta konfirmasi user sebelum menimpa skill global (`AGENTS.md` aturan 4).
 3. **Backup skill WAJIB di luar `~/.agents/skills/`** (misalnya ke `/home/rafif/.agents/skill-backups/`). Folder `*.bak*` yang ditaruh di dalam `~/.agents/skills/` akan ikut ter-scan sebagai skill oleh Antigravity dan bisa menimpa/membayangi skill aktif.
-4. Jalankan perintah sync di luar sandbox (`BypassSandbox: true`) untuk menyalin `skill/SKILL.md` dan `references/` ke `/home/rafif/.agents/skills/gemini-design/`, lalu verifikasi dengan `diff -r`.
+4. Jalankan perintah sync di luar sandbox (`BypassSandbox: true`) untuk menyalin `SKILL.md` dan `references/` ke `/home/rafif/.agents/skills/gemini-design/`, lalu verifikasi dengan `diff -r`.
 
 ### 2B. Cara Menjalankan Dashboard Katalog Lokal
 - **Mode Live Server (direkomendasikan, termasuk cek sync global live):**
@@ -80,7 +81,7 @@ Aturan operasional sync:
 - **Masih `template`:** `references/pages/motion-slides.md`.
 - **Status sync:** Disinkronkan (`SKILL.md` v5.2, `references/`, `rea/`, `templates/`, `design-systems/`, dan `scripts/query_vault.py`) ke `/home/rafif/.agents/skills/gemini-design/` pada **2026-11-26** (`SYNC_V5_2_OK`) dengan backup di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261126-1`.
 
-### Tahap 3 — Upgrade & Sync `skill/SKILL.md` — `[SELESAI & TER-SYNC]`
+### Tahap 3 — Upgrade & Sync `SKILL.md` — `[SELESAI & TER-SYNC]`
 - **v5 – v5.2 (2026-11-24 – 2026-11-26):** alur konsultatif (Discovery → Riset Tema → Theme Proposal Gate → Lego Assembly stack-agnostic) + distilasi temuan *battle-test* `tennis-with-better-ui` (`v5.1`) & `tennis-booking-fresh` (`v5.2`); detail di Tahap 5. Sebelumnya v4 (Creative Mix-and-Match A la Carte): agent meramu 4 sumbu secara independen (*Color World*, *Style Pack/Material*, *2–4 Selective Tactile Components*, *Layout Rhythm*) dari 24 `DESIGN.md`, 8 Style Packs, 195 blok `goodui.dev`, 28 template Lego unggulan, dan 6 REA dossiers — dilarang copy-paste 1 template paketan utuh.
 - Disinkronkan ke `/home/rafif/.agents/skills/gemini-design/` lewat metode **copy** dengan backup terbaru di `/home/rafif/.agents/skill-backups/gemini-design.bak-20261126-1`.
 
@@ -89,7 +90,7 @@ Aturan operasional sync:
 - Vault diperkaya dengan **6 REA live** (termasuk `goodui.dev`), **24 brand `DESIGN.md`** (termasuk palet hidup/ekspresif `wise`, `miro`, `mistral.ai`, `theverge`, `ferrari`, `lamborghini`), **195 item public registry `goodui.dev`**, **8 Style Packs (`STYLE-PACKS.md`)**, **28 demo interaktif Lego**, serta 3 showcase tambahan (`S5 PRISM Chromatic Worlds`, `S6 VELOCE Motorsport Atelier`, dan `S7 Style Packs Studio`).
 
 ### Tahap 5 — Upgrade v5: Konsultatif, Stack-Agnostic, Zero Forced Dependencies — `[SELESAI & TER-SYNC]`
-- **Alur baru `skill/SKILL.md`:** Stack & Intent Discovery (auto-detect repo + 2–4 pertanyaan, kebijakan dependency) → Riset Tema (`query_vault.py themes`, `DESIGN-GRAMMAR.md`, `STYLE-PACKS.md`, Layer 2) → **Theme Proposal Gate** (2–3 arah: alasan domain, Color World, Style Pack + tipografi, 2–4 Lego, layout rhythm) → user mengunci tema → Modular Lego Assembly (Mode A Blueprint Translation default, Mode B Direct Drop-in hanya bila stack cocok).
+- **Alur baru `SKILL.md`:** Stack & Intent Discovery (auto-detect repo + 2–4 pertanyaan, kebijakan dependency) → Riset Tema (`query_vault.py themes`, `DESIGN-GRAMMAR.md`, `STYLE-PACKS.md`, Layer 2) → **Theme Proposal Gate** (2–3 arah: alasan domain, Color World, Style Pack + tipografi, 2–4 Lego, layout rhythm) → user mengunci tema → Modular Lego Assembly (Mode A Blueprint Translation default, Mode B Direct Drop-in hanya bila stack cocok).
 - **Resource baru:** `scripts/query_vault.py` (themes/lego/rea/stats, tier `css-token-only` / `light-behavior` / `blueprint-translate`), `references/LEGO-ADAPTATION.md`, `references/components/data-viz.md` dan `references/pages/app-dashboard.md` kini `ready`.
 - **Perbaikan data:** 19 link relatif `DESIGN-GRAMMAR.md` (`../../design-systems/` → `../design-systems/`); `design-systems/INDEX.json` memakai `summary` deskripsi nyata untuk 24/24 brand (`fetch_design_systems.py --rebuild-index`); aturan aksen checklist diperjelas (1 aksen Operate/Read, maks 2 Persuade/Experience); grup checklist baru `Stack & Modularitas`.
 - **Dashboard:** `check_sync()` di `dashboard/serve.py` kini juga memantau `scripts/query_vault.py` dan `design-systems/INDEX.json`.
@@ -110,7 +111,7 @@ Buka sesi baru di direktori `/home/rafif/Projects/gemini-design-vault` (atau wor
 > Gunakan skill `gemini-design` Jalur C untuk merapikan UI di `[path file/komponen]` yang masih terasa seperti AI slop. Audit dulu pakai Anti-Slop Audit Checklist dengan bukti `file:line`, konfirmasi 1–2 poin denganku sebelum refactor.
 
 **Opsi 3 — Revisi skill dari temuan visual eval / pemakaian nyata:**
-> Baca `HANDOFF.md` dan `eval/RESULTS.md`. Setelah kucek di browser, ada catatan perbaikan pada `[E1/E2/E3 atau pemakaian nyata]`: [tulis catatan visual]. Tolong perbarui `skill/SKILL.md` atau file `references/` terkait, lalu konfirmasi sebelum sync ulang ke skill global (backup ke `~/.agents/skill-backups/`).
+> Baca `HANDOFF.md` dan `eval/RESULTS.md`. Setelah kucek di browser, ada catatan perbaikan pada `[E1/E2/E3 atau pemakaian nyata]`: [tulis catatan visual]. Tolong perbarui `SKILL.md` atau file `references/` terkait, lalu konfirmasi sebelum sync ulang ke skill global (backup ke `~/.agents/skill-backups/`).
 
 **Opsi 4 — Bangun app/website baru dengan alur v5 (Discovery → Theme Proposal → Lego):**
 > Gunakan skill `gemini-design`. Project: `[deskripsi app/website + stack]`. Deteksi stack dari repo, tanya 2–4 hal krusial, riset tema lewat `scripts/query_vault.py`, ajukan 2–3 arah tema, tunggu pilihanku, baru rakit UI dari Lego tanpa menambah dependency baru.

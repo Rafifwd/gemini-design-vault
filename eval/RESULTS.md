@@ -1,7 +1,7 @@
 # Galeri Live Preview Showcase (`gemini-design` v3)
 
 > **Tanggal:** 2026-11-24  
-> **Skill:** [`skill/SKILL.md`](../skill/SKILL.md) + 24 sistem [`design-systems/*.md`](../design-systems/INDEX.json) + 28 Lego [`templates/`](../templates/INDEX.json) + 195 blok [`goodui.dev`](../templates/goodui/INDEX.json) + [`DESIGN-GRAMMAR.md`](../references/DESIGN-GRAMMAR.md) + [`STYLE-PACKS.md`](../references/STYLE-PACKS.md).  
+> **Skill:** [`SKILL.md`](../SKILL.md) + 24 sistem [`design-systems/*.md`](../design-systems/INDEX.json) + 28 Lego [`templates/`](../templates/INDEX.json) + 195 blok [`goodui.dev`](../templates/goodui/INDEX.json) + [`DESIGN-GRAMMAR.md`](../references/DESIGN-GRAMMAR.md) + [`STYLE-PACKS.md`](../references/STYLE-PACKS.md).  
 > **Pembersihan:** File eval lama (`e1`, `e2`, `e3`, `slop-fixture`) telah dibuang agar tab **Eval & Live Preview** hanya menampilkan 7 showcase lintas-domain kelas produksi.
 
 ---

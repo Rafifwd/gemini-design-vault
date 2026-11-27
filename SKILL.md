@@ -17,12 +17,12 @@ AI slop muncul saat model diberi konteks kosong lalu menciptakan gaya dari nol, 
 
 ## Langkah 0 — Reference & Tool Router (Wajib, Sebelum Fase Apa Pun)
 
-Path relatif terhadap folder `SKILL.md` (`<skill_dir>`; global: `/home/rafif/.agents/skills/gemini-design/`, di vault: root vault).
+Path relatif terhadap folder `SKILL.md` (`<skill_dir>`; global: `~/.agents/skills/gemini-design/`, atau root repo ini).
 
 1. **Baca selalu:** `references/TASTE-PROFILE.md` dan `references/INDEX.md`. Dari `INDEX.md`, buka hanya file berstatus `seeded` atau `ready` yang relevan.
 2. **Cari cepat, jangan dump JSON:** `python3 <skill_dir>/scripts/query_vault.py themes|lego|rea|stats` mengembalikan ringkasan padat dari 24 brand, 10 Color World, 8 Style Pack, 28 + 195 Lego, dan 6 dossier REA. Jangan membaca `templates/goodui/INDEX.json` (4.000+ baris) langsung.
 3. **Buka bila dibutuhkan (disclosed):** `references/DESIGN-GRAMMAR.md` (matriks domain → warna), `references/STYLE-PACKS.md` (geometri/material), `references/LEGO-ADAPTATION.md` (wajib sebelum merakit kode), plus `design-systems/*.md`, `rea/*.json`, `templates/`.
-4. **Layer 2 bila vault belum punya contoh:** `/home/rafif/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `python3 /home/rafif/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"`.
+4. **Layer 2 (opsional, bila terpasang) jika vault belum punya contoh:** `~/.agents/skills/better-ui/REFERENCE-INDEX.md` dan `python3 ~/.agents/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "<Product>"`.
 5. **Prioritas sumber (tertinggi ke terendah):** Instruksi eksplisit user > Brand / design system / codebase eksisting > `TASTE-PROFILE.md` > Referensi vault > Corpus eksternal. Taste profile adalah *default* saat konteks kosong dan tidak menimpa design system produk yang sudah ada.
 6. **HARD vs SOFT:**
    - **HARD:** Ban List `TASTE-PROFILE.md` §6 dan `Anti-Slop Audit Checklist` di bawah.
